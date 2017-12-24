@@ -18,10 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.makeKeyAndVisible()
         self.window?.tintColor = .black
-        let rootViewController = UITabBarController()
+        let rootViewController = self.getRootViewController()
         window?.rootViewController = rootViewController
         
         return true
+    }
+    
+    private func getRootViewController() -> UIViewController {
+        let authViewController = AuthorizationViewController()
+        return authViewController
     }
 
 }
