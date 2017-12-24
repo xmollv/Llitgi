@@ -10,14 +10,14 @@
 		47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */; };
 		47EEA3681FF02DDD0030BEF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */; };
 		47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */; };
-		47EEA3771FF034820030BEF1 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3761FF034820030BEF1 /* AppConfiguration.swift */; };
 		47EEA37A1FF034FD0030BEF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3791FF034FD0030BEF1 /* ViewController.swift */; };
 		47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */; };
 		47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */; };
 		47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3821FF037D40030BEF1 /* DataProvider.swift */; };
-		47EEA3851FF038300030BEF1 /* PocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3841FF038300030BEF1 /* PocketAPI.swift */; };
+		47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */; };
 		47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */; };
 		47EEA3891FF03C060030BEF1 /* PocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3881FF03C060030BEF1 /* PocketEndpoint.swift */; };
+		47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,14 +26,14 @@
 		47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47EEA36A1FF02DDD0030BEF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47EEA36C1FF02DDD0030BEF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		47EEA3761FF034820030BEF1 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		47EEA3791FF034FD0030BEF1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthorizationViewController.xib; sourceTree = "<group>"; };
 		47EEA3821FF037D40030BEF1 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
-		47EEA3841FF038300030BEF1 /* PocketAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPI.swift; sourceTree = "<group>"; };
+		47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIManager.swift; sourceTree = "<group>"; };
 		47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		47EEA3881FF03C060030BEF1 /* PocketEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketEndpoint.swift; sourceTree = "<group>"; };
+		47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +67,6 @@
 			isa = PBXGroup;
 			children = (
 				47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */,
-				47EEA3761FF034820030BEF1 /* AppConfiguration.swift */,
 				47EEA3801FF037B30030BEF1 /* DataProvider */,
 				47EEA3781FF034E80030BEF1 /* ViewController */,
 				47EEA3721FF02F750030BEF1 /* Resources */,
@@ -116,7 +115,8 @@
 		47EEA3811FF037C90030BEF1 /* PocketAPI */ = {
 			isa = PBXGroup;
 			children = (
-				47EEA3841FF038300030BEF1 /* PocketAPI.swift */,
+				47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */,
+				47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */,
 				47EEA3881FF03C060030BEF1 /* PocketEndpoint.swift */,
 			);
 			path = PocketAPI;
@@ -197,11 +197,11 @@
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
 				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
 				47EEA37A1FF034FD0030BEF1 /* ViewController.swift in Sources */,
-				47EEA3851FF038300030BEF1 /* PocketAPI.swift in Sources */,
+				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */,
-				47EEA3771FF034820030BEF1 /* AppConfiguration.swift in Sources */,
 				47EEA3891FF03C060030BEF1 /* PocketEndpoint.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
+				47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

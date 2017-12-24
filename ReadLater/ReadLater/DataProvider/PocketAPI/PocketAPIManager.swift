@@ -1,5 +1,5 @@
 //
-//  PocketAPI.swift
+//  PocketAPIManager.swift
 //  ReadLater
 //
 //  Created by Xavi Moll on 24/12/2017.
@@ -8,9 +8,10 @@
 
 import Foundation
 
-final class PocketAPI {
+final class PocketAPIManager {
     
     private let session: URLSession
+    private let apiConfig = PocketAPIConfiguration()
     
     init(session: URLSession = URLSession(configuration: .default)) {
         self.session = session

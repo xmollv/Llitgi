@@ -10,9 +10,9 @@ import Foundation
 
 final class DataProvider {
     
-    private let pocketAPI: PocketAPI
+    private let pocketAPI: PocketAPIManager
     
-    init(pocketAPI: PocketAPI) {
+    init(pocketAPI: PocketAPIManager) {
         self.pocketAPI = pocketAPI
     }
     

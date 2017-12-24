@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let pocketAPI = PocketAPI()
+        let pocketAPI = PocketAPIManager()
         let dataProvider = DataProvider(pocketAPI: pocketAPI)
         let viewControllerFactory = ViewControllerFactory(dataProvider: dataProvider)
         
