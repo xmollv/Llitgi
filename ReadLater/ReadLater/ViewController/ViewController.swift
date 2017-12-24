@@ -10,7 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    required init() {
+    let factory: ViewControllerFactory
+    let dataProvider: DataProvider
+    
+    required init(factory: ViewControllerFactory, dataProvider: DataProvider) {
+        self.dataProvider = dataProvider
+        self.factory = factory
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
     

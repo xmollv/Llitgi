@@ -15,17 +15,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        let pocketAPI = PocketAPI()
+        let dataProvider = DataProvider(pocketAPI: pocketAPI)
+        let viewControllerFactory = ViewControllerFactory(dataProvider: dataProvider)
+        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.makeKeyAndVisible()
         self.window?.tintColor = .black
-        let rootViewController = self.getRootViewController()
+        let rootViewController = self.getRootViewController(factory: viewControllerFactory)
         window?.rootViewController = rootViewController
         
         return true
     }
     
-    private func getRootViewController() -> UIViewController {
-        let authViewController = AuthorizationViewController()
+    private func getRootViewController(factory: ViewControllerFactory) -> UIViewController {
+        let authViewController: AuthorizationViewController = factory.instantiate()
         return authViewController
     }
 

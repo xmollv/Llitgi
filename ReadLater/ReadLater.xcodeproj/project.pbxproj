@@ -14,6 +14,9 @@
 		47EEA37A1FF034FD0030BEF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3791FF034FD0030BEF1 /* ViewController.swift */; };
 		47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */; };
 		47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */; };
+		47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3821FF037D40030BEF1 /* DataProvider.swift */; };
+		47EEA3851FF038300030BEF1 /* PocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3841FF038300030BEF1 /* PocketAPI.swift */; };
+		47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		47EEA3791FF034FD0030BEF1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthorizationViewController.xib; sourceTree = "<group>"; };
+		47EEA3821FF037D40030BEF1 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
+		47EEA3841FF038300030BEF1 /* PocketAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPI.swift; sourceTree = "<group>"; };
+		47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,7 @@
 			children = (
 				47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */,
 				47EEA3761FF034820030BEF1 /* AppConfiguration.swift */,
+				47EEA3801FF037B30030BEF1 /* DataProvider */,
 				47EEA3781FF034E80030BEF1 /* ViewController */,
 				47EEA3721FF02F750030BEF1 /* Resources */,
 			);
@@ -79,6 +86,7 @@
 		47EEA3781FF034E80030BEF1 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
 				47EEA3791FF034FD0030BEF1 /* ViewController.swift */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 			);
@@ -92,6 +100,23 @@
 				47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */,
 			);
 			path = Authorization;
+			sourceTree = "<group>";
+		};
+		47EEA3801FF037B30030BEF1 /* DataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				47EEA3821FF037D40030BEF1 /* DataProvider.swift */,
+				47EEA3811FF037C90030BEF1 /* PocketAPI */,
+			);
+			path = DataProvider;
+			sourceTree = "<group>";
+		};
+		47EEA3811FF037C90030BEF1 /* PocketAPI */ = {
+			isa = PBXGroup;
+			children = (
+				47EEA3841FF038300030BEF1 /* PocketAPI.swift */,
+			);
+			path = PocketAPI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,7 +192,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
+				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
 				47EEA37A1FF034FD0030BEF1 /* ViewController.swift in Sources */,
+				47EEA3851FF038300030BEF1 /* PocketAPI.swift in Sources */,
+				47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */,
 				47EEA3771FF034820030BEF1 /* AppConfiguration.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
 			);
