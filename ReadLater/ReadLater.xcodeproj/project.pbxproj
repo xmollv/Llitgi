@@ -51,11 +51,19 @@
 			isa = PBXGroup;
 			children = (
 				47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */,
+				47EEA3721FF02F750030BEF1 /* Resources */,
+			);
+			path = ReadLater;
+			sourceTree = "<group>";
+		};
+		47EEA3721FF02F750030BEF1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */,
 				47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */,
 				47EEA36C1FF02DDD0030BEF1 /* Info.plist */,
 			);
-			path = ReadLater;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,7 +268,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63PYRNNP7M;
-				INFOPLIST_FILE = ReadLater/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ReadLater/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmollv.ReadLater;
@@ -276,7 +284,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63PYRNNP7M;
-				INFOPLIST_FILE = ReadLater/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ReadLater/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmollv.ReadLater;
