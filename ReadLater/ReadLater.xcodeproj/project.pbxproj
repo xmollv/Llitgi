@@ -17,6 +17,7 @@
 		47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3821FF037D40030BEF1 /* DataProvider.swift */; };
 		47EEA3851FF038300030BEF1 /* PocketAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3841FF038300030BEF1 /* PocketAPI.swift */; };
 		47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */; };
+		47EEA3891FF03C060030BEF1 /* PocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3881FF03C060030BEF1 /* PocketEndpoint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		47EEA3821FF037D40030BEF1 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		47EEA3841FF038300030BEF1 /* PocketAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPI.swift; sourceTree = "<group>"; };
 		47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
+		47EEA3881FF03C060030BEF1 /* PocketEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketEndpoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				47EEA3841FF038300030BEF1 /* PocketAPI.swift */,
+				47EEA3881FF03C060030BEF1 /* PocketEndpoint.swift */,
 			);
 			path = PocketAPI;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				47EEA3851FF038300030BEF1 /* PocketAPI.swift in Sources */,
 				47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */,
 				47EEA3771FF034820030BEF1 /* AppConfiguration.swift in Sources */,
+				47EEA3891FF03C060030BEF1 /* PocketEndpoint.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
