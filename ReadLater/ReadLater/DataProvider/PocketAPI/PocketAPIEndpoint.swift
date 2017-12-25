@@ -14,7 +14,7 @@ enum PocketAPIEndpoint {
     case authorize
     
     // Already authorized endpoints
-    case list
+    case getList
     
     /// Returns the full URL to perform the request
     var url: URL {
@@ -24,7 +24,7 @@ enum PocketAPIEndpoint {
             return baseUrl.appendingPathComponent("oauth/request")
         case .authorize:
             return baseUrl.appendingPathComponent("oauth/authorize")
-        case .list:
+        case .getList:
             return baseUrl.appendingPathComponent("get")
         }
     }
@@ -38,7 +38,7 @@ enum PocketAPIEndpoint {
         case .authorize:
             return ["consumer_key" : "73483-2233031e613a5b40f9c466f7",
                     "code" : "c515a32e-ce5a-17c5-b968-2a6e41"]
-        case .list:
+        case .getList:
             return ["consumer_key" : "73483-2233031e613a5b40f9c466f7",
                     "access_token" : "1d4f85b9-eef9-c7d7-7c5e-b87071"]
         }
@@ -47,10 +47,17 @@ enum PocketAPIEndpoint {
     /// Transforms the raw JSON(Any) into a JSONArray 
     var parser: (Any?) -> JSONArray? {
         switch self {
-        default:
+        case .requestToken, .authorize:
             return { (json: Any?) in
-                guard let elements = json as? JSONArray else { return nil }
-                return elements
+                guard let elements = json as? JSONDictionary else { return nil }
+                return [elements]
+            }
+        case .getList:
+            return { (json: Any?) in
+                guard let dict = json as? JSONDictionary else { return nil }
+                guard let listAsDict = dict["list"] as? JSONDictionary else { return nil }
+                let list = listAsDict.values.flatMap { $0 as? JSONDictionary }
+                return list
             }
         }
     }

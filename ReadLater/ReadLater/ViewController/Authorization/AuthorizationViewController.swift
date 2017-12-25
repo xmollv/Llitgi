@@ -12,6 +12,10 @@ class AuthorizationViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.dataProvider.perform(endpoint: .getList) { (result: Result<[ArticleImplementation]>) in
+            dump(result)
+        }
     }
 
 }

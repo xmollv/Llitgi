@@ -65,8 +65,6 @@ final class PocketAPIManager {
             default:
                 completion(Result.isFailure(PocketAPIError.not200Status(statusCode: response.statusCode)))
             }
-            
-        }
+        }.resume()
     }
-    
 }

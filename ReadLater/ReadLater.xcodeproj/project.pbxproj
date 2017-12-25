@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
+		47376DE71FF0831600B8E70C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Article.swift */; };
 		47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */; };
 		47EEA3681FF02DDD0030BEF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */; };
 		47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		47376DE61FF0831600B8E70C /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		47EEA35B1FF02DDD0030BEF1 /* ReadLater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadLater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,6 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		47376DE51FF082F800B8E70C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				47376DE61FF0831600B8E70C /* Article.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		47EEA3521FF02DDD0030BEF1 = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +84,7 @@
 			children = (
 				47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */,
 				47EEA3801FF037B30030BEF1 /* DataProvider */,
+				47376DE51FF082F800B8E70C /* Model */,
 				47EEA3781FF034E80030BEF1 /* ViewController */,
 				47EEA38E1FF074D80030BEF1 /* Extensions & Helpers */,
 				47EEA3721FF02F750030BEF1 /* Resources */,
@@ -219,6 +230,7 @@
 				47EEA37A1FF034FD0030BEF1 /* ViewController.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */,
+				47376DE71FF0831600B8E70C /* Article.swift in Sources */,
 				47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
 				47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */,
