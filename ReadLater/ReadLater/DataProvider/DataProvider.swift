@@ -16,6 +16,12 @@ final class DataProvider {
     
     private let pocketAPI: PocketAPIManager
     
+    var urlForPocketOAuth: URL? {
+        get {
+            return self.pocketAPI.OAuthURL
+        }
+    }
+    
     init(pocketAPI: PocketAPIManager) {
         self.pocketAPI = pocketAPI
     }

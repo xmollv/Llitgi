@@ -13,6 +13,15 @@ final class PocketAPIManager {
     private let session: URLSession
     private let apiConfig = PocketAPIConfiguration()
     
+    var OAuthURL: URL? {
+        get {
+            guard let requestToken = self.apiConfig.authCode else { return nil }
+            let redirectURI = self.apiConfig.redirectUri
+            guard let url =  URL(string: "pocket-oauth-v1:///authorize?request_token=\(requestToken)&redirect_uri=\(redirectURI)") else { return nil }
+            return url
+        }
+    }
+    
     init(session: URLSession = URLSession(configuration: .default)) {
         self.session = session
     }

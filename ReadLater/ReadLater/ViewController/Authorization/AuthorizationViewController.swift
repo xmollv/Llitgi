@@ -8,21 +8,11 @@
 
 import UIKit
 
-enum OAuthStep {
-    case requestToken
-    case webOAuth
-    case authorizeToken
-    case finished
-}
-
 class AuthorizationViewController: ViewController {
     
     //MARK:- IBOutlets
     @IBOutlet private var descriptionLabel: UILabel!
     @IBOutlet private var actionButton: UIButton!
-    
-    //MARK:- Private properties
-    private var state: OAuthStep = .requestToken
 
     //MARK:- Lifecycle
     override func viewDidLoad() {
@@ -33,28 +23,29 @@ class AuthorizationViewController: ViewController {
     //MARK: IBActions
     @IBAction private func actionButtonTapped(_ sender: UIButton) {
         sender.isEnabled = false
-        switch self.state {
-        case .requestToken:
-            self.dataProvider.perform(endpoint: .requestToken, then: { [weak self] (result: Result<[RequestTokenResponse]>) in
-                sender.isEnabled = true
-                guard let strongSelf = self else { return }
-                switch result {
-                case .isSuccess(let tokenResponse):
-                    guard let code = tokenResponse.first?.code else {
-                        Logger.log("The tokenResponse was an empty array.", event: .error)
-                        return
-                    }
-                    strongSelf.dataProvider.updatePocket(code: code)
-                case .isFailure(let error):
-                    dump(error)
+        // Step 1. Grab the token to initiate the OAuth steps
+        self.dataProvider.perform(endpoint: .requestToken, then: { [weak self] (result: Result<[RequestTokenResponse]>) in
+            guard let strongSelf = self else { return }
+            switch result {
+            case .isSuccess(let tokenResponse):
+                guard let code = tokenResponse.first?.code else {
+                    Logger.log("The tokenResponse was an empty array.", event: .error)
+                    return
                 }
-            })
-        default:
-            debugPrint("Default")
-//        case .webOAuth:
-//        case .authorizeToken:
-//        case .finished:
-        }
+                strongSelf.dataProvider.updatePocket(code: code)
+                
+                // Step 2. Open the Safari to perform the Oauth
+                if UIApplication.shared.canOpenURL(URL(string: "pocket-oauth-v1://")!) {
+                    guard let url = strongSelf.dataProvider.urlForPocketOAuth else { return }
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    
+                }
+                
+            case .isFailure(let error):
+                dump(error)
+            }
+        })
     }
     
     //MARK: Private methods
