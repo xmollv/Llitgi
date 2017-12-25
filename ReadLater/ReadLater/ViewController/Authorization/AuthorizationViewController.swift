@@ -30,6 +30,7 @@ class AuthorizationViewController: ViewController {
         sender.isEnabled = false
         // Step 1. Grab the token to initiate the OAuth steps
         self.dataProvider.perform(endpoint: .requestToken, then: { [weak self] (result: Result<[RequestTokenResponse]>) in
+            sender.isEnabled = true
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess(let tokenResponse):
@@ -39,7 +40,7 @@ class AuthorizationViewController: ViewController {
                 }
                 strongSelf.dataProvider.updatePocket(code: code)
                 
-                // Step 2. Open the Safari to perform the Oauth
+                // Step 2. Open Safari to perform the Oauth
                 if UIApplication.shared.canOpenURL(URL(string: "pocket-oauth-v1://")!) {
                     guard let url = strongSelf.dataProvider.urlForPocketOAuthApp else { return }
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
