@@ -14,7 +14,7 @@ class PocketAPIConfiguration {
     
     /// This is the redirect URI that Pocket will redirect once the OAuth
     /// process has finalized
-    let redirectUri = "xmollv-readlater://"
+    let redirectUri = "xmollv-readlater://pocketAuth"
     
     /// This is the temporary code used to authorize the app and get an
     /// access token
