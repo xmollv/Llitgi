@@ -24,8 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.makeKeyAndVisible()
         self.window?.tintColor = .black
-        let rootViewController = self.getRootViewController(factory: viewControllerFactory)
-        window?.rootViewController = rootViewController
+        self.window?.rootViewController = self.rootViewController(factory: viewControllerFactory)
         
         return true
     }
@@ -39,9 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    private func getRootViewController(factory: ViewControllerFactory) -> UIViewController {
+    private func rootViewController(factory: ViewControllerFactory) -> UITabBarController {
+        let tabBarController = UITabBarController()
         let authViewController: AuthorizationViewController = factory.instantiate()
-        return authViewController
+        tabBarController.addChildViewController(authViewController)
+        tabBarController.tabBar.isHidden = true
+        return tabBarController
     }
 
 }

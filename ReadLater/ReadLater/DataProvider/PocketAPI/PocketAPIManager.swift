@@ -41,8 +41,10 @@ final class PocketAPIManager {
         request.addValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "X-Accept")
         
+        let payload = self.payload(for: endpoint)
+        
         do {
-            let jsonBody = try JSONSerialization.data(withJSONObject: endpoint.payload, options: [])
+            let jsonBody = try JSONSerialization.data(withJSONObject: payload, options: [])
             request.httpBody = jsonBody
         } catch {
             completion(Result.isFailure(PocketAPIError.unableToCreateHTTPBody(error: error)))
@@ -96,6 +98,22 @@ final class PocketAPIManager {
     private enum TypeOfOAuthUrl {
         case app
         case web
+    }
+    
+    /// Returns the dict that needs to be transformed into the JSON body for the POST
+    private func payload(for endpoint: PocketAPIEndpoint) -> [String: String] {
+        var payload = ["consumer_key" : self.apiConfig.consumerKey]
+        switch endpoint {
+        case .requestToken:
+            payload["redirect_uri"] = self.apiConfig.redirectUri
+        case .authorize:
+            guard let authCode = self.apiConfig.authCode else { break }
+            payload["code"] = authCode
+        case .getList:
+            guard let token = self.apiConfig.accessToken else { break }
+            payload["access_token"] = token
+        }
+        return payload
     }
     
     private func url(for type: TypeOfOAuthUrl) -> URL? {
