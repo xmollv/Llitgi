@@ -29,7 +29,7 @@ class AuthorizationViewController: ViewController {
     @IBAction private func actionButtonTapped(_ sender: UIButton) {
         sender.isEnabled = false
         // Step 1. Grab the token to initiate the OAuth steps
-        self.dataProvider.perform(endpoint: .requestToken, then: { [weak self] (result: Result<[RequestTokenResponse]>) in
+        self.dataProvider.perform(endpoint: .requestToken) { [weak self] (result: Result<[RequestTokenResponse]>) in
             sender.isEnabled = true
             guard let strongSelf = self else { return }
             switch result {
@@ -52,7 +52,7 @@ class AuthorizationViewController: ViewController {
             case .isFailure(let error):
                 dump(error)
             }
-        })
+        }
     }
     
     //MARK: Private methods
@@ -63,7 +63,19 @@ class AuthorizationViewController: ViewController {
     
     //Step 3. Verify the code against the API once the user has finished the OAuth flow
     @objc private func verifyCodeAndGetToken() {
-        
+        self.dataProvider.perform(endpoint: .authorize) { [weak self] (result: Result<[AuthorizeTokenResponse]>) in
+            guard let strongSelf = self else { return }
+            switch result {
+            case .isSuccess(let tokenResponse):
+                guard let token = tokenResponse.first?.accessToken else {
+                    Logger.log("The tokenResponse was an empty array.", event: .error)
+                    return
+                }
+                strongSelf.dataProvider.updatePocket(token: token)
+            case .isFailure(let error):
+                dump(error)
+            }
+        }
     }
 
 }
