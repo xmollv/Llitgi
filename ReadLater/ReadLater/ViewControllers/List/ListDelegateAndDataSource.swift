@@ -14,9 +14,9 @@ class ListDelegateAndDataSource: NSObject {
     private var list: [Article] = []
     
     //MARK:- Public methods
-    func add(_ articles: [Article]) {
+    func replaceCurrentArticles(with articles: [Article]) {
         let sortedArticles = articles.sorted { $0.sortId < $1.sortId }
-        self.list.append(contentsOf: sortedArticles)
+        self.list = sortedArticles
     }
     
 }

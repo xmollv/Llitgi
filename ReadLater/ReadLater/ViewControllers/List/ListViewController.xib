@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZBX-xD-lce">
-                    <rect key="frame" x="0.0" y="44" width="375" height="768"/>
+                    <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
@@ -30,7 +30,7 @@
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ZBX-xD-lce" secondAttribute="trailing" id="V0u-xh-oLo"/>
                 <constraint firstItem="ZBX-xD-lce" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Y31-s8-4FC"/>
-                <constraint firstAttribute="bottom" secondItem="ZBX-xD-lce" secondAttribute="bottom" id="g3a-yJ-ES8"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ZBX-xD-lce" secondAttribute="bottom" id="g3a-yJ-ES8"/>
                 <constraint firstItem="ZBX-xD-lce" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="wIs-xI-aB2"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

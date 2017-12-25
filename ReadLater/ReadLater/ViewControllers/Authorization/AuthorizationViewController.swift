@@ -75,7 +75,6 @@ class AuthorizationViewController: ViewController {
                 
                 let listViewController: ListViewController = strongSelf.factory.instantiate()
                 let navController = UINavigationController(rootViewController: listViewController)
-                navController.navigationBar.prefersLargeTitles = true
                 strongSelf.tabBarController?.setViewControllers([navController], animated: false)
                 strongSelf.tabBarController?.tabBar.isHidden = false
             case .isFailure(let error):

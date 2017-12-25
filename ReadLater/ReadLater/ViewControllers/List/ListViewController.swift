@@ -13,6 +13,13 @@ class ListViewController: ViewController {
     //MARK:- IBOutlets
     @IBOutlet private var tableView: UITableView!
     
+    //MARK:- Private properties
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.fetchList), for: .valueChanged)
+        return refreshControl
+    }()
+    
     //MARK: Private properties
     private let delegateAndDataSource = ListDelegateAndDataSource()
     
@@ -34,18 +41,20 @@ class ListViewController: ViewController {
         self.tableView.delegate = self.delegateAndDataSource
         self.tableView.dataSource = self.delegateAndDataSource
         self.tableView.tableFooterView = UIView()
+        self.tableView.refreshControl = self.refreshControl
     }
     
-    private func fetchList() {
+    @objc private func fetchList() {
         self.dataProvider.perform(endpoint: .getList) { [weak self] (result: Result<[ArticleImplementation]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess(let articles):
-                strongSelf.delegateAndDataSource.add(articles)
-                strongSelf.tableView.reloadData()
+                strongSelf.delegateAndDataSource.replaceCurrentArticles(with: articles)
+                strongSelf.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             case .isFailure(let error):
                 debugPrint(error)
             }
+            strongSelf.refreshControl.endRefreshing()
         }
     }
 
