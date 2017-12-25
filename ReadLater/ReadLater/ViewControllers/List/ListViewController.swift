@@ -33,6 +33,7 @@ class ListViewController: ViewController {
         self.tableView.register(ListCell.self)
         self.tableView.delegate = self.delegateAndDataSource
         self.tableView.dataSource = self.delegateAndDataSource
+        self.tableView.tableFooterView = UIView()
     }
     
     private func fetchList() {

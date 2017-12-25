@@ -42,7 +42,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         if let _ = UserDefaults.standard.string(forKey: kAccesToken) {
             let listViewController: ListViewController = factory.instantiate()
-            tabBarController.setViewControllers([listViewController], animated: false)
+            let navController = UINavigationController(rootViewController: listViewController)
+            navController.navigationBar.prefersLargeTitles = true
+            tabBarController.setViewControllers([navController], animated: false)
         } else {
             let authViewController: AuthorizationViewController = factory.instantiate()
             tabBarController.setViewControllers([authViewController], animated: false)

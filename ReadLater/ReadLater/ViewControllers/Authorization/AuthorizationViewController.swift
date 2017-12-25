@@ -74,7 +74,9 @@ class AuthorizationViewController: ViewController {
                 strongSelf.dataProvider.updatePocket(token: token)
                 
                 let listViewController: ListViewController = strongSelf.factory.instantiate()
-                strongSelf.tabBarController?.setViewControllers([listViewController], animated: false)
+                let navController = UINavigationController(rootViewController: listViewController)
+                navController.navigationBar.prefersLargeTitles = true
+                strongSelf.tabBarController?.setViewControllers([navController], animated: false)
                 strongSelf.tabBarController?.tabBar.isHidden = false
             case .isFailure(let error):
                 dump(error)
