@@ -10,31 +10,29 @@ import Foundation
 
 final class PocketAPIManager {
     
+    //MARK:- Private properties
     private let session: URLSession
     private let apiConfig = PocketAPIConfiguration()
     
+    //MARK:- Public properties
     var OAuthURLApp: URL? {
         get {
-            guard let requestToken = self.apiConfig.authCode else { return nil }
-            let redirectURI = self.apiConfig.redirectUri
-            guard let url =  URL(string: "pocket-oauth-v1:///authorize?request_token=\(requestToken)&redirect_uri=\(redirectURI)") else { return nil }
-            return url
+            return self.url(for: .app)
         }
     }
     
     var OAuthURLWebsite: URL? {
         get {
-            guard let requestToken = self.apiConfig.authCode else { return nil }
-            let redirectURI = self.apiConfig.redirectUri
-            guard let url =  URL(string: "https://getpocket.com/auth/authorize?request_token=\(requestToken)&redirect_uri=\(redirectURI)") else { return nil }
-            return url
+            return self.url(for: .web)
         }
     }
     
+    //MARK:- Lifecycle
     init(session: URLSession = URLSession(configuration: .default)) {
         self.session = session
     }
     
+    //MARK:- Public methods
     /// Calls the given endpoint and runs the closure on completion
     func perform(endpoint: PocketAPIEndpoint, then completion: @escaping Completion<JSONArray>) {
         
@@ -92,5 +90,24 @@ final class PocketAPIManager {
     
     func updatePocket(token: String) {
         self.apiConfig.accessToken = token
+    }
+
+    //MARK:- Private methods
+    private enum TypeOfOAuthUrl {
+        case app
+        case web
+    }
+    
+    private func url(for type: TypeOfOAuthUrl) -> URL? {
+        guard let requestToken = self.apiConfig.authCode else { return nil }
+        let redirectURI = self.apiConfig.redirectUri
+        let url: URL?
+        switch type {
+        case .app:
+            url =  URL(string: "pocket-oauth-v1:///authorize?request_token=\(requestToken)&redirect_uri=\(redirectURI)")
+        case .web:
+            url =  URL(string: "https://getpocket.com/auth/authorize?request_token=\(requestToken)&redirect_uri=\(redirectURI)")
+        }
+        return url
     }
 }
