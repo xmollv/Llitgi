@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum PocketEndpoint {
+enum PocketAPIEndpoint {
     // Authorization endpoints
     case requestToken
     case authorize
@@ -41,6 +41,17 @@ enum PocketEndpoint {
         case .list:
             return ["consumer_key" : "73483-2233031e613a5b40f9c466f7",
                     "access_token" : "1d4f85b9-eef9-c7d7-7c5e-b87071"]
+        }
+    }
+
+    /// Transforms the raw JSON(Any) into a JSONArray 
+    var parser: (Any?) -> JSONArray? {
+        switch self {
+        default:
+            return { (json: Any?) in
+                guard let elements = json as? JSONArray else { return nil }
+                return elements
+            }
         }
     }
 }

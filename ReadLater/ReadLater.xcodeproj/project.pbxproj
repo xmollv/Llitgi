@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */; };
 		47EEA3681FF02DDD0030BEF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */; };
 		47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */; };
@@ -16,11 +17,14 @@
 		47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3821FF037D40030BEF1 /* DataProvider.swift */; };
 		47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */; };
 		47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */; };
-		47EEA3891FF03C060030BEF1 /* PocketEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3881FF03C060030BEF1 /* PocketEndpoint.swift */; };
+		47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3881FF03C060030BEF1 /* PocketAPIEndpoint.swift */; };
 		47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */; };
+		47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38C1FF074C70030BEF1 /* Typealias.swift */; };
+		47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47EEA35B1FF02DDD0030BEF1 /* ReadLater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadLater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -32,8 +36,10 @@
 		47EEA3821FF037D40030BEF1 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIManager.swift; sourceTree = "<group>"; };
 		47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
-		47EEA3881FF03C060030BEF1 /* PocketEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketEndpoint.swift; sourceTree = "<group>"; };
+		47EEA3881FF03C060030BEF1 /* PocketAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIEndpoint.swift; sourceTree = "<group>"; };
 		47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIConfiguration.swift; sourceTree = "<group>"; };
+		47EEA38C1FF074C70030BEF1 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
+		47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,7 @@
 				47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */,
 				47EEA3801FF037B30030BEF1 /* DataProvider */,
 				47EEA3781FF034E80030BEF1 /* ViewController */,
+				47EEA38E1FF074D80030BEF1 /* Extensions & Helpers */,
 				47EEA3721FF02F750030BEF1 /* Resources */,
 			);
 			path = ReadLater;
@@ -117,9 +124,19 @@
 			children = (
 				47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */,
 				47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */,
-				47EEA3881FF03C060030BEF1 /* PocketEndpoint.swift */,
+				47EEA3881FF03C060030BEF1 /* PocketAPIEndpoint.swift */,
+				47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */,
 			);
 			path = PocketAPI;
+			sourceTree = "<group>";
+		};
+		47EEA38E1FF074D80030BEF1 /* Extensions & Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				47EEA38C1FF074C70030BEF1 /* Typealias.swift */,
+				47376DE31FF07F9500B8E70C /* Logger.swift */,
+			);
+			path = "Extensions & Helpers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,11 +212,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
+				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,
+				47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */,
+				47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */,
 				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
 				47EEA37A1FF034FD0030BEF1 /* ViewController.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */,
-				47EEA3891FF03C060030BEF1 /* PocketEndpoint.swift in Sources */,
+				47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
 				47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */,
 			);
