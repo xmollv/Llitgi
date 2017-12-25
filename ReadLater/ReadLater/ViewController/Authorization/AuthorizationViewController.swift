@@ -17,7 +17,12 @@ class AuthorizationViewController: ViewController {
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.verifyCodeAndGetToken), name: .OAuthFinished, object: nil)
         self.setupLocalizedStrings()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: IBActions
@@ -36,10 +41,11 @@ class AuthorizationViewController: ViewController {
                 
                 // Step 2. Open the Safari to perform the Oauth
                 if UIApplication.shared.canOpenURL(URL(string: "pocket-oauth-v1://")!) {
-                    guard let url = strongSelf.dataProvider.urlForPocketOAuth else { return }
+                    guard let url = strongSelf.dataProvider.urlForPocketOAuthApp else { return }
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 } else {
-                    
+                    guard let url = strongSelf.dataProvider.urlForPocketOAuthWebsite else { return }
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 }
                 
             case .isFailure(let error):
@@ -52,6 +58,11 @@ class AuthorizationViewController: ViewController {
     private func setupLocalizedStrings() {
         self.descriptionLabel.text = NSLocalizedString("Hey there! We need your permission to access your Pocket list. To do so, simply tap the button below.", comment: "")
         self.actionButton.setTitle(NSLocalizedString("Let's do it!", comment: ""), for: .normal)
+    }
+    
+    //Step 3. Verify the code against the API once the user has finished the OAuth flow
+    @objc private func verifyCodeAndGetToken() {
+        
     }
 
 }

@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         // Handles the callback from the pocket app/website
         if url.scheme == "xmollv-readlater" && url.host == "pocketAuth" {
+            Logger.log("Auth finished")
             NotificationCenter.default.post(name: .OAuthFinished, object: nil)
         }
         return true
