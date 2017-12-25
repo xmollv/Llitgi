@@ -67,4 +67,12 @@ final class PocketAPIManager {
             }
         }.resume()
     }
+    
+    func updatePocket(code: String) {
+        self.apiConfig.authCode = code
+    }
+    
+    func updatePocket(token: String) {
+        self.apiConfig.accessToken = token
+    }
 }

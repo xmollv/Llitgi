@@ -38,4 +38,12 @@ final class DataProvider {
         }
     }
     
+    func updatePocket(code: String) {
+        self.pocketAPI.updatePocket(code: code)
+    }
+    
+    func updatePocket(token: String) {
+        self.pocketAPI.updatePocket(token: token)
+    }
+    
 }

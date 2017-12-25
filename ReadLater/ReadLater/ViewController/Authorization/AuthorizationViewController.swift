@@ -35,11 +35,16 @@ class AuthorizationViewController: ViewController {
         sender.isEnabled = false
         switch self.state {
         case .requestToken:
-            self.dataProvider.perform(endpoint: .requestToken, then: { (result: Result<[RequestTokenResponse]>) in
+            self.dataProvider.perform(endpoint: .requestToken, then: { [weak self] (result: Result<[RequestTokenResponse]>) in
                 sender.isEnabled = true
+                guard let strongSelf = self else { return }
                 switch result {
                 case .isSuccess(let tokenResponse):
-                    dump(tokenResponse)
+                    guard let code = tokenResponse.first?.code else {
+                        Logger.log("The tokenResponse was an empty array.", event: .error)
+                        return
+                    }
+                    strongSelf.dataProvider.updatePocket(code: code)
                 case .isFailure(let error):
                     dump(error)
                 }
