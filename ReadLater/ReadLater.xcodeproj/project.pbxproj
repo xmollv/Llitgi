@@ -71,12 +71,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		47376DE51FF082F800B8E70C /* Model */ = {
+		47376DE51FF082F800B8E70C /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				47376DE61FF0831600B8E70C /* Article.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		4770ACF81FF189CD006E755D /* List */ = {
@@ -112,8 +112,8 @@
 			children = (
 				47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */,
 				47EEA3801FF037B30030BEF1 /* DataProvider */,
-				47376DE51FF082F800B8E70C /* Model */,
-				47EEA3781FF034E80030BEF1 /* ViewController */,
+				47376DE51FF082F800B8E70C /* Models */,
+				47EEA3781FF034E80030BEF1 /* ViewControllers */,
 				47EEA38E1FF074D80030BEF1 /* Extensions & Helpers */,
 				47EEA3721FF02F750030BEF1 /* Resources */,
 			);
@@ -130,7 +130,7 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		47EEA3781FF034E80030BEF1 /* ViewController */ = {
+		47EEA3781FF034E80030BEF1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
@@ -138,7 +138,7 @@
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 				4770ACF81FF189CD006E755D /* List */,
 			);
-			path = ViewController;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		47EEA37B1FF035A20030BEF1 /* Authorization */ = {
