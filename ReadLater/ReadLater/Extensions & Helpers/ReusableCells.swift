@@ -24,12 +24,24 @@ public extension ReusableView where Self: UIView {
     }
 }
 
+public extension NibLoadableView where Self: UIView {
+    static var nibName: String {
+        let nibName = String(describing: self)
+        return nibName
+    }
+    static var nib: UINib {
+        let bundle = Bundle(for: self)
+        let nib = UINib(nibName: self.nibName, bundle: bundle)
+        return nib
+    }
+}
+
 extension UITableViewCell: ReusableView { }
 
 extension UITableView {
     
-    public func register<T: UITableViewCell>(_: T.Type) {
-        self.register(T.self, forCellReuseIdentifier: T.defaultReuseIdentifier)
+    public func register<T: UITableViewCell>(_: T.Type) where T: NibLoadableView {
+        self.register(T.nib, forCellReuseIdentifier: T.defaultReuseIdentifier)
     }
     
     func dequeueReusableCell<T: UITableViewCell>(forIndexPath indexPath: IndexPath) -> T {
