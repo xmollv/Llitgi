@@ -24,3 +24,21 @@ class PocketAPIConfiguration {
     /// requests to the Pocket API (alongside with the consumer key)
     var accessToken: String?
 }
+
+struct RequestTokenResponse: JSONInitiable {
+    let code: String
+    
+    init?(dict: JSONDictionary) {
+        guard let code = dict["code"] as? String else { return nil }
+        self.code = code
+    }
+}
+
+struct AuthorizeTokenResponse: JSONInitiable {
+    let accessToken: String
+    
+    init?(dict: JSONDictionary) {
+        guard let accessToken = dict["access_token"] as? String else { return nil }
+        self.accessToken = accessToken
+    }
+}

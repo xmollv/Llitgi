@@ -9,7 +9,6 @@
 import UIKit
 
 enum OAuthStep {
-    case notStarted
     case requestToken
     case webOAuth
     case authorizeToken
@@ -23,7 +22,7 @@ class AuthorizationViewController: ViewController {
     @IBOutlet private var actionButton: UIButton!
     
     //MARK:- Private properties
-    private var state: OAuthStep = .notStarted
+    private var state: OAuthStep = .requestToken
 
     //MARK:- Lifecycle
     override func viewDidLoad() {
@@ -33,7 +32,24 @@ class AuthorizationViewController: ViewController {
     
     //MARK: IBActions
     @IBAction private func actionButtonTapped(_ sender: UIButton) {
-        
+        sender.isEnabled = false
+        switch self.state {
+        case .requestToken:
+            self.dataProvider.perform(endpoint: .requestToken, then: { (result: Result<[RequestTokenResponse]>) in
+                sender.isEnabled = true
+                switch result {
+                case .isSuccess(let tokenResponse):
+                    dump(tokenResponse)
+                case .isFailure(let error):
+                    dump(error)
+                }
+            })
+        default:
+            debugPrint("Default")
+//        case .webOAuth:
+//        case .authorizeToken:
+//        case .finished:
+        }
     }
     
     //MARK: Private methods
