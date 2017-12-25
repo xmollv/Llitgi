@@ -92,6 +92,7 @@ final class PocketAPIManager {
     
     func updatePocket(token: String) {
         self.apiConfig.accessToken = token
+        UserDefaults.standard.set(token, forKey: kAccesToken)
     }
 
     //MARK:- Private methods

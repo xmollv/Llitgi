@@ -40,9 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func rootViewController(factory: ViewControllerFactory) -> UITabBarController {
         let tabBarController = UITabBarController()
-        let authViewController: AuthorizationViewController = factory.instantiate()
-        tabBarController.addChildViewController(authViewController)
-        tabBarController.tabBar.isHidden = true
+        if let _ = UserDefaults.standard.string(forKey: kAccesToken) {
+            let listViewController: ListViewController = factory.instantiate()
+            tabBarController.setViewControllers([listViewController], animated: false)
+        } else {
+            let authViewController: AuthorizationViewController = factory.instantiate()
+            tabBarController.setViewControllers([authViewController], animated: false)
+            tabBarController.tabBar.isHidden = true
+        }
         return tabBarController
     }
 
