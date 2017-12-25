@@ -113,6 +113,7 @@ final class PocketAPIManager {
         case .getList:
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
+            payload["sort"] = "newest"
         }
         return payload
     }

@@ -6,19 +6,22 @@
 //  Copyright © 2017 xmollv. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class ListDelegateAndDataSource: NSObject {
     
+    //MARK:- Private properties
     private var list: [Article] = []
     
+    //MARK:- Public methods
     func add(_ articles: [Article]) {
-        self.list.append(contentsOf: articles)
+        let sortedArticles = articles.sorted { $0.sortId < $1.sortId }
+        self.list.append(contentsOf: sortedArticles)
     }
     
 }
 
+//MARK:- UITableViewDataSource
 extension ListDelegateAndDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return list.count
@@ -32,6 +35,7 @@ extension ListDelegateAndDataSource: UITableViewDataSource {
     }
 }
 
+//MARK:- UITableViewDelegate
 extension ListDelegateAndDataSource: UITableViewDelegate {
     
 }
