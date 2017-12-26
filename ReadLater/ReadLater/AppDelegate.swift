@@ -51,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let navControllerArchive = UINavigationController(rootViewController: archiveViewController)
             
             tabBarController.setViewControllers([navControllerFavorites, navControllerList, navControllerArchive], animated: false)
+            tabBarController.viewControllers?.forEach { _ = ($0 as? UINavigationController)?.viewControllers.first?.view }
         } else {
             let authViewController: AuthorizationViewController = factory.instantiate()
             tabBarController.setViewControllers([authViewController], animated: false)

@@ -84,6 +84,7 @@ class AuthorizationViewController: ViewController {
                 let navControllerArchive = UINavigationController(rootViewController: archiveViewController)
                 
                 strongSelf.tabBarController?.setViewControllers([navControllerFavorites, navControllerList, navControllerArchive], animated: false)
+                strongSelf.tabBarController?.viewControllers?.forEach { _ = ($0 as? UINavigationController)?.viewControllers.first?.view }
                 strongSelf.tabBarController?.tabBar.isHidden = false
             case .isFailure(let error):
                 dump(error)
