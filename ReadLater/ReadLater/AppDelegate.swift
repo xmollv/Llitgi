@@ -41,12 +41,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func rootViewController(factory: ViewControllerFactory) -> UITabBarController {
         let tabBarController = UITabBarController()
         if let _ = UserDefaults.standard.string(forKey: kAccesToken) {
+            let favoritesViewController: FavoritesViewController = factory.instantiate()
+            let navControllerFavorites = UINavigationController(rootViewController: favoritesViewController)
+            
             let listViewController: MyListViewController = factory.instantiate()
             let navControllerList = UINavigationController(rootViewController: listViewController)
             
             let archiveViewController: ArchiveViewController = factory.instantiate()
             let navControllerArchive = UINavigationController(rootViewController: archiveViewController)
-            tabBarController.setViewControllers([navControllerList, navControllerArchive], animated: false)
+            
+            tabBarController.setViewControllers([navControllerFavorites, navControllerList, navControllerArchive], animated: false)
         } else {
             let authViewController: AuthorizationViewController = factory.instantiate()
             tabBarController.setViewControllers([authViewController], animated: false)

@@ -73,12 +73,17 @@ class AuthorizationViewController: ViewController {
                 }
                 strongSelf.dataProvider.updatePocket(token: token)
                 
+                // Creation opf the three view controllers
+                let favoritesViewController: FavoritesViewController = strongSelf.factory.instantiate()
+                let navControllerFavorites = UINavigationController(rootViewController: favoritesViewController)
+                
                 let listViewController: MyListViewController = strongSelf.factory.instantiate()
                 let navControllerList = UINavigationController(rootViewController: listViewController)
                 
                 let archiveViewController: ArchiveViewController = strongSelf.factory.instantiate()
                 let navControllerArchive = UINavigationController(rootViewController: archiveViewController)
-                strongSelf.tabBarController?.setViewControllers([navControllerList, navControllerArchive], animated: false)
+                
+                strongSelf.tabBarController?.setViewControllers([navControllerFavorites, navControllerList, navControllerArchive], animated: false)
                 strongSelf.tabBarController?.tabBar.isHidden = false
             case .isFailure(let error):
                 dump(error)
