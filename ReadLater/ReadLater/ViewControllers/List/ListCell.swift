@@ -12,6 +12,7 @@ class ListCell: UITableViewCell, NibLoadableView {
 
     //MARK:- IBOutlets
     @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var urlLabel: UILabel!
     
     //MARK:- Lifecycle
     override func awakeFromNib() {
@@ -26,11 +27,13 @@ class ListCell: UITableViewCell, NibLoadableView {
     
     private func clearCell() {
         self.titleLabel.text = nil
+        self.urlLabel.text = nil
     }
     
     //MARK:- Public methods
     func configure(with article: Article) {
         self.titleLabel.text = article.title
+        self.urlLabel.text = article.url.host
     }
     
 }
