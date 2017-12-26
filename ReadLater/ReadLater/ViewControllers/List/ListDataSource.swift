@@ -14,13 +14,17 @@ class ListDataSource: NSObject {
     private var list: [Article] = []
     
     //MARK:- Public methods
+    func article(at indexPath: IndexPath) -> Article {
+        return list[indexPath.row]
+    }
+    
     func replaceCurrentArticles(with articles: [Article]) {
         let sortedArticles = articles.sorted { $0.sortId < $1.sortId }
         self.list = sortedArticles
     }
     
-    func article(at indexPath: IndexPath) -> Article {
-        return list[indexPath.row]
+    func replaceArticle(at indexPath: IndexPath, with article: Article) {
+        self.list[indexPath.row] = article
     }
     
 }

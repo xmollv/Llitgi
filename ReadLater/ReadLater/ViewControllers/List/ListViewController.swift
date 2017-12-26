@@ -75,6 +75,19 @@ extension ListViewController: UITableViewDelegate {
         let sfs = self.safariViewController(at: indexPath)
         self.present(sfs, animated: true, completion: nil)
     }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        var article = self.dataSource.article(at: indexPath)
+        let favoriteAction = UIContextualAction(style: .normal, title: NSLocalizedString("Favorite", comment: "")) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            article.toggleFavoriteLocally()
+            strongSelf.dataSource.replaceArticle(at: indexPath, with: article)
+            strongSelf.tableView.reloadRows(at: [indexPath], with: .automatic)
+            success(true)
+        }
+        favoriteAction.title = article.isFavorite ? NSLocalizedString("Unfavorite", comment: "") : NSLocalizedString("Favorite", comment: "")
+        return UISwipeActionsConfiguration(actions: [favoriteAction])
+    }
 }
 
 //MARK:- UIViewControllerPreviewingDelegate

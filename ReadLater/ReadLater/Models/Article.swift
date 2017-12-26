@@ -13,6 +13,9 @@ protocol Article: JSONInitiable {
     var title: String { get }
     var url: URL { get }
     var sortId: Int { get }
+    var isFavorite: Bool { get }
+    
+    mutating func toggleFavoriteLocally()
 }
 
 struct ArticleImplementation: Article {
@@ -21,12 +24,14 @@ struct ArticleImplementation: Article {
     let title: String
     let url: URL
     let sortId: Int
+    var isFavorite: Bool
     
     init?(dict: JSONDictionary) {
         guard let id = dict["item_id"] as? String,
         let sortId = dict["sort_id"] as? Int,
         let urlAsString = (dict["resolved_url"] as? String) ?? (dict["given_url"] as? String),
-        let url = URL(string: urlAsString) else {
+        let url = URL(string: urlAsString),
+        let isFavoriteString = dict["favorite"] as? String else {
             return nil
         }
 
@@ -40,5 +45,10 @@ struct ArticleImplementation: Article {
         
         self.url = url
         self.sortId = sortId
+        self.isFavorite = (isFavoriteString == "0") ? false : true
+    }
+    
+    mutating func toggleFavoriteLocally() {
+        self.isFavorite = self.isFavorite ? false : true
     }
 }
