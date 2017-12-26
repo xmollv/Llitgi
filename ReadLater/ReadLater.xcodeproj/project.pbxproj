@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */; };
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		47376DE71FF0831600B8E70C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Article.swift */; };
 		4770ACF51FF111A9006E755D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF41FF111A9006E755D /* UIView.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIModification.swift; sourceTree = "<group>"; };
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47376DE61FF0831600B8E70C /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		4770ACF41FF111A9006E755D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */,
 				47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */,
 				47EEA3881FF03C060030BEF1 /* PocketAPIEndpoint.swift */,
+				4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */,
 				47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */,
 			);
 			path = PocketAPI;
@@ -267,6 +270,7 @@
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */,
 				47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */,
+				4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */,
 				47376DE71FF0831600B8E70C /* Article.swift in Sources */,
 				4770ACF71FF17AFD006E755D /* Notification.swift in Sources */,
 				47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */,

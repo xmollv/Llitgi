@@ -15,6 +15,7 @@ enum PocketAPIEndpoint {
     
     // Already authorized endpoints
     case getList
+    case modify(ItemModification)
     
     /// Returns the full URL to perform the request
     var url: URL {
@@ -26,6 +27,8 @@ enum PocketAPIEndpoint {
             return baseUrl.appendingPathComponent("oauth/authorize")
         case .getList:
             return baseUrl.appendingPathComponent("get")
+        case .modify:
+            return baseUrl.appendingPathComponent("send")
         }
     }
 
@@ -43,6 +46,11 @@ enum PocketAPIEndpoint {
                 guard let listAsDict = dict["list"] as? JSONDictionary else { return nil }
                 let list = listAsDict.values.flatMap { $0 as? JSONDictionary }
                 return list
+            }
+        case .modify:
+            return { (json: Any?) in
+                guard let dict = json as? JSONDictionary else { return nil }
+                return [dict]
             }
         }
     }

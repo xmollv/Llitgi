@@ -80,6 +80,15 @@ extension ListViewController: UITableViewDelegate {
         var article = self.dataSource.article(at: indexPath)
         let favoriteAction = UIContextualAction(style: .normal, title: NSLocalizedString("Favorite", comment: "")) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
+            
+            let modification: ItemModification
+            if article.isFavorite {
+                modification = ItemModification(action: .unfavorite, id: article.id)
+            } else {
+                modification = ItemModification(action: .favorite, id: article.id)
+            }
+            
+            strongSelf.dataProvider.perform(endpoint: .modify(modification))
             article.toggleFavoriteLocally()
             strongSelf.dataSource.replaceArticle(at: indexPath, with: article)
             strongSelf.tableView.reloadRows(at: [indexPath], with: .automatic)

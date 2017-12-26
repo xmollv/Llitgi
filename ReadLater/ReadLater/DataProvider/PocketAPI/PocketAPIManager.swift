@@ -102,8 +102,8 @@ final class PocketAPIManager {
     }
     
     /// Returns the dict that needs to be transformed into the JSON body for the POST
-    private func payload(for endpoint: PocketAPIEndpoint) -> [String: String] {
-        var payload = ["consumer_key" : self.apiConfig.consumerKey]
+    private func payload(for endpoint: PocketAPIEndpoint) -> [String: Any] {
+        var payload: [String: Any] = ["consumer_key" : self.apiConfig.consumerKey]
         switch endpoint {
         case .requestToken:
             payload["redirect_uri"] = self.apiConfig.redirectUri
@@ -114,6 +114,10 @@ final class PocketAPIManager {
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
             payload["sort"] = "newest"
+        case .modify(let typeOfModification):
+            guard let token = self.apiConfig.accessToken else { break }
+            payload["access_token"] = token
+            payload["actions"] = [typeOfModification.wrappedAsDict]
         }
         return payload
     }
