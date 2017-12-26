@@ -24,12 +24,20 @@ struct ArticleImplementation: Article {
     
     init?(dict: JSONDictionary) {
         guard let id = dict["item_id"] as? String,
-        let sortId = dict["sort_id"] as? Int else { return nil }
-        guard let urlAsString = (dict["resolved_url"] as? String) ?? (dict["given_url"] as? String) else { return nil }
-        guard let url = URL(string: urlAsString) else { return nil }
-        
+        let sortId = dict["sort_id"] as? Int,
+        let urlAsString = (dict["resolved_url"] as? String) ?? (dict["given_url"] as? String),
+        let url = URL(string: urlAsString) else {
+            return nil
+        }
+
         self.id = id
-        self.title = (dict["resolved_title"] as? String) ?? (dict["given_title"] as? String) ?? NSLocalizedString("Unknown", comment: "")
+        
+        if let pocketTitle = (dict["resolved_title"] as? String) ?? (dict["given_title"] as? String), pocketTitle != "" {
+            self.title = pocketTitle
+        } else {
+            self.title = NSLocalizedString("Unknown Title", comment: "")
+        }
+        
         self.url = url
         self.sortId = sortId
     }
