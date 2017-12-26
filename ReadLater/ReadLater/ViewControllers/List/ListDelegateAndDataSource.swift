@@ -8,10 +8,17 @@
 
 import UIKit
 
+protocol URLOpenerDelegate: class {
+    func open(_ url: URL)
+}
+
 class ListDelegateAndDataSource: NSObject {
     
     //MARK:- Private properties
     private var list: [Article] = []
+    
+    //MARK: Public properties
+    weak var openerDelegate: URLOpenerDelegate? = nil
     
     //MARK:- Public methods
     func replaceCurrentArticles(with articles: [Article]) {
@@ -37,5 +44,8 @@ extension ListDelegateAndDataSource: UITableViewDataSource {
 
 //MARK:- UITableViewDelegate
 extension ListDelegateAndDataSource: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let article = self.list[indexPath.row]
+        self.openerDelegate?.open(article.url)
+    }
 }

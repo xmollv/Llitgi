@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class ListViewController: ViewController {
 
@@ -38,6 +39,7 @@ class ListViewController: ViewController {
     
     private func configureTableView() {
         self.tableView.register(ListCell.self)
+        self.delegateAndDataSource.openerDelegate = self
         self.tableView.delegate = self.delegateAndDataSource
         self.tableView.dataSource = self.delegateAndDataSource
         self.tableView.tableFooterView = UIView()
@@ -58,4 +60,12 @@ class ListViewController: ViewController {
         }
     }
 
+}
+
+extension ListViewController: URLOpenerDelegate {
+    func open(_ url: URL) {
+        let sfs = SFSafariViewController(url: url)
+        sfs.preferredControlTintColor = .black
+        self.present(sfs, animated: true, completion: nil)
+    }
 }
