@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class ListViewController: ViewController {
+class MyListViewController: ViewController {
 
     //MARK:- IBOutlets
     @IBOutlet private var tableView: UITableView!
@@ -70,7 +70,7 @@ class ListViewController: ViewController {
 }
 
 //MARK:- UITableViewDelegate
-extension ListViewController: UITableViewDelegate {
+extension MyListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sfs = self.safariViewController(at: indexPath)
         self.present(sfs, animated: true, completion: nil)
@@ -113,7 +113,7 @@ extension ListViewController: UITableViewDelegate {
 }
 
 //MARK:- UIViewControllerPreviewingDelegate
-extension ListViewController: UIViewControllerPreviewingDelegate {
+extension MyListViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = self.tableView.indexPathForRow(at: location) else {
             return nil

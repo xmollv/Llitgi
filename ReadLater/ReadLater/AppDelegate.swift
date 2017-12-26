@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func rootViewController(factory: ViewControllerFactory) -> UITabBarController {
         let tabBarController = UITabBarController()
         if let _ = UserDefaults.standard.string(forKey: kAccesToken) {
-            let listViewController: ListViewController = factory.instantiate()
+            let listViewController: MyListViewController = factory.instantiate()
             let navControllerList = UINavigationController(rootViewController: listViewController)
             
             let archiveViewController: ArchiveViewController = factory.instantiate()

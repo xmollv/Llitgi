@@ -73,7 +73,7 @@ class AuthorizationViewController: ViewController {
                 }
                 strongSelf.dataProvider.updatePocket(token: token)
                 
-                let listViewController: ListViewController = strongSelf.factory.instantiate()
+                let listViewController: MyListViewController = strongSelf.factory.instantiate()
                 let navControllerList = UINavigationController(rootViewController: listViewController)
                 
                 let archiveViewController: ArchiveViewController = strongSelf.factory.instantiate()

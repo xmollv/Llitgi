@@ -14,8 +14,8 @@
 		47376DE71FF0831600B8E70C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Article.swift */; };
 		4770ACF51FF111A9006E755D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF41FF111A9006E755D /* UIView.swift */; };
 		4770ACF71FF17AFD006E755D /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF61FF17AFD006E755D /* Notification.swift */; };
-		4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF91FF18AF7006E755D /* ListViewController.swift */; };
-		4770ACFC1FF18AF7006E755D /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770ACFA1FF18AF7006E755D /* ListViewController.xib */; };
+		4770ACFB1FF18AF7006E755D /* MyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF91FF18AF7006E755D /* MyListViewController.swift */; };
+		4770ACFC1FF18AF7006E755D /* MyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770ACFA1FF18AF7006E755D /* MyListViewController.xib */; };
 		4770ACFE1FF1B108006E755D /* ListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFD1FF1B108006E755D /* ListDataSource.swift */; };
 		4770AD001FF1B3B8006E755D /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
 		4770AD031FF1B470006E755D /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770AD011FF1B470006E755D /* ListCell.swift */; };
@@ -43,8 +43,8 @@
 		47376DE61FF0831600B8E70C /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		4770ACF41FF111A9006E755D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		4770ACF61FF17AFD006E755D /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
-		4770ACF91FF18AF7006E755D /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		4770ACFA1FF18AF7006E755D /* ListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
+		4770ACF91FF18AF7006E755D /* MyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListViewController.swift; sourceTree = "<group>"; };
+		4770ACFA1FF18AF7006E755D /* MyListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyListViewController.xib; sourceTree = "<group>"; };
 		4770ACFD1FF1B108006E755D /* ListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDataSource.swift; sourceTree = "<group>"; };
 		4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCells.swift; sourceTree = "<group>"; };
 		4770AD011FF1B470006E755D /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
@@ -86,6 +86,13 @@
 			path = Archive;
 			sourceTree = "<group>";
 		};
+		4710EF4C1FF3010500D3DCA9 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
 		47376DE51FF082F800B8E70C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,13 +101,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		4770ACF81FF189CD006E755D /* List */ = {
+		4770ACF81FF189CD006E755D /* MyList */ = {
 			isa = PBXGroup;
 			children = (
-				4770ACF91FF18AF7006E755D /* ListViewController.swift */,
-				4770ACFA1FF18AF7006E755D /* ListViewController.xib */,
+				4770ACF91FF18AF7006E755D /* MyListViewController.swift */,
+				4770ACFA1FF18AF7006E755D /* MyListViewController.xib */,
 			);
-			path = List;
+			path = MyList;
 			sourceTree = "<group>";
 		};
 		47EEA3521FF02DDD0030BEF1 = {
@@ -151,7 +158,8 @@
 				4770AD011FF1B470006E755D /* ListCell.swift */,
 				4770AD021FF1B470006E755D /* ListCell.xib */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
-				4770ACF81FF189CD006E755D /* List */,
+				4710EF4C1FF3010500D3DCA9 /* Favorites */,
+				4770ACF81FF189CD006E755D /* MyList */,
 				4710EF471FF2FD5800D3DCA9 /* Archive */,
 			);
 			path = ViewControllers;
@@ -261,7 +269,7 @@
 				47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */,
 				4710EF4B1FF2FD7100D3DCA9 /* ArchiveViewController.xib in Resources */,
 				47EEA3681FF02DDD0030BEF1 /* Assets.xcassets in Resources */,
-				4770ACFC1FF18AF7006E755D /* ListViewController.xib in Resources */,
+				4770ACFC1FF18AF7006E755D /* MyListViewController.xib in Resources */,
 				47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */,
 				4770AD041FF1B470006E755D /* ListCell.xib in Resources */,
 			);
@@ -284,7 +292,7 @@
 				4770ACFE1FF1B108006E755D /* ListDataSource.swift in Sources */,
 				47EEA37A1FF034FD0030BEF1 /* ViewController.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
-				4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */,
+				4770ACFB1FF18AF7006E755D /* MyListViewController.swift in Sources */,
 				47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */,
 				4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */,
 				47376DE71FF0831600B8E70C /* Article.swift in Sources */,
