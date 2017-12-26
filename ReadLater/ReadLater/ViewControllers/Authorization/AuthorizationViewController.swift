@@ -74,8 +74,11 @@ class AuthorizationViewController: ViewController {
                 strongSelf.dataProvider.updatePocket(token: token)
                 
                 let listViewController: ListViewController = strongSelf.factory.instantiate()
-                let navController = UINavigationController(rootViewController: listViewController)
-                strongSelf.tabBarController?.setViewControllers([navController], animated: false)
+                let navControllerList = UINavigationController(rootViewController: listViewController)
+                
+                let archiveViewController: ArchiveViewController = strongSelf.factory.instantiate()
+                let navControllerArchive = UINavigationController(rootViewController: archiveViewController)
+                strongSelf.tabBarController?.setViewControllers([navControllerList, navControllerArchive], animated: false)
                 strongSelf.tabBarController?.tabBar.isHidden = false
             case .isFailure(let error):
                 dump(error)

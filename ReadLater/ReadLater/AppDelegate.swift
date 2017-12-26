@@ -42,8 +42,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         if let _ = UserDefaults.standard.string(forKey: kAccesToken) {
             let listViewController: ListViewController = factory.instantiate()
-            let navController = UINavigationController(rootViewController: listViewController)
-            tabBarController.setViewControllers([navController], animated: false)
+            let navControllerList = UINavigationController(rootViewController: listViewController)
+            
+            let archiveViewController: ArchiveViewController = factory.instantiate()
+            let navControllerArchive = UINavigationController(rootViewController: archiveViewController)
+            tabBarController.setViewControllers([navControllerList, navControllerArchive], animated: false)
         } else {
             let authViewController: AuthorizationViewController = factory.instantiate()
             tabBarController.setViewControllers([authViewController], animated: false)

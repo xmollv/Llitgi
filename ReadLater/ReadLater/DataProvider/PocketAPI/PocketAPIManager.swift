@@ -114,6 +114,11 @@ final class PocketAPIManager {
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
             payload["sort"] = "newest"
+        case .getArchive:
+            guard let token = self.apiConfig.accessToken else { break }
+            payload["access_token"] = token
+            payload["sort"] = "newest"
+            payload["state"] = "archive"
         case .modify(let typeOfModification):
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token

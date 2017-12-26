@@ -1,17 +1,16 @@
 //
-//  ListViewController.swift
+//  ArchiveViewController.swift
 //  ReadLater
 //
-//  Created by Xavi Moll on 25/12/2017.
+//  Created by Xavi Moll on 26/12/2017.
 //  Copyright © 2017 xmollv. All rights reserved.
 //
 
 import UIKit
 import SafariServices
 
-class ListViewController: ViewController {
+class ArchiveViewController: ViewController {
 
-    //MARK:- IBOutlets
     @IBOutlet private var tableView: UITableView!
     
     //MARK:- Private properties
@@ -35,7 +34,7 @@ class ListViewController: ViewController {
     
     //MARK: Private methods
     private func setupLocalizedStrings() {
-        self.title = NSLocalizedString("My List", comment: "")
+        self.title = NSLocalizedString("Archive", comment: "")
     }
     
     private func configureTableView() {
@@ -47,7 +46,7 @@ class ListViewController: ViewController {
     }
     
     @objc private func fetchList() {
-        self.dataProvider.perform(endpoint: .getList) { [weak self] (result: Result<[ArticleImplementation]>) in
+        self.dataProvider.perform(endpoint: .getArchive) { [weak self] (result: Result<[ArticleImplementation]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess(let articles):
@@ -66,11 +65,10 @@ class ListViewController: ViewController {
         sfs.preferredControlTintColor = .black
         return sfs
     }
-
 }
 
 //MARK:- UITableViewDelegate
-extension ListViewController: UITableViewDelegate {
+extension ArchiveViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sfs = self.safariViewController(at: indexPath)
         self.present(sfs, animated: true, completion: nil)
@@ -100,20 +98,30 @@ extension ListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let article = self.dataSource.article(at: indexPath)
-        let archiveAction = UIContextualAction(style: .normal, title: NSLocalizedString("Archive", comment: "")) { [weak self] (action, view, success) in
+        let unarchiveAction = UIContextualAction(style: .normal, title: NSLocalizedString("Unarchive", comment: "")) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
-            let modification = ItemModification(action: .archive, id: article.id)
+            let modification = ItemModification(action: .readd, id: article.id)
             strongSelf.dataProvider.perform(endpoint: .modify(modification))
             strongSelf.dataSource.removeArticle(at: indexPath)
             strongSelf.tableView.deleteRows(at: [indexPath], with: .automatic)
             success(true)
         }
-        return UISwipeActionsConfiguration(actions: [archiveAction])
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("Delete", comment: "")) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            let modification = ItemModification(action: .delete, id: article.id)
+            strongSelf.dataProvider.perform(endpoint: .modify(modification))
+            strongSelf.dataSource.removeArticle(at: indexPath)
+            strongSelf.tableView.deleteRows(at: [indexPath], with: .automatic)
+            success(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction, unarchiveAction])
     }
 }
 
 //MARK:- UIViewControllerPreviewingDelegate
-extension ListViewController: UIViewControllerPreviewingDelegate {
+extension ArchiveViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = self.tableView.indexPathForRow(at: location) else {
             return nil

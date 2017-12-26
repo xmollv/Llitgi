@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */; };
+		4710EF4A1FF2FD7100D3DCA9 /* ArchiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF481FF2FD7100D3DCA9 /* ArchiveViewController.swift */; };
+		4710EF4B1FF2FD7100D3DCA9 /* ArchiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4710EF491FF2FD7100D3DCA9 /* ArchiveViewController.xib */; };
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		47376DE71FF0831600B8E70C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Article.swift */; };
 		4770ACF51FF111A9006E755D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF41FF111A9006E755D /* UIView.swift */; };
@@ -35,6 +37,8 @@
 
 /* Begin PBXFileReference section */
 		4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIModification.swift; sourceTree = "<group>"; };
+		4710EF481FF2FD7100D3DCA9 /* ArchiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveViewController.swift; sourceTree = "<group>"; };
+		4710EF491FF2FD7100D3DCA9 /* ArchiveViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArchiveViewController.xib; sourceTree = "<group>"; };
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47376DE61FF0831600B8E70C /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		4770ACF41FF111A9006E755D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -73,6 +77,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4710EF471FF2FD5800D3DCA9 /* Archive */ = {
+			isa = PBXGroup;
+			children = (
+				4710EF481FF2FD7100D3DCA9 /* ArchiveViewController.swift */,
+				4710EF491FF2FD7100D3DCA9 /* ArchiveViewController.xib */,
+			);
+			path = Archive;
+			sourceTree = "<group>";
+		};
 		47376DE51FF082F800B8E70C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,9 +99,6 @@
 			children = (
 				4770ACF91FF18AF7006E755D /* ListViewController.swift */,
 				4770ACFA1FF18AF7006E755D /* ListViewController.xib */,
-				4770ACFD1FF1B108006E755D /* ListDataSource.swift */,
-				4770AD011FF1B470006E755D /* ListCell.swift */,
-				4770AD021FF1B470006E755D /* ListCell.xib */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -137,8 +147,12 @@
 			children = (
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
 				47EEA3791FF034FD0030BEF1 /* ViewController.swift */,
+				4770ACFD1FF1B108006E755D /* ListDataSource.swift */,
+				4770AD011FF1B470006E755D /* ListCell.swift */,
+				4770AD021FF1B470006E755D /* ListCell.xib */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 				4770ACF81FF189CD006E755D /* List */,
+				4710EF471FF2FD5800D3DCA9 /* Archive */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -245,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */,
+				4710EF4B1FF2FD7100D3DCA9 /* ArchiveViewController.xib in Resources */,
 				47EEA3681FF02DDD0030BEF1 /* Assets.xcassets in Resources */,
 				4770ACFC1FF18AF7006E755D /* ListViewController.xib in Resources */,
 				47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */,
@@ -262,6 +277,7 @@
 				4770ACF51FF111A9006E755D /* UIView.swift in Sources */,
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
 				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,
+				4710EF4A1FF2FD7100D3DCA9 /* ArchiveViewController.swift in Sources */,
 				47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */,
 				47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */,
 				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
