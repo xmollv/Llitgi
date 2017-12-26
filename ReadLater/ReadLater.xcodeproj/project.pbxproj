@@ -13,7 +13,7 @@
 		4770ACF71FF17AFD006E755D /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF61FF17AFD006E755D /* Notification.swift */; };
 		4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF91FF18AF7006E755D /* ListViewController.swift */; };
 		4770ACFC1FF18AF7006E755D /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770ACFA1FF18AF7006E755D /* ListViewController.xib */; };
-		4770ACFE1FF1B108006E755D /* ListDelegateAndDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFD1FF1B108006E755D /* ListDelegateAndDataSource.swift */; };
+		4770ACFE1FF1B108006E755D /* ListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFD1FF1B108006E755D /* ListDataSource.swift */; };
 		4770AD001FF1B3B8006E755D /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
 		4770AD031FF1B470006E755D /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770AD011FF1B470006E755D /* ListCell.swift */; };
 		4770AD041FF1B470006E755D /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770AD021FF1B470006E755D /* ListCell.xib */; };
@@ -39,7 +39,7 @@
 		4770ACF61FF17AFD006E755D /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		4770ACF91FF18AF7006E755D /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		4770ACFA1FF18AF7006E755D /* ListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
-		4770ACFD1FF1B108006E755D /* ListDelegateAndDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDelegateAndDataSource.swift; sourceTree = "<group>"; };
+		4770ACFD1FF1B108006E755D /* ListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDataSource.swift; sourceTree = "<group>"; };
 		4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCells.swift; sourceTree = "<group>"; };
 		4770AD011FF1B470006E755D /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		4770AD021FF1B470006E755D /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 			children = (
 				4770ACF91FF18AF7006E755D /* ListViewController.swift */,
 				4770ACFA1FF18AF7006E755D /* ListViewController.xib */,
-				4770ACFD1FF1B108006E755D /* ListDelegateAndDataSource.swift */,
+				4770ACFD1FF1B108006E755D /* ListDataSource.swift */,
 				4770AD011FF1B470006E755D /* ListCell.swift */,
 				4770AD021FF1B470006E755D /* ListCell.xib */,
 			);
@@ -262,7 +262,7 @@
 				47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */,
 				47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */,
 				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
-				4770ACFE1FF1B108006E755D /* ListDelegateAndDataSource.swift in Sources */,
+				4770ACFE1FF1B108006E755D /* ListDataSource.swift in Sources */,
 				47EEA37A1FF034FD0030BEF1 /* ViewController.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  ListDelegateAndDataSource.swift
+//  ListDataSource.swift
 //  ReadLater
 //
 //  Created by Xavi Moll on 25/12/2017.
@@ -8,17 +8,10 @@
 
 import UIKit
 
-protocol URLOpenerDelegate: class {
-    func open(_ url: URL)
-}
-
-class ListDelegateAndDataSource: NSObject {
+class ListDataSource: NSObject {
     
     //MARK:- Private properties
     private var list: [Article] = []
-    
-    //MARK: Public properties
-    weak var openerDelegate: URLOpenerDelegate? = nil
     
     //MARK:- Public methods
     func replaceCurrentArticles(with articles: [Article]) {
@@ -26,26 +19,22 @@ class ListDelegateAndDataSource: NSObject {
         self.list = sortedArticles
     }
     
+    func article(at indexPath: IndexPath) -> Article {
+        return list[indexPath.row]
+    }
+    
 }
 
 //MARK:- UITableViewDataSource
-extension ListDelegateAndDataSource: UITableViewDataSource {
+extension ListDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let article = list[indexPath.row]
+        let article = self.article(at: indexPath)
         let cell: ListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
         cell.configure(with: article)
         return cell
-    }
-}
-
-//MARK:- UITableViewDelegate
-extension ListDelegateAndDataSource: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let article = self.list[indexPath.row]
-        self.openerDelegate?.open(article.url)
     }
 }

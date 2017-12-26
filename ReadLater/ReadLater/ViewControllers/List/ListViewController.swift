@@ -22,11 +22,12 @@ class ListViewController: ViewController {
     }()
     
     //MARK: Private properties
-    private let delegateAndDataSource = ListDelegateAndDataSource()
+    private let dataSource = ListDataSource()
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        registerForPreviewing(with: self, sourceView: self.tableView)
         self.setupLocalizedStrings()
         self.configureTableView()
         self.fetchList()
@@ -39,9 +40,8 @@ class ListViewController: ViewController {
     
     private func configureTableView() {
         self.tableView.register(ListCell.self)
-        self.delegateAndDataSource.openerDelegate = self
-        self.tableView.delegate = self.delegateAndDataSource
-        self.tableView.dataSource = self.delegateAndDataSource
+        self.tableView.delegate = self
+        self.tableView.dataSource = self.dataSource
         self.tableView.tableFooterView = UIView()
         self.tableView.refreshControl = self.refreshControl
     }
@@ -51,7 +51,7 @@ class ListViewController: ViewController {
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess(let articles):
-                strongSelf.delegateAndDataSource.replaceCurrentArticles(with: articles)
+                strongSelf.dataSource.replaceCurrentArticles(with: articles)
                 strongSelf.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             case .isFailure(let error):
                 debugPrint(error)
@@ -59,13 +59,37 @@ class ListViewController: ViewController {
             strongSelf.refreshControl.endRefreshing()
         }
     }
+    
+    private func safariViewController(at indexPath: IndexPath) -> SFSafariViewController {
+        let url = self.dataSource.article(at: indexPath).url
+        let sfs = SFSafariViewController(url: url)
+        sfs.preferredControlTintColor = .black
+        return sfs
+    }
 
 }
 
-extension ListViewController: URLOpenerDelegate {
-    func open(_ url: URL) {
-        let sfs = SFSafariViewController(url: url)
-        sfs.preferredControlTintColor = .black
+//MARK:- UITableViewDelegate
+extension ListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sfs = self.safariViewController(at: indexPath)
         self.present(sfs, animated: true, completion: nil)
     }
+}
+
+//MARK:- UIViewControllerPreviewingDelegate
+extension ListViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = self.tableView.indexPathForRow(at: location) else {
+            return nil
+        }
+        let sfs = self.safariViewController(at: indexPath)
+        return sfs
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.present(viewControllerToCommit, animated: true, completion: nil)
+    }
+    
+    
 }
