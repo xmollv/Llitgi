@@ -78,7 +78,7 @@ extension ListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         var article = self.dataSource.article(at: indexPath)
-        let favoriteAction = UIContextualAction(style: .normal, title: NSLocalizedString("Favorite", comment: "")) { [weak self] (action, view, success) in
+        let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
             
             let modification: ItemModification
@@ -96,6 +96,19 @@ extension ListViewController: UITableViewDelegate {
         }
         favoriteAction.title = article.isFavorite ? NSLocalizedString("Unfavorite", comment: "") : NSLocalizedString("Favorite", comment: "")
         return UISwipeActionsConfiguration(actions: [favoriteAction])
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let article = self.dataSource.article(at: indexPath)
+        let archiveAction = UIContextualAction(style: .normal, title: NSLocalizedString("Archive", comment: "")) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            let modification = ItemModification(action: .archive, id: article.id)
+            strongSelf.dataProvider.perform(endpoint: .modify(modification))
+            strongSelf.dataSource.removeArticle(at: indexPath)
+            strongSelf.tableView.deleteRows(at: [indexPath], with: .automatic)
+            success(true)
+        }
+        return UISwipeActionsConfiguration(actions: [archiveAction])
     }
 }
 

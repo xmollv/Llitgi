@@ -27,6 +27,10 @@ class ListDataSource: NSObject {
         self.list[indexPath.row] = article
     }
     
+    func removeArticle(at indexPath: IndexPath) {
+        self.list.remove(at: indexPath.row)
+    }
+    
 }
 
 //MARK:- UITableViewDataSource
