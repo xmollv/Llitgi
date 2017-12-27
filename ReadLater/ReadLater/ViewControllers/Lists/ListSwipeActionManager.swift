@@ -73,7 +73,7 @@ class ListSwipeActionManager {
                 success(true)
             }
             favoriteAction.title = article.isFavorite ? NSLocalizedString("Unfavorite", comment: "") : NSLocalizedString("Favorite", comment: "")
-            // Also add the option to readd
+            //TODO: Also add the option to readd
             return [favoriteAction]
         }
     }

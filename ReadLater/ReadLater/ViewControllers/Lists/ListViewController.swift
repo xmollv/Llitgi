@@ -91,6 +91,7 @@ class ListViewController: ViewController {
                 strongSelf.dataSource.replaceCurrentArticles(with: articles)
                 strongSelf.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             case .isFailure(let error):
+                //TODO: Properly handle the error
                 debugPrint(error)
             }
             strongSelf.refreshControl.endRefreshing()
@@ -129,9 +130,7 @@ extension ListViewController: UITableViewDelegate {
 //MARK:- UIViewControllerPreviewingDelegate
 extension ListViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = self.tableView.indexPathForRow(at: location) else {
-            return nil
-        }
+        guard let indexPath = self.tableView.indexPathForRow(at: location) else { return nil }
         let sfs = self.safariViewController(at: indexPath)
         return sfs
     }
