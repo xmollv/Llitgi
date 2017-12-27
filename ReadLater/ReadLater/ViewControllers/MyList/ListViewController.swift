@@ -9,22 +9,41 @@
 import UIKit
 import SafariServices
 
-class MyListViewController: ViewController {
+enum TypeOfList {
+    case myList
+    case favorites
+    case archive
+}
+
+class ListViewController: ViewController {
 
     //MARK:- IBOutlets
     @IBOutlet private var tableView: UITableView!
     
-    //MARK:- Private properties
+    //MARK: Private properties
+    private let typeOfList: TypeOfList
+    private let dataSource: ListDataSource
+    private var swipeActionManager: ListSwipeActionManager?
+    
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(self.fetchList), for: .valueChanged)
         return refreshControl
     }()
     
-    //MARK: Private properties
-    private let dataSource = ListDataSource()
-    
     //MARK:- Lifecycle
+    required init(factory: ViewControllerFactory, dataProvider: DataProvider, type: TypeOfList) {
+        self.typeOfList = type
+        self.dataSource = ListDataSource()
+        super.init(factory: factory, dataProvider: dataProvider)
+        self.swipeActionManager = ListSwipeActionManager(list: type, dataSource: self.dataSource, dataProvider: self.dataProvider)
+    }
+    
+    @available(*, unavailable)
+    required init(factory: ViewControllerFactory, dataProvider: DataProvider) {
+        fatalError("init(factory:dataProvider:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForPreviewing(with: self, sourceView: self.tableView)
@@ -35,7 +54,16 @@ class MyListViewController: ViewController {
     
     //MARK: Private methods
     private func setupLocalizedStrings() {
-        self.title = NSLocalizedString("My List", comment: "")
+        let title: String
+        switch self.typeOfList {
+        case .myList:
+            title = NSLocalizedString("My List", comment: "")
+        case .favorites:
+            title = NSLocalizedString("Favorites", comment: "")
+        case .archive:
+            title = NSLocalizedString("Archive", comment: "")
+        }
+        self.title = title
     }
     
     private func configureTableView() {
@@ -47,7 +75,16 @@ class MyListViewController: ViewController {
     }
     
     @objc private func fetchList() {
-        self.dataProvider.perform(endpoint: .getList) { [weak self] (result: Result<[ArticleImplementation]>) in
+        let endpoint: PocketAPIEndpoint
+        switch self.typeOfList {
+        case .myList:
+            endpoint = .getList
+        case .favorites:
+            endpoint = .getFavorites
+        case .archive:
+            endpoint = .getArchive
+        }
+        self.dataProvider.perform(endpoint: endpoint) { [weak self] (result: Result<[ArticleImplementation]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess(let articles):
@@ -70,50 +107,27 @@ class MyListViewController: ViewController {
 }
 
 //MARK:- UITableViewDelegate
-extension MyListViewController: UITableViewDelegate {
+extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sfs = self.safariViewController(at: indexPath)
         self.present(sfs, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        var article = self.dataSource.article(at: indexPath)
-        let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
-            guard let strongSelf = self else { return }
-            
-            let modification: ItemModification
-            if article.isFavorite {
-                modification = ItemModification(action: .unfavorite, id: article.id)
-            } else {
-                modification = ItemModification(action: .favorite, id: article.id)
-            }
-            
-            strongSelf.dataProvider.perform(endpoint: .modify(modification))
-            article.toggleFavoriteLocally()
-            strongSelf.dataSource.replaceArticle(at: indexPath, with: article)
-            strongSelf.tableView.reloadRows(at: [indexPath], with: .automatic)
-            success(true)
-        }
-        favoriteAction.title = article.isFavorite ? NSLocalizedString("Unfavorite", comment: "") : NSLocalizedString("Favorite", comment: "")
-        return UISwipeActionsConfiguration(actions: [favoriteAction])
+        guard let swipeManager = self.swipeActionManager else { return nil }
+        let actions = swipeManager.buildLeadingActions(at: indexPath, from: tableView)
+        return UISwipeActionsConfiguration(actions: actions)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let article = self.dataSource.article(at: indexPath)
-        let archiveAction = UIContextualAction(style: .normal, title: NSLocalizedString("Archive", comment: "")) { [weak self] (action, view, success) in
-            guard let strongSelf = self else { return }
-            let modification = ItemModification(action: .archive, id: article.id)
-            strongSelf.dataProvider.perform(endpoint: .modify(modification))
-            strongSelf.dataSource.removeArticle(at: indexPath)
-            strongSelf.tableView.deleteRows(at: [indexPath], with: .automatic)
-            success(true)
-        }
-        return UISwipeActionsConfiguration(actions: [archiveAction])
+        guard let swipeManager = self.swipeActionManager else { return nil }
+        let actions = swipeManager.buildTrailingActions(at: indexPath, from: tableView)
+        return UISwipeActionsConfiguration(actions: actions)
     }
 }
 
 //MARK:- UIViewControllerPreviewingDelegate
-extension MyListViewController: UIViewControllerPreviewingDelegate {
+extension ListViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = self.tableView.indexPathForRow(at: location) else {
             return nil

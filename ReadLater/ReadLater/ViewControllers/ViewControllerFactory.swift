@@ -22,9 +22,13 @@ final class ViewControllerFactory {
         return viewController
     }
     
+    func instantiateListViewController(type: TypeOfList) -> ListViewController {
+        return ListViewController(factory: self, dataProvider: self.dataProvider, type: type)
+    }
+    
     func establishViewControllers(on tabBarController: UITabBarController) {
         //My List
-        let listViewController: MyListViewController = self.instantiate()
+        let listViewController: ListViewController = self.instantiateListViewController(type: .myList)
         let navControllerList = UINavigationController(rootViewController: listViewController)
         
         //Favorites
