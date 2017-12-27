@@ -83,14 +83,17 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		4770ACF81FF189CD006E755D /* MyList */ = {
+		4770ACF81FF189CD006E755D /* Lists */ = {
 			isa = PBXGroup;
 			children = (
 				4770ACF91FF18AF7006E755D /* ListViewController.swift */,
 				4770ACFA1FF18AF7006E755D /* ListViewController.xib */,
+				4770ACFD1FF1B108006E755D /* ListDataSource.swift */,
 				4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */,
+				4770AD011FF1B470006E755D /* ListCell.swift */,
+				4770AD021FF1B470006E755D /* ListCell.xib */,
 			);
-			path = MyList;
+			path = Lists;
 			sourceTree = "<group>";
 		};
 		47EEA3521FF02DDD0030BEF1 = {
@@ -137,11 +140,8 @@
 			children = (
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
 				47EEA3791FF034FD0030BEF1 /* ViewController.swift */,
-				4770ACFD1FF1B108006E755D /* ListDataSource.swift */,
-				4770AD011FF1B470006E755D /* ListCell.swift */,
-				4770AD021FF1B470006E755D /* ListCell.xib */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
-				4770ACF81FF189CD006E755D /* MyList */,
+				4770ACF81FF189CD006E755D /* Lists */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
