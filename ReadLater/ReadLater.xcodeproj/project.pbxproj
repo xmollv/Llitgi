@@ -164,8 +164,8 @@
 				4770AD011FF1B470006E755D /* ListCell.swift */,
 				4770AD021FF1B470006E755D /* ListCell.xib */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
-				4710EF4C1FF3010500D3DCA9 /* Favorites */,
 				4770ACF81FF189CD006E755D /* MyList */,
+				4710EF4C1FF3010500D3DCA9 /* Favorites */,
 				4710EF471FF2FD5800D3DCA9 /* Archive */,
 			);
 			path = ViewControllers;
