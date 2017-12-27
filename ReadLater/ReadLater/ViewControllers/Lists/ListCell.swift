@@ -33,12 +33,12 @@ class ListCell: UITableViewCell, NibLoadableView {
     }
     
     //MARK:- Public methods
-    func configure(with article: Article) {
-        if article.isFavorite {
+    func configure(with item: Item) {
+        if item.isFavorite {
             self.favoriteView.backgroundColor = .black
         }
-        self.titleLabel.text = article.title
-        self.urlLabel.text = article.url.host
+        self.titleLabel.text = item.title
+        self.urlLabel.text = item.url.host
     }
     
 }

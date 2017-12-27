@@ -84,11 +84,11 @@ class ListViewController: ViewController {
         case .archive:
             endpoint = .getArchive
         }
-        self.dataProvider.perform(endpoint: endpoint) { [weak self] (result: Result<[ArticleImplementation]>) in
+        self.dataProvider.perform(endpoint: endpoint) { [weak self] (result: Result<[ItemImplementation]>) in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess(let articles):
-                strongSelf.dataSource.replaceCurrentArticles(with: articles)
+            case .isSuccess(let items):
+                strongSelf.dataSource.replaceCurrentItems(with: items)
                 strongSelf.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             case .isFailure(let error):
                 //TODO: Properly handle the error
@@ -99,7 +99,7 @@ class ListViewController: ViewController {
     }
     
     private func safariViewController(at indexPath: IndexPath) -> SFSafariViewController {
-        let url = self.dataSource.article(at: indexPath).url
+        let url = self.dataSource.item(at: indexPath).url
         let sfs = SFSafariViewController(url: url)
         sfs.preferredControlTintColor = .black
         return sfs

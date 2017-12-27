@@ -11,24 +11,24 @@ import UIKit
 class ListDataSource: NSObject {
     
     //MARK:- Private properties
-    private var list: [Article] = []
+    private var items: [Item] = []
     
     //MARK:- Public methods
-    func article(at indexPath: IndexPath) -> Article {
-        return list[indexPath.row]
+    func item(at indexPath: IndexPath) -> Item {
+        return items[indexPath.row]
     }
     
-    func replaceCurrentArticles(with articles: [Article]) {
-        let sortedArticles = articles.sorted { $0.sortId < $1.sortId }
-        self.list = sortedArticles
+    func replaceCurrentItems(with items: [Item]) {
+        let sortedItems = items.sorted { $0.sortId < $1.sortId }
+        self.items = sortedItems
     }
     
-    func replaceArticle(at indexPath: IndexPath, with article: Article) {
-        self.list[indexPath.row] = article
+    func replaceItem(at indexPath: IndexPath, with item: Item) {
+        self.items[indexPath.row] = item
     }
     
-    func removeArticle(at indexPath: IndexPath) {
-        self.list.remove(at: indexPath.row)
+    func removeItem(at indexPath: IndexPath) {
+        self.items.remove(at: indexPath.row)
     }
     
 }
@@ -36,13 +36,13 @@ class ListDataSource: NSObject {
 //MARK:- UITableViewDataSource
 extension ListDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let article = self.article(at: indexPath)
+        let item = self.item(at: indexPath)
         let cell: ListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-        cell.configure(with: article)
+        cell.configure(with: item)
         return cell
     }
 }

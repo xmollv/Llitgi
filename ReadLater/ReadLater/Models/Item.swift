@@ -1,5 +1,5 @@
 //
-//  Article.swift
+//  Item.swift
 //  ReadLater
 //
 //  Created by Xavi Moll on 25/12/2017.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Article: JSONInitiable {
+protocol Item: JSONInitiable {
     var id: String { get }
     var title: String { get }
     var url: URL { get }
@@ -18,7 +18,7 @@ protocol Article: JSONInitiable {
     mutating func toggleFavoriteLocally()
 }
 
-struct ArticleImplementation: Article {
+struct ItemImplementation: Item {
     
     let id: String
     let title: String
