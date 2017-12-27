@@ -32,11 +32,11 @@ final class ViewControllerFactory {
         let navControllerList = UINavigationController(rootViewController: listViewController)
         
         //Favorites
-        let favoritesViewController: FavoritesViewController = self.instantiate()
+        let favoritesViewController: ListViewController = self.instantiateListViewController(type: .favorites)
         let navControllerFavorites = UINavigationController(rootViewController: favoritesViewController)
         
         //Archive
-        let archiveViewController: ArchiveViewController = self.instantiate()
+        let archiveViewController: ListViewController = self.instantiateListViewController(type: .archive)
         let navControllerArchive = UINavigationController(rootViewController: archiveViewController)
         
         tabBarController.setViewControllers([navControllerList, navControllerFavorites, navControllerArchive], animated: false)

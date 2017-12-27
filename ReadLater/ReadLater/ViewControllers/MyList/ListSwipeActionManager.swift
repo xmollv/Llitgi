@@ -22,9 +22,9 @@ class ListSwipeActionManager {
     }
     
     func buildLeadingActions(at indexPath: IndexPath, from tableView: UITableView) -> [UIContextualAction] {
+        var article = self.dataSource.article(at: indexPath)
         switch self.type {
         case .myList:
-            var article = self.dataSource.article(at: indexPath)
             let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
                 guard let strongSelf = self else { return }
                 
@@ -44,16 +44,44 @@ class ListSwipeActionManager {
             favoriteAction.title = article.isFavorite ? NSLocalizedString("Unfavorite", comment: "") : NSLocalizedString("Favorite", comment: "")
             return [favoriteAction]
         case .favorites:
-            return []
+            let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
+                guard let strongSelf = self else { return }
+                
+                let modification = ItemModification(action: .unfavorite, id: article.id)
+                strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                strongSelf.dataSource.removeArticle(at: indexPath)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                success(true)
+            }
+            favoriteAction.title = article.isFavorite ? NSLocalizedString("Unfavorite", comment: "") : NSLocalizedString("Favorite", comment: "")
+            return [favoriteAction]
         case .archive:
-            return []
+            let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
+                guard let strongSelf = self else { return }
+                
+                let modification: ItemModification
+                if article.isFavorite {
+                    modification = ItemModification(action: .unfavorite, id: article.id)
+                } else {
+                    modification = ItemModification(action: .favorite, id: article.id)
+                }
+                
+                strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                article.toggleFavoriteLocally()
+                strongSelf.dataSource.replaceArticle(at: indexPath, with: article)
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+                success(true)
+            }
+            favoriteAction.title = article.isFavorite ? NSLocalizedString("Unfavorite", comment: "") : NSLocalizedString("Favorite", comment: "")
+            // Also add the option to readd
+            return [favoriteAction]
         }
     }
     
     func buildTrailingActions(at indexPath: IndexPath, from tableView: UITableView) -> [UIContextualAction] {
+        let article = self.dataSource.article(at: indexPath)
         switch self.type {
         case .myList:
-            let article = self.dataSource.article(at: indexPath)
             let archiveAction = UIContextualAction(style: .normal, title: NSLocalizedString("Archive", comment: "")) { [weak self] (action, view, success) in
                 guard let strongSelf = self else { return }
                 let modification = ItemModification(action: .archive, id: article.id)
@@ -66,7 +94,24 @@ class ListSwipeActionManager {
         case .favorites:
             return []
         case .archive:
-            return []
+            let unarchiveAction = UIContextualAction(style: .normal, title: NSLocalizedString("Unarchive", comment: "")) { [weak self] (action, view, success) in
+                guard let strongSelf = self else { return }
+                let modification = ItemModification(action: .readd, id: article.id)
+                strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                strongSelf.dataSource.removeArticle(at: indexPath)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                success(true)
+            }
+            
+            let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("Delete", comment: "")) { [weak self] (action, view, success) in
+                guard let strongSelf = self else { return }
+                let modification = ItemModification(action: .delete, id: article.id)
+                strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                strongSelf.dataSource.removeArticle(at: indexPath)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                success(true)
+            }
+            return [unarchiveAction, deleteAction]
         }
     }
 }
