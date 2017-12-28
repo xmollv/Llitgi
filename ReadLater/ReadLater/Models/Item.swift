@@ -9,74 +9,58 @@
 import Foundation
 import CoreData
 
-protocol Item: JSONInitiable {
+protocol Item {
     var id: String { get }
     var title: String { get }
     var url: URL { get }
     var sortId: Int { get }
-    var isFavorite: Bool { get }
-    
-    mutating func toggleFavoriteLocally()
+    var isFavorite: Bool { get set }
 }
 
 @objc(CoreDataItem)
-final class CoreDataItem: NSManagedObject, CoreDataManaged {
+final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     
-    var id: String = ""
+    //MARK:- Private properties
+    @NSManaged private var id_: String
+    @NSManaged private var title_: String
+    @NSManaged private var url_: String
+    @NSManaged private var sortId_: Int64
+    @NSManaged private var isFavorite_: Bool
     
-    func update(with json: JSONDictionary, on: NSManagedObjectContext) -> CoreDataManaged? {
-//        guard let sortId = json["sort_id"] as? Int,
-//        let urlAsString = (json["resolved_url"] as? String) ?? (json["given_url"] as? String),
-//        let url = URL(string: urlAsString),
-//        let isFavoriteString = json["favorite"] as? String else {
-//            return nil
-//        }
-//
-//        if let pocketTitle = (json["resolved_title"] as? String) ?? (json["given_title"] as? String), pocketTitle != "" {
-//            self.title = pocketTitle
-//        } else {
-//            self.title = NSLocalizedString("Unknown Title", comment: "")
-//        }
-//
-//        self.url = url
-//        self.sortId = sortId
-//        self.isFavorite = (isFavoriteString == "0") ? false : true
-        return nil
+    //MARK:- Public properties
+    var id: String {
+        get { return self.id_ }
+        set { self.id_ = newValue }
+    }
+    var title: String { return self.title_ }
+    var url: URL { return URL(string: self.url_)! } //TODO: Bang operator here, but without a URL, the app is pointless...
+    var sortId: Int { return Int(self.sortId_) }
+    var isFavorite: Bool {
+        get { return self.isFavorite_ }
+        set {
+            //TODO: Do the core data dance to update and save the context
+            self.isFavorite_ = newValue
+        }
     }
     
-}
-
-struct ItemImplementation: Item {
-    
-    let id: String
-    let title: String
-    let url: URL
-    let sortId: Int
-    var isFavorite: Bool
-    
-    init?(dict: JSONDictionary) {
-        guard let id = dict["item_id"] as? String,
-        let sortId = dict["sort_id"] as? Int,
-        let urlAsString = (dict["resolved_url"] as? String) ?? (dict["given_url"] as? String),
-        let url = URL(string: urlAsString),
-        let isFavoriteString = dict["favorite"] as? String else {
-            return nil
+    //MARK:- CoreDataManaged conformance
+    func update<T: Managed>(with json: JSONDictionary, on: NSManagedObjectContext) -> T? {
+        guard let sortId = json["sort_id"] as? Int,
+            let urlAsString = (json["resolved_url"] as? String) ?? (json["given_url"] as? String),
+            let isFavoriteString = json["favorite"] as? String else {
+                return nil
         }
-
-        self.id = id
         
-        if let pocketTitle = (dict["resolved_title"] as? String) ?? (dict["given_title"] as? String), pocketTitle != "" {
-            self.title = pocketTitle
+        if let pocketTitle = (json["resolved_title"] as? String) ?? (json["given_title"] as? String), pocketTitle != "" {
+            self.title_ = pocketTitle
         } else {
-            self.title = NSLocalizedString("Unknown Title", comment: "")
+            self.title_ = NSLocalizedString("Unknown Title", comment: "")
         }
         
-        self.url = url
-        self.sortId = sortId
-        self.isFavorite = (isFavoriteString == "0") ? false : true
+        self.url_ = urlAsString
+        self.sortId_ = Int64(sortId)
+        self.isFavorite_ = (isFavoriteString == "0") ? false : true
+        return self as? T
     }
     
-    mutating func toggleFavoriteLocally() {
-        self.isFavorite = self.isFavorite ? false : true
-    }
 }

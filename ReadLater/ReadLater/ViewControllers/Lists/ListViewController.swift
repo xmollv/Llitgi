@@ -84,7 +84,7 @@ class ListViewController: ViewController {
         case .archive:
             endpoint = .getArchive
         }
-        self.dataProvider.perform(endpoint: endpoint) { [weak self] (result: Result<[ItemImplementation]>) in
+        self.dataProvider.perform(endpoint: endpoint) { [weak self] (result: Result<[CoreDataItem]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess(let items):

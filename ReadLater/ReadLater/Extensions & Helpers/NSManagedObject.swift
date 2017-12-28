@@ -22,8 +22,7 @@ extension NSManagedObject {
     
     fileprivate static func fetch<T: Managed>(with id: String, in context: NSManagedObjectContext) -> T? {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
-        let predicate = NSPredicate(format: "id_ == %@", argumentArray: [id])
-        request.predicate = predicate
+        request.predicate = NSPredicate(format: "id_ == %@", argumentArray: [id])
         //TODO: Add sort descriptors
         var fetchedElement: T?
         context.performAndWait {

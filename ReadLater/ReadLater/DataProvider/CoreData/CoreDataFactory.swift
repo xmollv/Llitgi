@@ -9,13 +9,6 @@
 import Foundation
 import CoreData
 
-typealias Managed = NSManagedObject & CoreDataManaged
-
-protocol CoreDataManaged: class {
-    var id: String { get set }
-    func update(with: JSONDictionary, on: NSManagedObjectContext) -> CoreDataManaged?
-}
-
 protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
 }
@@ -72,7 +65,10 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     private func build<T: Managed>(json: JSONDictionary, in context: NSManagedObjectContext, shouldSave: Bool = false) -> T? {
         let object: T? = T.fetchOrCreate(with: json, in: context)
-        object?.update(with: json, on: context)
-        return object
+        guard let updatedObject: T = object?.update(with: json, on: context) else {
+            //TODO: Delete the failed updated object
+            return nil
+        }
+        return updatedObject
     }
 }

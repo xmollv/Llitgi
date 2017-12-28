@@ -36,7 +36,7 @@ class ListSwipeActionManager {
                 }
                 
                 strongSelf.dataProvider.perform(endpoint: .modify(modification))
-                item.toggleFavoriteLocally()
+                item.isFavorite = !item.isFavorite
                 strongSelf.dataSource.replaceItem(at: indexPath, with: item)
                 tableView.reloadRows(at: [indexPath], with: .automatic)
                 success(true)
@@ -67,7 +67,7 @@ class ListSwipeActionManager {
                 }
                 
                 strongSelf.dataProvider.perform(endpoint: .modify(modification))
-                item.toggleFavoriteLocally()
+                item.isFavorite = !item.isFavorite
                 strongSelf.dataSource.replaceItem(at: indexPath, with: item)
                 tableView.reloadRows(at: [indexPath], with: .automatic)
                 success(true)
