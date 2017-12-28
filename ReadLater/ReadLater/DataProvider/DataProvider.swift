@@ -15,6 +15,7 @@ protocol JSONInitiable {
 final class DataProvider {
     
     private let pocketAPI: PocketAPIManager
+    private let modelFactory: CoreDataFactory
     
     var urlForPocketOAuthApp: URL? {
         get {
@@ -28,8 +29,9 @@ final class DataProvider {
         }
     }
     
-    init(pocketAPI: PocketAPIManager) {
+    init(pocketAPI: PocketAPIManager, modelFactory: CoreDataFactory) {
         self.pocketAPI = pocketAPI
+        self.modelFactory = modelFactory
     }
     
     func perform<T: JSONInitiable>(endpoint: PocketAPIEndpoint,
@@ -41,6 +43,24 @@ final class DataProvider {
                 let builtElements = json.flatMap{ T(dict: $0) }
                 resultQueue.async {
                     then(Result.isSuccess(builtElements))
+                }
+            case .isFailure(let error):
+                resultQueue.async {
+                    then(Result.isFailure(error))
+                }
+            }
+        }
+    }
+    
+    func perform<T: Managed>(endpoint: PocketAPIEndpoint,
+                                   on resultQueue: DispatchQueue = DispatchQueue.main,
+                                   then: @escaping Completion<[T]>) {
+        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in
+            switch result {
+            case .isSuccess(let json):
+                let elements: [T] = self.modelFactory.build(jsonArray: json)
+                resultQueue.async {
+                    then(Result.isSuccess(elements))
                 }
             case .isFailure(let error):
                 resultQueue.async {

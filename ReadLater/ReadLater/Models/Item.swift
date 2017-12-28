@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 protocol Item: JSONInitiable {
     var id: String { get }
@@ -16,6 +17,33 @@ protocol Item: JSONInitiable {
     var isFavorite: Bool { get }
     
     mutating func toggleFavoriteLocally()
+}
+
+@objc(CoreDataItem)
+final class CoreDataItem: NSManagedObject, CoreDataManaged {
+    
+    var id: String = ""
+    
+    func update(with json: JSONDictionary, on: NSManagedObjectContext) -> CoreDataManaged? {
+//        guard let sortId = json["sort_id"] as? Int,
+//        let urlAsString = (json["resolved_url"] as? String) ?? (json["given_url"] as? String),
+//        let url = URL(string: urlAsString),
+//        let isFavoriteString = json["favorite"] as? String else {
+//            return nil
+//        }
+//
+//        if let pocketTitle = (json["resolved_title"] as? String) ?? (json["given_title"] as? String), pocketTitle != "" {
+//            self.title = pocketTitle
+//        } else {
+//            self.title = NSLocalizedString("Unknown Title", comment: "")
+//        }
+//
+//        self.url = url
+//        self.sortId = sortId
+//        self.isFavorite = (isFavoriteString == "0") ? false : true
+        return nil
+    }
+    
 }
 
 struct ItemImplementation: Item {
