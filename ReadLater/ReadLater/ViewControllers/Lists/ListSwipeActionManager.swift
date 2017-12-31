@@ -73,13 +73,14 @@ class ListSwipeActionManager {
     }
     
     func buildTrailingActions(at indexPath: IndexPath, from tableView: UITableView) -> [UIContextualAction] {
-        guard let item = self.dataSource?.item(at: indexPath) else { return [] }
+        guard var item = self.dataSource?.item(at: indexPath) else { return [] }
         switch self.type {
         case .myList:
             let archiveAction = UIContextualAction(style: .normal, title: NSLocalizedString("Archive", comment: "")) { [weak self] (action, view, success) in
                 guard let strongSelf = self else { return }
                 let modification = ItemModification(action: .archive, id: item.id)
                 strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                item.status = "1"
                 success(true)
             }
             return [archiveAction]
@@ -90,6 +91,7 @@ class ListSwipeActionManager {
                 guard let strongSelf = self else { return }
                 let modification = ItemModification(action: .readd, id: item.id)
                 strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                item.status = "0"
                 success(true)
             }
             
@@ -97,6 +99,7 @@ class ListSwipeActionManager {
                 guard let strongSelf = self else { return }
                 let modification = ItemModification(action: .delete, id: item.id)
                 strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                item.status = "2"
                 success(true)
             }
             return [unarchiveAction, deleteAction]

@@ -15,6 +15,7 @@ protocol Item {
     var url: URL { get }
     var timeAdded: String { get }
     var isFavorite: Bool { get set }
+    var status: String { get set }
 }
 
 @objc(CoreDataItem)
@@ -24,9 +25,9 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     @NSManaged private var id_: String
     @NSManaged private var title_: String
     @NSManaged private var url_: String
-    @NSManaged private var status_: String
     @NSManaged private var timeAdded_: String
     @NSManaged private var isFavorite_: Bool
+    @NSManaged private var status_: String
     
     //MARK:- Public properties
     var id: String {
@@ -35,8 +36,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     }
     var title: String { return self.title_ }
     var url: URL { return URL(string: self.url_)! }
-    var status: String { return self.status_ }
-    var timeAdded: String { return self.status }
+    var timeAdded: String { return self.timeAdded_ }
     var isFavorite: Bool {
         get { return self.isFavorite_ }
         set {
@@ -46,7 +46,21 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
                 do {
                     try context.save()
                 } catch {
-                    Logger.log("Unable to save the context when flipping the switch for the check in bags.", event: .error)
+                    Logger.log("Unable to save the context when changing the favorite status.", event: .error)
+                }
+            }
+        }
+    }
+    var status: String {
+        get { return self.status_ }
+        set {
+            guard let context = self.managedObjectContext else { return }
+            self.status_ = newValue
+            context.performAndWait {
+                do {
+                    try context.save()
+                } catch {
+                    Logger.log("Unable to save the context when changing the archive/unarchive status.", event: .error)
                 }
             }
         }
