@@ -47,6 +47,7 @@ class ListSwipeActionManager {
                 
                 let modification = ItemModification(action: .unfavorite, id: item.id)
                 strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                item.isFavorite = !item.isFavorite
                 success(true)
             }
             favoriteAction.title = item.isFavorite ? NSLocalizedString("Unfavorite", comment: "") : NSLocalizedString("Favorite", comment: "")

@@ -3,13 +3,12 @@
     <entity name="CoreDataItem" representedClassName="CoreDataItem" syncable="YES">
         <attribute name="id_" attributeType="String" syncable="YES"/>
         <attribute name="isFavorite_" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="sortId_" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="status_" attributeType="String" syncable="YES"/>
         <attribute name="timeAdded_" attributeType="String" syncable="YES"/>
         <attribute name="title_" attributeType="String" syncable="YES"/>
         <attribute name="url_" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CoreDataItem" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="CoreDataItem" positionX="-63" positionY="-18" width="128" height="135"/>
     </elements>
 </model>

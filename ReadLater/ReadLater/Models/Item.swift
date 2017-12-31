@@ -13,9 +13,8 @@ protocol Item {
     var id: String { get }
     var title: String { get }
     var url: URL { get }
-    var sortId: Int { get }
-    var isFavorite: Bool { get set }
     var timeAdded: String { get }
+    var isFavorite: Bool { get set }
 }
 
 @objc(CoreDataItem)
@@ -25,10 +24,9 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     @NSManaged private var id_: String
     @NSManaged private var title_: String
     @NSManaged private var url_: String
-    @NSManaged private var sortId_: Int64
-    @NSManaged private var isFavorite_: Bool
     @NSManaged private var status_: String
     @NSManaged private var timeAdded_: String
+    @NSManaged private var isFavorite_: Bool
     
     //MARK:- Public properties
     var id: String {
@@ -37,21 +35,26 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     }
     var title: String { return self.title_ }
     var url: URL { return URL(string: self.url_)! }
-    var sortId: Int { return Int(self.sortId_) }
+    var status: String { return self.status_ }
+    var timeAdded: String { return self.status }
     var isFavorite: Bool {
         get { return self.isFavorite_ }
         set {
-            //TODO: Do the core data dance to update and save the context
+            guard let context = self.managedObjectContext else { return }
             self.isFavorite_ = newValue
+            context.performAndWait {
+                do {
+                    try context.save()
+                } catch {
+                    Logger.log("Unable to save the context when flipping the switch for the check in bags.", event: .error)
+                }
+            }
         }
     }
-    var status: String { return self.status_ }
-    var timeAdded: String { return self.status }
     
     //MARK:- CoreDataManaged conformance
     func update<T: Managed>(with json: JSONDictionary, on: NSManagedObjectContext) -> T? {
-        guard let sortId = json["sort_id"] as? Int,
-            let urlAsString = (json["resolved_url"] as? String) ?? (json["given_url"] as? String),
+        guard let urlAsString = (json["resolved_url"] as? String) ?? (json["given_url"] as? String),
             let isFavoriteString = json["favorite"] as? String,
             let status = json["status"] as? String,
             let timeAdded = json["time_added"] as? String else {
@@ -66,10 +69,9 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         }
         
         self.url_ = urlAsString
-        self.sortId_ = Int64(sortId)
-        self.isFavorite_ = (isFavoriteString == "0") ? false : true
         self.status_ = status
         self.timeAdded_ = timeAdded
+        self.isFavorite_ = (isFavoriteString == "0") ? false : true
         return self as? T
     }
 }
