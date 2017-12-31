@@ -14,6 +14,7 @@ extension NSManagedObject {
     static func fetchOrCreate<T: Managed>(with json: JSONDictionary, in context: NSManagedObjectContext) -> T? {
         guard let id = json["item_id"] as? String else { return nil }
         if let fetchedElement: T = T.fetch(with: id, in: context) {
+            Logger.log("Fetched: \(fetchedElement.id)")
             return fetchedElement
         } else {
             return T.create(with: id, in: context)
@@ -23,7 +24,6 @@ extension NSManagedObject {
     fileprivate static func fetch<T: Managed>(with id: String, in context: NSManagedObjectContext) -> T? {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
         request.predicate = NSPredicate(format: "id_ == %@", argumentArray: [id])
-        //TODO: Add sort descriptors
         var fetchedElement: T?
         context.performAndWait {
             do {
@@ -42,6 +42,7 @@ extension NSManagedObject {
         }
         let object = T.init(entity: entity, insertInto: context)
         object.id = id
+        Logger.log("Created: \(object.id)")
         return object
     }
 }

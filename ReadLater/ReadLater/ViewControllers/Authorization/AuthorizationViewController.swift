@@ -50,7 +50,7 @@ class AuthorizationViewController: ViewController {
                 }
                 
             case .isFailure(let error):
-                dump(error)
+                Logger.log("Error: \(error)", event: .error)
             }
         }
     }
@@ -75,7 +75,7 @@ class AuthorizationViewController: ViewController {
                 guard let tabBarController = strongSelf.tabBarController else { return }
                 strongSelf.factory.establishViewControllers(on: tabBarController)
             case .isFailure(let error):
-                dump(error)
+                Logger.log("Error: \(error)", event: .error)
             }
         }
     }

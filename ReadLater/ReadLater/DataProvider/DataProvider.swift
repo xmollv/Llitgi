@@ -53,6 +53,10 @@ final class DataProvider {
         }
     }
     
+    func notifier(for type: TypeOfList) -> CoreDataNotifier {
+        return self.modelFactory.notifier(for: type)
+    }
+    
     /// Performs a network request based on the endpoint and returns a memory only object.
     func performInMemory<T: JSONInitiable>(endpoint: PocketAPIEndpoint,
                                    on resultQueue: DispatchQueue = DispatchQueue.main,

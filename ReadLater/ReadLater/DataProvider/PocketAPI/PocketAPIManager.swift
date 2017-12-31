@@ -110,20 +110,21 @@ final class PocketAPIManager {
         case .authorize:
             guard let authCode = self.apiConfig.authCode else { break }
             payload["code"] = authCode
+        case .getList:
+            guard let token = self.apiConfig.accessToken else { break }
+            payload["access_token"] = token
+            payload["sort"] = "newest"
         case .getFavorites:
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
             payload["sort"] = "newest"
             payload["favorite"] = "1"
-        case .getList:
-            guard let token = self.apiConfig.accessToken else { break }
-            payload["access_token"] = token
-            payload["sort"] = "newest"
         case .getArchive:
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
             payload["sort"] = "newest"
             payload["state"] = "archive"
+            payload["count"] = "50" //TODO: Fix this, we should allow for pagination
         case .modify(let typeOfModification):
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token

@@ -22,7 +22,7 @@ class ListViewController: ViewController {
     
     //MARK: Private properties
     private let typeOfList: TypeOfList
-    private let dataSource: ListDataSource
+    private var dataSource: ListDataSource?
     private var swipeActionManager: ListSwipeActionManager?
     
     private lazy var refreshControl: UIRefreshControl = {
@@ -34,9 +34,7 @@ class ListViewController: ViewController {
     //MARK:- Lifecycle
     required init(factory: ViewControllerFactory, dataProvider: DataProvider, type: TypeOfList) {
         self.typeOfList = type
-        self.dataSource = ListDataSource()
         super.init(factory: factory, dataProvider: dataProvider)
-        self.swipeActionManager = ListSwipeActionManager(list: type, dataSource: self.dataSource, dataProvider: self.dataProvider)
     }
     
     @available(*, unavailable)
@@ -67,6 +65,8 @@ class ListViewController: ViewController {
     }
     
     private func configureTableView() {
+        self.dataSource = ListDataSource(tableView: self.tableView, notifier: self.dataProvider.notifier(for: self.typeOfList))
+        self.swipeActionManager = ListSwipeActionManager(list: self.typeOfList, dataSource: self.dataSource, dataProvider: self.dataProvider)
         self.tableView.register(ListCell.self)
         self.tableView.delegate = self
         self.tableView.dataSource = self.dataSource
@@ -87,19 +87,17 @@ class ListViewController: ViewController {
         self.dataProvider.perform(endpoint: endpoint) { [weak self] (result: Result<[CoreDataItem]>) in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess(let items):
-                strongSelf.dataSource.replaceCurrentItems(with: items)
-                strongSelf.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+            case .isSuccess:
+                Logger.log("Succes on: \(strongSelf.typeOfList)")
             case .isFailure(let error):
-                //TODO: Properly handle the error
-                debugPrint(error)
+                Logger.log("Error on: \(strongSelf.typeOfList).\n\n Error: \(error)", event: .error)
             }
             strongSelf.refreshControl.endRefreshing()
         }
     }
     
-    private func safariViewController(at indexPath: IndexPath) -> SFSafariViewController {
-        let url = self.dataSource.item(at: indexPath).url
+    private func safariViewController(at indexPath: IndexPath) -> SFSafariViewController? {
+        guard let url = self.dataSource?.item(at: indexPath)?.url else { return nil }
         let sfs = SFSafariViewController(url: url)
         sfs.preferredControlTintColor = .black
         return sfs
@@ -110,7 +108,7 @@ class ListViewController: ViewController {
 //MARK:- UITableViewDelegate
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let sfs = self.safariViewController(at: indexPath)
+        guard let sfs = self.safariViewController(at: indexPath) else { return }
         self.present(sfs, animated: true, completion: nil)
     }
     

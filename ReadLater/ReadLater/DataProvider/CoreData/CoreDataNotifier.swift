@@ -25,13 +25,13 @@ class CoreDataNotifier: NSObject {
     typealias PersistanceChangeObject = (PersistanceChange) -> Void
     
     //MARK:- Private properties
-    private let fetchResultController: NSFetchedResultsController<NSFetchRequestResult>
+    private let fetchResultController: NSFetchedResultsController<CoreDataItem>
     private var willChangeClosure: PersistanceWillChange?
     private var didChangeClosure: PersistanceDidChange?
     private var changeObjectClosure: PersistanceChangeObject?
     
     //MARK:- Lifecycle
-    init(fetchResultController: NSFetchedResultsController<NSFetchRequestResult>) {
+    init(fetchResultController: NSFetchedResultsController<CoreDataItem>) {
         self.fetchResultController = fetchResultController
         super.init()
         self.fetchResultController.delegate = self

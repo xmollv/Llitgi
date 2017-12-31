@@ -13,5 +13,6 @@ typealias Managed = NSManagedObject & CoreDataManaged
 
 protocol CoreDataManaged: class {
     var id: String { get set }
+    var status: String { get }
     func update<T: Managed>(with: JSONDictionary, on: NSManagedObjectContext) -> T?
 }

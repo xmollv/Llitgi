@@ -26,6 +26,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     @NSManaged private var url_: String
     @NSManaged private var sortId_: Int64
     @NSManaged private var isFavorite_: Bool
+    @NSManaged private var status_: String
     
     //MARK:- Public properties
     var id: String {
@@ -42,12 +43,14 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
             self.isFavorite_ = newValue
         }
     }
+    var status: String { return self.status_ }
     
     //MARK:- CoreDataManaged conformance
     func update<T: Managed>(with json: JSONDictionary, on: NSManagedObjectContext) -> T? {
         guard let sortId = json["sort_id"] as? Int,
             let urlAsString = (json["resolved_url"] as? String) ?? (json["given_url"] as? String),
-            let isFavoriteString = json["favorite"] as? String else {
+            let isFavoriteString = json["favorite"] as? String,
+            let status = json["status"] as? String else {
                 return nil
         }
         
@@ -60,6 +63,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         self.url_ = urlAsString
         self.sortId_ = Int64(sortId)
         self.isFavorite_ = (isFavoriteString == "0") ? false : true
+        self.status_ = status
         return self as? T
     }
     
