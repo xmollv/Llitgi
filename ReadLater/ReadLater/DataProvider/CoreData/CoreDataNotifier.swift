@@ -65,8 +65,14 @@ class CoreDataNotifier: NSObject {
     //MARK:- Public helper methods
     func numberOfObjects(on section: Int) -> Int {
         let numberOfSections = self.fetchResultController.sections?.count ?? 0
-        guard section < numberOfSections else { return 0 }
-        guard let section = self.fetchResultController.sections?[section] else { return 0 }
+        guard section < numberOfSections else {
+            Logger.log("Section is smaller than the number of sectionsof the FRC", event: .warning)
+            return 0
+        }
+        guard let section = self.fetchResultController.sections?[section] else {
+            Logger.log("Unable to grab the section from the FRC sections", event: .warning)
+            return 0
+        }
         return section.objects?.count ?? 0
     }
     

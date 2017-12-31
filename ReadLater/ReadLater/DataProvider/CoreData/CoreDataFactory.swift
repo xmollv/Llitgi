@@ -92,11 +92,11 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         var predicate: NSPredicate?
         switch type {
         case .myList:
-            predicate = NSPredicate(format: "status_ == 0")
+            predicate = NSPredicate(format: "status_ == '0'")
         case .favorites:
-            predicate = NSPredicate(format: "isFavorite_ == 1")
+            predicate = NSPredicate(format: "isFavorite_ == true")
         case .archive:
-            predicate = NSPredicate(format: "status_ == 1")
+            predicate = NSPredicate(format: "status_ == '1'")
         }
         request.predicate = predicate
         

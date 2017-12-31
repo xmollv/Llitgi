@@ -19,7 +19,7 @@ protocol Item {
 
 @objc(CoreDataItem)
 final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
-    
+   
     //MARK:- Private properties
     @NSManaged private var id_: String
     @NSManaged private var title_: String
@@ -34,7 +34,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         set { self.id_ = newValue }
     }
     var title: String { return self.title_ }
-    var url: URL { return URL(string: self.url_)! } //TODO: Bang operator here, but without a URL, the app is pointless...
+    var url: URL { return URL(string: self.url_)! }
     var sortId: Int { return Int(self.sortId_) }
     var isFavorite: Bool {
         get { return self.isFavorite_ }
@@ -51,6 +51,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
             let urlAsString = (json["resolved_url"] as? String) ?? (json["given_url"] as? String),
             let isFavoriteString = json["favorite"] as? String,
             let status = json["status"] as? String else {
+                Logger.log("Unable to update the CoreDataItem with ID: \(self.id).", event: .error)
                 return nil
         }
         
@@ -66,5 +67,4 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         self.status_ = status
         return self as? T
     }
-    
 }
