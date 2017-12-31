@@ -87,7 +87,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     func notifier(for type: TypeOfList) -> CoreDataNotifier {
         let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        request.sortDescriptors = [NSSortDescriptor(key: "sortId_", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "timeAdded_", ascending: false)]
         
         var predicate: NSPredicate?
         switch type {

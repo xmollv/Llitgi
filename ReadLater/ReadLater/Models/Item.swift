@@ -15,11 +15,12 @@ protocol Item {
     var url: URL { get }
     var sortId: Int { get }
     var isFavorite: Bool { get set }
+    var timeAdded: String { get }
 }
 
 @objc(CoreDataItem)
 final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
-   
+    
     //MARK:- Private properties
     @NSManaged private var id_: String
     @NSManaged private var title_: String
@@ -27,6 +28,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     @NSManaged private var sortId_: Int64
     @NSManaged private var isFavorite_: Bool
     @NSManaged private var status_: String
+    @NSManaged private var timeAdded_: String
     
     //MARK:- Public properties
     var id: String {
@@ -44,13 +46,15 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         }
     }
     var status: String { return self.status_ }
+    var timeAdded: String { return self.status }
     
     //MARK:- CoreDataManaged conformance
     func update<T: Managed>(with json: JSONDictionary, on: NSManagedObjectContext) -> T? {
         guard let sortId = json["sort_id"] as? Int,
             let urlAsString = (json["resolved_url"] as? String) ?? (json["given_url"] as? String),
             let isFavoriteString = json["favorite"] as? String,
-            let status = json["status"] as? String else {
+            let status = json["status"] as? String,
+            let timeAdded = json["time_added"] as? String else {
                 Logger.log("Unable to update the CoreDataItem with ID: \(self.id).", event: .error)
                 return nil
         }
@@ -65,6 +69,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         self.sortId_ = Int64(sortId)
         self.isFavorite_ = (isFavoriteString == "0") ? false : true
         self.status_ = status
+        self.timeAdded_ = timeAdded
         return self as? T
     }
 }

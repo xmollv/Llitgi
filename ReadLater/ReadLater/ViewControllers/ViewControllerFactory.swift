@@ -39,7 +39,7 @@ final class ViewControllerFactory {
         let archiveViewController: ListViewController = self.instantiateListViewController(type: .archive)
         let navControllerArchive = UINavigationController(rootViewController: archiveViewController)
         
-        tabBarController.setViewControllers([navControllerList, navControllerFavorites/*, navControllerArchive*/], animated: false)
+        tabBarController.setViewControllers([navControllerList, navControllerFavorites, navControllerArchive], animated: false)
         //In case that it was hidden by the auth, we make sure that it's not hidden
         tabBarController.tabBar.isHidden = false
         //Force all view controllers to be loaded
