@@ -15,6 +15,7 @@ protocol JSONInitiable {
 final class DataProvider {
     
     private let pocketAPI: PocketAPIManager
+    private let modelFactory: CoreDataFactory
     
     var urlForPocketOAuthApp: URL? {
         get {
@@ -28,11 +29,36 @@ final class DataProvider {
         }
     }
     
-    init(pocketAPI: PocketAPIManager) {
+    init(pocketAPI: PocketAPIManager, modelFactory: CoreDataFactory) {
         self.pocketAPI = pocketAPI
+        self.modelFactory = modelFactory
     }
     
-    func perform<T: JSONInitiable>(endpoint: PocketAPIEndpoint,
+    /// Performs a network request based on the endpoint, and builds the objects that the API returned
+    func perform<T: Managed>(endpoint: PocketAPIEndpoint,
+                             on resultQueue: DispatchQueue = DispatchQueue.main,
+                             then: @escaping Completion<[T]>) {
+        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in
+            switch result {
+            case .isSuccess(let json):
+                let elements: [T] = self.modelFactory.build(jsonArray: json)
+                resultQueue.async {
+                    then(Result.isSuccess(elements))
+                }
+            case .isFailure(let error):
+                resultQueue.async {
+                    then(Result.isFailure(error))
+                }
+            }
+        }
+    }
+    
+    func notifier(for type: TypeOfList) -> CoreDataNotifier {
+        return self.modelFactory.notifier(for: type)
+    }
+    
+    /// Performs a network request based on the endpoint and returns a memory only object.
+    func performInMemory<T: JSONInitiable>(endpoint: PocketAPIEndpoint,
                                    on resultQueue: DispatchQueue = DispatchQueue.main,
                                    then: @escaping Completion<[T]>) {
         self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in

@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */; };
 		4710EF521FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */; };
+		4710EF561FF4338A00D3DCA9 /* CoreDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */; };
+		4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF571FF44E5100D3DCA9 /* CoreDataNotifier.swift */; };
+		4710EF5B1FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF591FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld */; };
+		4710EF5F1FF50F6A00D3DCA9 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */; };
+		4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF601FF51D8500D3DCA9 /* Managed.swift */; };
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		47376DE71FF0831600B8E70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Item.swift */; };
 		4770ACF51FF111A9006E755D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF41FF111A9006E755D /* UIView.swift */; };
@@ -37,6 +42,11 @@
 /* Begin PBXFileReference section */
 		4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIModification.swift; sourceTree = "<group>"; };
 		4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSwipeActionManager.swift; sourceTree = "<group>"; };
+		4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFactory.swift; sourceTree = "<group>"; };
+		4710EF571FF44E5100D3DCA9 /* CoreDataNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataNotifier.swift; sourceTree = "<group>"; };
+		4710EF5A1FF451C500D3DCA9 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
+		4710EF601FF51D8500D3DCA9 /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47376DE61FF0831600B8E70C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		4770ACF41FF111A9006E755D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -75,9 +85,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4710EF541FF4333600D3DCA9 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */,
+				4710EF571FF44E5100D3DCA9 /* CoreDataNotifier.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		47376DE51FF082F800B8E70C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4710EF591FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld */,
+				4710EF601FF51D8500D3DCA9 /* Managed.swift */,
 				47376DE61FF0831600B8E70C /* Item.swift */,
 			);
 			path = Models;
@@ -159,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				47EEA3821FF037D40030BEF1 /* DataProvider.swift */,
+				4710EF541FF4333600D3DCA9 /* CoreData */,
 				47EEA3811FF037C90030BEF1 /* PocketAPI */,
 			);
 			path = DataProvider;
@@ -184,6 +206,7 @@
 				4770ACF41FF111A9006E755D /* UIView.swift */,
 				4770ACF61FF17AFD006E755D /* Notification.swift */,
 				4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */,
+				4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */,
 			);
 			path = "Extensions & Helpers";
 			sourceTree = "<group>";
@@ -283,17 +306,22 @@
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
 				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,
 				47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */,
+				4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */,
 				47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */,
 				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
 				4770ACFE1FF1B108006E755D /* ListDataSource.swift in Sources */,
 				4710EF521FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift in Sources */,
+				4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */,
 				47EEA37A1FF034FD0030BEF1 /* ViewController.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */,
 				47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */,
+				4710EF5F1FF50F6A00D3DCA9 /* NSManagedObject.swift in Sources */,
 				4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */,
 				47376DE71FF0831600B8E70C /* Item.swift in Sources */,
+				4710EF561FF4338A00D3DCA9 /* CoreDataFactory.swift in Sources */,
 				4770ACF71FF17AFD006E755D /* Notification.swift in Sources */,
+				4710EF5B1FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld in Sources */,
 				47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
 				4770AD031FF1B470006E755D /* ListCell.swift in Sources */,
@@ -477,6 +505,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4710EF591FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4710EF5A1FF451C500D3DCA9 /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 4710EF5A1FF451C500D3DCA9 /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 47EEA3531FF02DDD0030BEF1 /* Project object */;
 }

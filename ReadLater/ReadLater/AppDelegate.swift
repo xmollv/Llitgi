@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Initialization of dependencies
         let pocketAPI = PocketAPIManager()
-        let dataProvider = DataProvider(pocketAPI: pocketAPI)
+        let modelFactory = CoreDataFactoryImplementation()
+        let dataProvider = DataProvider(pocketAPI: pocketAPI, modelFactory: modelFactory)
         let viewControllerFactory = ViewControllerFactory(dataProvider: dataProvider)
         
         // Establishing the window and rootViewController

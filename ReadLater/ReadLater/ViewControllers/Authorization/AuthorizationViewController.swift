@@ -29,7 +29,7 @@ class AuthorizationViewController: ViewController {
     @IBAction private func actionButtonTapped(_ sender: UIButton) {
         sender.isEnabled = false
         // Step 1. Grab the token to initiate the OAuth steps
-        self.dataProvider.perform(endpoint: .requestToken) { [weak self] (result: Result<[RequestTokenResponse]>) in
+        self.dataProvider.performInMemory(endpoint: .requestToken) { [weak self] (result: Result<[RequestTokenResponse]>) in
             sender.isEnabled = true
             guard let strongSelf = self else { return }
             switch result {
@@ -50,7 +50,7 @@ class AuthorizationViewController: ViewController {
                 }
                 
             case .isFailure(let error):
-                dump(error)
+                Logger.log("Error: \(error)", event: .error)
             }
         }
     }
@@ -63,7 +63,7 @@ class AuthorizationViewController: ViewController {
     
     //Step 3. Verify the code against the API once the user has finished the OAuth flow
     @objc private func verifyCodeAndGetToken() {
-        self.dataProvider.perform(endpoint: .authorize) { [weak self] (result: Result<[AuthorizeTokenResponse]>) in
+        self.dataProvider.performInMemory(endpoint: .authorize) { [weak self] (result: Result<[AuthorizeTokenResponse]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess(let tokenResponse):
@@ -75,7 +75,7 @@ class AuthorizationViewController: ViewController {
                 guard let tabBarController = strongSelf.tabBarController else { return }
                 strongSelf.factory.establishViewControllers(on: tabBarController)
             case .isFailure(let error):
-                dump(error)
+                Logger.log("Error: \(error)", event: .error)
             }
         }
     }

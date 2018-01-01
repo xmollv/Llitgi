@@ -7,48 +7,85 @@
 //
 
 import Foundation
+import CoreData
 
-protocol Item: JSONInitiable {
+protocol Item {
     var id: String { get }
     var title: String { get }
     var url: URL { get }
-    var sortId: Int { get }
-    var isFavorite: Bool { get }
-    
-    mutating func toggleFavoriteLocally()
+    var timeAdded: String { get }
+    var isFavorite: Bool { get set }
+    var status: String { get set }
 }
 
-struct ItemImplementation: Item {
+@objc(CoreDataItem)
+final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     
-    let id: String
-    let title: String
-    let url: URL
-    let sortId: Int
-    var isFavorite: Bool
+    //MARK:- Private properties
+    @NSManaged private var id_: String
+    @NSManaged private var title_: String
+    @NSManaged private var url_: String
+    @NSManaged private var timeAdded_: String
+    @NSManaged private var isFavorite_: Bool
+    @NSManaged private var status_: String
     
-    init?(dict: JSONDictionary) {
-        guard let id = dict["item_id"] as? String,
-        let sortId = dict["sort_id"] as? Int,
-        let urlAsString = (dict["resolved_url"] as? String) ?? (dict["given_url"] as? String),
-        let url = URL(string: urlAsString),
-        let isFavoriteString = dict["favorite"] as? String else {
-            return nil
+    //MARK:- Public properties
+    var id: String {
+        get { return self.id_ }
+        set { self.id_ = newValue }
+    }
+    var title: String { return self.title_ }
+    var url: URL { return URL(string: self.url_)! }
+    var timeAdded: String { return self.timeAdded_ }
+    var isFavorite: Bool {
+        get { return self.isFavorite_ }
+        set {
+            guard let context = self.managedObjectContext else { return }
+            self.isFavorite_ = newValue
+            context.performAndWait {
+                do {
+                    try context.save()
+                } catch {
+                    Logger.log("Unable to save the context when changing the favorite status.", event: .error)
+                }
+            }
         }
-
-        self.id = id
-        
-        if let pocketTitle = (dict["resolved_title"] as? String) ?? (dict["given_title"] as? String), pocketTitle != "" {
-            self.title = pocketTitle
-        } else {
-            self.title = NSLocalizedString("Unknown Title", comment: "")
+    }
+    var status: String {
+        get { return self.status_ }
+        set {
+            guard let context = self.managedObjectContext else { return }
+            self.status_ = newValue
+            context.performAndWait {
+                do {
+                    try context.save()
+                } catch {
+                    Logger.log("Unable to save the context when changing the archive/unarchive status.", event: .error)
+                }
+            }
         }
-        
-        self.url = url
-        self.sortId = sortId
-        self.isFavorite = (isFavoriteString == "0") ? false : true
     }
     
-    mutating func toggleFavoriteLocally() {
-        self.isFavorite = self.isFavorite ? false : true
+    //MARK:- CoreDataManaged conformance
+    func update<T: Managed>(with json: JSONDictionary, on: NSManagedObjectContext) -> T? {
+        guard let urlAsString = (json["resolved_url"] as? String) ?? (json["given_url"] as? String),
+            let isFavoriteString = json["favorite"] as? String,
+            let status = json["status"] as? String,
+            let timeAdded = json["time_added"] as? String else {
+                Logger.log("Unable to update the CoreDataItem with ID: \(self.id).", event: .error)
+                return nil
+        }
+        
+        if let pocketTitle = (json["resolved_title"] as? String) ?? (json["given_title"] as? String), pocketTitle != "" {
+            self.title_ = pocketTitle
+        } else {
+            self.title_ = NSLocalizedString("Unknown Title", comment: "")
+        }
+        
+        self.url_ = urlAsString
+        self.status_ = status
+        self.timeAdded_ = timeAdded
+        self.isFavorite_ = (isFavoriteString == "0") ? false : true
+        return self as? T
     }
 }
