@@ -45,21 +45,23 @@ class ListViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForPreviewing(with: self, sourceView: self.tableView)
+        if self.typeOfList == .myList {
+            NotificationCenter.default.addObserver(self, selector: #selector(self.fetchList), name: .newUrlAdded, object: nil)
+        }
         self.setupBarButtonItems()
         self.setupLocalizedStrings()
         self.configureTableView()
         self.fetchList()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     //MARK: Private methods
     private func setupBarButtonItems() {
         let addUrlButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.displayAddUrlViewController(_:)))
         self.navigationItem.rightBarButtonItem = addUrlButton
-    }
-    
-    @objc private func displayAddUrlViewController(_ sender: UIBarButtonItem) {
-        let addVC: AddViewController = self.factory.instantiate()
-        self.present(addVC, animated: true, completion: nil)
     }
     
     private func setupLocalizedStrings() {
@@ -112,6 +114,11 @@ class ListViewController: ViewController {
         let sfs = SFSafariViewController(url: url)
         sfs.preferredControlTintColor = .black
         return sfs
+    }
+    
+    @objc private func displayAddUrlViewController(_ sender: UIBarButtonItem) {
+        let addVC: AddViewController = self.factory.instantiate()
+        self.present(addVC, animated: true, completion: nil)
     }
 
 }

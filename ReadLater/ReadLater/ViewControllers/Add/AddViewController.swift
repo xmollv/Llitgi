@@ -10,11 +10,13 @@ import UIKit
 
 class AddViewController: ViewController {
 
+    //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.checkPasteboard()
     }
     
+    //MARK: Private methods
     private func checkPasteboard() {
         guard let url = UIPasteboard.general.url else {
             Logger.log("The pasteboard doesn't contain any URL", event: .warning)
@@ -25,7 +27,7 @@ class AddViewController: ViewController {
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:
-                Logger.log("Success on adding: \(url.absoluteString)")
+                NotificationCenter.default.post(name: .newUrlAdded, object: nil)
                 strongSelf.dismiss(animated: true, completion: nil)
             case .isFailure(let error):
                 Logger.log("Error: \(error)", event: .error)
