@@ -19,6 +19,8 @@ class ListViewController: ViewController {
 
     //MARK:- IBOutlets
     @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var addBarButton: UIBarButtonItem?
+    @IBOutlet private var spinnerBarButton: UIBarButtonItem?
     
     //MARK: Private properties
     private let typeOfList: TypeOfList
@@ -46,22 +48,21 @@ class ListViewController: ViewController {
         super.viewDidLoad()
         registerForPreviewing(with: self, sourceView: self.tableView)
         if self.typeOfList == .myList {
-            NotificationCenter.default.addObserver(self, selector: #selector(self.fetchList), name: .newUrlAdded, object: nil)
+            self.setupBarButtonItems()
         }
-        self.setupBarButtonItems()
         self.setupLocalizedStrings()
         self.configureTableView()
         self.fetchList()
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     //MARK: Private methods
     private func setupBarButtonItems() {
-        let addUrlButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.displayAddUrlViewController(_:)))
-        self.navigationItem.rightBarButtonItem = addUrlButton
+        self.addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.uploadPasteboardUrl(_:)))
+        self.navigationItem.rightBarButtonItem = self.addBarButton
+        
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator.startAnimating()
+        self.spinnerBarButton = UIBarButtonItem(customView: activityIndicator)
     }
     
     private func setupLocalizedStrings() {
@@ -116,11 +117,24 @@ class ListViewController: ViewController {
         return sfs
     }
     
-    @objc private func displayAddUrlViewController(_ sender: UIBarButtonItem) {
-        let addVC: AddViewController = self.factory.instantiate()
-        addVC.modalPresentationStyle = .overCurrentContext
-        addVC.modalTransitionStyle = .crossDissolve
-        self.present(addVC, animated: true, completion: nil)
+    @objc private func uploadPasteboardUrl(_ sender: UIBarButtonItem) {
+        self.navigationItem.rightBarButtonItem = self.spinnerBarButton
+        guard let url = UIPasteboard.general.url else {
+            Logger.log("The pasteboard doesn't contain any URL", event: .warning)
+            self.navigationItem.rightBarButtonItem = self.addBarButton
+            return
+        }
+        
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] (result: EmptyResult) in
+            guard let strongSelf = self else { return }
+            strongSelf.navigationItem.rightBarButtonItem = strongSelf.addBarButton
+            switch result {
+            case .isSuccess:
+                strongSelf.fetchList()
+            case .isFailure(let error):
+                Logger.log("Error: \(error)", event: .error)
+            }
+        }
     }
 
 }

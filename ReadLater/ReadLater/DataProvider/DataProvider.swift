@@ -84,9 +84,13 @@ final class DataProvider {
             guard let completion = then else { return }
             switch result {
             case .isSuccess:
-                completion(EmptyResult.isSuccess)
+                resultQueue.async {
+                    completion(EmptyResult.isSuccess)
+                }
             case .isFailure(let error):
-                completion(EmptyResult.isFailure(error))
+                resultQueue.async {
+                    completion(EmptyResult.isFailure(error))
+                }
             }
         }
     }

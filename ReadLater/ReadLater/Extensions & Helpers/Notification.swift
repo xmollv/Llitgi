@@ -10,5 +10,4 @@ import Foundation
 
 extension Notification.Name {
     static let OAuthFinished = Notification.Name("xmollv-readlater.OAuthFinished")
-    static let newUrlAdded = Notification.Name("xmollv-readlater.newUrlAdded")
 }
