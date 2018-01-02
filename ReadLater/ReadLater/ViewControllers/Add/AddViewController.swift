@@ -25,6 +25,7 @@ class AddViewController: ViewController {
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:
+                Logger.log("Success on adding: \(url.absoluteString)")
                 strongSelf.dismiss(animated: true, completion: nil)
             case .isFailure(let error):
                 Logger.log("Error: \(error)", event: .error)
