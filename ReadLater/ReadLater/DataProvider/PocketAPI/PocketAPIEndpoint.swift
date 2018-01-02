@@ -50,7 +50,7 @@ enum PocketAPIEndpoint {
         case .getFavorites, .getList, .getArchive:
             return { (json: Any?) in
                 guard let dict = json as? JSONDictionary else { return nil }
-                guard let listAsDict = dict["list"] as? JSONDictionary else { return nil }
+                let listAsDict = (dict["list"] as? JSONDictionary) ?? [:]
                 let list = listAsDict.values.flatMap { $0 as? JSONDictionary }
                 return list
             }
