@@ -35,7 +35,7 @@ class ListSwipeActionManager {
                     modification = ItemModification(action: .favorite, id: item.id)
                 }
                 
-                strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
                 item.isFavorite = !item.isFavorite
                 success(true)
             }
@@ -46,7 +46,7 @@ class ListSwipeActionManager {
                 guard let strongSelf = self else { return }
                 
                 let modification = ItemModification(action: .unfavorite, id: item.id)
-                strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
                 item.isFavorite = !item.isFavorite
                 success(true)
             }
@@ -63,7 +63,7 @@ class ListSwipeActionManager {
                     modification = ItemModification(action: .favorite, id: item.id)
                 }
                 
-                strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
                 item.isFavorite = !item.isFavorite
                 success(true)
             }
@@ -79,7 +79,7 @@ class ListSwipeActionManager {
             let archiveAction = UIContextualAction(style: .normal, title: NSLocalizedString("Archive", comment: "")) { [weak self] (action, view, success) in
                 guard let strongSelf = self else { return }
                 let modification = ItemModification(action: .archive, id: item.id)
-                strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
                 item.status = "1"
                 success(true)
             }
@@ -90,7 +90,7 @@ class ListSwipeActionManager {
             let unarchiveAction = UIContextualAction(style: .normal, title: NSLocalizedString("Unarchive", comment: "")) { [weak self] (action, view, success) in
                 guard let strongSelf = self else { return }
                 let modification = ItemModification(action: .readd, id: item.id)
-                strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
                 item.status = "0"
                 success(true)
             }
@@ -98,7 +98,7 @@ class ListSwipeActionManager {
             let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("Delete", comment: "")) { [weak self] (action, view, success) in
                 guard let strongSelf = self else { return }
                 let modification = ItemModification(action: .delete, id: item.id)
-                strongSelf.dataProvider.perform(endpoint: .modify(modification))
+                strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
                 item.status = "2"
                 success(true)
             }

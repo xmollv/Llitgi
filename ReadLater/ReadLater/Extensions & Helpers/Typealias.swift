@@ -10,6 +10,7 @@ import Foundation
 
 /// Closure that recieves a Result<T>
 typealias Completion<T> = (Result<T>) -> ()
+typealias EmptyCompletion = (EmptyResult) -> ()
 
 /// Typealias over Dictionary<String, Any>
 typealias JSONDictionary = Dictionary<String, Any>
@@ -21,5 +22,10 @@ typealias JSONArray = Array<JSONDictionary>
 /// or an Error on the failure
 enum Result<T> {
     case isSuccess(T)
+    case isFailure(Error)
+}
+
+enum EmptyResult {
+    case isSuccess
     case isFailure(Error)
 }
