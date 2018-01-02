@@ -19,6 +19,8 @@ class ListViewController: ViewController {
 
     //MARK:- IBOutlets
     @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var addBarButton: UIBarButtonItem?
+    @IBOutlet private var spinnerBarButton: UIBarButtonItem?
     
     //MARK: Private properties
     private let typeOfList: TypeOfList
@@ -45,12 +47,24 @@ class ListViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerForPreviewing(with: self, sourceView: self.tableView)
+        if self.typeOfList == .myList {
+            self.setupBarButtonItems()
+        }
         self.setupLocalizedStrings()
         self.configureTableView()
         self.fetchList()
     }
     
     //MARK: Private methods
+    private func setupBarButtonItems() {
+        self.addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.uploadPasteboardUrl(_:)))
+        self.navigationItem.rightBarButtonItem = self.addBarButton
+        
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator.startAnimating()
+        self.spinnerBarButton = UIBarButtonItem(customView: activityIndicator)
+    }
+    
     private func setupLocalizedStrings() {
         let title: String
         switch self.typeOfList {
@@ -101,6 +115,36 @@ class ListViewController: ViewController {
         let sfs = SFSafariViewController(url: url)
         sfs.preferredControlTintColor = .black
         return sfs
+    }
+    
+    @objc private func uploadPasteboardUrl(_ sender: UIBarButtonItem) {
+        self.navigationItem.rightBarButtonItem = self.spinnerBarButton
+        guard let url = UIPasteboard.general.url else {
+            Logger.log("The pasteboard doesn't contain any URL", event: .warning)
+            self.navigationItem.rightBarButtonItem = self.addBarButton
+            
+            let errorTitle = NSLocalizedString("Oops!", comment: "")
+            let errorMessage = NSLocalizedString("We're sorry, but your pasteboard doesn't contain any URLs. Please, copy a valid URL and try again.", comment: "")
+            
+            let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+            let dimissTitle = NSLocalizedString("Dismiss", comment: "")
+            errorAlert.addAction(UIAlertAction(title: dimissTitle, style: .default) { [weak self] (action) in
+                self?.dismiss(animated: true, completion: nil)
+            })
+            self.present(errorAlert, animated: true, completion: nil)
+            return
+        }
+        
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] (result: EmptyResult) in
+            guard let strongSelf = self else { return }
+            strongSelf.navigationItem.rightBarButtonItem = strongSelf.addBarButton
+            switch result {
+            case .isSuccess:
+                strongSelf.fetchList()
+            case .isFailure(let error):
+                Logger.log("Error: \(error)", event: .error)
+            }
+        }
     }
 
 }

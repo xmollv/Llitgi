@@ -17,7 +17,10 @@ enum PocketAPIEndpoint {
     case getFavorites
     case getList
     case getArchive
+    
     case modify(ItemModification)
+    
+    case add(URL)
     
     /// Returns the full URL to perform the request
     var url: URL {
@@ -31,6 +34,8 @@ enum PocketAPIEndpoint {
             return baseUrl.appendingPathComponent("get")
         case .modify:
             return baseUrl.appendingPathComponent("send")
+        case .add:
+            return baseUrl.appendingPathComponent("add")
         }
     }
 
@@ -49,7 +54,7 @@ enum PocketAPIEndpoint {
                 let list = listAsDict.values.flatMap { $0 as? JSONDictionary }
                 return list
             }
-        case .modify:
+        case .modify, .add:
             return { (json: Any?) in
                 guard let dict = json as? JSONDictionary else { return nil }
                 return [dict]

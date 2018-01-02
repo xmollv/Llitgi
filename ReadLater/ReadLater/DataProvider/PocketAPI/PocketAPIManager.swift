@@ -129,6 +129,10 @@ final class PocketAPIManager {
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
             payload["actions"] = [typeOfModification.wrappedAsDict]
+        case .add(let url):
+            guard let token = self.apiConfig.accessToken else { break }
+            payload["access_token"] = token
+            payload["url"] = url.absoluteString
         }
         return payload
     }

@@ -77,8 +77,22 @@ final class DataProvider {
     }
     
     /// Used only for API calls that we don't need the response (e.g: toggle favorite)
-    func perform(endpoint: PocketAPIEndpoint, on resultQueue: DispatchQueue = DispatchQueue.main) {
-        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in }
+    func performInMemoryWithoutResultType(endpoint: PocketAPIEndpoint,
+                 on resultQueue: DispatchQueue = DispatchQueue.main,
+                 then: EmptyCompletion? = nil) {
+        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in
+            guard let completion = then else { return }
+            switch result {
+            case .isSuccess:
+                resultQueue.async {
+                    completion(EmptyResult.isSuccess)
+                }
+            case .isFailure(let error):
+                resultQueue.async {
+                    completion(EmptyResult.isFailure(error))
+                }
+            }
+        }
     }
     
     func updatePocket(code: String) {
