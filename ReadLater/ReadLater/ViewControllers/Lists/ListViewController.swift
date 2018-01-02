@@ -122,6 +122,16 @@ class ListViewController: ViewController {
         guard let url = UIPasteboard.general.url else {
             Logger.log("The pasteboard doesn't contain any URL", event: .warning)
             self.navigationItem.rightBarButtonItem = self.addBarButton
+            
+            let errorTitle = NSLocalizedString("Oops!", comment: "")
+            let errorMessage = NSLocalizedString("We're sorry, but your pasteboard doesn't contain any URLs. Please, copy a valid URL and try again.", comment: "")
+            
+            let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+            let dimissTitle = NSLocalizedString("Dismiss", comment: "")
+            errorAlert.addAction(UIAlertAction(title: dimissTitle, style: .default) { [weak self] (action) in
+                self?.dismiss(animated: true, completion: nil)
+            })
+            self.present(errorAlert, animated: true, completion: nil)
             return
         }
         
