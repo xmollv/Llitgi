@@ -118,6 +118,8 @@ class ListViewController: ViewController {
     
     @objc private func displayAddUrlViewController(_ sender: UIBarButtonItem) {
         let addVC: AddViewController = self.factory.instantiate()
+        addVC.modalPresentationStyle = .overCurrentContext
+        addVC.modalTransitionStyle = .crossDissolve
         self.present(addVC, animated: true, completion: nil)
     }
 
