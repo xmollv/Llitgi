@@ -58,7 +58,7 @@ class ListViewController: ViewController {
         }
         self.setupLocalizedStrings()
         self.configureTableView()
-        self.fetchList()
+        self.fetchList(andClearCache: true)
     }
     
     //MARK: Private methods
@@ -97,10 +97,10 @@ class ListViewController: ViewController {
     @objc private func pullToRefresh() {
         self.pageToRequest = 0
         self.isLastPage = false
-        self.fetchList()
+        self.fetchList(andClearCache: true)
     }
     
-    private func fetchList() {
+    private func fetchList(andClearCache: Bool) {
         self.isCurrentlyFetching = true
         let endpoint: PocketAPIEndpoint
         switch self.typeOfList {
@@ -112,7 +112,7 @@ class ListViewController: ViewController {
             endpoint = .getArchive(page: self.pageToRequest)
         }
         
-        self.dataProvider.perform(endpoint: endpoint) { [weak self] (result: Result<[CoreDataItem]>) in
+        self.dataProvider.perform(endpoint: endpoint, clearCachedData: andClearCache, typeOfList: self.typeOfList) { [weak self] (result: Result<[CoreDataItem]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess(let items):
@@ -159,7 +159,7 @@ class ListViewController: ViewController {
             strongSelf.navigationItem.rightBarButtonItem = strongSelf.addBarButton
             switch result {
             case .isSuccess:
-                strongSelf.fetchList()
+                strongSelf.pullToRefresh()
             case .isFailure(let error):
                 Logger.log("Error: \(error)", event: .error)
             }
@@ -175,7 +175,7 @@ extension ListViewController: UITableViewDelegate {
         if self.tableView.contentOffset.y > (self.tableView.contentSize.height - self.tableView.bounds.size.height) {
             guard self.isLastPage == false else { return }
             guard self.isCurrentlyFetching == false else { return }
-            self.fetchList()
+            self.fetchList(andClearCache: false)
         }
     }
     
