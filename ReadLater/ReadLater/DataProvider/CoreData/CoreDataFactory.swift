@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 protocol CoreDataFactory: class {
-    func build<T: Managed>(jsonArray: JSONArray) -> [T]
+    func build<T: Managed>(jsonArray: JSONArray, for: TypeOfList, clearCache: Bool) -> [T]
     func notifier(for: TypeOfList) -> CoreDataNotifier
 }
 
@@ -52,8 +52,34 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         return container
     }()
     
-    func build<T: Managed>(jsonArray: JSONArray) -> [T] {
+    func build<T: Managed>(jsonArray: JSONArray, for list: TypeOfList, clearCache: Bool) -> [T] {
         let objects: [T] = jsonArray.flatMap { self.build(json: $0, in: self.context) }
+        
+        if clearCache {
+            let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: T.self))
+            var predicate: NSPredicate
+            switch list {
+            case .myList:
+                predicate = NSPredicate(format: "status_ == '0' AND isFavorite_ == false")
+            case .favorites:
+                predicate = NSPredicate(format: "isFavorite_ == true")
+            case .archive:
+                predicate = NSPredicate(format: "status_ == '1' AND isFavorite_ == false")
+            }
+            let validIDs = objects.map{ $0.id }
+            let idsPredicate = NSPredicate(format: "NOT (id_ in %@)", validIDs)
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [predicate, idsPredicate])
+            
+            self.context.performAndWait {
+                do {
+                    let itemsToBeDeleted = try self.context.fetch(request)
+                    itemsToBeDeleted.forEach { self.delete($0, in: self.context) }
+                } catch {
+                    Logger.log("Error trying to fetch the items to delete: \(error)", event: .error)
+                }
+            }
+        }
+        
         self.context.performAndWait {
             do {
                 try self.context.save()

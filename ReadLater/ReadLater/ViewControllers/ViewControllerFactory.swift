@@ -29,21 +29,17 @@ final class ViewControllerFactory {
     func establishViewControllers(on tabBarController: UITabBarController) {
         //My List
         let listViewController: ListViewController = self.instantiateListViewController(type: .myList)
-        let navControllerList = UINavigationController(rootViewController: listViewController)
-        
-        //Favorites
+        listViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("My List", comment: ""), image: #imageLiteral(resourceName: "list"), tag: 0)
         let favoritesViewController: ListViewController = self.instantiateListViewController(type: .favorites)
-        let navControllerFavorites = UINavigationController(rootViewController: favoritesViewController)
-        
-        //Archive
+        favoritesViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Favorites", comment: ""), image: #imageLiteral(resourceName: "favorite"), tag: 1)
         let archiveViewController: ListViewController = self.instantiateListViewController(type: .archive)
-        let navControllerArchive = UINavigationController(rootViewController: archiveViewController)
+        archiveViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Archive", comment: ""), image: #imageLiteral(resourceName: "archive"), tag: 2)
         
-        tabBarController.setViewControllers([navControllerList, navControllerFavorites, navControllerArchive], animated: false)
+        let tabs = [listViewController, favoritesViewController, archiveViewController].map({ UINavigationController(rootViewController: $0) })
+        
+        tabBarController.setViewControllers(tabs, animated: false)
         //In case that it was hidden by the auth, we make sure that it's not hidden
         tabBarController.tabBar.isHidden = false
-        //Force all view controllers to be loaded
-        tabBarController.viewControllers?.forEach { _ = ($0 as? UINavigationController)?.viewControllers.first?.view }
     }
     
     func establishAuthViewController(on tabBarController: UITabBarController) {

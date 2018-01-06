@@ -14,9 +14,9 @@ enum PocketAPIEndpoint {
     case authorize
     
     // Already authorized endpoints
-    case getFavorites
-    case getList
-    case getArchive
+    case getFavorites(page: Int)
+    case getList(page: Int)
+    case getArchive(page: Int)
     
     case modify(ItemModification)
     

@@ -110,24 +110,29 @@ final class PocketAPIManager {
         case .authorize:
             guard let authCode = self.apiConfig.authCode else { break }
             payload["code"] = authCode
-        case .getList:
+        case .getList(let page):
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
             payload["sort"] = "newest"
             payload["detailType"] = "simple"
-        case .getFavorites:
+            payload["count"] = "25"
+            payload["offset"] = page * 25
+        case .getFavorites(let page):
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
             payload["sort"] = "newest"
             payload["favorite"] = "1"
             payload["detailType"] = "simple"
-        case .getArchive:
+            payload["count"] = "25"
+            payload["offset"] = page * 25
+        case .getArchive(let page):
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
             payload["sort"] = "newest"
             payload["state"] = "archive"
             payload["detailType"] = "simple"
-            payload["count"] = "50"
+            payload["count"] = "25"
+            payload["offset"] = page * 25
         case .modify(let typeOfModification):
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token

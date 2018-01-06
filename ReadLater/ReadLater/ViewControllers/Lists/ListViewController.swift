@@ -18,18 +18,25 @@ enum TypeOfList {
 class ListViewController: ViewController {
 
     //MARK:- IBOutlets
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var addButton: UIButton!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private var tableView: UITableView!
-    @IBOutlet private var addBarButton: UIBarButtonItem?
-    @IBOutlet private var spinnerBarButton: UIBarButtonItem?
     
     //MARK: Private properties
     private let typeOfList: TypeOfList
     private var dataSource: ListDataSource?
     private var swipeActionManager: ListSwipeActionManager?
+    private var cellHeights: [IndexPath : CGFloat] = [:]
+    
+    // Pagination
+    private var pageToRequest = 0
+    private var isLastPage = false
+    private var isCurrentlyFetching = false
     
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(self.fetchList), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
         return refreshControl
     }()
     
@@ -46,36 +53,27 @@ class ListViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         registerForPreviewing(with: self, sourceView: self.tableView)
-        if self.typeOfList == .myList {
-            self.setupBarButtonItems()
-        }
-        self.setupLocalizedStrings()
+        self.configureUI(for: self.typeOfList)
         self.configureTableView()
-        self.fetchList()
+        self.fetchList(andClearCache: true)
     }
     
     //MARK: Private methods
-    private func setupBarButtonItems() {
-        self.addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.uploadPasteboardUrl(_:)))
-        self.navigationItem.rightBarButtonItem = self.addBarButton
-        
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        activityIndicator.startAnimating()
-        self.spinnerBarButton = UIBarButtonItem(customView: activityIndicator)
-    }
-    
-    private func setupLocalizedStrings() {
+    private func configureUI(for type: TypeOfList) {
         let title: String
-        switch self.typeOfList {
+        switch type {
         case .myList:
             title = NSLocalizedString("My List", comment: "")
         case .favorites:
             title = NSLocalizedString("Favorites", comment: "")
+            self.addButton.isHidden = true
         case .archive:
             title = NSLocalizedString("Archive", comment: "")
+            self.addButton.isHidden = true
         }
-        self.title = title
+        self.titleLabel.text = title
     }
     
     private func configureTableView() {
@@ -88,25 +86,38 @@ class ListViewController: ViewController {
         self.tableView.refreshControl = self.refreshControl
     }
     
-    @objc private func fetchList() {
+    @objc private func pullToRefresh() {
+        self.pageToRequest = 0
+        self.isLastPage = false
+        self.fetchList(andClearCache: true)
+    }
+    
+    private func fetchList(andClearCache: Bool) {
+        self.isCurrentlyFetching = true
         let endpoint: PocketAPIEndpoint
         switch self.typeOfList {
         case .myList:
-            endpoint = .getList
+            endpoint = .getList(page: self.pageToRequest)
         case .favorites:
-            endpoint = .getFavorites
+            endpoint = .getFavorites(page: self.pageToRequest)
         case .archive:
-            endpoint = .getArchive
+            endpoint = .getArchive(page: self.pageToRequest)
         }
-        self.dataProvider.perform(endpoint: endpoint) { [weak self] (result: Result<[CoreDataItem]>) in
+        
+        self.dataProvider.perform(endpoint: endpoint, clearCachedData: andClearCache, typeOfList: self.typeOfList) { [weak self] (result: Result<[CoreDataItem]>) in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess:
+            case .isSuccess(let items):
+                strongSelf.pageToRequest += 1
+                if items.count == 0 {
+                    strongSelf.isLastPage = true
+                }
                 Logger.log("Succes on: \(strongSelf.typeOfList)")
             case .isFailure(let error):
                 Logger.log("Error on: \(strongSelf.typeOfList).\n\n Error: \(error)", event: .error)
             }
             strongSelf.refreshControl.endRefreshing()
+            strongSelf.isCurrentlyFetching = false
         }
     }
     
@@ -117,11 +128,13 @@ class ListViewController: ViewController {
         return sfs
     }
     
-    @objc private func uploadPasteboardUrl(_ sender: UIBarButtonItem) {
-        self.navigationItem.rightBarButtonItem = self.spinnerBarButton
+    @IBAction private func addButtonTapped(_ sender: UIButton) {
+        self.activityIndicator.isHidden = false
+        self.addButton.isHidden = true
         guard let url = UIPasteboard.general.url else {
             Logger.log("The pasteboard doesn't contain any URL", event: .warning)
-            self.navigationItem.rightBarButtonItem = self.addBarButton
+            self.activityIndicator.isHidden = true
+            self.addButton.isHidden = false
             
             let errorTitle = NSLocalizedString("Oops!", comment: "")
             let errorMessage = NSLocalizedString("We're sorry, but your pasteboard doesn't contain any URLs. Please, copy a valid URL and try again.", comment: "")
@@ -137,10 +150,11 @@ class ListViewController: ViewController {
         
         self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] (result: EmptyResult) in
             guard let strongSelf = self else { return }
-            strongSelf.navigationItem.rightBarButtonItem = strongSelf.addBarButton
+            strongSelf.activityIndicator.isHidden = true
+            strongSelf.addButton.isHidden = false
             switch result {
             case .isSuccess:
-                strongSelf.fetchList()
+                strongSelf.pullToRefresh()
             case .isFailure(let error):
                 Logger.log("Error: \(error)", event: .error)
             }
@@ -151,6 +165,24 @@ class ListViewController: ViewController {
 
 //MARK:- UITableViewDelegate
 extension ListViewController: UITableViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if self.tableView.contentOffset.y > (self.tableView.contentSize.height - self.tableView.bounds.size.height) {
+            guard self.isLastPage == false else { return }
+            guard self.isCurrentlyFetching == false else { return }
+            self.fetchList(andClearCache: false)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.cellHeights[indexPath] = cell.frame.size.height
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let height = self.cellHeights[indexPath] else { return UITableViewAutomaticDimension }
+        return height
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let sfs = self.safariViewController(at: indexPath) else { return }
         self.present(sfs, animated: true, completion: nil)
@@ -173,6 +205,7 @@ extension ListViewController: UITableViewDelegate {
 extension ListViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = self.tableView.indexPathForRow(at: location) else { return nil }
+        previewingContext.sourceRect = self.tableView.rectForRow(at: indexPath)
         let sfs = self.safariViewController(at: indexPath)
         return sfs
     }
