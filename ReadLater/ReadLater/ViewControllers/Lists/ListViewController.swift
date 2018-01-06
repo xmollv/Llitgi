@@ -18,9 +18,10 @@ enum TypeOfList {
 class ListViewController: ViewController {
 
     //MARK:- IBOutlets
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var addButton: UIButton!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private var tableView: UITableView!
-    @IBOutlet private var addBarButton: UIBarButtonItem?
-    @IBOutlet private var spinnerBarButton: UIBarButtonItem?
     
     //MARK: Private properties
     private let typeOfList: TypeOfList
@@ -52,36 +53,27 @@ class ListViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         registerForPreviewing(with: self, sourceView: self.tableView)
-        if self.typeOfList == .myList {
-            self.setupBarButtonItems()
-        }
-        self.setupLocalizedStrings()
+        self.configureUI(for: self.typeOfList)
         self.configureTableView()
         self.fetchList(andClearCache: true)
     }
     
     //MARK: Private methods
-    private func setupBarButtonItems() {
-        self.addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.uploadPasteboardUrl(_:)))
-        self.navigationItem.rightBarButtonItem = self.addBarButton
-        
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        activityIndicator.startAnimating()
-        self.spinnerBarButton = UIBarButtonItem(customView: activityIndicator)
-    }
-    
-    private func setupLocalizedStrings() {
+    private func configureUI(for type: TypeOfList) {
         let title: String
-        switch self.typeOfList {
+        switch type {
         case .myList:
             title = NSLocalizedString("My List", comment: "")
         case .favorites:
             title = NSLocalizedString("Favorites", comment: "")
+            self.addButton.isHidden = true
         case .archive:
             title = NSLocalizedString("Archive", comment: "")
+            self.addButton.isHidden = true
         }
-        self.title = title
+        self.titleLabel.text = title
     }
     
     private func configureTableView() {
@@ -136,11 +128,13 @@ class ListViewController: ViewController {
         return sfs
     }
     
-    @objc private func uploadPasteboardUrl(_ sender: UIBarButtonItem) {
-        self.navigationItem.rightBarButtonItem = self.spinnerBarButton
+    @IBAction private func addButtonTapped(_ sender: UIButton) {
+        self.activityIndicator.isHidden = false
+        self.addButton.isHidden = true
         guard let url = UIPasteboard.general.url else {
             Logger.log("The pasteboard doesn't contain any URL", event: .warning)
-            self.navigationItem.rightBarButtonItem = self.addBarButton
+            self.activityIndicator.isHidden = true
+            self.addButton.isHidden = false
             
             let errorTitle = NSLocalizedString("Oops!", comment: "")
             let errorMessage = NSLocalizedString("We're sorry, but your pasteboard doesn't contain any URLs. Please, copy a valid URL and try again.", comment: "")
@@ -156,7 +150,8 @@ class ListViewController: ViewController {
         
         self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] (result: EmptyResult) in
             guard let strongSelf = self else { return }
-            strongSelf.navigationItem.rightBarButtonItem = strongSelf.addBarButton
+            strongSelf.activityIndicator.isHidden = true
+            strongSelf.addButton.isHidden = false
             switch result {
             case .isSuccess:
                 strongSelf.pullToRefresh()

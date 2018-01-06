@@ -11,7 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ListViewController" customModule="ReadLater" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="fFm-G8-jC5" id="iZJ-Rz-DkQ"/>
+                <outlet property="addButton" destination="GTt-aW-Jup" id="FbF-6Q-ndL"/>
                 <outlet property="tableView" destination="ZBX-xD-lce" id="NK4-uE-JCf"/>
+                <outlet property="titleLabel" destination="yVu-Jk-SiF" id="wA5-mk-gID"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,20 +23,55 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My List" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yVu-Jk-SiF">
+                    <rect key="frame" x="18" y="54" width="296" height="42"/>
+                    <fontDescription key="fontDescription" type="system" weight="black" pointSize="35"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fFm-G8-jC5">
+                    <rect key="frame" x="332" y="62.666666666666657" width="25" height="25"/>
+                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </activityIndicatorView>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTt-aW-Jup">
+                    <rect key="frame" x="332" y="62.666666666666657" width="25" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="FQ6-pZ-I2y"/>
+                        <constraint firstAttribute="width" constant="25" id="SFA-pY-fmm"/>
+                    </constraints>
+                    <state key="normal" image="add"/>
+                    <connections>
+                        <action selector="addButtonTapped:" destination="-1" eventType="touchUpInside" id="pfd-lc-aQv"/>
+                    </connections>
+                </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ZBX-xD-lce">
-                    <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                    <rect key="frame" x="0.0" y="96" width="375" height="682"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="separatorInset" minX="18" minY="0.0" maxX="18" maxY="0.0"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="GTt-aW-Jup" firstAttribute="leading" secondItem="yVu-Jk-SiF" secondAttribute="trailing" constant="18" id="E7T-do-5aT"/>
+                <constraint firstItem="fFm-G8-jC5" firstAttribute="height" secondItem="GTt-aW-Jup" secondAttribute="height" id="KkS-dd-Bnt"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="GTt-aW-Jup" secondAttribute="trailing" constant="18" id="M4m-X2-0ce"/>
+                <constraint firstItem="fFm-G8-jC5" firstAttribute="centerX" secondItem="GTt-aW-Jup" secondAttribute="centerX" id="RKS-kO-buk"/>
+                <constraint firstItem="fFm-G8-jC5" firstAttribute="centerY" secondItem="GTt-aW-Jup" secondAttribute="centerY" id="UfS-xi-EMe"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ZBX-xD-lce" secondAttribute="trailing" id="V0u-xh-oLo"/>
-                <constraint firstItem="ZBX-xD-lce" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Y31-s8-4FC"/>
+                <constraint firstItem="yVu-Jk-SiF" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="dQD-gW-K6C"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ZBX-xD-lce" secondAttribute="bottom" id="g3a-yJ-ES8"/>
+                <constraint firstItem="fFm-G8-jC5" firstAttribute="width" secondItem="GTt-aW-Jup" secondAttribute="width" id="h2X-DU-j9U"/>
+                <constraint firstItem="yVu-Jk-SiF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="pz4-ce-hJb"/>
+                <constraint firstItem="GTt-aW-Jup" firstAttribute="centerY" secondItem="yVu-Jk-SiF" secondAttribute="centerY" id="srR-SC-ovJ"/>
                 <constraint firstItem="ZBX-xD-lce" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="wIs-xI-aB2"/>
+                <constraint firstItem="ZBX-xD-lce" firstAttribute="top" secondItem="yVu-Jk-SiF" secondAttribute="bottom" id="xTT-Bo-BfL"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="34.5" y="65"/>
         </view>
     </objects>
+    <resources>
+        <image name="add" width="28" height="28"/>
+    </resources>
 </document>
