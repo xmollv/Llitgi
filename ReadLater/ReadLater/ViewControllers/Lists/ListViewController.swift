@@ -205,6 +205,7 @@ extension ListViewController: UITableViewDelegate {
 extension ListViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = self.tableView.indexPathForRow(at: location) else { return nil }
+        previewingContext.sourceRect = self.tableView.rectForRow(at: indexPath)
         let sfs = self.safariViewController(at: indexPath)
         return sfs
     }
