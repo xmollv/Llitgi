@@ -32,13 +32,13 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIt-EI-gO9">
-                        <rect key="frame" x="18" y="15" width="287" height="50.5"/>
+                        <rect key="frame" x="18" y="15" width="284" height="50.5"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hKb-tb-2xT">
-                        <rect key="frame" x="18" y="70.5" width="287" height="18"/>
+                        <rect key="frame" x="18" y="70.5" width="284" height="18"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -47,12 +47,12 @@
                 <constraints>
                     <constraint firstItem="gIt-EI-gO9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="8C9-XR-vTL"/>
                     <constraint firstItem="4f4-oY-Bfh" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fXt-7m-fIN"/>
-                    <constraint firstAttribute="trailing" secondItem="gIt-EI-gO9" secondAttribute="trailing" constant="15" id="gSt-hz-A1M"/>
+                    <constraint firstAttribute="trailing" secondItem="gIt-EI-gO9" secondAttribute="trailing" constant="18" id="gSt-hz-A1M"/>
+                    <constraint firstItem="gIt-EI-gO9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="kR1-1B-uj3"/>
                     <constraint firstAttribute="bottom" secondItem="hKb-tb-2xT" secondAttribute="bottom" constant="15" id="ky1-PD-8WM"/>
                     <constraint firstItem="hKb-tb-2xT" firstAttribute="trailing" secondItem="gIt-EI-gO9" secondAttribute="trailing" id="ma2-cR-04t"/>
                     <constraint firstItem="hKb-tb-2xT" firstAttribute="top" secondItem="gIt-EI-gO9" secondAttribute="bottom" constant="5" id="ry6-aA-Umw"/>
                     <constraint firstItem="hKb-tb-2xT" firstAttribute="leading" secondItem="gIt-EI-gO9" secondAttribute="leading" id="s6K-mJ-QOo"/>
-                    <constraint firstItem="4f4-oY-Bfh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="wmQ-pK-Ij2"/>
                     <constraint firstItem="gIt-EI-gO9" firstAttribute="leading" secondItem="4f4-oY-Bfh" secondAttribute="trailing" constant="5" id="zXW-rJ-1PG"/>
                 </constraints>
             </tableViewCellContentView>
