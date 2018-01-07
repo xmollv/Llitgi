@@ -29,10 +29,10 @@ class ListViewController: ViewController {
     private var swipeActionManager: ListSwipeActionManager?
     private var cellHeights: [IndexPath : CGFloat] = [:]
     
-    // Pagination
-    private var pageToRequest = 0
-    private var isLastPage = false
-    private var isCurrentlyFetching = false
+    private var lastSync: TimeInterval {
+        get { return UserDefaults.standard.double(forKey: "lastSync") }
+        set { UserDefaults.standard.set(newValue, forKey: "lastSync") }
+    }
     
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -57,7 +57,7 @@ class ListViewController: ViewController {
         registerForPreviewing(with: self, sourceView: self.tableView)
         self.configureUI(for: self.typeOfList)
         self.configureTableView()
-        self.fetchList(andClearCache: true)
+        self.fetchList()
     }
     
     //MARK: Private methods
@@ -87,37 +87,29 @@ class ListViewController: ViewController {
     }
     
     @objc private func pullToRefresh() {
-        self.pageToRequest = 0
-        self.isLastPage = false
-        self.fetchList(andClearCache: true)
+        self.fetchList()
     }
     
-    private func fetchList(andClearCache: Bool) {
-        self.isCurrentlyFetching = true
+    private func fetchList() {
         let endpoint: PocketAPIEndpoint
-        switch self.typeOfList {
-        case .myList:
-            endpoint = .getList(page: self.pageToRequest)
-        case .favorites:
-            endpoint = .getFavorites(page: self.pageToRequest)
-        case .archive:
-            endpoint = .getArchive(page: self.pageToRequest)
+        if self.lastSync == 0 {
+            Logger.log("Last sync was 0", event: .warning)
+            endpoint = .getAll
+        } else {
+            Logger.log("Last sync was \(self.lastSync)")
+            endpoint = .sync(last: self.lastSync)
         }
         
-        self.dataProvider.perform(endpoint: endpoint, clearCachedData: andClearCache, typeOfList: self.typeOfList) { [weak self] (result: Result<[CoreDataItem]>) in
+        self.dataProvider.perform(endpoint: endpoint, clearCachedData: false, typeOfList: self.typeOfList) { [weak self] (result: Result<[CoreDataItem]>) in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess(let items):
-                strongSelf.pageToRequest += 1
-                if items.count == 0 {
-                    strongSelf.isLastPage = true
-                }
+            case .isSuccess:
+                self?.lastSync = Date().timeIntervalSince1970
                 Logger.log("Succes on: \(strongSelf.typeOfList)")
             case .isFailure(let error):
                 Logger.log("Error on: \(strongSelf.typeOfList).\n\n Error: \(error)", event: .error)
             }
             strongSelf.refreshControl.endRefreshing()
-            strongSelf.isCurrentlyFetching = false
         }
     }
     
@@ -165,15 +157,6 @@ class ListViewController: ViewController {
 
 //MARK:- UITableViewDelegate
 extension ListViewController: UITableViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if self.tableView.contentOffset.y > (self.tableView.contentSize.height - self.tableView.bounds.size.height) {
-            guard self.isLastPage == false else { return }
-            guard self.isCurrentlyFetching == false else { return }
-            self.fetchList(andClearCache: false)
-        }
-    }
-    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         self.cellHeights[indexPath] = cell.frame.size.height
     }
