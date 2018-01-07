@@ -14,6 +14,7 @@
                 <outlet property="badgeCountExplanationLabel" destination="iUm-5v-LGQ" id="lgA-fj-WxP"/>
                 <outlet property="badgeCountLabel" destination="Ucz-t5-u5b" id="2eo-hc-HeS"/>
                 <outlet property="badgeCountSwitch" destination="kNn-Sd-pZe" id="FZc-NC-aMg"/>
+                <outlet property="logoutButton" destination="geg-cl-9IZ" id="WzF-v2-Uab"/>
                 <outlet property="titleLabel" destination="Uhn-9w-cZD" id="nBI-Rp-Fh7"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -29,16 +30,10 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucz-t5-u5b">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucz-t5-u5b">
                     <rect key="frame" x="18" y="111" width="272" height="21"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUm-5v-LGQ">
-                    <rect key="frame" x="18" y="142" width="339" height="15.666666666666657"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kNn-Sd-pZe">
@@ -48,6 +43,29 @@
                         <action selector="badgeCountValueChanged:" destination="-1" eventType="valueChanged" id="a83-Ku-E6v"/>
                     </connections>
                 </switch>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUm-5v-LGQ">
+                    <rect key="frame" x="18" y="142" width="339" height="15.666666666666657"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geg-cl-9IZ">
+                    <rect key="frame" x="36" y="187.66666666666666" width="303" height="51"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="15" maxX="0.0" maxY="15"/>
+                    <state key="normal" title="Lorem ipsum dolor">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="4"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="logoutButtonTapped:" destination="-1" eventType="touchUpInside" id="bsB-6R-UrK"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -55,12 +73,15 @@
                 <constraint firstItem="iUm-5v-LGQ" firstAttribute="trailing" secondItem="kNn-Sd-pZe" secondAttribute="trailing" id="55f-HH-I4v"/>
                 <constraint firstItem="kNn-Sd-pZe" firstAttribute="trailing" secondItem="Uhn-9w-cZD" secondAttribute="trailing" id="5dc-7s-mje"/>
                 <constraint firstItem="Ucz-t5-u5b" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="6Jy-ec-xR8"/>
+                <constraint firstItem="geg-cl-9IZ" firstAttribute="leading" secondItem="Uhn-9w-cZD" secondAttribute="leading" constant="18" id="CAP-mk-sB6"/>
                 <constraint firstItem="Uhn-9w-cZD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="Cct-xV-Tw6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Uhn-9w-cZD" secondAttribute="trailing" constant="18" id="D53-Zr-3pl"/>
+                <constraint firstItem="geg-cl-9IZ" firstAttribute="top" secondItem="iUm-5v-LGQ" secondAttribute="bottom" constant="30" id="HCX-Hm-9HW"/>
                 <constraint firstItem="Ucz-t5-u5b" firstAttribute="top" secondItem="Uhn-9w-cZD" secondAttribute="bottom" constant="15" id="IFV-q9-VRl"/>
                 <constraint firstItem="iUm-5v-LGQ" firstAttribute="top" secondItem="Ucz-t5-u5b" secondAttribute="bottom" constant="10" id="e9B-Sc-I45"/>
                 <constraint firstItem="kNn-Sd-pZe" firstAttribute="centerY" secondItem="Ucz-t5-u5b" secondAttribute="centerY" id="i8l-QM-EN6"/>
                 <constraint firstItem="iUm-5v-LGQ" firstAttribute="leading" secondItem="Ucz-t5-u5b" secondAttribute="leading" id="tFP-n2-Mnt"/>
+                <constraint firstItem="Uhn-9w-cZD" firstAttribute="trailing" secondItem="geg-cl-9IZ" secondAttribute="trailing" constant="18" id="zX3-HQ-FCd"/>
                 <constraint firstItem="Uhn-9w-cZD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="zXk-Z6-r30"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
