@@ -75,6 +75,8 @@ class AuthorizationViewController: ViewController {
                 guard let tabBarController = strongSelf.tabBarController else { return }
                 strongSelf.factory.establishViewControllers(on: tabBarController)
             case .isFailure(let error):
+                //TODO: If the core is 403, that means that the user DENIED the permissions on the oAuth
+                // we definitely need to handle that here.
                 Logger.log("Error: \(error)", event: .error)
             }
         }
