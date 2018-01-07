@@ -81,7 +81,8 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         } else {
             self.title_ = NSLocalizedString("Unknown Title", comment: "")
         }
-        
+        // This is to avoid saving URLs that can't be recreated later on
+        guard let _ = URL(string: urlAsString) else { return nil }
         self.url_ = urlAsString
         self.status_ = status
         self.timeAdded_ = timeAdded
