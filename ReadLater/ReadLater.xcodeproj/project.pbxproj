@@ -16,6 +16,8 @@
 		4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF601FF51D8500D3DCA9 /* Managed.swift */; };
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		47376DE71FF0831600B8E70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Item.swift */; };
+		474B44202001A52D009897D2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474B441E2001A52C009897D2 /* SettingsViewController.swift */; };
+		474B44212001A52D009897D2 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474B441F2001A52C009897D2 /* SettingsViewController.xib */; };
 		4770ACF51FF111A9006E755D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF41FF111A9006E755D /* UIView.swift */; };
 		4770ACF71FF17AFD006E755D /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF61FF17AFD006E755D /* Notification.swift */; };
 		4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF91FF18AF7006E755D /* ListViewController.swift */; };
@@ -49,6 +51,8 @@
 		4710EF601FF51D8500D3DCA9 /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47376DE61FF0831600B8E70C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		474B441E2001A52C009897D2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		474B441F2001A52C009897D2 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		4770ACF41FF111A9006E755D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		4770ACF61FF17AFD006E755D /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		4770ACF91FF18AF7006E755D /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +106,15 @@
 				47376DE61FF0831600B8E70C /* Item.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		474B441D2001A517009897D2 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				474B441E2001A52C009897D2 /* SettingsViewController.swift */,
+				474B441F2001A52C009897D2 /* SettingsViewController.xib */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		4770ACF81FF189CD006E755D /* Lists */ = {
@@ -163,6 +176,7 @@
 				47EEA3791FF034FD0030BEF1 /* ViewController.swift */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 				4770ACF81FF189CD006E755D /* Lists */,
+				474B441D2001A517009897D2 /* Settings */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -272,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */,
+				474B44212001A52D009897D2 /* SettingsViewController.xib in Resources */,
 				47EEA3681FF02DDD0030BEF1 /* Assets.xcassets in Resources */,
 				4770ACFC1FF18AF7006E755D /* ListViewController.xib in Resources */,
 				47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */,
@@ -325,6 +340,7 @@
 				47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
 				4770AD031FF1B470006E755D /* ListCell.swift in Sources */,
+				474B44202001A52D009897D2 /* SettingsViewController.swift in Sources */,
 				4770AD001FF1B3B8006E755D /* ReusableCells.swift in Sources */,
 				47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */,
 			);
