@@ -9,13 +9,15 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+
     let factory: ViewControllerFactory
     let dataProvider: DataProvider
+    let userPreferences: UserPreferences
     
-    required init(factory: ViewControllerFactory, dataProvider: DataProvider) {
-        self.dataProvider = dataProvider
-        self.factory = factory
+    required init(dependencies: Dependencies) {
+        self.factory = dependencies.factory
+        self.dataProvider = dependencies.dataProvider
+        self.userPreferences = dependencies.userPreferences
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
     
