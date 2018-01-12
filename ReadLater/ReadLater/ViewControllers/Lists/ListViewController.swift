@@ -167,8 +167,14 @@ extension ListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let sfs = self.safariViewController(at: indexPath) else { return }
-        self.present(sfs, animated: true, completion: nil)
+        switch self.userPreferences.openLinksWith {
+        case .safariViewController:
+            guard let sfs = self.safariViewController(at: indexPath) else { return }
+            self.present(sfs, animated: true, completion: nil)
+        case .safari:
+            guard let url = self.dataSource?.item(at: indexPath)?.url else { return }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
