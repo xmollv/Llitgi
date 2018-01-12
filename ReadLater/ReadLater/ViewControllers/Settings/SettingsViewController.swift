@@ -17,6 +17,10 @@ class SettingsViewController: ViewController {
     @IBOutlet private var badgeCountExplanationLabel: UILabel!
     @IBOutlet private var badgeCountSwitch: UISwitch!
     
+    @IBOutlet var safariOpenerLabel: UILabel!
+    @IBOutlet var safariOpenerExplanationLabel: UILabel!
+    @IBOutlet var safariOpenerSwitch: UISwitch!
+    
     @IBOutlet private var logoutButton: UIButton!
     
     //MARK:- Lifecycle
@@ -34,6 +38,11 @@ class SettingsViewController: ViewController {
         // or by creating new fetch request that only returns the count of elements on 'My List'
     }
     
+    @IBAction private func safariOpenerValueChanged(_ sender: UISwitch) {
+        //TODO: Missing implementation
+        // This should call a manager to change the way that the links are opened
+    }
+    
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
         //TODO: Missing implementation
         // Delete contents of core data
@@ -46,6 +55,8 @@ class SettingsViewController: ViewController {
         self.titleLabel.text = NSLocalizedString("Settings", comment: "")
         self.badgeCountLabel.text = NSLocalizedString("Show app badge count", comment: "")
         self.badgeCountExplanationLabel.text = NSLocalizedString("This will display a badge count on the app icon on your homescreen with the number of elements on your list.", comment: "")
+        self.safariOpenerLabel.text = NSLocalizedString("Open links using Safari", comment: "")
+        self.safariOpenerExplanationLabel.text = NSLocalizedString("Enabling this option will open Safari with the tapped link instead of opening the link in the app.", comment: "")
         self.logoutButton.setTitle(NSLocalizedString("Logout", comment: ""), for: .normal)
     }
 
