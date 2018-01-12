@@ -17,13 +17,17 @@ final class ViewControllerFactory {
         self.dataProvider = dataProvider
     }
     
+    private func buildDependencies() -> Dependencies {
+        return Dependencies(factory: self, dataProvider: self.dataProvider)
+    }
+    
     func instantiate<T: ViewController>() -> T {
-        let viewController = T(factory: self, dataProvider: self.dataProvider)
+        let viewController = T(dependencies: self.buildDependencies())
         return viewController
     }
     
     func instantiateListViewController(type: TypeOfList) -> ListViewController {
-        return ListViewController(factory: self, dataProvider: self.dataProvider, type: type)
+        return ListViewController(dependencies: self.buildDependencies(), type: type)
     }
     
     func establishViewControllers(on tabBarController: UITabBarController) {
