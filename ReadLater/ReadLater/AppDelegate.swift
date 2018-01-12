@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let pocketAPI = PocketAPIManager()
         let modelFactory = CoreDataFactoryImplementation()
         let dataProvider = DataProvider(pocketAPI: pocketAPI, modelFactory: modelFactory)
-        let viewControllerFactory = ViewControllerFactory(dataProvider: dataProvider)
+        let userPreferences = UserPreferencesManager()
+        let viewControllerFactory = ViewControllerFactory(dataProvider: dataProvider, userPreferences: userPreferences)
         
         // Establishing the window and rootViewController
         self.window = UIWindow(frame: UIScreen.main.bounds)

@@ -12,10 +12,12 @@ class ViewController: UIViewController {
 
     let factory: ViewControllerFactory
     let dataProvider: DataProvider
+    let userPreferences: UserPreferences
     
     required init(dependencies: Dependencies) {
         self.factory = dependencies.factory
         self.dataProvider = dependencies.dataProvider
+        self.userPreferences = dependencies.userPreferences
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
     
@@ -24,8 +26,4 @@ class ViewController: UIViewController {
         fatalError("Dependency Injection required")
     }
 
-}
-
-protocol UserPreferences: class {
-    
 }

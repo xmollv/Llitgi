@@ -12,13 +12,17 @@ import UIKit
 final class ViewControllerFactory {
     
     private let dataProvider: DataProvider
+    private let userPreferences: UserPreferences
     
-    init(dataProvider: DataProvider) {
+    init(dataProvider: DataProvider, userPreferences: UserPreferences) {
         self.dataProvider = dataProvider
+        self.userPreferences = userPreferences
     }
     
     private func buildDependencies() -> Dependencies {
-        return Dependencies(factory: self, dataProvider: self.dataProvider)
+        return Dependencies(factory: self,
+                            dataProvider: self.dataProvider,
+                            userPreferences: self.userPreferences)
     }
     
     func instantiate<T: ViewController>() -> T {

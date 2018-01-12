@@ -28,6 +28,7 @@ class SettingsViewController: ViewController {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.setupLocalizedStrings()
+        self.safariOpenerValue(opener: self.userPreferences.openLinksWith)
     }
     
     //MARK:- IBActions
@@ -38,9 +39,22 @@ class SettingsViewController: ViewController {
         // or by creating new fetch request that only returns the count of elements on 'My List'
     }
     
+    private func safariOpenerValue(opener: SafariOpener) {
+        switch opener {
+        case .safari:
+            self.safariOpenerSwitch.setOn(true, animated: false)
+        case .safariViewController:
+            self.safariOpenerSwitch.setOn(false, animated: false)
+        }
+    }
+    
     @IBAction private func safariOpenerValueChanged(_ sender: UISwitch) {
-        //TODO: Missing implementation
-        // This should call a manager to change the way that the links are opened
+        switch sender.isOn {
+        case true:
+            self.userPreferences.openLinksWith = .safari
+        case false:
+            self.userPreferences.openLinksWith = .safariViewController
+        }
     }
     
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
