@@ -77,7 +77,10 @@ class ListViewController: ViewController {
     }
     
     private func configureTableView() {
-        self.dataSource = ListDataSource(tableView: self.tableView, notifier: self.dataProvider.notifier(for: self.typeOfList))
+        self.dataSource = ListDataSource(tableView: self.tableView,
+                                         userPreferences: self.userPreferences,
+                                         typeOfList: self.typeOfList,
+                                         notifier: self.dataProvider.notifier(for: self.typeOfList))
         self.swipeActionManager = ListSwipeActionManager(list: self.typeOfList, dataSource: self.dataSource, dataProvider: self.dataProvider)
         self.tableView.register(ListCell.self)
         self.tableView.delegate = self
