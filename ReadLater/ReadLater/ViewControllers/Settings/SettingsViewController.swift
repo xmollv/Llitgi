@@ -17,9 +17,9 @@ class SettingsViewController: ViewController {
     @IBOutlet private var badgeCountExplanationLabel: UILabel!
     @IBOutlet private var badgeCountSwitch: UISwitch!
     
-    @IBOutlet var safariOpenerLabel: UILabel!
-    @IBOutlet var safariOpenerExplanationLabel: UILabel!
-    @IBOutlet var safariOpenerSwitch: UISwitch!
+    @IBOutlet private var safariOpenerLabel: UILabel!
+    @IBOutlet private var safariOpenerExplanationLabel: UILabel!
+    @IBOutlet private var safariOpenerSwitch: UISwitch!
     
     @IBOutlet private var logoutButton: UIButton!
     
@@ -28,15 +28,26 @@ class SettingsViewController: ViewController {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.setupLocalizedStrings()
+        self.badgeCount(isEnabled: self.userPreferences.userHasEnabledNotifications)
         self.safariOpenerValue(opener: self.userPreferences.openLinksWith)
     }
     
     //MARK:- IBActions
+    private func badgeCount(isEnabled: Bool) {
+        switch isEnabled {
+        case true:
+            self.badgeCountSwitch.setOn(true, animated: false)
+        case false:
+            self.badgeCountSwitch.setOn(false, animated: false)
+        }
+    }
+    
     @IBAction private func badgeCountValueChanged(_ sender: UISwitch) {
-        //TODO: Missing implementation
-        // This should call a manager to trigger for enabling the notifications
-        // The badge should be updated from the 'My List' view controller
-        // or by creating new fetch request that only returns the count of elements on 'My List'
+        self.userPreferences.enableBadge(shouldEnable: sender.isOn) { (success) in
+            if !success {
+                sender.setOn(false, animated: true)
+            }
+        }
     }
     
     private func safariOpenerValue(opener: SafariOpener) {

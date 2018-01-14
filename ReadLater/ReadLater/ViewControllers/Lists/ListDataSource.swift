@@ -12,13 +12,17 @@ class ListDataSource: NSObject {
     
     //MARK:- Private properties
     weak private var tableView: UITableView?
+    private let userPreferences: UserPreferences
+    private let typeOfList: TypeOfList
     private var notifier: CoreDataNotifier?
     
     //MARK:- Lifecycle
-    init(tableView: UITableView, notifier: CoreDataNotifier) {
+    init(tableView: UITableView, userPreferences: UserPreferences, typeOfList: TypeOfList, notifier: CoreDataNotifier) {
+        self.userPreferences = userPreferences
+        self.typeOfList = typeOfList
         super.init()
-        
         self.tableView = tableView
+        
         self.notifier = notifier.onBeginChanging({ [weak self] in
             self?.tableView?.beginUpdates()
         }).onObjectChanged({ [weak self] (change) in
@@ -49,7 +53,11 @@ class ListDataSource: NSObject {
 //MARK:- UITableViewDataSource
 extension ListDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.notifier?.numberOfObjects(on: section) ?? 0
+        let numberOfElements = self.notifier?.numberOfObjects(on: section) ?? 0
+        if self.typeOfList == .myList {
+            self.userPreferences.displayBadge(with: numberOfElements)
+        }
+        return numberOfElements
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

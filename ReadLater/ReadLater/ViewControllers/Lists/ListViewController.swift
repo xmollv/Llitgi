@@ -77,13 +77,19 @@ class ListViewController: ViewController {
     }
     
     private func configureTableView() {
-        self.dataSource = ListDataSource(tableView: self.tableView, notifier: self.dataProvider.notifier(for: self.typeOfList))
+        self.dataSource = ListDataSource(tableView: self.tableView,
+                                         userPreferences: self.userPreferences,
+                                         typeOfList: self.typeOfList,
+                                         notifier: self.dataProvider.notifier(for: self.typeOfList))
         self.swipeActionManager = ListSwipeActionManager(list: self.typeOfList, dataSource: self.dataSource, dataProvider: self.dataProvider)
         self.tableView.register(ListCell.self)
         self.tableView.delegate = self
         self.tableView.dataSource = self.dataSource
         self.tableView.tableFooterView = UIView()
         self.tableView.refreshControl = self.refreshControl
+        if self.typeOfList == .myList {
+            self.userPreferences.badgeDelegate = self
+        }
     }
     
     @objc private func pullToRefresh() {
@@ -201,5 +207,11 @@ extension ListViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         self.present(viewControllerToCommit, animated: true, completion: nil)
+    }
+}
+
+extension ListViewController: BadgeDelegate {
+    func displayBadgeEnabled() {
+        self.tableView.reloadData()
     }
 }
