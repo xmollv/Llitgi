@@ -43,11 +43,6 @@ class SettingsViewController: ViewController {
     }
     
     @IBAction private func badgeCountValueChanged(_ sender: UISwitch) {
-        //TODO: Missing implementation
-        // This should call a manager to trigger for enabling the notifications
-        // The badge should be updated from the 'My List' view controller
-        // or by creating new fetch request that only returns the count of elements on 'My List'
-        
         self.userPreferences.enableBadge(shouldEnable: sender.isOn) { (success) in
             if !success {
                 sender.setOn(false, animated: true)

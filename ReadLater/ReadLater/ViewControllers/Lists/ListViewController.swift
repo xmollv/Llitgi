@@ -87,6 +87,9 @@ class ListViewController: ViewController {
         self.tableView.dataSource = self.dataSource
         self.tableView.tableFooterView = UIView()
         self.tableView.refreshControl = self.refreshControl
+        if self.typeOfList == .myList {
+            self.userPreferences.badgeDelegate = self
+        }
     }
     
     @objc private func pullToRefresh() {
@@ -204,5 +207,11 @@ extension ListViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         self.present(viewControllerToCommit, animated: true, completion: nil)
+    }
+}
+
+extension ListViewController: BadgeDelegate {
+    func displayBadgeEnabled() {
+        self.tableView.reloadData()
     }
 }

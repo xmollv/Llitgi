@@ -15,19 +15,31 @@ enum SafariOpener: String {
     case safari
 }
 
+protocol BadgeDelegate: class {
+    func displayBadgeEnabled()
+}
+
 protocol UserPreferences: class {
     var openLinksWith: SafariOpener { get set }
-    var userHasEnabledNotifications: Bool { get set }
     
+    weak var badgeDelegate: BadgeDelegate? { get set }
+    var userHasEnabledNotifications: Bool { get set }
     func enableBadge(shouldEnable: Bool, then: @escaping (Bool)->())
     func displayBadge(with: Int)
 }
 
 class UserPreferencesManager: UserPreferences {
     
+    weak var badgeDelegate: BadgeDelegate? = nil
+    
     var userHasEnabledNotifications: Bool {
         get { return UserDefaults.standard.bool(forKey: "enabledNotifications") }
-        set { UserDefaults.standard.set(newValue, forKey: "enabledNotifications") }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "enabledNotifications")
+            if newValue == true {
+                self.badgeDelegate?.displayBadgeEnabled()
+            }
+        }
     }
     
     var openLinksWith: SafariOpener {
@@ -41,12 +53,17 @@ class UserPreferencesManager: UserPreferences {
     func enableBadge(shouldEnable: Bool, then: @escaping (Bool) -> ()) {
         if shouldEnable {
             UNUserNotificationCenter.current().requestAuthorization(options: [.badge], completionHandler: { (granted, error) in
-                self.userHasEnabledNotifications = granted
-                then(granted)
+                DispatchQueue.main.async {
+                    self.userHasEnabledNotifications = granted
+                    then(granted)
+                }
             })
         } else {
-            self.userHasEnabledNotifications = false
-            UIApplication.shared.applicationIconBadgeNumber = 0
+            DispatchQueue.main.async {
+                self.userHasEnabledNotifications = false
+                UIApplication.shared.applicationIconBadgeNumber = 0
+                then(false)
+            }
         }
     }
     
