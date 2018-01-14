@@ -34,7 +34,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="uNS-na-vvN">
-                    <rect key="frame" x="20" y="116" width="337" height="123.33333333333331"/>
+                    <rect key="frame" x="20" y="111" width="337" height="123.33333333333331"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="VKH-4H-gvf">
                             <rect key="frame" x="0.0" y="0.0" width="337" height="51.666666666666664"/>
@@ -98,7 +98,7 @@
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geg-cl-9IZ">
-                    <rect key="frame" x="40" y="269.33333333333331" width="299" height="51"/>
+                    <rect key="frame" x="40" y="264.33333333333331" width="299" height="51"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="15" maxX="0.0" maxY="15"/>
@@ -122,7 +122,7 @@
                 <constraint firstItem="uNS-na-vvN" firstAttribute="leading" secondItem="Uhn-9w-cZD" secondAttribute="leading" id="D0O-6v-sNO"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Uhn-9w-cZD" secondAttribute="trailing" constant="18" id="D53-Zr-3pl"/>
                 <constraint firstItem="geg-cl-9IZ" firstAttribute="top" secondItem="uNS-na-vvN" secondAttribute="bottom" constant="30" id="NsV-dV-MdR"/>
-                <constraint firstItem="uNS-na-vvN" firstAttribute="top" secondItem="Uhn-9w-cZD" secondAttribute="bottom" constant="20" id="PLH-Rs-N03"/>
+                <constraint firstItem="uNS-na-vvN" firstAttribute="top" secondItem="Uhn-9w-cZD" secondAttribute="bottom" constant="15" id="PLH-Rs-N03"/>
                 <constraint firstItem="uNS-na-vvN" firstAttribute="trailing" secondItem="Uhn-9w-cZD" secondAttribute="trailing" id="knq-Xg-mKn"/>
                 <constraint firstItem="Uhn-9w-cZD" firstAttribute="trailing" secondItem="geg-cl-9IZ" secondAttribute="trailing" constant="18" id="zX3-HQ-FCd"/>
                 <constraint firstItem="Uhn-9w-cZD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="zXk-Z6-r30"/>
