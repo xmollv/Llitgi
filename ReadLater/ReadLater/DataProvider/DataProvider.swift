@@ -34,6 +34,26 @@ final class DataProvider {
         self.modelFactory = modelFactory
     }
     
+    func updatePocket(code: String) {
+        self.pocketAPI.updatePocket(code: code)
+    }
+    
+    func updatePocket(token: String) {
+        self.pocketAPI.updatePocket(token: token)
+    }
+    
+    func notifier(for type: TypeOfList) -> CoreDataNotifier {
+        return self.modelFactory.notifier(for: type)
+    }
+    
+    func logout() {
+        self.modelFactory.deleteAllModels()
+        UserDefaults.standard.removeObject(forKey: kAccesToken)
+        UserDefaults.standard.removeObject(forKey: "enabledNotifications")
+        UserDefaults.standard.removeObject(forKey: "safariOpener")
+        UserDefaults.standard.removeObject(forKey: "lastSync")
+    }
+    
     /// Performs a network request based on the endpoint, and builds the objects that the API returned
     func perform<T: Managed>(endpoint: PocketAPIEndpoint,
                              clearCachedData: Bool,
@@ -53,10 +73,6 @@ final class DataProvider {
                 }
             }
         }
-    }
-    
-    func notifier(for type: TypeOfList) -> CoreDataNotifier {
-        return self.modelFactory.notifier(for: type)
     }
     
     /// Performs a network request based on the endpoint and returns a memory only object.
@@ -96,13 +112,4 @@ final class DataProvider {
             }
         }
     }
-    
-    func updatePocket(code: String) {
-        self.pocketAPI.updatePocket(code: code)
-    }
-    
-    func updatePocket(token: String) {
-        self.pocketAPI.updatePocket(token: token)
-    }
-    
 }

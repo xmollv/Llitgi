@@ -69,10 +69,10 @@ class SettingsViewController: ViewController {
     }
     
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
-        //TODO: Missing implementation
-        // Delete contents of core data
-        // Delete tokens saved on user defaults
-        // Delete lasSync value stored on user defaults
+        guard let tabBar = self.tabBarController else { return }
+        self.userPreferences.displayBadge(with: 0)
+        self.dataProvider.logout()
+        self.factory.establishAuthViewController(on: tabBar)
     }
     
     //MARK:- Private methods

@@ -12,6 +12,7 @@ import CoreData
 protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray, for: TypeOfList, clearCache: Bool) -> [T]
     func notifier(for: TypeOfList) -> CoreDataNotifier
+    func deleteAllModels()
 }
 
 final class CoreDataFactoryImplementation: CoreDataFactory {
@@ -131,5 +132,40 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
         return CoreDataNotifier(fetchResultController: frc)
+    }
+    
+    func deleteAllModels() {
+        self.storeContainer.managedObjectModel.entities.flatMap {
+            guard let name = $0.name else {
+                Logger.log("This entity doesn't have a name: \($0)")
+                return nil
+            }
+            let fetch:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: name)
+            return fetch
+            }.forEach {
+                self.delete(fetch: $0)
+        }
+
+        self.context.performAndWait {
+            do {
+                try self.context.save()
+            } catch {
+                Logger.log("Error trying to save the context: \(error)", event: .error)
+            }
+        }
+    }
+    
+    private func delete(fetch: NSFetchRequest<NSFetchRequestResult>) {
+        do {
+            try self.context.fetch(fetch).forEach {
+                guard let managedObject = $0 as? NSManagedObject else {
+                    Logger.log("The object was not a NSmanagedObject: \($0)")
+                    return
+                }
+                context.delete(managedObject)
+            }
+        } catch {
+            Logger.log("Error on deleting entity: \(fetch.entity?.name ?? ""): \(error.localizedDescription)")
+        }
     }
 }
