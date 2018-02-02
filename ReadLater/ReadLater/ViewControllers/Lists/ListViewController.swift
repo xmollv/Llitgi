@@ -41,13 +41,13 @@ class ListViewController: ViewController {
     }()
     
     //MARK:- Lifecycle
-    required init(dependencies: Dependencies, type: TypeOfList) {
+    required init(factory: ViewControllerFactory, dependencies: Dependencies, type: TypeOfList) {
         self.typeOfList = type
-        super.init(dependencies: dependencies)
+        super.init(factory: factory, dependencies: dependencies)
     }
     
     @available(*, unavailable)
-    required init(dependencies: Dependencies) {
+    required init(factory: ViewControllerFactory, dependencies: Dependencies) {
         fatalError("init(factory:dataProvider:) has not been implemented")
     }
     

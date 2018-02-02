@@ -14,8 +14,8 @@ class ViewController: UIViewController {
     let dataProvider: DataProvider
     let userPreferences: UserPreferences
     
-    required init(dependencies: Dependencies) {
-        self.factory = dependencies.factory
+    required init(factory: ViewControllerFactory, dependencies: Dependencies) {
+        self.factory = factory
         self.dataProvider = dependencies.dataProvider
         self.userPreferences = dependencies.userPreferences
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))

@@ -11,27 +11,19 @@ import UIKit
 
 final class ViewControllerFactory {
     
-    private let dataProvider: DataProvider
-    private let userPreferences: UserPreferences
+    private let dependecies: Dependencies
     
-    init(dataProvider: DataProvider, userPreferences: UserPreferences) {
-        self.dataProvider = dataProvider
-        self.userPreferences = userPreferences
-    }
-    
-    private func buildDependencies() -> Dependencies {
-        return Dependencies(factory: self,
-                            dataProvider: self.dataProvider,
-                            userPreferences: self.userPreferences)
+    init(dependencies: Dependencies) {
+        self.dependecies = dependencies
     }
     
     func instantiate<T: ViewController>() -> T {
-        let viewController = T(dependencies: self.buildDependencies())
+        let viewController = T(factory: self, dependencies: self.dependecies)
         return viewController
     }
     
     func instantiateListViewController(type: TypeOfList) -> ListViewController {
-        return ListViewController(dependencies: self.buildDependencies(), type: type)
+        return ListViewController(factory: self, dependencies: self.dependecies, type: type)
     }
     
     func establishViewControllers(on tabBarController: UITabBarController) {

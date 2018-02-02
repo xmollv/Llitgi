@@ -10,14 +10,11 @@ import Foundation
 
 class Dependencies {
     
-    let factory: ViewControllerFactory
     let dataProvider: DataProvider
     let userPreferences: UserPreferences
     
-    init(factory: ViewControllerFactory,
-         dataProvider: DataProvider,
+    init(dataProvider: DataProvider,
          userPreferences: UserPreferences) {
-        self.factory = factory
         self.dataProvider = dataProvider
         self.userPreferences = userPreferences
     }
