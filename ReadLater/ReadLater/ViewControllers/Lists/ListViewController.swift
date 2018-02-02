@@ -29,11 +29,6 @@ class ListViewController: ViewController {
     private var swipeActionManager: ListSwipeActionManager?
     private var cellHeights: [IndexPath : CGFloat] = [:]
     
-    private var lastSync: TimeInterval {
-        get { return UserDefaults.standard.double(forKey: "lastSync") }
-        set { UserDefaults.standard.set(newValue, forKey: "lastSync") }
-    }
-    
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
@@ -57,7 +52,7 @@ class ListViewController: ViewController {
         registerForPreviewing(with: self, sourceView: self.tableView)
         self.configureUI(for: self.typeOfList)
         self.configureTableView()
-        self.fetchList()
+        self.pullToRefresh()
     }
     
     //MARK: Private methods
@@ -93,24 +88,10 @@ class ListViewController: ViewController {
     }
     
     @objc private func pullToRefresh() {
-        self.fetchList()
-    }
-    
-    private func fetchList() {
-        let endpoint: PocketAPIEndpoint
-        if self.lastSync == 0 {
-            Logger.log("Last sync was 0", event: .warning)
-            endpoint = .getAll
-        } else {
-            Logger.log("Last sync was \(self.lastSync)")
-            endpoint = .sync(last: self.lastSync)
-        }
-        
-        self.dataProvider.perform(endpoint: endpoint, typeOfList: self.typeOfList) { [weak self] (result: Result<[CoreDataItem]>) in
+        self.syncManager.sync(self.typeOfList) { [weak self] (result: Result<[CoreDataItem]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:
-                self?.lastSync = Date().timeIntervalSince1970
                 Logger.log("Succes on: \(strongSelf.typeOfList)")
             case .isFailure(let error):
                 Logger.log("Error on: \(strongSelf.typeOfList).\n\n Error: \(error)", event: .error)
