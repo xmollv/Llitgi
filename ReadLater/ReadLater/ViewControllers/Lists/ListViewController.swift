@@ -106,7 +106,7 @@ class ListViewController: ViewController {
             endpoint = .sync(last: self.lastSync)
         }
         
-        self.dataProvider.perform(endpoint: endpoint, clearCachedData: false, typeOfList: self.typeOfList) { [weak self] (result: Result<[CoreDataItem]>) in
+        self.dataProvider.perform(endpoint: endpoint, typeOfList: self.typeOfList) { [weak self] (result: Result<[CoreDataItem]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:
