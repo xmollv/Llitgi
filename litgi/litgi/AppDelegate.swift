@@ -12,6 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    private weak var syncManager: SyncManager? = nil
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let modelFactory = CoreDataFactoryImplementation()
         let dataProvider = DataProvider(pocketAPI: pocketAPI, modelFactory: modelFactory)
         let syncManager = SyncManager(dataProvider: dataProvider)
+        self.syncManager = syncManager
         let userPreferences = UserPreferencesManager()
         let dependencies = Dependencies(dataProvider: dataProvider, syncManager: syncManager, userPreferences: userPreferences)
         let viewControllerFactory = ViewControllerFactory(dependencies: dependencies)
@@ -40,6 +42,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NotificationCenter.default.post(name: .OAuthFinished, object: nil)
         }
         return true
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        guard LitgiUserDefaults.shared.string(forKey: kAccesToken) != nil else {
+            Logger.log("The token is not there. We can't sync.", event: .warning)
+            return
+        }
+        
+        guard let syncManager = self.syncManager else {
+            Logger.log("The sync manager was nil", event: .error)
+            return
+        }
+        
+        syncManager.sync() { (result: Result<[CoreDataItem]>) in
+            switch result {
+            case .isSuccess:
+                Logger.log("Succes on sync")
+            case .isFailure(let error):
+                Logger.log("Error on sync: \(error)", event: .error)
+            }
+        }
     }
     
     private func rootViewController(factory: ViewControllerFactory) -> UITabBarController {
