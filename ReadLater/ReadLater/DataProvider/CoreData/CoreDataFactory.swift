@@ -115,13 +115,16 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         request.predicate = NSPredicate(format: "title_ CONTAINS[c] %@ OR url_ CONTAINS[c] %@", text, text)
         //TODO: Change for the edit time
         request.sortDescriptors = [NSSortDescriptor(key: "timeAdded_", ascending: false, selector: #selector(NSString.caseInsensitiveCompare(_:)))]
-        do {
-            let results = try self.context.fetch(request)
-            return results
-        } catch {
-            Logger.log("Error trying to fetch when searching: \(error)", event: .error)
-            return []
+        
+        var results: [CoreDataItem] = []
+        self.context.performAndWait {
+            do {
+                results = try self.context.fetch(request)
+            } catch {
+                Logger.log("Error trying to fetch when searching: \(error)", event: .error)
+            }
         }
+        return results
     }
     
     func deleteAllModels() {
