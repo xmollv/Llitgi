@@ -34,10 +34,11 @@ final class ViewControllerFactory {
         favoritesViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Favorites", comment: ""), image: #imageLiteral(resourceName: "favorite"), tag: 1)
         let archiveViewController: ListViewController = self.instantiateListViewController(type: .archive)
         archiveViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Archive", comment: ""), image: #imageLiteral(resourceName: "archive"), tag: 2)
+        let searchViewController: SearchViewController = self.instantiate()
         let settingsViewController: SettingsViewController = self.instantiate()
         settingsViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Settings", comment: ""), image: #imageLiteral(resourceName: "settings"), tag: 3)
         
-        let tabs = [listViewController, favoritesViewController, archiveViewController, settingsViewController].map({ UINavigationController(rootViewController: $0) })
+        let tabs = [listViewController, favoritesViewController, archiveViewController, searchViewController, settingsViewController].map({ UINavigationController(rootViewController: $0) })
         
         tabBarController.setViewControllers(tabs, animated: false)
         //In case that it was hidden by the auth, we make sure that it's not hidden
