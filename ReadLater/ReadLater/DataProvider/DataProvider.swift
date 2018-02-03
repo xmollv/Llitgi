@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol JSONInitiable {
-    init?(dict: JSONDictionary)
-}
-
 final class DataProvider {
     
     private let pocketAPI: PocketAPIManager
@@ -48,10 +44,10 @@ final class DataProvider {
     
     func logout() {
         self.modelFactory.deleteAllModels()
-        UserDefaults.standard.removeObject(forKey: kAccesToken)
-        UserDefaults.standard.removeObject(forKey: "enabledNotifications")
-        UserDefaults.standard.removeObject(forKey: "safariOpener")
-        UserDefaults.standard.removeObject(forKey: "lastSync")
+        LitgiUserDefaults.shared.removeObject(forKey: kAccesToken)
+        LitgiUserDefaults.shared.removeObject(forKey: kEnabledNotifications)
+        LitgiUserDefaults.shared.removeObject(forKey: kSafariOpener)
+        LitgiUserDefaults.shared.removeObject(forKey: kLastSync)
     }
     
     /// Performs a network request based on the endpoint, and builds the objects that the API returned

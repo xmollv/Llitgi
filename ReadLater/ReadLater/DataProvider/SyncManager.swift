@@ -12,8 +12,8 @@ final class SyncManager {
     
     private let dataProvider: DataProvider
     private var lastSync: TimeInterval {
-        get { return UserDefaults.standard.double(forKey: "lastSync") }
-        set { UserDefaults.standard.set(newValue, forKey: "lastSync") }
+        get { return LitgiUserDefaults.shared.double(forKey: kLastSync) }
+        set { LitgiUserDefaults.shared.set(newValue, forKey: kLastSync) }
     }
     private var isSyncing = false
     

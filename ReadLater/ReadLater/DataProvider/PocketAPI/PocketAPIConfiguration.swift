@@ -8,8 +8,6 @@
 
 import Foundation
 
-let kAccesToken = "accessToken"
-
 class PocketAPIConfiguration {
     /// This is the API key generated on the Pocket website
     let consumerKey = "73483-2233031e613a5b40f9c466f7"
@@ -27,7 +25,7 @@ class PocketAPIConfiguration {
     var accessToken: String?
     
     init() {
-        self.accessToken = UserDefaults.standard.string(forKey: kAccesToken)
+        self.accessToken = LitgiUserDefaults.shared.string(forKey: kAccesToken)
     }
 }
 

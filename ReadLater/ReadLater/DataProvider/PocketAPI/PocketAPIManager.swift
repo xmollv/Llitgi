@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol JSONInitiable {
+    init?(dict: JSONDictionary)
+}
+
 final class PocketAPIManager {
     
     //MARK:- Private properties
@@ -92,7 +96,7 @@ final class PocketAPIManager {
     
     func updatePocket(token: String) {
         self.apiConfig.accessToken = token
-        UserDefaults.standard.set(token, forKey: kAccesToken)
+        LitgiUserDefaults.shared.set(token, forKey: kAccesToken)
     }
 
     //MARK:- Private methods

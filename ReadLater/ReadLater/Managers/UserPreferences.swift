@@ -33,9 +33,9 @@ class UserPreferencesManager: UserPreferences {
     weak var badgeDelegate: BadgeDelegate? = nil
     
     var userHasEnabledNotifications: Bool {
-        get { return UserDefaults.standard.bool(forKey: "enabledNotifications") }
+        get { return LitgiUserDefaults.shared.bool(forKey: kEnabledNotifications) }
         set {
-            UserDefaults.standard.set(newValue, forKey: "enabledNotifications")
+            LitgiUserDefaults.shared.set(newValue, forKey: kEnabledNotifications)
             if newValue == true {
                 self.badgeDelegate?.displayBadgeEnabled()
             }
@@ -44,10 +44,10 @@ class UserPreferencesManager: UserPreferences {
     
     var openLinksWith: SafariOpener {
         get {
-            let savedValue = UserDefaults.standard.string(forKey: "safariOpener") ?? ""
+            let savedValue = LitgiUserDefaults.shared.string(forKey: kSafariOpener) ?? ""
             return SafariOpener(rawValue: savedValue) ?? .safariViewController
         }
-        set { UserDefaults.standard.set(newValue.rawValue, forKey: "safariOpener") }
+        set { LitgiUserDefaults.shared.set(newValue.rawValue, forKey: kSafariOpener) }
     }
     
     func enableBadge(shouldEnable: Bool, then: @escaping (Bool) -> ()) {

@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func rootViewController(factory: ViewControllerFactory) -> UITabBarController {
         let tabBarController = UITabBarController()
-        if let _ = UserDefaults.standard.string(forKey: kAccesToken) {
+        if let _ = LitgiUserDefaults.shared.string(forKey: kAccesToken) {
             factory.establishViewControllers(on: tabBarController)
         } else {
             factory.establishAuthViewController(on: tabBarController)
