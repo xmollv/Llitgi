@@ -32,9 +32,9 @@ class SearchViewController: ViewController {
         self.configureTableView()
     }
     
-    //MARK:- Private methods
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    //MARK:- Private methods    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.searchTextField.becomeFirstResponder()
     }
     
@@ -45,7 +45,8 @@ class SearchViewController: ViewController {
     
     private func configureSearchTextField() {
         self.searchTextField.delegate = self
-        self.searchTextField.attributedPlaceholder = NSAttributedString(string: "Search", attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
+        self.searchTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("Search", comment: ""),
+                                                                        attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
     }
     
     private func configureTableView() {

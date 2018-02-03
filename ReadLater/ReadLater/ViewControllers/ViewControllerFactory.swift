@@ -35,8 +35,9 @@ final class ViewControllerFactory {
         let archiveViewController: ListViewController = self.instantiateListViewController(type: .archive)
         archiveViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Archive", comment: ""), image: #imageLiteral(resourceName: "archive"), tag: 2)
         let searchViewController: SearchViewController = self.instantiate()
+        searchViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Search", comment: ""), image: #imageLiteral(resourceName: "search"), tag: 3)
         let settingsViewController: SettingsViewController = self.instantiate()
-        settingsViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Settings", comment: ""), image: #imageLiteral(resourceName: "settings"), tag: 3)
+        settingsViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Settings", comment: ""), image: #imageLiteral(resourceName: "settings"), tag: 4)
         
         let tabs = [listViewController, favoritesViewController, archiveViewController, searchViewController, settingsViewController].map({ UINavigationController(rootViewController: $0) })
         
