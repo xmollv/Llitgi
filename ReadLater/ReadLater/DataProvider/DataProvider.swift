@@ -52,13 +52,12 @@ final class DataProvider {
     
     /// Performs a network request based on the endpoint, and builds the objects that the API returned
     func perform<T: Managed>(endpoint: PocketAPIEndpoint,
-                             typeOfList: TypeOfList,
                              on resultQueue: DispatchQueue = DispatchQueue.main,
                              then: @escaping Completion<[T]>) {
         self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in
             switch result {
             case .isSuccess(let json):
-                let elements: [T] = self.modelFactory.build(jsonArray: json, for: typeOfList)
+                let elements: [T] = self.modelFactory.build(jsonArray: json)
                 resultQueue.async {
                     then(Result.isSuccess(elements))
                 }

@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 protocol CoreDataFactory: class {
-    func build<T: Managed>(jsonArray: JSONArray, for: TypeOfList) -> [T]
+    func build<T: Managed>(jsonArray: JSONArray) -> [T]
     func notifier(for: TypeOfList) -> CoreDataNotifier
     func search(_: String) -> [CoreDataItem]
     func deleteAllModels()
@@ -53,7 +53,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         return container
     }()
     
-    func build<T: Managed>(jsonArray: JSONArray, for list: TypeOfList) -> [T] {
+    func build<T: Managed>(jsonArray: JSONArray) -> [T] {
         let objects: [T] = jsonArray.flatMap { self.build(json: $0, in: self.context) }
         
         self.context.performAndWait {
