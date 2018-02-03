@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class SearchViewController: ViewController {
 
@@ -22,6 +23,7 @@ class SearchViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.registerForPreviewing(with: self, sourceView: self.tableView)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardChanged(notification:)),
                                                name: .UIKeyboardWillChangeFrame,
@@ -31,8 +33,8 @@ class SearchViewController: ViewController {
     }
     
     //MARK:- Private methods
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.searchTextField.becomeFirstResponder()
     }
     
@@ -105,5 +107,31 @@ extension SearchViewController: UITableViewDataSource {
 
 //MARK:- UITableViewDelegate
 extension SearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let url = self.searchResults[indexPath.row].url
+        switch self.userPreferences.openLinksWith {
+        case .safariViewController:
+            let sfs = SFSafariViewController(url: url)
+            sfs.preferredControlTintColor = .black
+            self.present(sfs, animated: true, completion: nil)
+        case .safari:
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+}
+
+//MARK:- UIViewControllerPreviewingDelegate
+extension SearchViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = self.tableView.indexPathForRow(at: location) else { return nil }
+        previewingContext.sourceRect = self.tableView.rectForRow(at: indexPath)
+        let url = self.searchResults[indexPath.row].url
+        let sfs = SFSafariViewController(url: url)
+        sfs.preferredControlTintColor = .black
+        return sfs
+    }
     
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.present(viewControllerToCommit, animated: true, completion: nil)
+    }
 }

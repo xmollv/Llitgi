@@ -49,7 +49,7 @@ class ListViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        registerForPreviewing(with: self, sourceView: self.tableView)
+        self.registerForPreviewing(with: self, sourceView: self.tableView)
         self.configureUI(for: self.typeOfList)
         self.configureTableView()
         self.pullToRefresh()
