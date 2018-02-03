@@ -8,10 +8,6 @@
 
 import Foundation
 
-protocol JSONInitiable {
-    init?(dict: JSONDictionary)
-}
-
 final class DataProvider {
     
     private let pocketAPI: PocketAPIManager
@@ -48,21 +44,20 @@ final class DataProvider {
     
     func logout() {
         self.modelFactory.deleteAllModels()
-        UserDefaults.standard.removeObject(forKey: kAccesToken)
-        UserDefaults.standard.removeObject(forKey: "enabledNotifications")
-        UserDefaults.standard.removeObject(forKey: "safariOpener")
-        UserDefaults.standard.removeObject(forKey: "lastSync")
+        LitgiUserDefaults.shared.removeObject(forKey: kAccesToken)
+        LitgiUserDefaults.shared.removeObject(forKey: kEnabledNotifications)
+        LitgiUserDefaults.shared.removeObject(forKey: kSafariOpener)
+        LitgiUserDefaults.shared.removeObject(forKey: kLastSync)
     }
     
     /// Performs a network request based on the endpoint, and builds the objects that the API returned
     func perform<T: Managed>(endpoint: PocketAPIEndpoint,
-                             typeOfList: TypeOfList,
                              on resultQueue: DispatchQueue = DispatchQueue.main,
                              then: @escaping Completion<[T]>) {
         self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in
             switch result {
             case .isSuccess(let json):
-                let elements: [T] = self.modelFactory.build(jsonArray: json, for: typeOfList)
+                let elements: [T] = self.modelFactory.build(jsonArray: json)
                 resultQueue.async {
                     then(Result.isSuccess(elements))
                 }

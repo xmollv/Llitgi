@@ -88,7 +88,7 @@ class ListViewController: ViewController {
     }
     
     @objc private func pullToRefresh() {
-        self.syncManager.sync(self.typeOfList) { [weak self] (result: Result<[CoreDataItem]>) in
+        self.syncManager.sync() { [weak self] (result: Result<[CoreDataItem]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:

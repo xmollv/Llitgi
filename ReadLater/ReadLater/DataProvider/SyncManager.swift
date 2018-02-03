@@ -12,8 +12,8 @@ final class SyncManager {
     
     private let dataProvider: DataProvider
     private var lastSync: TimeInterval {
-        get { return UserDefaults.standard.double(forKey: "lastSync") }
-        set { UserDefaults.standard.set(newValue, forKey: "lastSync") }
+        get { return LitgiUserDefaults.shared.double(forKey: kLastSync) }
+        set { LitgiUserDefaults.shared.set(newValue, forKey: kLastSync) }
     }
     private var isSyncing = false
     
@@ -21,9 +21,10 @@ final class SyncManager {
         self.dataProvider = dataProvider
     }
     
-    func sync(_ typeOfList: TypeOfList, then: @escaping Completion<[CoreDataItem]>) {
+    func sync(then: @escaping Completion<[CoreDataItem]>) {
         guard !self.isSyncing else { return }
         self.isSyncing = true
+        
         let endpoint: PocketAPIEndpoint
         if self.lastSync == 0 {
             Logger.log("Last sync was 0", event: .warning)
@@ -33,7 +34,7 @@ final class SyncManager {
             endpoint = .sync(last: self.lastSync)
         }
         
-        self.dataProvider.perform(endpoint: endpoint, typeOfList: typeOfList) { [weak self] (result: Result<[CoreDataItem]>) in
+        self.dataProvider.perform(endpoint: endpoint) { [weak self] (result: Result<[CoreDataItem]>) in
             guard let strongSelf = self else { return }
             strongSelf.isSyncing = false
             switch result {
