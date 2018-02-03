@@ -12,11 +12,12 @@ import CoreData
 protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray, for: TypeOfList) -> [T]
     func notifier(for: TypeOfList) -> CoreDataNotifier
+    func search(_: String) -> [CoreDataItem]
     func deleteAllModels()
 }
 
 final class CoreDataFactoryImplementation: CoreDataFactory {
-    
+
     let name: String
     let fileManager: FileManager
     
@@ -88,6 +89,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     func notifier(for type: TypeOfList) -> CoreDataNotifier {
         let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        //TODO: Change for the edit time
         request.sortDescriptors = [NSSortDescriptor(key: "timeAdded_", ascending: false)]
         
         var predicate: NSPredicate?
@@ -106,6 +108,20 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
         return CoreDataNotifier(fetchResultController: frc)
+    }
+    
+    func search(_ text: String) -> [CoreDataItem] {
+        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        request.predicate = NSPredicate(format: "title_ CONTAINS[c] %@ OR url_ CONTAINS[c] %@", text, text)
+        //TODO: Change for the edit time
+        request.sortDescriptors = [NSSortDescriptor(key: "timeAdded_", ascending: false, selector: #selector(NSString.caseInsensitiveCompare(_:)))]
+        do {
+            let results = try self.context.fetch(request)
+            return results
+        } catch {
+            Logger.log("Error trying to fetch when searching: \(error)", event: .error)
+            return []
+        }
     }
     
     func deleteAllModels() {

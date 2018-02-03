@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController" customModule="ReadLater" customModuleProvider="target">
             <connections>
                 <outlet property="searchTextField" destination="wy7-Y4-ZDJ" id="40c-n9-gok"/>
+                <outlet property="tableView" destination="4Av-24-eWb" id="Smz-3p-8AM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,20 +21,31 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wy7-Y4-ZDJ">
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wy7-Y4-ZDJ">
                     <rect key="frame" x="18" y="54" width="339" height="42"/>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" weight="black" pointSize="35"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                 </textField>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Av-24-eWb">
+                    <rect key="frame" x="0.0" y="96" width="375" height="716"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="separatorInset" minX="18" minY="0.0" maxX="18" maxY="0.0"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="4Av-24-eWb" firstAttribute="top" secondItem="wy7-Y4-ZDJ" secondAttribute="bottom" id="1a0-XT-Pnj"/>
                 <constraint firstItem="wy7-Y4-ZDJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="Epx-3h-z0w"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="wy7-Y4-ZDJ" secondAttribute="trailing" constant="18" id="GkI-bh-cLh"/>
+                <constraint firstItem="4Av-24-eWb" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="ObP-cU-tt5"/>
                 <constraint firstItem="wy7-Y4-ZDJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="Xgq-ji-xOs"/>
+                <constraint firstItem="4Av-24-eWb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Xne-vI-Hng"/>
+                <constraint firstAttribute="bottom" secondItem="4Av-24-eWb" secondAttribute="bottom" id="dsr-HF-8I7"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="33.5" y="54"/>
         </view>
     </objects>
 </document>

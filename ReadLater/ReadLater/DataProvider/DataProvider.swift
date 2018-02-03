@@ -111,4 +111,8 @@ final class DataProvider {
             }
         }
     }
+    
+    func search(_ text: String) -> [Item] {
+        return self.modelFactory.search(text)
+    }
 }
