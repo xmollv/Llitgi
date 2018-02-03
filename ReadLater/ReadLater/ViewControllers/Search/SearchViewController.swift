@@ -13,6 +13,8 @@ class SearchViewController: ViewController {
     //MARK:- IBOutlets
     @IBOutlet private var searchTextField: UITextField!
     @IBOutlet private var tableView: UITableView!
+    @IBOutlet private var bottomConstraint: NSLayoutConstraint!
+    
     //MARK:- Private properties
     private var searchResults: [Item] = []
     
@@ -20,10 +22,15 @@ class SearchViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardChanged(notification:)),
+                                               name: .UIKeyboardWillChangeFrame,
+                                               object: nil)
         self.configureSearchTextField()
         self.configureTableView()
     }
     
+    //MARK:- Private methods
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.searchTextField.becomeFirstResponder()
@@ -44,6 +51,10 @@ class SearchViewController: ViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.tableFooterView = UIView()
+    }
+    
+    @objc private func keyboardChanged(notification: NSNotification) {
+        self.keyboardNotification(notification, constraint: self.bottomConstraint, view: self.view)
     }
 
 }
@@ -96,5 +107,3 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     
 }
-
-

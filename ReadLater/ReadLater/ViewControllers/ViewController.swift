@@ -27,5 +27,29 @@ class ViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("Dependency Injection required")
     }
+    
+    func keyboardNotification(_ notification: NSNotification, constraint: NSLayoutConstraint, view: UIView, defaultConstraintValue: CGFloat = 0) {
+        if let userInfo = notification.userInfo {
+            guard let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+                return
+            }
+            let duration:TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+            let animationCurveRawNSN = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber
+            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIViewAnimationOptions.curveEaseInOut.rawValue
+            let animationCurve:UIViewAnimationOptions = UIViewAnimationOptions(rawValue: animationCurveRaw)
+            
+            if endFrame.origin.y >= UIScreen.main.bounds.size.height {
+                constraint.constant = defaultConstraintValue
+            } else {
+                constraint.constant = endFrame.size.height + defaultConstraintValue
+            }
+            
+            UIView.animate(withDuration: duration, delay: 0, options: animationCurve, animations: {
+                view.layoutIfNeeded()
+            }, completion: nil)
+        } else {
+            return
+        }
+    }
 
 }

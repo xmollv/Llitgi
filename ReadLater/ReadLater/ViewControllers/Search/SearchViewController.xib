@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController" customModule="ReadLater" customModuleProvider="target">
             <connections>
+                <outlet property="bottomConstraint" destination="dsr-HF-8I7" id="Vlh-P2-q7h"/>
                 <outlet property="searchTextField" destination="wy7-Y4-ZDJ" id="40c-n9-gok"/>
                 <outlet property="tableView" destination="4Av-24-eWb" id="Smz-3p-8AM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
