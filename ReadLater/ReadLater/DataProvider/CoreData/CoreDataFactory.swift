@@ -39,7 +39,6 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     private lazy var storeContainer: NSPersistentContainer = {
         let storeURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(name)
-        Logger.log("Core Data path: \(storeURL.absoluteString)")
         let description = NSPersistentStoreDescription(url: storeURL)
         description.setOption(FileProtectionType.completeUnlessOpen.rawValue as NSString, forKey: NSPersistentStoreFileProtectionKey)
         
@@ -134,13 +133,13 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         do {
             try self.context.fetch(fetch).forEach {
                 guard let managedObject = $0 as? NSManagedObject else {
-                    Logger.log("The object was not a NSmanagedObject: \($0)")
+                    Logger.log("The object was not a NSManagedObject: \($0)")
                     return
                 }
                 context.delete(managedObject)
             }
         } catch {
-            Logger.log("Error on deleting entity: \(fetch.entity?.name ?? ""): \(error.localizedDescription)")
+            Logger.log("Error on deleting entity: \(fetch.entity?.name ?? ""): \(error.localizedDescription)", event: .error)
         }
     }
 }

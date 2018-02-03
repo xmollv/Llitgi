@@ -111,7 +111,6 @@ class ListViewController: ViewController {
         self.activityIndicator.isHidden = false
         self.addButton.isHidden = true
         guard let url = UIPasteboard.general.url else {
-            Logger.log("The pasteboard doesn't contain any URL", event: .warning)
             self.activityIndicator.isHidden = true
             self.addButton.isHidden = false
             
