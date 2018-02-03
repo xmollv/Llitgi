@@ -38,7 +38,8 @@ extension NSManagedObject {
     
     fileprivate static func create<T: Managed>(with id: String, in context: NSManagedObjectContext) -> T? {
         guard let entity = NSEntityDescription.entity(forEntityName: String(describing: T.self), in: context) else {
-            fatalError("Invalid Core Data configuration")
+            Logger.log("Invalid Core Data configuration", event: .error)
+            return nil
         }
         let object = T.init(entity: entity, insertInto: context)
         object.id = id
