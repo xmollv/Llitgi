@@ -17,33 +17,42 @@ class ShareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let extensionItem = extensionContext?.inputItems.first as! NSExtensionItem
-        let itemProvider = extensionItem.attachments?.first as! NSItemProvider
-        let propertyList = String(kUTTypePropertyList)
-        if itemProvider.hasItemConformingToTypeIdentifier(propertyList) {
-            itemProvider.loadItem(forTypeIdentifier: propertyList, options: nil, completionHandler: { (item, error) -> Void in
-                guard let dictionary = item as? NSDictionary else { return }
-                OperationQueue.main.addOperation {
-                    if let results = dictionary[NSExtensionJavaScriptPreprocessingResultsKey] as? NSDictionary,
-                        let urlString = results["URL"] as? String,
-                        let url = URL(string: urlString) {
-                        print("URL retrieved: \(url)")
-                        
-                        self.APIManager.perform(endpoint: .add(url), then: { (result: Result<JSONArray>) in
-                            switch result {
-                            case .isSuccess:
-                                break
-                            case .isFailure(let error):
-                                Logger.log("Unable to save the URL. \(error)", event: .error)
-                            }
-                            self.dismiss()
-                        })
-                        
-                    }
+        guard let itemProvider = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments?.first as? NSItemProvider else {
+            Logger.log("The itemProvider can't be found", event: .error)
+            return
+        }
+        
+        guard itemProvider.hasItemConformingToTypeIdentifier(kUTTypeURL as String) else {
+            Logger.log("The itemProvider doesn't have an URL in it", event: .error)
+            return
+        }
+        
+        itemProvider.loadItem(forTypeIdentifier: kUTTypeURL as String, options: nil) { [weak self] (item, error) in
+            guard let strongSelf = self else { return }
+            guard error == nil else {
+                Logger.log("An error ocurred when loading the item: \(error.localizedDescription)", event: .error)
+                return
+            }
+            
+            guard let item = item else {
+                Logger.log("The item was nil", event: .error)
+                return
+            }
+            
+            guard let url = URL(string: String(describing: item)) else {
+                Logger.log("Unable to create an URL from: \(String(describing: item))", event: .error)
+                return
+            }
+            
+            strongSelf.APIManager.perform(endpoint: .add(url)) { (result: Result<JSONArray>) in
+                switch result {
+                case .isSuccess:
+                    Logger.log("Sucess saving the URL")
+                case .isFailure(let error):
+                    Logger.log("Unable to save the URL. \(error)", event: .error)
                 }
-            })
-        } else {
-            print("error")
+                strongSelf.dismiss()
+            }
         }
     }
     

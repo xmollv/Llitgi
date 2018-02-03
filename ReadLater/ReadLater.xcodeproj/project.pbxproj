@@ -23,7 +23,6 @@
 		475E177020262CAD007033F1 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475E176F20262CAD007033F1 /* ShareViewController.swift */; };
 		475E177320262CAD007033F1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 475E177120262CAD007033F1 /* MainInterface.storyboard */; };
 		475E177720262CAD007033F1 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 475E176D20262CAD007033F1 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		475E177D20262DB5007033F1 /* GetURL.js in Resources */ = {isa = PBXBuildFile; fileRef = 475E177C20262DB5007033F1 /* GetURL.js */; };
 		475E177E202633A4007033F1 /* PocketAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */; };
 		475E177F202633A4007033F1 /* PocketAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */; };
 		475E1780202633A4007033F1 /* PocketAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3881FF03C060030BEF1 /* PocketAPIEndpoint.swift */; };
@@ -102,7 +101,6 @@
 		475E176F20262CAD007033F1 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		475E177220262CAD007033F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		475E177420262CAD007033F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		475E177C20262DB5007033F1 /* GetURL.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = GetURL.js; sourceTree = "<group>"; };
 		47661A3920252C9900017C28 /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		4770ACF41FF111A9006E755D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		4770ACF61FF17AFD006E755D /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
@@ -186,7 +184,6 @@
 				475E176F20262CAD007033F1 /* ShareViewController.swift */,
 				475E177120262CAD007033F1 /* MainInterface.storyboard */,
 				475E177420262CAD007033F1 /* Info.plist */,
-				475E177C20262DB5007033F1 /* GetURL.js */,
 			);
 			path = ShareExtension;
 			sourceTree = "<group>";
@@ -419,7 +416,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				475E177320262CAD007033F1 /* MainInterface.storyboard in Resources */,
-				475E177D20262DB5007033F1 /* GetURL.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
