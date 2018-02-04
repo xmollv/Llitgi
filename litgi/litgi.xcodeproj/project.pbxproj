@@ -194,7 +194,6 @@
 				4770ACF91FF18AF7006E755D /* ListViewController.swift */,
 				4770ACFA1FF18AF7006E755D /* ListViewController.xib */,
 				4770ACFD1FF1B108006E755D /* ListDataSource.swift */,
-				4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */,
 				4770AD011FF1B470006E755D /* ListCell.swift */,
 				4770AD021FF1B470006E755D /* ListCell.xib */,
 			);
@@ -206,6 +205,7 @@
 			children = (
 				47661A3920252C9900017C28 /* SyncManager.swift */,
 				47803EA42009674D003D58E2 /* PreferencesManager.swift */,
+				4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";

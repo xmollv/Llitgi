@@ -76,7 +76,7 @@ class ListViewController: ViewController {
                                          userPreferences: self.userPreferences,
                                          typeOfList: self.typeOfList,
                                          notifier: self.dataProvider.notifier(for: self.typeOfList))
-        self.swipeActionManager = ListSwipeActionManager(list: self.typeOfList, dataSource: self.dataSource, dataProvider: self.dataProvider)
+        self.swipeActionManager = ListSwipeActionManager(dataSource: self.dataSource, dataProvider: self.dataProvider)
         self.tableView.register(ListCell.self)
         self.tableView.delegate = self
         self.tableView.dataSource = self.dataSource
