@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsViewController" customModule="ReadLater" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsViewController" customModule="litgi" customModuleProvider="target">
             <connections>
                 <outlet property="badgeCountExplanationLabel" destination="iUm-5v-LGQ" id="lgA-fj-WxP"/>
                 <outlet property="badgeCountLabel" destination="Ucz-t5-u5b" id="2eo-hc-HeS"/>
@@ -49,7 +49,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kNn-Sd-pZe">
-                                            <rect key="frame" x="290" y="0.0" width="51" height="31"/>
+                                            <rect key="frame" x="290" y="0.0" width="2" height="31"/>
                                             <color key="onTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="badgeCountValueChanged:" destination="-1" eventType="valueChanged" id="a83-Ku-E6v"/>
@@ -81,7 +81,6 @@
                                             <rect key="frame" x="218" y="0.0" width="2" height="31"/>
                                             <color key="onTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
-                                                <action selector="badgeCountValueChanged:" destination="-1" eventType="valueChanged" id="d8P-kw-XfF"/>
                                                 <action selector="safariOpenerValueChanged:" destination="-1" eventType="valueChanged" id="Cvu-Ep-QlI"/>
                                             </connections>
                                         </switch>

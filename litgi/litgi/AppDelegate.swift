@@ -60,7 +60,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             case .isSuccess:
                 Logger.log("Succes on sync")
             case .isFailure(let error):
-                Logger.log("Error on sync: \(error)", event: .error)
+                if error is AppError {
+                    Logger.log("Error on sync: \(error)", event: .warning)
+                } else {
+                    Logger.log("Error on sync: \(error)", event: .error)
+                }
             }
         }
     }

@@ -43,11 +43,8 @@ final class DataProvider {
     }
     
     func logout() {
+        LitgiUserDefaults.shared.removePersistentDomain(forName: kGroupUserDefaults)
         self.modelFactory.deleteAllModels()
-        LitgiUserDefaults.shared.removeObject(forKey: kAccesToken)
-        LitgiUserDefaults.shared.removeObject(forKey: kEnabledNotifications)
-        LitgiUserDefaults.shared.removeObject(forKey: kSafariOpener)
-        LitgiUserDefaults.shared.removeObject(forKey: kLastSync)
     }
     
     /// Performs a network request based on the endpoint, and builds the objects that the API returned

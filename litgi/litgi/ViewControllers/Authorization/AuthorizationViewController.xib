@@ -9,10 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AuthorizationViewController" customModule="ReadLater" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AuthorizationViewController" customModule="litgi" customModuleProvider="target">
             <connections>
                 <outlet property="actionButton" destination="G3b-Yf-I8e" id="HLf-44-iZK"/>
                 <outlet property="descriptionLabel" destination="5So-bS-xTM" id="Zyv-yQ-RPw"/>
+                <outlet property="errorLabel" destination="wbW-b1-5ze" id="iUS-xY-Azv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,39 +23,51 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4l0-SC-hMs">
-                    <rect key="frame" x="21" y="317.33333333333331" width="334" height="189"/>
+                    <rect key="frame" x="20" y="311.33333333333331" width="335" height="199.33333333333331"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet posuere tellus a feugiat." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5So-bS-xTM">
-                            <rect key="frame" x="0.0" y="20" width="334" height="61"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <rect key="frame" x="0.33333333333334281" y="20" width="335" height="68.333333333333329"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3b-Yf-I8e">
-                            <rect key="frame" x="20" y="121" width="294" height="48"/>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <inset key="contentEdgeInsets" minX="0.0" minY="15" maxX="0.0" maxY="15"/>
-                            <state key="normal" title="Lorem ipsum dolor">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="4"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="actionButtonTapped:" destination="-1" eventType="touchUpInside" id="V8P-A7-4n1"/>
-                            </connections>
-                        </button>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QVQ-2x-Efg">
+                            <rect key="frame" x="20.333333333333343" y="128.33333333333337" width="294.66666666666663" height="51"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3b-Yf-I8e">
+                                    <rect key="frame" x="0.0" y="0.0" width="294.66666666666669" height="51"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="15" maxX="0.0" maxY="15"/>
+                                    <state key="normal" title="Lorem ipsum dolor">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="actionButtonTapped:" destination="-1" eventType="touchUpInside" id="V8P-A7-4n1"/>
+                                    </connections>
+                                </button>
+                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbW-b1-5ze">
+                                    <rect key="frame" x="0.0" y="-439.66666666666669" width="294.66666666666669" height="0.0"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="G3b-Yf-I8e" firstAttribute="top" secondItem="5So-bS-xTM" secondAttribute="bottom" constant="40" id="C6S-ld-hH0"/>
-                        <constraint firstAttribute="bottom" secondItem="G3b-Yf-I8e" secondAttribute="bottom" constant="20" id="CAQ-f0-aHj"/>
+                        <constraint firstItem="QVQ-2x-Efg" firstAttribute="top" secondItem="5So-bS-xTM" secondAttribute="bottom" constant="39.999999999999986" id="4y3-tb-1gp"/>
+                        <constraint firstItem="QVQ-2x-Efg" firstAttribute="leading" secondItem="4l0-SC-hMs" secondAttribute="leading" constant="20" id="9OC-id-IhS"/>
                         <constraint firstItem="5So-bS-xTM" firstAttribute="leading" secondItem="4l0-SC-hMs" secondAttribute="leading" id="H2x-o0-w41"/>
                         <constraint firstItem="5So-bS-xTM" firstAttribute="top" secondItem="4l0-SC-hMs" secondAttribute="top" constant="20" id="RZH-cV-Ehq"/>
-                        <constraint firstAttribute="trailing" secondItem="G3b-Yf-I8e" secondAttribute="trailing" constant="20" id="W5f-dU-Fsx"/>
-                        <constraint firstItem="G3b-Yf-I8e" firstAttribute="leading" secondItem="4l0-SC-hMs" secondAttribute="leading" constant="20" id="k6O-d2-K8f"/>
+                        <constraint firstAttribute="bottom" secondItem="QVQ-2x-Efg" secondAttribute="bottom" constant="20.000000000000057" id="fyw-XM-vg3"/>
+                        <constraint firstAttribute="trailing" secondItem="QVQ-2x-Efg" secondAttribute="trailing" constant="20" id="kLd-0U-K7c"/>
                         <constraint firstAttribute="trailing" secondItem="5So-bS-xTM" secondAttribute="trailing" id="x3j-S1-loB"/>
                     </constraints>
                 </view>

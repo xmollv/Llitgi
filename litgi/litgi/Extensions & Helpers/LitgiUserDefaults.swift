@@ -12,6 +12,7 @@ let kAccesToken = "accessToken"
 let kEnabledNotifications = "enabledNotifications"
 let kSafariOpener = "safariOpener"
 let kLastSync = "lastSync"
+let kGroupUserDefaults = "group.com.xmollv.litgi"
 
 final class LitgiUserDefaults {
     private init() {}
