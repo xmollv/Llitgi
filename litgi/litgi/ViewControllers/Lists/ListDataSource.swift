@@ -12,12 +12,12 @@ class ListDataSource: NSObject {
     
     //MARK:- Private properties
     weak private var tableView: UITableView?
-    private let userPreferences: UserPreferences
+    private let userPreferences: PreferencesManager
     private let typeOfList: TypeOfList
     private var notifier: CoreDataNotifier?
     
     //MARK:- Lifecycle
-    init(tableView: UITableView, userPreferences: UserPreferences, typeOfList: TypeOfList, notifier: CoreDataNotifier) {
+    init(tableView: UITableView, userPreferences: PreferencesManager, typeOfList: TypeOfList, notifier: CoreDataNotifier) {
         self.userPreferences = userPreferences
         self.typeOfList = typeOfList
         super.init()

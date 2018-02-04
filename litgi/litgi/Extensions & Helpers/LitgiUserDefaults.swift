@@ -17,7 +17,5 @@ final class LitgiUserDefaults {
     private init() {}
     
     static let shared = UserDefaults(suiteName: "group.com.xmollv.litgi")!
-    
-    
-    
+
 }

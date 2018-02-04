@@ -39,7 +39,7 @@
 		4770AD001FF1B3B8006E755D /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
 		4770AD031FF1B470006E755D /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770AD011FF1B470006E755D /* ListCell.swift */; };
 		4770AD041FF1B470006E755D /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770AD021FF1B470006E755D /* ListCell.xib */; };
-		47803EA52009674D003D58E2 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47803EA42009674D003D58E2 /* UserPreferences.swift */; };
+		47803EA52009674D003D58E2 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47803EA42009674D003D58E2 /* PreferencesManager.swift */; };
 		47B3FFDE202539C8003CB27F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B3FFDC202539C8003CB27F /* SearchViewController.swift */; };
 		47B3FFDF202539C8003CB27F /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B3FFDD202539C8003CB27F /* SearchViewController.xib */; };
 		47D40759200966BD00329544 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D40758200966BD00329544 /* Dependencies.swift */; };
@@ -110,7 +110,7 @@
 		4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCells.swift; sourceTree = "<group>"; };
 		4770AD011FF1B470006E755D /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		4770AD021FF1B470006E755D /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
-		47803EA42009674D003D58E2 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		47803EA42009674D003D58E2 /* PreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesManager.swift; sourceTree = "<group>"; };
 		47B3FFDC202539C8003CB27F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		47B3FFDD202539C8003CB27F /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		47D40758200966BD00329544 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
@@ -204,7 +204,8 @@
 		47803EA320096727003D58E2 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				47803EA42009674D003D58E2 /* UserPreferences.swift */,
+				47661A3920252C9900017C28 /* SyncManager.swift */,
+				47803EA42009674D003D58E2 /* PreferencesManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -287,9 +288,6 @@
 			isa = PBXGroup;
 			children = (
 				47EEA3821FF037D40030BEF1 /* DataProvider.swift */,
-				47661A3920252C9900017C28 /* SyncManager.swift */,
-				47D40758200966BD00329544 /* Dependencies.swift */,
-				47392347202667E3005526C5 /* LitgiUserDefaults.swift */,
 				4710EF541FF4333600D3DCA9 /* CoreData */,
 				47EEA3811FF037C90030BEF1 /* PocketAPI */,
 			);
@@ -311,6 +309,8 @@
 		47EEA38E1FF074D80030BEF1 /* Extensions & Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				47D40758200966BD00329544 /* Dependencies.swift */,
+				47392347202667E3005526C5 /* LitgiUserDefaults.swift */,
 				47376DE31FF07F9500B8E70C /* Logger.swift */,
 				47EEA38C1FF074C70030BEF1 /* Typealias.swift */,
 				4770ACF41FF111A9006E755D /* UIView.swift */,
@@ -474,7 +474,7 @@
 			files = (
 				47B3FFDE202539C8003CB27F /* SearchViewController.swift in Sources */,
 				4770ACF51FF111A9006E755D /* UIView.swift in Sources */,
-				47803EA52009674D003D58E2 /* UserPreferences.swift in Sources */,
+				47803EA52009674D003D58E2 /* PreferencesManager.swift in Sources */,
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
 				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,
 				47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */,

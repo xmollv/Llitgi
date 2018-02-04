@@ -1,5 +1,5 @@
 //
-//  UserPreferences.swift
+//  PreferencesManager.swift
 //  litgi
 //
 //  Created by Xavi Moll on 12/01/2018.
@@ -19,7 +19,7 @@ protocol BadgeDelegate: class {
     func displayBadgeEnabled()
 }
 
-protocol UserPreferences: class {
+protocol PreferencesManager: class {
     var openLinksWith: SafariOpener { get set }
     
     weak var badgeDelegate: BadgeDelegate? { get set }
@@ -28,7 +28,7 @@ protocol UserPreferences: class {
     func displayBadge(with: Int)
 }
 
-class UserPreferencesManager: UserPreferences {
+class UserPreferencesManager: PreferencesManager {
     
     weak var badgeDelegate: BadgeDelegate? = nil
     

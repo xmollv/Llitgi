@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     let factory: ViewControllerFactory
     let dataProvider: DataProvider
     let syncManager: SyncManager
-    let userPreferences: UserPreferences
+    let userPreferences: PreferencesManager
     
     required init(factory: ViewControllerFactory, dependencies: Dependencies) {
         self.factory = factory

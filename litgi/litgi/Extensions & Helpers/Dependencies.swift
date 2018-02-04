@@ -12,9 +12,9 @@ class Dependencies {
     
     let dataProvider: DataProvider
     let syncManager: SyncManager
-    let userPreferences: UserPreferences
+    let userPreferences: PreferencesManager
     
-    init(dataProvider: DataProvider, syncManager: SyncManager, userPreferences: UserPreferences) {
+    init(dataProvider: DataProvider, syncManager: SyncManager, userPreferences: PreferencesManager) {
         self.dataProvider = dataProvider
         self.syncManager = syncManager
         self.userPreferences = userPreferences
