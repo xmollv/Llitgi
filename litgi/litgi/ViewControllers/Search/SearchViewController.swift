@@ -43,6 +43,11 @@ class SearchViewController: ViewController {
         self.searchTextField.resignFirstResponder()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    //MARK:- Private methods
     private func configureSearchTextField() {
         self.searchTextField.delegate = self
         self.searchTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("Search", comment: ""),
