@@ -18,7 +18,6 @@
 		47376DE71FF0831600B8E70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Item.swift */; };
 		47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47392347202667E3005526C5 /* LitgiUserDefaults.swift */; };
 		47392349202667E3005526C5 /* LitgiUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47392347202667E3005526C5 /* LitgiUserDefaults.swift */; };
-		4739234A20267911005526C5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA36C1FF02DDD0030BEF1 /* Info.plist */; };
 		474B44202001A52D009897D2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474B441E2001A52C009897D2 /* SettingsViewController.swift */; };
 		474B44212001A52D009897D2 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474B441F2001A52C009897D2 /* SettingsViewController.xib */; };
 		475E177020262CAD007033F1 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475E176F20262CAD007033F1 /* ShareViewController.swift */; };
@@ -424,7 +423,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4739234A20267911005526C5 /* Info.plist in Resources */,
 				47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */,
 				474B44212001A52D009897D2 /* SettingsViewController.xib in Resources */,
 				47EEA3681FF02DDD0030BEF1 /* Assets.xcassets in Resources */,
