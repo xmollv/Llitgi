@@ -119,6 +119,63 @@ extension SearchViewController: UITableViewDelegate {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        var item = self.searchResults[indexPath.row]
+        
+        let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            
+            let modification: ItemModification
+            if item.isFavorite {
+                modification = ItemModification(action: .unfavorite, id: item.id)
+            } else {
+                modification = ItemModification(action: .favorite, id: item.id)
+            }
+            
+            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
+            item.isFavorite = !item.isFavorite
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            success(true)
+        }
+        favoriteAction.title = item.isFavorite ? NSLocalizedString("Unfavorite", comment: "") : NSLocalizedString("Favorite", comment: "")
+        
+        return UISwipeActionsConfiguration(actions: [favoriteAction])
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        var item = self.searchResults[indexPath.row]
+        
+        let archiveAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            
+            let modification: ItemModification
+            if item.status == "0" {
+                modification = ItemModification(action: .archive, id: item.id)
+                item.status = "1"
+            } else {
+                modification = ItemModification(action: .readd, id: item.id)
+                item.status = "0"
+            }
+            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            success(true)
+        }
+        
+        archiveAction.title = item.status == "0" ? NSLocalizedString("Archive", comment: "") : NSLocalizedString("Unarchive", comment: "")
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("Delete", comment: "")) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            let modification = ItemModification(action: .delete, id: item.id)
+            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
+            item.status = "2"
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            success(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [archiveAction, deleteAction])
+    }
 }
 
 //MARK:- UIViewControllerPreviewingDelegate

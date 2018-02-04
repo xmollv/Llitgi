@@ -11,16 +11,14 @@ import UIKit
 
 class ListSwipeActionManager {
     
-    private let dataSource: ListDataSource?
     private let dataProvider: DataProvider
     
-    init(dataSource: ListDataSource?, dataProvider: DataProvider) {
-        self.dataSource = dataSource
+    init(dataProvider: DataProvider) {
         self.dataProvider = dataProvider
     }
     
-    func buildLeadingActions(at indexPath: IndexPath, from tableView: UITableView) -> [UIContextualAction] {
-        guard var item = self.dataSource?.item(at: indexPath) else { return [] }
+    func buildLeadingActions(for item: Item, from tableView: UITableView) -> [UIContextualAction] {
+        var item = item
         
         let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
@@ -41,8 +39,8 @@ class ListSwipeActionManager {
         return [favoriteAction]
     }
     
-    func buildTrailingActions(at indexPath: IndexPath, from tableView: UITableView) -> [UIContextualAction] {
-        guard var item = self.dataSource?.item(at: indexPath) else { return [] }
+    func buildTrailingActions(for item: Item, from tableView: UITableView) -> [UIContextualAction] {
+        var item = item
         let archiveAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
 

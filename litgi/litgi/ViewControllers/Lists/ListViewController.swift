@@ -25,8 +25,8 @@ class ListViewController: ViewController {
     
     //MARK: Private properties
     private let typeOfList: TypeOfList
+    private let swipeActionManager: ListSwipeActionManager
     private var dataSource: ListDataSource?
-    private var swipeActionManager: ListSwipeActionManager?
     private var cellHeights: [IndexPath : CGFloat] = [:]
     
     private lazy var refreshControl: UIRefreshControl = {
@@ -38,6 +38,7 @@ class ListViewController: ViewController {
     //MARK:- Lifecycle
     required init(factory: ViewControllerFactory, dependencies: Dependencies, type: TypeOfList) {
         self.typeOfList = type
+        self.swipeActionManager = ListSwipeActionManager(dataProvider: dependencies.dataProvider)
         super.init(factory: factory, dependencies: dependencies)
     }
     
@@ -76,7 +77,6 @@ class ListViewController: ViewController {
                                          userPreferences: self.userPreferences,
                                          typeOfList: self.typeOfList,
                                          notifier: self.dataProvider.notifier(for: self.typeOfList))
-        self.swipeActionManager = ListSwipeActionManager(dataSource: self.dataSource, dataProvider: self.dataProvider)
         self.tableView.register(ListCell.self)
         self.tableView.delegate = self
         self.tableView.dataSource = self.dataSource
@@ -164,14 +164,14 @@ extension ListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let swipeManager = self.swipeActionManager else { return nil }
-        let actions = swipeManager.buildLeadingActions(at: indexPath, from: tableView)
+        guard let item = self.dataSource?.item(at: indexPath) else { return nil }
+        let actions = self.swipeActionManager.buildLeadingActions(for: item, from: tableView)
         return UISwipeActionsConfiguration(actions: actions)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let swipeManager = self.swipeActionManager else { return nil }
-        let actions = swipeManager.buildTrailingActions(at: indexPath, from: tableView)
+        guard let item = self.dataSource?.item(at: indexPath) else { return nil }
+        let actions = self.swipeActionManager.buildTrailingActions(for: item, from: tableView)
         return UISwipeActionsConfiguration(actions: actions)
     }
 }
