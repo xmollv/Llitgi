@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ListViewController" customModule="ReadLater" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ListViewController" customModule="litgi" customModuleProvider="target">
             <connections>
                 <outlet property="activityIndicator" destination="fFm-G8-jC5" id="iZJ-Rz-DkQ"/>
                 <outlet property="addButton" destination="GTt-aW-Jup" id="FbF-6Q-ndL"/>
@@ -48,7 +48,7 @@
                     <rect key="frame" x="0.0" y="96" width="375" height="682"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <inset key="separatorInset" minX="18" minY="0.0" maxX="18" maxY="0.0"/>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
