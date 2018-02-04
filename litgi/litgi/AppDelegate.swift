@@ -44,31 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        guard LitgiUserDefaults.shared.string(forKey: kAccesToken) != nil else {
-            Logger.log("The token is not there. We can't sync.", event: .warning)
-            return
-        }
-        
-        guard let syncManager = self.syncManager else {
-            Logger.log("The sync manager was nil", event: .error)
-            return
-        }
-        
-        syncManager.sync() { (result: Result<[CoreDataItem]>) in
-            switch result {
-            case .isSuccess:
-                Logger.log("Succes on sync")
-            case .isFailure(let error):
-                if error is AppError {
-                    Logger.log("Error on sync: \(error)", event: .warning)
-                } else {
-                    Logger.log("Error on sync: \(error)", event: .error)
-                }
-            }
-        }
-    }
-    
     private func rootViewController(factory: ViewControllerFactory) -> UITabBarController {
         let tabBarController = UITabBarController()
         if let _ = LitgiUserDefaults.shared.string(forKey: kAccesToken) {

@@ -49,11 +49,19 @@ class ListViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.pullToRefresh),
+                                               name: .UIApplicationDidBecomeActive,
+                                               object: nil)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.registerForPreviewing(with: self, sourceView: self.tableView)
         self.configureUI(for: self.typeOfList)
         self.configureTableView()
         self.pullToRefresh()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: Private methods
@@ -96,6 +104,7 @@ class ListViewController: ViewController {
             case .isFailure(let error):
                 Logger.log("Error on: \(strongSelf.typeOfList).\n\n Error: \(error)", event: .error)
             }
+
             strongSelf.refreshControl.endRefreshing()
         }
     }
