@@ -15,3 +15,7 @@ enum PocketAPIError: Error {
     case not200Status(statusCode: Int)
     case unexpectedJSONFormat
 }
+
+enum AppError: Error {
+    case isAlreadyFetching
+}
