@@ -100,11 +100,14 @@ class ListViewController: ViewController {
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:
-                Logger.log("Succes on: \(strongSelf.typeOfList)")
+                break
             case .isFailure(let error):
-                Logger.log("Error on: \(strongSelf.typeOfList).\n\n Error: \(error)", event: .error)
+                if let appError = error as? AppError, appError == .isAlreadyFetching {
+                    Logger.log("Error: \(error)", event: .warning)
+                } else {
+                    Logger.log("Error: \(error)", event: .error)
+                }
             }
-
             strongSelf.refreshControl.endRefreshing()
         }
     }
