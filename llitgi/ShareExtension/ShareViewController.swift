@@ -49,11 +49,12 @@ class ShareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.closeButton.isHidden = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.closeButton.isHidden = false
-            self.closeButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.closeButton.isHidden = false
+            strongSelf.closeButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
             UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, animations: {
-                self.closeButton.transform = .identity
+                strongSelf.closeButton.transform = .identity
             }, completion: nil)
         }
         
@@ -138,8 +139,8 @@ class ShareViewController: UIViewController {
         self.APIManager.perform(endpoint: .add(url)) { [weak self] (result: Result<JSONArray>) in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess: break
-                //strongSelf.dismiss()
+            case .isSuccess:
+                strongSelf.dismiss()
             case .isFailure(let error):
                 strongSelf.state = .error
                 Logger.log("Unable to save the URL. \(error)", event: .error)
