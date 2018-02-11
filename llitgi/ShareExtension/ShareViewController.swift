@@ -10,20 +10,55 @@ import UIKit
 import Social
 import MobileCoreServices
 
+enum ShareState {
+    case loading
+    case error
+}
+
 class ShareViewController: UIViewController {
     
-    let APIManager = PocketAPIManager()
+    //MARK: IBOutlets
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var retryButton: UIButton!
+    
+    //MARK: Private properties
+    private let APIManager = PocketAPIManager()
+    private var url: URL? = nil
+    private var state: ShareState = .loading {
+        didSet {
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+                switch strongSelf.state {
+                case .loading:
+                    strongSelf.titleLabel.text = NSLocalizedString("Saving to llitgi", comment: "")
+                    strongSelf.activityIndicator.startAnimating()
+                    strongSelf.activityIndicator.isHidden = false
+                    strongSelf.retryButton.isHidden = true
+                case .error:
+                    strongSelf.titleLabel.text = NSLocalizedString("Something went wrong", comment: "")
+                    strongSelf.activityIndicator.stopAnimating()
+                    strongSelf.activityIndicator.isHidden = true
+                    strongSelf.retryButton.isHidden = false
+                }
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.state = .loading
+        self.retryButton.setTitle(NSLocalizedString("Retry", comment: ""), for: .normal)
         
         guard let itemProvider = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments?.first as? NSItemProvider else {
             Logger.log("The itemProvider can't be found", event: .error)
+            self.dismiss()
             return
         }
         
         guard itemProvider.hasItemConformingToTypeIdentifier(kUTTypeURL as String) else {
             Logger.log("The itemProvider doesn't have an URL in it", event: .error)
+            self.dismiss()
             return
         }
         
@@ -31,28 +66,24 @@ class ShareViewController: UIViewController {
             guard let strongSelf = self else { return }
             guard error == nil else {
                 Logger.log("An error ocurred when loading the item: \(error.localizedDescription)", event: .error)
+                strongSelf.dismiss()
                 return
             }
             
             guard let item = item else {
                 Logger.log("The item was nil", event: .error)
+                strongSelf.dismiss()
                 return
             }
             
             guard let url = URL(string: String(describing: item)) else {
                 Logger.log("Unable to create an URL from: \(String(describing: item))", event: .error)
+                strongSelf.dismiss()
                 return
             }
             
-            strongSelf.APIManager.perform(endpoint: .add(url)) { (result: Result<JSONArray>) in
-                switch result {
-                case .isSuccess:
-                    Logger.log("Sucess saving the URL")
-                case .isFailure(let error):
-                    Logger.log("Unable to save the URL. \(error)", event: .error)
-                }
-                strongSelf.dismiss()
-            }
+            strongSelf.url = url
+            strongSelf.performRequest()
         }
     }
     
@@ -73,6 +104,29 @@ class ShareViewController: UIViewController {
                 self.view.alpha = 0
             }) { (finished) in
                 self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+            }
+        }
+    }
+    
+    @IBAction func retryButtonTapped(_ sender: UIButton) {
+        self.state = .loading
+        self.performRequest()
+    }
+    private func performRequest() {
+        guard let url = self.url else {
+            Logger.log("The URL was nil", event: .error)
+            self.dismiss()
+            return
+        }
+        
+        self.APIManager.perform(endpoint: .add(url)) { [weak self] (result: Result<JSONArray>) in
+            guard let strongSelf = self else { return }
+            switch result {
+            case .isSuccess:
+                strongSelf.dismiss()
+            case .isFailure(let error):
+                strongSelf.state = .error
+                Logger.log("Unable to save the URL. \(error)", event: .error)
             }
         }
     }
