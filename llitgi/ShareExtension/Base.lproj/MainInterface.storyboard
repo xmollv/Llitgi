@@ -66,16 +66,37 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeR-Z9-NKn">
+                                <rect key="frame" x="250.5" y="242.5" width="25" height="25"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="ZG0-qJ-61j"/>
+                                    <constraint firstAttribute="width" constant="25" id="adA-IA-chx"/>
+                                </constraints>
+                                <state key="normal" image="close"/>
+                                <state key="selected" image="close"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="12.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="closeButtonTapped:" destination="j1y-V4-xli" eventType="touchUpInside" id="GIy-eJ-hXv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.29995184075342468" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="qeR-Z9-NKn" firstAttribute="top" secondItem="PBc-Gi-VIF" secondAttribute="top" constant="-12" id="dj2-j6-DM7"/>
                             <constraint firstItem="PBc-Gi-VIF" firstAttribute="centerX" secondItem="1Xd-am-t49" secondAttribute="centerX" id="g4g-Ya-Vfz"/>
                             <constraint firstItem="PBc-Gi-VIF" firstAttribute="centerY" secondItem="1Xd-am-t49" secondAttribute="centerY" id="gch-B9-cOM"/>
+                            <constraint firstItem="qeR-Z9-NKn" firstAttribute="trailing" secondItem="PBc-Gi-VIF" secondAttribute="trailing" constant="12" id="pPl-w3-NyG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1Xd-am-t49"/>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="ZSA-VQ-nRw" id="3cS-uL-lVx"/>
+                        <outlet property="closeButton" destination="qeR-Z9-NKn" id="mmq-pM-MAw"/>
                         <outlet property="retryButton" destination="dSt-cx-pyJ" id="Xfh-9M-rRn"/>
                         <outlet property="titleLabel" destination="g1a-x7-TDS" id="MXd-kW-NYV"/>
                     </connections>
@@ -84,4 +105,7 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="close" width="25" height="25"/>
+    </resources>
 </document>

@@ -18,6 +18,7 @@ enum ShareState {
 class ShareViewController: UIViewController {
     
     //MARK: IBOutlets
+    @IBOutlet private var closeButton: UIButton!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private var retryButton: UIButton!
@@ -31,7 +32,7 @@ class ShareViewController: UIViewController {
                 guard let strongSelf = self else { return }
                 switch strongSelf.state {
                 case .loading:
-                    strongSelf.titleLabel.text = NSLocalizedString("Saving to llitgi", comment: "")
+                    strongSelf.titleLabel.text = NSLocalizedString("Saving to llitgi...", comment: "")
                     strongSelf.activityIndicator.startAnimating()
                     strongSelf.activityIndicator.isHidden = false
                     strongSelf.retryButton.isHidden = true
@@ -47,6 +48,15 @@ class ShareViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.closeButton.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.closeButton.isHidden = false
+            self.closeButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, animations: {
+                self.closeButton.transform = .identity
+            }, completion: nil)
+        }
+        
         self.state = .loading
         self.retryButton.setTitle(NSLocalizedString("Retry", comment: ""), for: .normal)
         
@@ -108,10 +118,16 @@ class ShareViewController: UIViewController {
         }
     }
     
+    @IBAction func closeButtonTapped(_ sender: UIButton) {
+        self.dismiss()
+    }
+    
+    
     @IBAction func retryButtonTapped(_ sender: UIButton) {
         self.state = .loading
         self.performRequest()
     }
+    
     private func performRequest() {
         guard let url = self.url else {
             Logger.log("The URL was nil", event: .error)
@@ -122,8 +138,8 @@ class ShareViewController: UIViewController {
         self.APIManager.perform(endpoint: .add(url)) { [weak self] (result: Result<JSONArray>) in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess:
-                strongSelf.dismiss()
+            case .isSuccess: break
+                //strongSelf.dismiss()
             case .isFailure(let error):
                 strongSelf.state = .error
                 Logger.log("Unable to save the URL. \(error)", event: .error)
