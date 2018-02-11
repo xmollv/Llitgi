@@ -11,6 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FullSyncViewController" customModule="llitgi" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="qxd-35-YWM" id="i10-Uq-HmW"/>
+                <outlet property="syncDoneButton" destination="z1z-4g-RtO" id="sW0-k5-Pkz"/>
+                <outlet property="syncExplanationLabel" destination="Flx-du-NUN" id="CTx-bU-5t1"/>
+                <outlet property="syncTitleLabel" destination="mC7-yS-bCd" id="zC0-JG-x68"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,29 +24,43 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvA-N5-ELp">
-                    <rect key="frame" x="115.5" y="248.5" width="144.5" height="191"/>
+                    <rect key="frame" x="0.0" y="230" width="0.0" height="227.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="4tx-pn-UEo">
-                            <rect key="frame" x="20" y="20" width="104.5" height="151"/>
+                            <rect key="frame" x="0.0" y="20" width="0.0" height="187.5"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sync ongoing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mC7-yS-bCd">
-                                    <rect key="frame" x="0.0" y="0.0" width="104.5" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sync in progress" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mC7-yS-bCd">
+                                    <rect key="frame" x="95" y="0.0" width="185" height="31.5"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qxd-35-YWM">
-                                    <rect key="frame" x="42.5" y="40.5" width="20" height="20"/>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qxd-35-YWM">
+                                    <rect key="frame" x="169" y="51.5" width="37" height="37"/>
+                                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </activityIndicatorView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Flx-du-NUN">
-                                    <rect key="frame" x="31.5" y="80.5" width="42" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Flx-du-NUN">
+                                    <rect key="frame" x="0.0" y="108.5" width="0.0" height="18"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z1z-4g-RtO">
-                                    <rect key="frame" x="29.5" y="121" width="46" height="30"/>
-                                    <state key="normal" title="Button"/>
+                                    <rect key="frame" x="137.5" y="146.5" width="100" height="41"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <inset key="contentEdgeInsets" minX="15" minY="10" maxX="15" maxY="10"/>
+                                    <state key="normal" title="Let's go!">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="finishButtonTapped:" destination="-1" eventType="touchUpInside" id="eEn-Pc-IXg"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </stackView>
@@ -63,8 +81,10 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.29794520547945208" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dvA-N5-ELp" secondAttribute="trailing" constant="40" id="RIj-NE-D1b"/>
                 <constraint firstItem="dvA-N5-ELp" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="Twz-s0-EqH"/>
                 <constraint firstItem="dvA-N5-ELp" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="bQO-Ok-ctR"/>
+                <constraint firstItem="dvA-N5-ELp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="qhX-LC-6Xi"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
         </view>
