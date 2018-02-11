@@ -8,8 +8,13 @@
 
 import Foundation
 
+protocol SyncManagerDelegate: class {
+    func syncFinished()
+}
+
 final class SyncManager {
     
+    //MARK: Private properties
     private let dataProvider: DataProvider
     private var lastSync: TimeInterval {
         get { return LlitgiUserDefaults.shared.double(forKey: kLastSync) }
@@ -17,10 +22,18 @@ final class SyncManager {
     }
     private var isSyncing = false
     
+    //MARK: Public properties
+    var isFirstSync: Bool {
+        return self.lastSync == 0.0
+    }
+    weak var delegate: SyncManagerDelegate? = nil
+    
+    //MARK: Lifecycle
     init(dataProvider: DataProvider) {
         self.dataProvider = dataProvider
     }
     
+    //MARK: Public methods
     func sync(then: @escaping Completion<[CoreDataItem]>) {
         guard !self.isSyncing else {
             then(Result.isFailure(AppError.isAlreadyFetching))
@@ -40,6 +53,7 @@ final class SyncManager {
         self.dataProvider.perform(endpoint: endpoint) { [weak self] (result: Result<[CoreDataItem]>) in
             guard let strongSelf = self else { return }
             strongSelf.isSyncing = false
+            strongSelf.delegate?.syncFinished()
             switch result {
             case .isSuccess:
                 strongSelf.lastSync = Date().timeIntervalSince1970
