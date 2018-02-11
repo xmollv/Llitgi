@@ -72,7 +72,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             self.delete(object, in: context)
             return nil
         }
-        if updatedObject.status == "2" {
+        if let item = updatedObject as? Item, item.status == "2" {
             self.delete(updatedObject, in: context)
             return nil
         }

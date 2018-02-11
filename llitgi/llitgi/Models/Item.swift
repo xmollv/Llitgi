@@ -72,7 +72,10 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
             let isFavoriteString = json["favorite"] as? String,
             let status = json["status"] as? String,
             let timeAdded = json["time_added"] as? String else {
-                Logger.log("Unable to update the CoreDataItem with ID: \(self.id).", event: .error)
+                if let status = json["status"] as? String, status == "2" {
+                } else {
+                    Logger.log("Unable to update the CoreDataItem with ID: \(self.id).", event: .error)
+                }
                 return nil
         }
         
