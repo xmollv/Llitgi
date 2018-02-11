@@ -41,8 +41,8 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         get { return self.isFavorite_ }
         set {
             guard let context = self.managedObjectContext else { return }
-            self.isFavorite_ = newValue
             context.performAndWait {
+                self.isFavorite_ = newValue
                 do {
                     try context.save()
                 } catch {
@@ -55,8 +55,8 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         get { return self.status_ }
         set {
             guard let context = self.managedObjectContext else { return }
-            self.status_ = newValue
             context.performAndWait {
+                self.status_ = newValue
                 do {
                     try context.save()
                 } catch {
