@@ -21,6 +21,8 @@
 		474B44202001A52D009897D2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474B441E2001A52C009897D2 /* SettingsViewController.swift */; };
 		474B44212001A52D009897D2 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474B441F2001A52C009897D2 /* SettingsViewController.xib */; };
 		4752C0832030BCA800988A68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4752C0822030BCA800988A68 /* Assets.xcassets */; };
+		4752C0872030F22300988A68 /* FullSyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4752C0852030F22300988A68 /* FullSyncViewController.swift */; };
+		4752C0882030F22300988A68 /* FullSyncViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4752C0862030F22300988A68 /* FullSyncViewController.xib */; };
 		475E177020262CAD007033F1 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475E176F20262CAD007033F1 /* ShareViewController.swift */; };
 		475E177320262CAD007033F1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 475E177120262CAD007033F1 /* MainInterface.storyboard */; };
 		475E177720262CAD007033F1 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 475E176D20262CAD007033F1 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -97,6 +99,8 @@
 		474B441E2001A52C009897D2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		474B441F2001A52C009897D2 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		4752C0822030BCA800988A68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4752C0852030F22300988A68 /* FullSyncViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSyncViewController.swift; sourceTree = "<group>"; };
+		4752C0862030F22300988A68 /* FullSyncViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FullSyncViewController.xib; sourceTree = "<group>"; };
 		475E176D20262CAD007033F1 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		475E176F20262CAD007033F1 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		475E177220262CAD007033F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -177,6 +181,15 @@
 				474B441F2001A52C009897D2 /* SettingsViewController.xib */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		4752C0842030F20300988A68 /* FullSync */ = {
+			isa = PBXGroup;
+			children = (
+				4752C0852030F22300988A68 /* FullSyncViewController.swift */,
+				4752C0862030F22300988A68 /* FullSyncViewController.xib */,
+			);
+			path = FullSync;
 			sourceTree = "<group>";
 		};
 		475E176E20262CAD007033F1 /* ShareExtension */ = {
@@ -271,6 +284,7 @@
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
 				47EEA3791FF034FD0030BEF1 /* ViewController.swift */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
+				4752C0842030F20300988A68 /* FullSync */,
 				4770ACF81FF189CD006E755D /* Lists */,
 				47B3FFDB202539AD003CB27F /* Search */,
 				474B441D2001A517009897D2 /* Settings */,
@@ -429,6 +443,7 @@
 			files = (
 				47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */,
 				474B44212001A52D009897D2 /* SettingsViewController.xib in Resources */,
+				4752C0882030F22300988A68 /* FullSyncViewController.xib in Resources */,
 				47EEA3681FF02DDD0030BEF1 /* Assets.xcassets in Resources */,
 				4770ACFC1FF18AF7006E755D /* ListViewController.xib in Resources */,
 				47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */,
@@ -482,6 +497,7 @@
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
 				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,
 				47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */,
+				4752C0872030F22300988A68 /* FullSyncViewController.swift in Sources */,
 				4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */,
 				47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */,
 				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
