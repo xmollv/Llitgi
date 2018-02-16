@@ -12,7 +12,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    private weak var syncManager: SyncManager? = nil
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -21,16 +20,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let modelFactory = CoreDataFactoryImplementation()
         let dataProvider = DataProvider(pocketAPI: pocketAPI, modelFactory: modelFactory)
         let syncManager = SyncManager(dataProvider: dataProvider)
-        self.syncManager = syncManager
         let userPreferences = UserPreferencesManager()
         let dependencies = Dependencies(dataProvider: dataProvider, syncManager: syncManager, userPreferences: userPreferences)
         let viewControllerFactory = ViewControllerFactory(dependencies: dependencies)
+        
+        let rootViewController = TabBarController(factory: viewControllerFactory)
+        if let _ = LlitgiUserDefaults.shared.string(forKey: kAccesToken) {
+            rootViewController.setupMainFlow()
+        } else {
+            rootViewController.setupAuthFlow()
+        }
         
         // Establishing the window and rootViewController
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.makeKeyAndVisible()
         self.window?.tintColor = .black
-        self.window?.rootViewController = self.rootViewController(factory: viewControllerFactory)
+        self.window?.rootViewController = rootViewController
         
         return true
     }
@@ -42,16 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NotificationCenter.default.post(name: .OAuthFinished, object: nil)
         }
         return true
-    }
-    
-    private func rootViewController(factory: ViewControllerFactory) -> UITabBarController {
-        let tabBarController = UITabBarController()
-        if let _ = LlitgiUserDefaults.shared.string(forKey: kAccesToken) {
-            factory.establishViewControllers(on: tabBarController)
-        } else {
-            factory.establishAuthViewController(on: tabBarController)
-        }
-        return tabBarController
     }
 
 }

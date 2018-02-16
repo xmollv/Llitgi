@@ -69,10 +69,10 @@ class SettingsViewController: ViewController {
     }
     
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
-        guard let tabBar = self.tabBarController else { return }
+        guard let tabBar = self.tabBarController as? TabBarController  else { return }
         self.userPreferences.displayBadge(with: 0)
         self.dataProvider.logout()
-        self.factory.establishAuthViewController(on: tabBar)
+        tabBar.setupAuthFlow()
     }
     
     //MARK:- Private methods

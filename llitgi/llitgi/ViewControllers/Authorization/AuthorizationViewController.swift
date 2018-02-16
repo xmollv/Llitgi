@@ -85,8 +85,8 @@ class AuthorizationViewController: ViewController {
                     return
                 }
                 strongSelf.dataProvider.updatePocket(token: token)
-                guard let tabBarController = strongSelf.tabBarController else { return }
-                strongSelf.factory.establishViewControllers(on: tabBarController)
+                guard let tabBarController = strongSelf.tabBarController as? TabBarController else { return }
+                tabBarController.setupMainFlow()
             case .isFailure(let error):
                 if let notAuthError = error as? PocketAPIError {
                     switch notAuthError {
