@@ -34,19 +34,19 @@ class TabBarController: UITabBarController {
 
     func setupMainFlow() {
         let listViewController: ListViewController = self.factory.instantiateListViewController(type: .myList)
-        listViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("My List", comment: ""), image: #imageLiteral(resourceName: "list"), tag: 0)
+        listViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("My List", comment: ""), image: #imageLiteral(resourceName: "list"), tag: 1)
         
         let favoritesViewController: ListViewController = self.factory.instantiateListViewController(type: .favorites)
-        favoritesViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Favorites", comment: ""), image: #imageLiteral(resourceName: "favorite"), tag: 1)
+        favoritesViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Favorites", comment: ""), image: #imageLiteral(resourceName: "favorite"), tag: 2)
         
         let archiveViewController: ListViewController = self.factory.instantiateListViewController(type: .archive)
-        archiveViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Archive", comment: ""), image: #imageLiteral(resourceName: "archive"), tag: 2)
+        archiveViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Archive", comment: ""), image: #imageLiteral(resourceName: "archive"), tag: 3)
         
         let searchViewController: SearchViewController = self.factory.instantiate()
-        searchViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Search", comment: ""), image: #imageLiteral(resourceName: "search"), tag: 3)
+        searchViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Search", comment: ""), image: #imageLiteral(resourceName: "search"), tag: 4)
         
         let settingsViewController: SettingsViewController = self.factory.instantiate()
-        settingsViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Settings", comment: ""), image: #imageLiteral(resourceName: "settings"), tag: 4)
+        settingsViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("Settings", comment: ""), image: #imageLiteral(resourceName: "settings"), tag: 5)
         
         let tabs = [listViewController, favoritesViewController, archiveViewController, searchViewController, settingsViewController].map({ UINavigationController(rootViewController: $0) })
         
@@ -57,7 +57,9 @@ class TabBarController: UITabBarController {
 
 extension TabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        let viewToBetransformed = tabBarController.tabBar.subviews[viewController.tabBarItem.tag + 1]
+        let tag = viewController.tabBarItem.tag
+        guard tag > tabBarController.tabBar.subviews.count || tag < tabBarController.tabBar.subviews.count else { return }
+        let viewToBetransformed = tabBarController.tabBar.subviews[tag]
         viewToBetransformed.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, animations: {
             viewToBetransformed.transform = .identity
