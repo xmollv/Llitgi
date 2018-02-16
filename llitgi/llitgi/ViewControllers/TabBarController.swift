@@ -15,6 +15,7 @@ class TabBarController: UITabBarController {
     init(factory: ViewControllerFactory) {
         self.factory = factory
         super.init(nibName: nil, bundle: nil)
+        self.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,4 +53,15 @@ class TabBarController: UITabBarController {
         self.setViewControllers(tabs, animated: false)
         self.tabBar.isHidden = false
     }
+}
+
+extension TabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let viewToBetransformed = tabBarController.tabBar.subviews[viewController.tabBarItem.tag + 1]
+        viewToBetransformed.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, animations: {
+            viewToBetransformed.transform = .identity
+        }, completion: nil)
+    }
+    
 }
