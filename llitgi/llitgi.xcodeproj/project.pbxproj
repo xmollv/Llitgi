@@ -43,6 +43,7 @@
 		4770AD031FF1B470006E755D /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770AD011FF1B470006E755D /* ListCell.swift */; };
 		4770AD041FF1B470006E755D /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770AD021FF1B470006E755D /* ListCell.xib */; };
 		47803EA52009674D003D58E2 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47803EA42009674D003D58E2 /* PreferencesManager.swift */; };
+		478F43832037078C003ECCAD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F43822037078C003ECCAD /* TabBarController.swift */; };
 		47B3FFDE202539C8003CB27F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B3FFDC202539C8003CB27F /* SearchViewController.swift */; };
 		47B3FFDF202539C8003CB27F /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B3FFDD202539C8003CB27F /* SearchViewController.xib */; };
 		47D40759200966BD00329544 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D40758200966BD00329544 /* Dependencies.swift */; };
@@ -115,6 +116,7 @@
 		4770AD011FF1B470006E755D /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		4770AD021FF1B470006E755D /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
 		47803EA42009674D003D58E2 /* PreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesManager.swift; sourceTree = "<group>"; };
+		478F43822037078C003ECCAD /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		47B3FFDC202539C8003CB27F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		47B3FFDD202539C8003CB27F /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		47D40758200966BD00329544 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			children = (
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
 				47EEA3791FF034FD0030BEF1 /* ViewController.swift */,
+				478F43822037078C003ECCAD /* TabBarController.swift */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 				4752C0842030F20300988A68 /* FullSync */,
 				4770ACF81FF189CD006E755D /* Lists */,
@@ -515,6 +518,7 @@
 				4710EF561FF4338A00D3DCA9 /* CoreDataFactory.swift in Sources */,
 				4770ACF71FF17AFD006E755D /* Notification.swift in Sources */,
 				4710EF5B1FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld in Sources */,
+				478F43832037078C003ECCAD /* TabBarController.swift in Sources */,
 				47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */,
 				47661A3A20252C9900017C28 /* SyncManager.swift in Sources */,
 				47D40759200966BD00329544 /* Dependencies.swift in Sources */,
