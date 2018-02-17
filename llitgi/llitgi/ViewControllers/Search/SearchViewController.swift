@@ -48,6 +48,11 @@ class SearchViewController: ViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    //MARK: Public methods
+    func assignFirstResponderOnTextField() {
+        self.searchTextField.becomeFirstResponder()
+    }
+    
     //MARK:- Private methods
     private func configureSearchTextField() {
         self.searchTextField.delegate = self
@@ -72,7 +77,6 @@ class SearchViewController: ViewController {
     @objc private func resignFirstResponderOnTextField() {
         self.searchTextField.resignFirstResponder()
     }
-
 }
 
 //MARK:- UITextFieldDelegate

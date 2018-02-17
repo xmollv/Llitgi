@@ -57,9 +57,17 @@ class TabBarController: UITabBarController {
 
 extension TabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        guard let shouldSelectVC = (viewController as? UINavigationController)?.topViewController as? ListViewController else { return true }
-        guard shouldSelectVC.isEqual((tabBarController.selectedViewController as? UINavigationController)?.topViewController) else { return true }
-        shouldSelectVC.scrollToTop()
+        
+        guard let newViewController = (viewController as? UINavigationController)?.topViewController else { return true}
+        guard let currentViewController = (tabBarController.selectedViewController as? UINavigationController)?.topViewController else { return true }
+        
+        if let list = newViewController as? ListViewController {
+            guard list.isEqual(currentViewController) else { return true }
+            list.scrollToTop()
+        } else if let search = newViewController as? SearchViewController {
+            guard search.isEqual(currentViewController) else { return true }
+            search.assignFirstResponderOnTextField()
+        }
         return true
     }
     
