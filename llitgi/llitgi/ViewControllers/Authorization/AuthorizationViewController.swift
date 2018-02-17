@@ -69,8 +69,8 @@ class AuthorizationViewController: ViewController {
     
     //MARK: Private methods
     private func setupLocalizedStrings() {
-        self.descriptionLabel.text = NSLocalizedString("Hey there! We need your permission to access your Pocket list. To do so, simply tap the button below.", comment: "")
-        self.actionButton.setTitle(NSLocalizedString("Let's do it!", comment: ""), for: .normal)
+        self.descriptionLabel.text = NSLocalizedString("onboarding", comment: "")
+        self.actionButton.setTitle(NSLocalizedString("lets_do_it", comment: ""), for: .normal)
     }
     
     //Step 3. Verify the code against the API once the user has finished the OAuth flow
@@ -93,7 +93,7 @@ class AuthorizationViewController: ViewController {
                     case .not200Status(let statusCode):
                         if statusCode == 403 {
                             strongSelf.errorLabel.isHidden = false
-                            strongSelf.errorLabel.text = NSLocalizedString("It seems that the authorization didn't go quite well. Could you please try again?", comment: "")
+                            strongSelf.errorLabel.text = NSLocalizedString("auth_error", comment: "")
                         }
                     default:
                         strongSelf.showErrorMessage()
@@ -108,7 +108,7 @@ class AuthorizationViewController: ViewController {
     
     private func showErrorMessage() {
         self.errorLabel.isHidden = false
-        self.errorLabel.text = NSLocalizedString("Something went wrong communicating with Pocket. Could you please try again?", comment: "")
+        self.errorLabel.text = NSLocalizedString("error_pocket", comment: "")
     }
 
 }

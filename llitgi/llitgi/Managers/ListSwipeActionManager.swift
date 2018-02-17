@@ -34,7 +34,7 @@ class ListSwipeActionManager {
             item.isFavorite = !item.isFavorite
             success(true)
         }
-        favoriteAction.title = item.isFavorite ? NSLocalizedString("Unfavorite", comment: "") : NSLocalizedString("Favorite", comment: "")
+        favoriteAction.title = item.isFavorite ? NSLocalizedString("unfavorite", comment: "") : NSLocalizedString("favorite", comment: "")
         
         return [favoriteAction]
     }
@@ -56,9 +56,9 @@ class ListSwipeActionManager {
             success(true)
         }
         
-        archiveAction.title = item.status == "0" ? NSLocalizedString("Archive", comment: "") : NSLocalizedString("Unarchive", comment: "")
+        archiveAction.title = item.status == "0" ? NSLocalizedString("archive", comment: "") : NSLocalizedString("unarchive", comment: "")
         
-        let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("Delete", comment: "")) { [weak self] (action, view, success) in
+        let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("delete", comment: "")) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
             let modification = ItemModification(action: .delete, id: item.id)
             strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))

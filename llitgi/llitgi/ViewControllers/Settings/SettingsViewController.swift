@@ -77,12 +77,12 @@ class SettingsViewController: ViewController {
     
     //MARK:- Private methods
     private func setupLocalizedStrings() {
-        self.titleLabel.text = NSLocalizedString("Settings", comment: "")
-        self.badgeCountLabel.text = NSLocalizedString("Show app badge count", comment: "")
-        self.badgeCountExplanationLabel.text = NSLocalizedString("This will display a badge count on the app icon on your homescreen with the number of elements on your list.", comment: "")
-        self.safariOpenerLabel.text = NSLocalizedString("Open links using Safari", comment: "")
-        self.safariOpenerExplanationLabel.text = NSLocalizedString("Enabling this option will open Safari with the tapped link instead of opening the link in the app.", comment: "")
-        self.logoutButton.setTitle(NSLocalizedString("Logout", comment: ""), for: .normal)
+        self.titleLabel.text = NSLocalizedString("settings", comment: "")
+        self.badgeCountLabel.text = NSLocalizedString("badge_count", comment: "")
+        self.badgeCountExplanationLabel.text = NSLocalizedString("badge_explanation", comment: "")
+        self.safariOpenerLabel.text = NSLocalizedString("open_links_safari", comment: "")
+        self.safariOpenerExplanationLabel.text = NSLocalizedString("safari_open_explanation", comment: "")
+        self.logoutButton.setTitle(NSLocalizedString("logout", comment: ""), for: .normal)
     }
 
 }
