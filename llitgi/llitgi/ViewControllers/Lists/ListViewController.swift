@@ -60,6 +60,11 @@ class ListViewController: ViewController {
         self.pullToRefresh()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.deselectRow(with: self.transitionCoordinator, animated: animated)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if self.syncManager.isFirstSync {

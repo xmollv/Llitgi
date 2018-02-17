@@ -32,9 +32,10 @@ class SearchViewController: ViewController {
         self.configureTableView()
     }
     
-    //MARK:- Private methods    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    //MARK:- Private methods
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.deselectRow(with: self.transitionCoordinator, animated: animated)
         self.searchTextField.becomeFirstResponder()
     }
     
