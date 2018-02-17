@@ -75,6 +75,13 @@ class ListViewController: ViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    //MARK: Public methods
+    func scrollToTop() {
+        guard let numberOfItems = self.dataSource?.numberOfItems(), numberOfItems > 0 else { return }
+        let firstIndexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at: firstIndexPath, at: .top, animated: true)
+    }
+    
     //MARK: Private methods
     private func configureUI(for type: TypeOfList) {
         let title: String

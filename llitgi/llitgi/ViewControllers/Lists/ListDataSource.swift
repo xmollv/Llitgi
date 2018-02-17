@@ -48,6 +48,9 @@ class ListDataSource: NSObject {
         return item
     }
     
+    func numberOfItems() -> Int? {
+        return self.notifier?.numberOfObjects(on: 0)
+    }
 }
 
 //MARK:- UITableViewDataSource

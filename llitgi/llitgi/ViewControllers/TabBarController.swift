@@ -56,6 +56,13 @@ class TabBarController: UITabBarController {
 }
 
 extension TabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        guard let shouldSelectVC = (viewController as? UINavigationController)?.topViewController as? ListViewController else { return true }
+        guard shouldSelectVC.isEqual((tabBarController.selectedViewController as? UINavigationController)?.topViewController) else { return true }
+        shouldSelectVC.scrollToTop()
+        return true
+    }
+    
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         let tag = viewController.tabBarItem.tag
         guard tag > tabBarController.tabBar.subviews.count || tag < tabBarController.tabBar.subviews.count else { return }
