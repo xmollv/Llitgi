@@ -107,7 +107,15 @@ extension SearchViewController: UITextFieldDelegate {
 //MARK:- UITableViewDataSource
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.searchResults.count
+        let numberOfItems = self.searchResults.count
+        if numberOfItems == 0 {
+            let title = NSLocalizedString("No results", comment: "")
+            let subtitle = NSLocalizedString("It seems that nothing on your library matches your search.", comment: "")
+            tableView.establishEmptyState(title: title, subtitle: subtitle)
+        } else {
+            tableView.backgroundView = nil
+        }
+        return numberOfItems
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
