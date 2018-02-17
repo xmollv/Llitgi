@@ -41,7 +41,11 @@ class ViewController: UIViewController {
             if endFrame.origin.y >= UIScreen.main.bounds.size.height {
                 constraint.constant = defaultConstraintValue
             } else {
-                constraint.constant = endFrame.size.height + defaultConstraintValue
+                if let tabBarHeight = self.tabBarController?.tabBar.frame.size.height {
+                    constraint.constant = (endFrame.size.height - tabBarHeight) + defaultConstraintValue
+                } else {
+                    constraint.constant = endFrame.size.height + defaultConstraintValue
+                }
             }
             
             UIView.animate(withDuration: duration, delay: 0, options: animationCurve, animations: {
