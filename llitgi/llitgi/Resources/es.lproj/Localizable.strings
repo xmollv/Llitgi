@@ -1,7 +1,4 @@
 /* No comment provided by engineer. */
-"to_archive" = "Archivar";
-
-/* No comment provided by engineer. */
 "archive" = "Archivo";
 
 /* No comment provided by engineer. */
@@ -84,6 +81,9 @@
 
 /* No comment provided by engineer. */
 "sync_title" = "Descarga en proceso";
+
+/* No comment provided by engineer. */
+"to_archive" = "Archivar";
 
 /* No comment provided by engineer. */
 "unarchive" = "Volver a añadir";
