@@ -129,6 +129,10 @@
 		478F43AB2038E77C003ECCAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		478F43AD2038E77D003ECCAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		478F43AE2038E7C4003ECCAD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		478F43B02038F05A003ECCAD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		478F43B12038F05B003ECCAD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		478F43B22038F05B003ECCAD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		478F43B32038F05C003ECCAD /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		47B3FFDC202539C8003CB27F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		47B3FFDD202539C8003CB27F /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		47D40758200966BD00329544 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
@@ -568,6 +572,7 @@
 			children = (
 				478F43A02038E5A8003ECCAD /* Base */,
 				478F43AD2038E77D003ECCAD /* en */,
+				478F43B32038F05C003ECCAD /* es */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
@@ -585,6 +590,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				478F43A52038E77B003ECCAD /* en */,
+				478F43B02038F05A003ECCAD /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -593,6 +599,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				478F43AB2038E77C003ECCAD /* en */,
+				478F43B22038F05B003ECCAD /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -602,6 +609,7 @@
 			children = (
 				47EEA36A1FF02DDD0030BEF1 /* Base */,
 				478F43A72038E77C003ECCAD /* en */,
+				478F43B12038F05B003ECCAD /* es */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

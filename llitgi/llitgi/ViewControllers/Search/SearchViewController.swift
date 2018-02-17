@@ -193,7 +193,7 @@ extension SearchViewController: UITableViewDelegate {
             success(true)
         }
         
-        archiveAction.title = item.status == "0" ? NSLocalizedString("archive", comment: "") : NSLocalizedString("unarchive", comment: "")
+        archiveAction.title = item.status == "0" ? NSLocalizedString("to_archive", comment: "") : NSLocalizedString("unarchive", comment: "")
         
         let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("delete", comment: "")) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }

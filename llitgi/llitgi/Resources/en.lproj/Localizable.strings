@@ -83,6 +83,9 @@
 "archive" = "Archive";
 
 /* No comment provided by engineer. */
+"to_archive" = "Archive";
+
+/* No comment provided by engineer. */
 "favorites" = "Favorites";
 
 /* No comment provided by engineer. */
