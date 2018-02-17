@@ -59,10 +59,17 @@ class SearchViewController: ViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.tableFooterView = UIView()
+        let gr = UITapGestureRecognizer(target: self, action: #selector(self.resignFirstResponderOnTextField))
+        gr.cancelsTouchesInView = false
+        self.tableView.addGestureRecognizer(gr)
     }
     
     @objc private func keyboardChanged(notification: NSNotification) {
         self.keyboardNotification(notification, constraint: self.bottomConstraint, view: self.view)
+    }
+    
+    @objc private func resignFirstResponderOnTextField() {
+        self.searchTextField.resignFirstResponder()
     }
 
 }
@@ -113,6 +120,11 @@ extension SearchViewController: UITableViewDataSource {
 
 //MARK:- UITableViewDelegate
 extension SearchViewController: UITableViewDelegate {
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.searchTextField.resignFirstResponder()
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let url = self.searchResults[indexPath.row].url
         switch self.userPreferences.openLinksWith {
