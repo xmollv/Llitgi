@@ -1,26 +1,35 @@
 /* No comment provided by engineer. */
+"archive" = "Archive";
+
+/* No comment provided by engineer. */
+"auth_error" = "It seems that the authorization didn't go quite well. Could you please try again?";
+
+/* No comment provided by engineer. */
+"badge_count" = "Show app badge count";
+
+/* No comment provided by engineer. */
+"badge_explanation" = "This will display a badge count on the app icon on your homescreen with the number of elements on your list.";
+
+/* No comment provided by engineer. */
 "delete" = "Delete";
 
 /* No comment provided by engineer. */
 "dismiss" = "Dismiss";
 
 /* No comment provided by engineer. */
-"safari_open_explanation" = "Enabling this option will open Safari with the tapped link instead of opening the link in the app.";
+"error_body" = "Something went wrong";
+
+/* No comment provided by engineer. */
+"error_pocket" = "Something went wrong communicating with Pocket. Could you please try again?";
+
+/* No comment provided by engineer. */
+"error_title" = "Oops!";
 
 /* No comment provided by engineer. */
 "favorite" = "Favorite";
 
 /* No comment provided by engineer. */
 "favorites" = "Favorites";
-
-/* No comment provided by engineer. */
-"onboarding" = "Hey there! We need your permission to access your Pocket list. To do so, simply tap the button below.";
-
-/* No comment provided by engineer. */
-"no_results_search" = "It seems that nothing on your library matches your search.";
-
-/* No comment provided by engineer. */
-"auth_error" = "It seems that the authorization didn't go quite well. Could you please try again?";
 
 /* No comment provided by engineer. */
 "lets_do_it" = "Let's do it!";
@@ -32,37 +41,49 @@
 "logout" = "Logout";
 
 /* No comment provided by engineer. */
+"my_list" = "My List";
+
+/* No comment provided by engineer. */
 "no_results" = "No results";
 
 /* No comment provided by engineer. */
-"error_title" = "Oops!";
+"no_results_search" = "It seems that nothing on your library matches your search.";
+
+/* No comment provided by engineer. */
+"onboarding" = "Hey there! We need your permission to access your Pocket list. To do so, simply tap the button below.";
 
 /* No comment provided by engineer. */
 "open_links_safari" = "Open links using Safari";
 
 /* No comment provided by engineer. */
+"pasteboard_not_valid" = "We're sorry, but your pasteboard doesn't contain any URLs. Please, copy a valid URL and try again.";
+
+/* No comment provided by engineer. */
 "retry" = "Retry";
+
+/* No comment provided by engineer. */
+"safari_open_explanation" = "Enabling this option will open Safari with the tapped link instead of opening the link in the app.";
 
 /* No comment provided by engineer. */
 "saving_to_llitgi" = "Saving to llitgi...";
 
 /* No comment provided by engineer. */
-"badge_count" = "Show app badge count";
+"search" = "Search";
 
 /* No comment provided by engineer. */
-"error_body" = "Something went wrong";
-
-/* No comment provided by engineer. */
-"error_pocket" = "Something went wrong communicating with Pocket. Could you please try again?";
+"settings" = "Settings";
 
 /* No comment provided by engineer. */
 "sucess" = "Success!";
 
 /* No comment provided by engineer. */
+"sync_explanation" = "We need to download all your items. The download time is usually under 10 sec, but it depends on the number of items that you have saved.";
+
+/* No comment provided by engineer. */
 "sync_title" = "Sync in progress";
 
 /* No comment provided by engineer. */
-"badge_explanation" = "This will display a badge count on the app icon on your homescreen with the number of elements on your list.";
+"to_archive" = "Archive";
 
 /* No comment provided by engineer. */
 "unarchive" = "Unarchive";
@@ -72,28 +93,4 @@
 
 /* No comment provided by engineer. */
 "unknown_title" = "Unknown Title";
-
-/* No comment provided by engineer. */
-"sync_explanation" = "We need to download all your items. The download time is usually under 10 sec, but it depends on the number of items that you have saved.";
-
-/* No comment provided by engineer. */
-"pasteboard_not_valid" = "We're sorry, but your pasteboard doesn't contain any URLs. Please, copy a valid URL and try again.";
-
-/* No comment provided by engineer. */
-"archive" = "Archive";
-
-/* No comment provided by engineer. */
-"to_archive" = "Archive";
-
-/* No comment provided by engineer. */
-"favorites" = "Favorites";
-
-/* No comment provided by engineer. */
-"my_list" = "My List";
-
-/* No comment provided by engineer. */
-"search" = "Search";
-
-/* No comment provided by engineer. */
-"settings" = "Settings";
 
