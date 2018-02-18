@@ -19,9 +19,9 @@ class FullSyncViewController: ViewController {
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.syncTitleLabel.text = NSLocalizedString("Sync in progress", comment: "")
-        self.syncExplanationLabel.text = NSLocalizedString("We need to download all your items. The download time is usually under 10 sec, but it depends on the number of items that you have saved.", comment: "")
-        self.syncDoneButton.setTitle(NSLocalizedString("Let's go!", comment: ""), for: .normal)
+        self.syncTitleLabel.text = NSLocalizedString("sync_title", comment: "")
+        self.syncExplanationLabel.text = NSLocalizedString("sync_explanation", comment: "")
+        self.syncDoneButton.setTitle(NSLocalizedString("lets_go", comment: ""), for: .normal)
         self.syncDoneButton.isHidden = true
     }
 
@@ -34,7 +34,7 @@ class FullSyncViewController: ViewController {
 //MARK: SyncManagerDelegate
 extension FullSyncViewController: SyncManagerDelegate {
     func syncFinished() {
-        self.syncTitleLabel.text = NSLocalizedString("Success!", comment: "")
+        self.syncTitleLabel.text = NSLocalizedString("sucess", comment: "")
         UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 2.5, animations: {
             self.activityIndicator.isHidden = true
             self.syncDoneButton.isHidden = false

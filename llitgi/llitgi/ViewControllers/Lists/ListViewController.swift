@@ -92,12 +92,12 @@ class ListViewController: ViewController {
         let title: String
         switch type {
         case .myList:
-            title = NSLocalizedString("My List", comment: "")
+            title = NSLocalizedString("my_list", comment: "")
         case .favorites:
-            title = NSLocalizedString("Favorites", comment: "")
+            title = NSLocalizedString("favorites", comment: "")
             self.addButton.isHidden = true
         case .archive:
-            title = NSLocalizedString("Archive", comment: "")
+            title = NSLocalizedString("archive", comment: "")
             self.addButton.isHidden = true
         }
         self.titleLabel.text = title
@@ -149,11 +149,11 @@ class ListViewController: ViewController {
             self.activityIndicator.isHidden = true
             self.addButton.isHidden = false
             
-            let errorTitle = NSLocalizedString("Oops!", comment: "")
-            let errorMessage = NSLocalizedString("We're sorry, but your pasteboard doesn't contain any URLs. Please, copy a valid URL and try again.", comment: "")
+            let errorTitle = NSLocalizedString("error_title", comment: "")
+            let errorMessage = NSLocalizedString("pasteboard_not_valid", comment: "")
             
             let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
-            let dimissTitle = NSLocalizedString("Dismiss", comment: "")
+            let dimissTitle = NSLocalizedString("dismiss", comment: "")
             errorAlert.addAction(UIAlertAction(title: dimissTitle, style: .default) { [weak self] (action) in
                 self?.dismiss(animated: true, completion: nil)
             })

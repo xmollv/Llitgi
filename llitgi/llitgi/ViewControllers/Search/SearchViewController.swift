@@ -56,7 +56,7 @@ class SearchViewController: ViewController {
     //MARK:- Private methods
     private func configureSearchTextField() {
         self.searchTextField.delegate = self
-        self.searchTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("Search", comment: ""),
+        self.searchTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("search", comment: ""),
                                                                         attributes: [NSAttributedStringKey.foregroundColor: UIColor.black])
     }
     
@@ -113,8 +113,8 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let numberOfItems = self.searchResults.count
         if numberOfItems == 0 {
-            let title = NSLocalizedString("No results", comment: "")
-            let subtitle = NSLocalizedString("It seems that nothing on your library matches your search.", comment: "")
+            let title = NSLocalizedString("no_results", comment: "")
+            let subtitle = NSLocalizedString("no_results_search", comment: "")
             tableView.establishEmptyState(title: title, subtitle: subtitle)
         } else {
             tableView.backgroundView = nil
@@ -168,7 +168,7 @@ extension SearchViewController: UITableViewDelegate {
             tableView.reloadRows(at: [indexPath], with: .automatic)
             success(true)
         }
-        favoriteAction.title = item.isFavorite ? NSLocalizedString("Unfavorite", comment: "") : NSLocalizedString("Favorite", comment: "")
+        favoriteAction.title = item.isFavorite ? NSLocalizedString("unfavorite", comment: "") : NSLocalizedString("favorite", comment: "")
         
         return UISwipeActionsConfiguration(actions: [favoriteAction])
     }
@@ -193,9 +193,9 @@ extension SearchViewController: UITableViewDelegate {
             success(true)
         }
         
-        archiveAction.title = item.status == "0" ? NSLocalizedString("Archive", comment: "") : NSLocalizedString("Unarchive", comment: "")
+        archiveAction.title = item.status == "0" ? NSLocalizedString("to_archive", comment: "") : NSLocalizedString("unarchive", comment: "")
         
-        let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("Delete", comment: "")) { [weak self] (action, view, success) in
+        let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("delete", comment: "")) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
             let modification = ItemModification(action: .delete, id: item.id)
             strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
