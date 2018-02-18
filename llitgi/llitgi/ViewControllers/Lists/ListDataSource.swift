@@ -60,6 +60,24 @@ extension ListDataSource: UITableViewDataSource {
         if self.typeOfList == .myList {
             self.userPreferences.displayBadge(with: numberOfElements)
         }
+        if numberOfElements == 0 {
+            let title: String
+            let subtitle: String
+            switch self.typeOfList {
+            case .myList:
+                title = NSLocalizedString("no_results_myList_title", comment: "")
+                subtitle = NSLocalizedString("no_results_myList_subtitle", comment: "")
+            case .favorites:
+                title = NSLocalizedString("no_results", comment: "")
+                subtitle = NSLocalizedString("no_results_favorites_subtitle", comment: "")
+            case .archive:
+                title = NSLocalizedString("no_results", comment: "")
+                subtitle = NSLocalizedString("no_results_archive_subtitle", comment: "")
+            }
+            tableView.establishEmptyState(title: title, subtitle: subtitle)
+        } else {
+            tableView.backgroundView = nil
+        }
         return numberOfElements
     }
     
