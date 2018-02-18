@@ -82,7 +82,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         if let pocketTitle = (json["resolved_title"] as? String) ?? (json["given_title"] as? String), pocketTitle != "" {
             self.title_ = pocketTitle
         } else {
-            self.title_ = NSLocalizedString("unknown_title", comment: "")
+            self.title_ = urlAsString
         }
         // This is to avoid saving URLs that can't be recreated later on
         guard let _ = URL(string: urlAsString) else { return nil }
