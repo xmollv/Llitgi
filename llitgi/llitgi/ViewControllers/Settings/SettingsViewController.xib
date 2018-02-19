@@ -108,14 +108,14 @@
                                     <constraints>
                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="wZp-a3-zqo"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <inset key="contentEdgeInsets" minX="0.0" minY="15" maxX="0.0" maxY="15"/>
                                     <state key="normal" title="Lorem ipsum dolor">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                            <real key="value" value="4"/>
+                                            <real key="value" value="8"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>

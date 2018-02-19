@@ -27,9 +27,9 @@
 "saving_to_llitgi" = "Saving to llitgi...";
 "search" = "Search";
 "settings" = "Settings";
-"sucess" = "Success!";
-"sync_explanation" = "We need to download all your items. The download time is usually under 10 sec, but it depends on the number of items that you have saved.";
-"sync_title" = "Sync in progress";
+"sucess" = "Success! 🎉";
+"sync_title" = "Building your library...";
+"sync_explanation" = "We are downloading all your saved items. This only happens the first time, hold on tight.";
 "to_archive" = "Archive";
 "unarchive" = "Unarchive";
 "unfavorite" = "Unfavorite";
