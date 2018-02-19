@@ -75,8 +75,8 @@ extension TabBarController: UITabBarControllerDelegate {
         let tag = viewController.tabBarItem.tag
         guard tag > tabBarController.tabBar.subviews.count || tag < tabBarController.tabBar.subviews.count else { return }
         let viewToBetransformed = tabBarController.tabBar.subviews[tag]
-        viewToBetransformed.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 10, animations: {
+        viewToBetransformed.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, animations: {
             viewToBetransformed.transform = .identity
         }, completion: nil)
     }
