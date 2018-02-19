@@ -35,9 +35,9 @@ class FullSyncViewController: ViewController {
 extension FullSyncViewController: SyncManagerDelegate {
     func syncFinished() {
         self.syncTitleLabel.text = NSLocalizedString("sucess", comment: "")
-        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 2.5, animations: {
+        UIView.animate(withDuration: 0.25) {
             self.activityIndicator.isHidden = true
             self.syncDoneButton.isHidden = false
-        }, completion: nil)
+        }
     }
 }
