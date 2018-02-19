@@ -28,8 +28,15 @@
                     <fontDescription key="fontDescription" type="system" weight="black" pointSize="35"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                 </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6Q-eQ-1IQ">
+                    <rect key="frame" x="0.0" y="98" width="375" height="1"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="maU-bn-ONg"/>
+                    </constraints>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Av-24-eWb">
-                    <rect key="frame" x="0.0" y="96" width="375" height="682"/>
+                    <rect key="frame" x="0.0" y="99" width="375" height="679"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -37,11 +44,14 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="4Av-24-eWb" firstAttribute="top" secondItem="wy7-Y4-ZDJ" secondAttribute="bottom" id="1a0-XT-Pnj"/>
+                <constraint firstItem="4Av-24-eWb" firstAttribute="top" secondItem="i6Q-eQ-1IQ" secondAttribute="bottom" id="0mR-av-sPh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4Av-24-eWb" secondAttribute="bottom" id="6nt-db-5KD"/>
+                <constraint firstItem="i6Q-eQ-1IQ" firstAttribute="top" secondItem="wy7-Y4-ZDJ" secondAttribute="bottom" constant="2" id="9bw-Og-Uut"/>
                 <constraint firstItem="wy7-Y4-ZDJ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="Epx-3h-z0w"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="wy7-Y4-ZDJ" secondAttribute="trailing" constant="18" id="GkI-bh-cLh"/>
+                <constraint firstAttribute="trailing" secondItem="i6Q-eQ-1IQ" secondAttribute="trailing" id="NWz-Lw-WhU"/>
                 <constraint firstItem="4Av-24-eWb" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="ObP-cU-tt5"/>
+                <constraint firstItem="i6Q-eQ-1IQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WXz-4X-13l"/>
                 <constraint firstItem="wy7-Y4-ZDJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="Xgq-ji-xOs"/>
                 <constraint firstItem="4Av-24-eWb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Xne-vI-Hng"/>
             </constraints>

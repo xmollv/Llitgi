@@ -33,8 +33,15 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mie-A6-SpF">
+                    <rect key="frame" x="0.0" y="98" width="375" height="1"/>
+                    <color key="backgroundColor" white="0.66666666669999997" alpha="0.33000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="wML-f3-sDN"/>
+                    </constraints>
+                </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6UK-5m-Gr8">
-                    <rect key="frame" x="0.0" y="96" width="375" height="682"/>
+                    <rect key="frame" x="0.0" y="99" width="375" height="679"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hkm-EY-XLf">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="272.33333333333331"/>
@@ -55,7 +62,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kNn-Sd-pZe">
-                                                            <rect key="frame" x="290" y="0.0" width="2" height="31"/>
+                                                            <rect key="frame" x="290" y="0.0" width="51" height="31"/>
                                                             <color key="onTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <connections>
                                                                 <action selector="badgeCountValueChanged:" destination="-1" eventType="valueChanged" id="a83-Ku-E6v"/>
@@ -84,7 +91,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yPy-Cf-ZtJ">
-                                                            <rect key="frame" x="290" y="0.0" width="51" height="31"/>
+                                                            <rect key="frame" x="290" y="0.0" width="2" height="31"/>
                                                             <color key="onTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <connections>
                                                                 <action selector="safariOpenerValueChanged:" destination="-1" eventType="valueChanged" id="Cvu-Ep-QlI"/>
@@ -146,13 +153,16 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="6UK-5m-Gr8" firstAttribute="top" secondItem="Uhn-9w-cZD" secondAttribute="bottom" id="5DX-PJ-zHZ"/>
                 <constraint firstItem="Uhn-9w-cZD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="6Td-Gs-E6l"/>
+                <constraint firstItem="Mie-A6-SpF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6xA-aw-0gN"/>
                 <constraint firstItem="Uhn-9w-cZD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="OCi-v9-pv9"/>
+                <constraint firstItem="Mie-A6-SpF" firstAttribute="top" secondItem="Uhn-9w-cZD" secondAttribute="bottom" constant="2" id="OIa-wE-yEn"/>
+                <constraint firstItem="6UK-5m-Gr8" firstAttribute="top" secondItem="Mie-A6-SpF" secondAttribute="bottom" id="T8i-tr-i2o"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="6UK-5m-Gr8" secondAttribute="bottom" id="XXV-Kd-AmR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6UK-5m-Gr8" secondAttribute="trailing" id="eF4-BE-smf"/>
                 <constraint firstItem="6UK-5m-Gr8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="fsY-aG-9Gl"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Uhn-9w-cZD" secondAttribute="trailing" constant="18" id="l9J-dT-sbO"/>
+                <constraint firstAttribute="trailing" secondItem="Mie-A6-SpF" secondAttribute="trailing" id="wfe-56-aQ5"/>
                 <constraint firstItem="hkm-EY-XLf" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" id="yPO-Rp-D5w"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
