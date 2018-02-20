@@ -31,65 +31,69 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     
     //MARK:- Public properties
     var id: String {
-        get { return self.id_ }
-        set { self.id_ = newValue }
+        get { return self.read(key: "id_")! }
+        set { self.update(key: "id_", with: newValue) }
     }
-    var title: String { return self.title_ }
-    var url: URL { return URL(string: self.url_)! }
-    var timeAdded: String { return self.timeAdded_ }
+    var title: String { return self.read(key: "title_")! }
+    var url: URL {
+        let stringUrl: String = self.read(key: "url_")!
+        return URL(string: stringUrl)!
+    }
+    var timeAdded: String { return self.read(key: "timeAdded_")! }
     var isFavorite: Bool {
-        get { return self.isFavorite_ }
+        get { return self.read(key: "isFavorite_")! }
         set {
             guard let context = self.managedObjectContext else { return }
             context.performAndWait {
                 self.isFavorite_ = newValue
-                do {
-                    try context.save()
-                } catch {
-                    Logger.log("Unable to save the context when changing the favorite status.", event: .error)
-                }
+                self.save(context)
             }
         }
     }
     var status: String {
-        get { return self.status_ }
+        get { return self.read(key: "status_")! }
         set {
             guard let context = self.managedObjectContext else { return }
             context.performAndWait {
                 self.status_ = newValue
-                do {
-                    try context.save()
-                } catch {
-                    Logger.log("Unable to save the context when changing the archive/unarchive status.", event: .error)
-                }
+                self.save(context)
             }
         }
     }
     
+    private func save(_ context: NSManagedObjectContext) {
+        do {
+            try context.save()
+        } catch {
+            Logger.log("Unable to save the context.", event: .error)
+        }
+    }
+    
     //MARK:- CoreDataManaged conformance
-    func update<T: Managed>(with json: JSONDictionary, on: NSManagedObjectContext) -> T? {
+    func update<T: Managed>(with json: JSONDictionary, on context: NSManagedObjectContext) -> T? {
         guard let urlAsString = (json["resolved_url"] as? String) ?? (json["given_url"] as? String),
+            let _ = URL(string: urlAsString),
             let isFavoriteString = json["favorite"] as? String,
             let status = json["status"] as? String,
             let timeAdded = json["time_added"] as? String else {
-                if let status = json["status"] as? String, status == "2" {
-                } else {
-                    Logger.log("Unable to update the CoreDataItem with ID: \(self.id).", event: .error)
+                if let status = json["status"] as? String, status == "2" {} else {
+                    Logger.log("Unable to update CoreDataItem: \(json.description).", event: .error)
                 }
                 return nil
         }
         
-        if let pocketTitle = (json["resolved_title"] as? String) ?? (json["given_title"] as? String), pocketTitle != "" {
-            self.title_ = pocketTitle
-        } else {
-            self.title_ = urlAsString
+        context.performAndWait {
+            if let pocketTitle = (json["resolved_title"] as? String) ?? (json["given_title"] as? String), pocketTitle != "" {
+                self.title_ = pocketTitle
+            } else {
+                self.title_ = urlAsString
+            }
+            self.url_ = urlAsString
+            self.status_ = status
+            self.timeAdded_ = timeAdded
+            self.isFavorite_ = (isFavoriteString == "0") ? false : true
         }
-        // This is to avoid saving URLs that can't be recreated later on
-        guard let _ = URL(string: urlAsString) else { return nil }
-        self.url_ = urlAsString
-        self.status_ = status
-        self.timeAdded_ = timeAdded
-        self.isFavorite_ = (isFavoriteString == "0") ? false : true
+        
         return self as? T
     }
 }

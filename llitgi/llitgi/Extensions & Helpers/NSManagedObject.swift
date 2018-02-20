@@ -14,7 +14,6 @@ extension NSManagedObject {
     static func fetchOrCreate<T: Managed>(with json: JSONDictionary, in context: NSManagedObjectContext) -> T? {
         guard let id = json["item_id"] as? String else { return nil }
         if let fetchedElement: T = T.fetch(with: id, in: context) {
-            Logger.log("Fetched: \(fetchedElement.id)")
             return fetchedElement
         } else {
             return T.create(with: id, in: context)
@@ -41,9 +40,28 @@ extension NSManagedObject {
             Logger.log("Invalid Core Data configuration", event: .error)
             return nil
         }
-        let object = T.init(entity: entity, insertInto: context)
-        object.id = id
-        Logger.log("Created: \(object.id)")
+        var object: T?
+        context.performAndWait {
+            object = T.init(entity: entity, insertInto: context)
+            object?.id = id
+        }
         return object
     }
+    
+    /// Grabs the value of the key stored in Core Data using a performAndWait block
+    func read<T>(key: String) -> T? {
+        var response: T? = nil
+        self.managedObjectContext?.performAndWait {
+            response = self.value(forKey: key) as? T
+        }
+        return response
+    }
+    
+    /// Updates (or sets) the value of the key stored in Core Data using a performAndWait block
+    func update<T>(key: String, with value: T?) {
+        self.managedObjectContext?.performAndWait {
+            self.setValue(value, forKey: key)
+        }
+    }
+    
 }

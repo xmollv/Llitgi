@@ -53,16 +53,19 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         return container
     }()
     
-    func build<T: Managed>(jsonArray: JSONArray) -> [T] {
-        let objects: [T] = jsonArray.flatMap { self.build(json: $0, in: self.context) }
-        
+    func saveBackgroundContext() {
         self.context.performAndWait {
             do {
                 try self.context.save()
             } catch {
-                Logger.log("Error trying to save the context: \(error)", event: .error)
+                Logger.log("Error trying to save the context: \(error.localizedDescription)", event: .error)
             }
         }
+    }
+    
+    func build<T: Managed>(jsonArray: JSONArray) -> [T] {
+        let objects: [T] = jsonArray.flatMap { self.build(json: $0, in: self.context) }
+        self.saveBackgroundContext()
         return objects
     }
     
@@ -133,30 +136,24 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             }
             let fetch:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: name)
             return fetch
-            }.forEach {
-                self.delete(fetch: $0)
-        }
+        }.forEach { self.deleteResults(of: $0) }
 
-        self.context.performAndWait {
-            do {
-                try self.context.save()
-            } catch {
-                Logger.log("Error trying to save the context: \(error)", event: .error)
-            }
-        }
+        self.saveBackgroundContext()
     }
     
-    private func delete(fetch: NSFetchRequest<NSFetchRequestResult>) {
-        do {
-            try self.context.fetch(fetch).forEach {
-                guard let managedObject = $0 as? NSManagedObject else {
-                    Logger.log("The object was not a NSManagedObject: \($0)")
-                    return
+    private func deleteResults(of fetchRequest: NSFetchRequest<NSFetchRequestResult>) {
+        self.context.performAndWait {
+            do {
+                try self.context.fetch(fetchRequest).forEach {
+                    guard let managedObject = $0 as? NSManagedObject else {
+                        Logger.log("The object was not a NSManagedObject: \($0)")
+                        return
+                    }
+                    context.delete(managedObject)
                 }
-                context.delete(managedObject)
+            } catch {
+                Logger.log("Error on deleting entity: \(fetchRequest.entity?.name ?? ""): \(error.localizedDescription)", event: .error)
             }
-        } catch {
-            Logger.log("Error on deleting entity: \(fetch.entity?.name ?? ""): \(error.localizedDescription)", event: .error)
         }
     }
 }
