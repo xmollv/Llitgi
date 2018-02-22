@@ -108,7 +108,8 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         
         let item = CSSearchableItem(uniqueIdentifier: item.id, domainIdentifier: "com.xmollv.llitgi", attributeSet: attributeSet)
         CSSearchableIndex.default().indexSearchableItems([item]) { error in
-            
+            guard let error = error else { return }
+            Logger.log("Error indexing: \(error.localizedDescription)", event: .error)
         }
     }
     
