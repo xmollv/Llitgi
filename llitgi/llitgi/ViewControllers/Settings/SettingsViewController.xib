@@ -14,6 +14,7 @@
                 <outlet property="badgeCountExplanationLabel" destination="iUm-5v-LGQ" id="lgA-fj-WxP"/>
                 <outlet property="badgeCountLabel" destination="Ucz-t5-u5b" id="2eo-hc-HeS"/>
                 <outlet property="badgeCountSwitch" destination="kNn-Sd-pZe" id="FZc-NC-aMg"/>
+                <outlet property="buildLabel" destination="pal-7B-soY" id="YVO-3a-KBc"/>
                 <outlet property="logoutButton" destination="geg-cl-9IZ" id="WzF-v2-Uab"/>
                 <outlet property="safariOpenerExplanationLabel" destination="wRp-wI-i3X" id="5XS-KG-kbq"/>
                 <outlet property="safariOpenerLabel" destination="sqW-mn-jeX" id="5EF-5h-nbp"/>
@@ -44,7 +45,7 @@
                     <rect key="frame" x="0.0" y="99" width="375" height="679"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hkm-EY-XLf">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="272.33333333333331"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="309.33333333333331"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="uNS-na-vvN">
                                     <rect key="frame" x="18" y="18" width="339" height="153.33333333333334"/>
@@ -129,17 +130,26 @@
                                         <action selector="logoutButtonTapped:" destination="-1" eventType="touchUpInside" id="bsB-6R-UrK"/>
                                     </connections>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pal-7B-soY">
+                                    <rect key="frame" x="20" y="272.33333333333331" width="335" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="geg-cl-9IZ" firstAttribute="centerX" secondItem="uNS-na-vvN" secondAttribute="centerX" id="35s-W2-oJ8"/>
+                                <constraint firstItem="pal-7B-soY" firstAttribute="leading" secondItem="hkm-EY-XLf" secondAttribute="leading" constant="20" id="4XH-gx-mjO"/>
                                 <constraint firstItem="geg-cl-9IZ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uNS-na-vvN" secondAttribute="trailing" priority="999" constant="20" id="EEE-lb-4nN"/>
-                                <constraint firstAttribute="bottom" secondItem="geg-cl-9IZ" secondAttribute="bottom" constant="10" id="JZc-6E-EGE"/>
+                                <constraint firstAttribute="bottom" secondItem="pal-7B-soY" secondAttribute="bottom" constant="20" id="MdF-a4-J10"/>
                                 <constraint firstItem="uNS-na-vvN" firstAttribute="leading" secondItem="hkm-EY-XLf" secondAttribute="leading" constant="18" id="S9v-QX-sAz"/>
+                                <constraint firstAttribute="trailing" secondItem="pal-7B-soY" secondAttribute="trailing" constant="20" id="T4R-RX-hRK"/>
                                 <constraint firstItem="uNS-na-vvN" firstAttribute="top" secondItem="hkm-EY-XLf" secondAttribute="top" constant="18" id="arS-oF-PZT"/>
                                 <constraint firstItem="geg-cl-9IZ" firstAttribute="top" secondItem="uNS-na-vvN" secondAttribute="bottom" constant="40" id="cCy-yi-4eH"/>
                                 <constraint firstItem="geg-cl-9IZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uNS-na-vvN" secondAttribute="leading" priority="999" constant="20" id="kta-dj-UZJ"/>
                                 <constraint firstAttribute="trailing" secondItem="uNS-na-vvN" secondAttribute="trailing" constant="18" id="rQv-aw-bDi"/>
+                                <constraint firstItem="pal-7B-soY" firstAttribute="top" secondItem="geg-cl-9IZ" secondAttribute="bottom" constant="10" id="rtK-PS-GxF"/>
                             </constraints>
                         </view>
                     </subviews>

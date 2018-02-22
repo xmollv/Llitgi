@@ -23,6 +23,8 @@ class SettingsViewController: ViewController {
     
     @IBOutlet private var logoutButton: UIButton!
     
+    @IBOutlet private var buildLabel: UILabel!
+    
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +85,8 @@ class SettingsViewController: ViewController {
         self.safariOpenerLabel.text = NSLocalizedString("open_links_safari", comment: "")
         self.safariOpenerExplanationLabel.text = NSLocalizedString("safari_open_explanation", comment: "")
         self.logoutButton.setTitle(NSLocalizedString("logout", comment: ""), for: .normal)
+        let formatString = NSLocalizedString("build_version", comment: "")
+        self.buildLabel.text = String(format: formatString, arguments: [Bundle.main.versionNumber])
     }
 
 }

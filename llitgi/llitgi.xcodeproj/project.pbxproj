@@ -47,6 +47,7 @@
 		478F43852038B24E003ECCAD /* UITableView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F43842038B24E003ECCAD /* UITableView + Extensions.swift */; };
 		478F43992038E52D003ECCAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 478F439C2038E52D003ECCAD /* Localizable.strings */; };
 		478F439A2038E52D003ECCAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 478F439C2038E52D003ECCAD /* Localizable.strings */; };
+		47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A493A6203F6E6B004051A6 /* Bundle.swift */; };
 		47B3FFDE202539C8003CB27F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B3FFDC202539C8003CB27F /* SearchViewController.swift */; };
 		47B3FFDF202539C8003CB27F /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B3FFDD202539C8003CB27F /* SearchViewController.xib */; };
 		47D40759200966BD00329544 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D40758200966BD00329544 /* Dependencies.swift */; };
@@ -122,6 +123,7 @@
 		478F43842038B24E003ECCAD /* UITableView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Extensions.swift"; sourceTree = "<group>"; };
 		478F43A02038E5A8003ECCAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		478F43A12038E77B003ECCAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		47A493A6203F6E6B004051A6 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		47B3FFDC202539C8003CB27F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		47B3FFDD202539C8003CB27F /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		47D40758200966BD00329544 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */,
 				4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */,
 				478F43842038B24E003ECCAD /* UITableView + Extensions.swift */,
+				47A493A6203F6E6B004051A6 /* Bundle.swift */,
 			);
 			path = "Extensions & Helpers";
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				47D40759200966BD00329544 /* Dependencies.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
 				4770AD031FF1B470006E755D /* ListCell.swift in Sources */,
+				47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */,
 				474B44202001A52D009897D2 /* SettingsViewController.swift in Sources */,
 				478F43852038B24E003ECCAD /* UITableView + Extensions.swift in Sources */,
 				4770AD001FF1B3B8006E755D /* ReusableCells.swift in Sources */,

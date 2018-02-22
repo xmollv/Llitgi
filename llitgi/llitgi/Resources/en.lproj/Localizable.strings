@@ -33,3 +33,4 @@
 "to_archive" = "Archive";
 "unarchive" = "Unarchive";
 "unfavorite" = "Unfavorite";
+"build_version" = "Built with ❤️ in Barcelona. Version: %1$@";
