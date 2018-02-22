@@ -114,7 +114,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     }
     
     private func deindexItem(id: String) {
-        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: []) { error in
+        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id]) { error in
             guard let error = error else { return }
             Logger.log("Error deindexing: \(error.localizedDescription)", event: .error)
         }
