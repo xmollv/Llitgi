@@ -53,8 +53,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
         if userActivity.activityType == CSSearchableItemActionType {
             if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
-                guard let url = self.modelFactory.hasItem(identifiedBy: uniqueIdentifier)?.url else { return false }
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                guard let item = self.modelFactory.hasItem(identifiedBy: uniqueIdentifier) else { return false }
+                guard let tabBarController = application.keyWindow?.rootViewController as? TabBarController else { return false }
+                guard let viewControllers = tabBarController.viewControllers else { return false}
+                guard viewControllers.count == 5 else { return false }
+                tabBarController.selectedIndex = 3
+                guard let search = (viewControllers[3] as? UINavigationController)?.topViewController as? SearchViewController else { return false }
+                _ = search.view
+                search.searchFromSpotlight(item: item)
             }
         }
         
