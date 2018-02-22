@@ -15,6 +15,7 @@ protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
     func notifier(for: TypeOfList) -> CoreDataNotifier
     func search(_: String) -> [CoreDataItem]
+    func hasItem(identifiedBy id: String) -> CoreDataItem?
     func deleteAllModels()
 }
 
@@ -154,6 +155,20 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             }
         }
         return results
+    }
+    
+    func hasItem(identifiedBy id: String) -> CoreDataItem?  {
+        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        request.predicate = NSPredicate(format: "id_ == %@ ", id)
+        var result: CoreDataItem?
+        self.context.performAndWait {
+            do {
+                result = try self.context.fetch(request).first
+            } catch {
+                Logger.log("Error trying to fetch when searching: \(error)", event: .error)
+            }
+        }
+        return result
     }
     
     func deleteAllModels() {

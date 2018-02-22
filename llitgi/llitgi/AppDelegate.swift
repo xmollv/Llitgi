@@ -7,17 +7,18 @@
 //
 
 import UIKit
+import CoreSpotlight
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let modelFactory: CoreDataFactory = CoreDataFactoryImplementation()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Initialization of dependencies
         let pocketAPI = PocketAPIManager()
-        let modelFactory = CoreDataFactoryImplementation()
         let dataProvider = DataProvider(pocketAPI: pocketAPI, modelFactory: modelFactory)
         let syncManager = SyncManager(dataProvider: dataProvider)
         let userPreferences = UserPreferencesManager()
@@ -46,6 +47,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Logger.log("Auth finished")
             NotificationCenter.default.post(name: .OAuthFinished, object: nil)
         }
+        return true
+    }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        if userActivity.activityType == CSSearchableItemActionType {
+            if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
+                guard let url = self.modelFactory.hasItem(identifiedBy: uniqueIdentifier)?.url else { return false }
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        
         return true
     }
 
