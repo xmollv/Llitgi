@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreSpotlight
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let modelFactory: CoreDataFactory = CoreDataFactoryImplementation()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        Fabric.with([Crashlytics.self, Answers.self])
+        #if DEVELOPMENT
+            Fabric.sharedSDK().debug = true
+        #endif
         
         // Initialization of dependencies
         let pocketAPI = PocketAPIManager()
