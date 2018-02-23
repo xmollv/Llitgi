@@ -116,7 +116,7 @@ extension SearchViewController: UITextFieldDelegate {
             if finalText == "" {
                 self.searchResults.removeAll()
             } else {
-                self.searchResults = self.dataProvider.search(text)
+                self.searchResults = self.dataProvider.search(finalText)
             }
         } else {
             self.searchResults.removeAll()
