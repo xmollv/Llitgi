@@ -8,11 +8,14 @@
 
 import Foundation
 import CoreData
+import CoreSpotlight
+import MobileCoreServices
 
 protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
     func notifier(for: TypeOfList) -> CoreDataNotifier
     func search(_: String) -> [CoreDataItem]
+    func hasItem(identifiedBy id: String) -> CoreDataItem?
     func deleteAllModels()
 }
 
@@ -79,14 +82,41 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             self.delete(updatedObject, in: context)
             return nil
         }
+        
+        if let item = updatedObject as? CoreDataItem {
+            self.indexInSpotlight(item: item)
+        }
+        
         return updatedObject
     }
     
     private func delete<T: Managed>(_ object: T?, in context: NSManagedObjectContext) {
         guard let object = object else { return }
         Logger.log("Maked \(object.id) to be deleted.", event: .warning)
+        if let item = object as? CoreDataItem {
+            self.deindexItem(id: item.id)
+        }
         context.performAndWait {
             context.delete(object)
+        }
+    }
+    
+    private func indexInSpotlight(item: CoreDataItem) {
+        let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeText as String)
+        attributeSet.title = item.title
+        attributeSet.contentDescription = item.url.absoluteString
+        
+        let item = CSSearchableItem(uniqueIdentifier: item.id, domainIdentifier: "com.xmollv.llitgi", attributeSet: attributeSet)
+        CSSearchableIndex.default().indexSearchableItems([item]) { error in
+            guard let error = error else { return }
+            Logger.log("Error indexing: \(error.localizedDescription)", event: .error)
+        }
+    }
+    
+    private func deindexItem(id: String) {
+        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id]) { error in
+            guard let error = error else { return }
+            Logger.log("Error deindexing: \(error.localizedDescription)", event: .error)
         }
     }
     
@@ -128,7 +158,25 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         return results
     }
     
+    func hasItem(identifiedBy id: String) -> CoreDataItem?  {
+        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        request.predicate = NSPredicate(format: "id_ == %@ ", id)
+        var result: CoreDataItem?
+        self.context.performAndWait {
+            do {
+                result = try self.context.fetch(request).first
+            } catch {
+                Logger.log("Error trying to fetch when searching: \(error)", event: .error)
+            }
+        }
+        return result
+    }
+    
     func deleteAllModels() {
+        CSSearchableIndex.default().deleteAllSearchableItems { (error) in
+            guard let error = error else { return }
+            Logger.log("Error deindexing everything: \(error.localizedDescription)", event: .error)
+        }
         self.storeContainer.managedObjectModel.entities.flatMap {
             guard let name = $0.name else {
                 Logger.log("This entity doesn't have a name: \($0)")

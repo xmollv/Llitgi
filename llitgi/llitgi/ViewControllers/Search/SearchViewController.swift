@@ -53,6 +53,13 @@ class SearchViewController: ViewController {
         self.searchTextField.becomeFirstResponder()
     }
     
+    func searchFromSpotlight(item: Item) {
+        self.searchTextField.text = item.title
+        self.searchResults = [item]
+        self.tableView.reloadData()
+        self.open(url: item.url, animated: false)
+    }
+    
     //MARK:- Private methods
     private func configureSearchTextField() {
         self.searchTextField.delegate = self
@@ -76,6 +83,17 @@ class SearchViewController: ViewController {
     
     @objc private func resignFirstResponderOnTextField() {
         self.searchTextField.resignFirstResponder()
+    }
+    
+    private func open(url: URL, animated: Bool = true) {
+        switch self.userPreferences.openLinksWith {
+        case .safariViewController:
+            let sfs = SFSafariViewController(url: url)
+            sfs.preferredControlTintColor = .black
+            self.present(sfs, animated: animated, completion: nil)
+        case .safari:
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
 }
 
@@ -106,6 +124,7 @@ extension SearchViewController: UITextFieldDelegate {
         self.tableView.reloadData()
         return true
     }
+    
 }
 
 //MARK:- UITableViewDataSource
@@ -140,14 +159,7 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let url = self.searchResults[indexPath.row].url
-        switch self.userPreferences.openLinksWith {
-        case .safariViewController:
-            let sfs = SFSafariViewController(url: url)
-            sfs.preferredControlTintColor = .black
-            self.present(sfs, animated: true, completion: nil)
-        case .safari:
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
+        self.open(url: url)
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
