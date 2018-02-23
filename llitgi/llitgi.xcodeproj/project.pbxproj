@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D2BB426A42A3096616DE6A5 /* Pods_Llitgi_Development.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD04DD3DE58DA1395432B86 /* Pods_Llitgi_Development.framework */; };
 		4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */; };
 		4710EF521FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */; };
 		4710EF561FF4338A00D3DCA9 /* CoreDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */; };
@@ -109,6 +110,8 @@
 		47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */; };
 		47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38C1FF074C70030BEF1 /* Typealias.swift */; };
 		47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */; };
+		C91D2CD99EBC00DB8C8C5703 /* Pods_Llitgi_Production.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7715A67EF3E62DCC397F1A0 /* Pods_Llitgi_Production.framework */; };
+		D71B3A8ED9C9C064DD3CCFB7 /* Pods_ShareExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD683829B0F5D5208E86795D /* Pods_ShareExtension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,7 +194,7 @@
 		47B3FFDD202539C8003CB27F /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		47D40758200966BD00329544 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		47D6F07F2040D32B00F45749 /* Llitgi Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Llitgi Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		47D6F0802040D32B00F45749 /* llitgi copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "llitgi copy-Info.plist"; path = "/Users/xavi/Developer/llitgi/llitgi/llitgi copy-Info.plist"; sourceTree = "<absolute>"; };
+		47D6F0802040D32B00F45749 /* Info_dev.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info_dev.plist; path = /Users/xavi/Developer/llitgi/llitgi/llitgi/Resources/Info_dev.plist; sourceTree = "<absolute>"; };
 		47E6128A203085BA00D26472 /* llitgi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = llitgi.entitlements; sourceTree = "<group>"; };
 		47E6128B203085DB00D26472 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		47EEA35B1FF02DDD0030BEF1 /* Llitgi Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Llitgi Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,6 +212,15 @@
 		47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIConfiguration.swift; sourceTree = "<group>"; };
 		47EEA38C1FF074C70030BEF1 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
 		47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIError.swift; sourceTree = "<group>"; };
+		5BD04DD3DE58DA1395432B86 /* Pods_Llitgi_Development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Llitgi_Development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D87A6F5319D266745A7B9D7 /* Pods-ShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ShareExtension/Pods-ShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		7566A89F3719EE7E0EC61729 /* Pods-Llitgi Development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi Development.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi Development/Pods-Llitgi Development.debug.xcconfig"; sourceTree = "<group>"; };
+		868B49300961C0E346EABE6E /* Pods-Llitgi Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi Development.release.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi Development/Pods-Llitgi Development.release.xcconfig"; sourceTree = "<group>"; };
+		B3A949D6B3890E004D16EFC5 /* Pods-Llitgi Production.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi Production.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi Production/Pods-Llitgi Production.debug.xcconfig"; sourceTree = "<group>"; };
+		B7715A67EF3E62DCC397F1A0 /* Pods_Llitgi_Production.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Llitgi_Production.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB8D0462ECA8C784A3A3EDE2 /* Pods-Llitgi Production.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi Production.release.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi Production/Pods-Llitgi Production.release.xcconfig"; sourceTree = "<group>"; };
+		C697C3D4C012693B9747E648 /* Pods-ShareExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ShareExtension/Pods-ShareExtension.release.xcconfig"; sourceTree = "<group>"; };
+		DD683829B0F5D5208E86795D /* Pods_ShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +228,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D71B3A8ED9C9C064DD3CCFB7 /* Pods_ShareExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +236,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D2BB426A42A3096616DE6A5 /* Pods_Llitgi_Development.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,12 +244,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C91D2CD99EBC00DB8C8C5703 /* Pods_Llitgi_Production.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		068F1D63B4B1BD48BEBFE22D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5BD04DD3DE58DA1395432B86 /* Pods_Llitgi_Development.framework */,
+				B7715A67EF3E62DCC397F1A0 /* Pods_Llitgi_Production.framework */,
+				DD683829B0F5D5208E86795D /* Pods_ShareExtension.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4710EF541FF4333600D3DCA9 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,7 +347,8 @@
 				47EEA35D1FF02DDD0030BEF1 /* llitgi */,
 				475E176E20262CAD007033F1 /* ShareExtension */,
 				47EEA35C1FF02DDD0030BEF1 /* Products */,
-				47D6F0802040D32B00F45749 /* llitgi copy-Info.plist */,
+				77E7384260647E12D2988994 /* Pods */,
+				068F1D63B4B1BD48BEBFE22D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -357,6 +383,7 @@
 				478F439C2038E52D003ECCAD /* Localizable.strings */,
 				47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */,
 				47EEA36C1FF02DDD0030BEF1 /* Info.plist */,
+				47D6F0802040D32B00F45749 /* Info_dev.plist */,
 				47E6128A203085BA00D26472 /* llitgi.entitlements */,
 			);
 			path = Resources;
@@ -425,6 +452,19 @@
 			path = "Extensions & Helpers";
 			sourceTree = "<group>";
 		};
+		77E7384260647E12D2988994 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7566A89F3719EE7E0EC61729 /* Pods-Llitgi Development.debug.xcconfig */,
+				868B49300961C0E346EABE6E /* Pods-Llitgi Development.release.xcconfig */,
+				B3A949D6B3890E004D16EFC5 /* Pods-Llitgi Production.debug.xcconfig */,
+				BB8D0462ECA8C784A3A3EDE2 /* Pods-Llitgi Production.release.xcconfig */,
+				5D87A6F5319D266745A7B9D7 /* Pods-ShareExtension.debug.xcconfig */,
+				C697C3D4C012693B9747E648 /* Pods-ShareExtension.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -432,9 +472,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 475E177820262CAD007033F1 /* Build configuration list for PBXNativeTarget "ShareExtension" */;
 			buildPhases = (
+				847CFB64008DE5C47E962ED4 /* [CP] Check Pods Manifest.lock */,
 				475E176920262CAD007033F1 /* Sources */,
 				475E176A20262CAD007033F1 /* Frameworks */,
 				475E176B20262CAD007033F1 /* Resources */,
+				CF3E2F360F16AA0EA929F1A3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -449,11 +491,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 47D6F07C2040D32B00F45749 /* Build configuration list for PBXNativeTarget "Llitgi Development" */;
 			buildPhases = (
+				C17C226D8FBB28A50FCDD289 /* [CP] Check Pods Manifest.lock */,
 				47D6F04A2040D32B00F45749 /* Sources */,
 				47D6F06E2040D32B00F45749 /* Frameworks */,
 				47D6F06F2040D32B00F45749 /* Resources */,
 				47D6F0792040D32B00F45749 /* ShellScript */,
 				47D6F07A2040D32B00F45749 /* Embed App Extensions */,
+				C8D687C35141FD4045C12A7C /* [CP] Embed Pods Frameworks */,
+				D7E8C13E025B0DED30655C1F /* [CP] Copy Pods Resources */,
+				47EB57942040D7BB0060A895 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -469,11 +515,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 47EEA36F1FF02DDD0030BEF1 /* Build configuration list for PBXNativeTarget "Llitgi Production" */;
 			buildPhases = (
+				57BA89101CF2E80F6DDEA83C /* [CP] Check Pods Manifest.lock */,
 				47EEA3571FF02DDD0030BEF1 /* Sources */,
 				47EEA3581FF02DDD0030BEF1 /* Frameworks */,
 				47EEA3591FF02DDD0030BEF1 /* Resources */,
 				4710EF531FF40A7F00D3DCA9 /* ShellScript */,
 				475E177B20262CAD007033F1 /* Embed App Extensions */,
+				F5145C42D21AF841E31A53CE /* [CP] Embed Pods Frameworks */,
+				F841294CB57E903F0824F10B /* [CP] Copy Pods Resources */,
+				47EB57932040D7AF0060A895 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -609,6 +659,161 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"";
+		};
+		47EB57932040D7AF0060A895 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 5bbb9560ce85a9aceee38098e31c9aa0afc498c5 d6c9d2033180f026aded100c1fd131b1476d23000319222c24d7a1329136e134";
+		};
+		47EB57942040D7BB0060A895 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 5bbb9560ce85a9aceee38098e31c9aa0afc498c5 d6c9d2033180f026aded100c1fd131b1476d23000319222c24d7a1329136e134";
+		};
+		57BA89101CF2E80F6DDEA83C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Llitgi Production-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		847CFB64008DE5C47E962ED4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShareExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C17C226D8FBB28A50FCDD289 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Llitgi Development-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8D687C35141FD4045C12A7C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi Development/Pods-Llitgi Development-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CF3E2F360F16AA0EA929F1A3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-ShareExtension/Pods-ShareExtension-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D7E8C13E025B0DED30655C1F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi Development/Pods-Llitgi Development-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F5145C42D21AF841E31A53CE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi Production/Pods-Llitgi Production-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F841294CB57E903F0824F10B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi Production/Pods-Llitgi Production-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -758,6 +963,7 @@
 /* Begin XCBuildConfiguration section */
 		475E177920262CAD007033F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D87A6F5319D266745A7B9D7 /* Pods-ShareExtension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -775,6 +981,7 @@
 		};
 		475E177A20262CAD007033F1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C697C3D4C012693B9747E648 /* Pods-ShareExtension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -792,13 +999,14 @@
 		};
 		47D6F07D2040D32B00F45749 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7566A89F3719EE7E0EC61729 /* Pods-Llitgi Development.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = llitgi/Resources/llitgi.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63PYRNNP7M;
-				INFOPLIST_FILE = "llitgi copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/llitgi/Resources/Info_dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-DDEVELOPMENT";
@@ -811,13 +1019,14 @@
 		};
 		47D6F07E2040D32B00F45749 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 868B49300961C0E346EABE6E /* Pods-Llitgi Development.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = llitgi/Resources/llitgi.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63PYRNNP7M;
-				INFOPLIST_FILE = "llitgi copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/llitgi/Resources/Info_dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-DDEVELOPMENT";
@@ -939,6 +1148,7 @@
 		};
 		47EEA3701FF02DDD0030BEF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3A949D6B3890E004D16EFC5 /* Pods-Llitgi Production.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -957,6 +1167,7 @@
 		};
 		47EEA3711FF02DDD0030BEF1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BB8D0462ECA8C784A3A3EDE2 /* Pods-Llitgi Production.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

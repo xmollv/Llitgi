@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        Logger.configureFabric()
+        
         // Initialization of dependencies
         let pocketAPI = PocketAPIManager()
         let dataProvider = DataProvider(pocketAPI: pocketAPI, modelFactory: modelFactory)
