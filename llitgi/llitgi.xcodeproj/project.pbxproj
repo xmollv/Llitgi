@@ -51,6 +51,51 @@
 		47B3FFDE202539C8003CB27F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B3FFDC202539C8003CB27F /* SearchViewController.swift */; };
 		47B3FFDF202539C8003CB27F /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B3FFDD202539C8003CB27F /* SearchViewController.xib */; };
 		47D40759200966BD00329544 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D40758200966BD00329544 /* Dependencies.swift */; };
+		47D6F04B2040D32B00F45749 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B3FFDC202539C8003CB27F /* SearchViewController.swift */; };
+		47D6F04C2040D32B00F45749 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF41FF111A9006E755D /* UIView.swift */; };
+		47D6F04D2040D32B00F45749 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47803EA42009674D003D58E2 /* PreferencesManager.swift */; };
+		47D6F04E2040D32B00F45749 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */; };
+		47D6F04F2040D32B00F45749 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
+		47D6F0502040D32B00F45749 /* PocketAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */; };
+		47D6F0512040D32B00F45749 /* FullSyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4752C0852030F22300988A68 /* FullSyncViewController.swift */; };
+		47D6F0522040D32B00F45749 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF601FF51D8500D3DCA9 /* Managed.swift */; };
+		47D6F0532040D32B00F45749 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38C1FF074C70030BEF1 /* Typealias.swift */; };
+		47D6F0542040D32B00F45749 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */; };
+		47D6F0552040D32B00F45749 /* ListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFD1FF1B108006E755D /* ListDataSource.swift */; };
+		47D6F0562040D32B00F45749 /* ListSwipeActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */; };
+		47D6F0572040D32B00F45749 /* CoreDataNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF571FF44E5100D3DCA9 /* CoreDataNotifier.swift */; };
+		47D6F0582040D32B00F45749 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3791FF034FD0030BEF1 /* ViewController.swift */; };
+		47D6F0592040D32B00F45749 /* PocketAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */; };
+		47D6F05A2040D32B00F45749 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF91FF18AF7006E755D /* ListViewController.swift */; };
+		47D6F05B2040D32B00F45749 /* LitgiUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47392347202667E3005526C5 /* LitgiUserDefaults.swift */; };
+		47D6F05C2040D32B00F45749 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3821FF037D40030BEF1 /* DataProvider.swift */; };
+		47D6F05D2040D32B00F45749 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */; };
+		47D6F05E2040D32B00F45749 /* PocketAPIModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */; };
+		47D6F05F2040D32B00F45749 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Item.swift */; };
+		47D6F0602040D32B00F45749 /* CoreDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */; };
+		47D6F0612040D32B00F45749 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF61FF17AFD006E755D /* Notification.swift */; };
+		47D6F0622040D32B00F45749 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF591FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld */; };
+		47D6F0632040D32B00F45749 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F43822037078C003ECCAD /* TabBarController.swift */; };
+		47D6F0642040D32B00F45749 /* PocketAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3881FF03C060030BEF1 /* PocketAPIEndpoint.swift */; };
+		47D6F0652040D32B00F45749 /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47661A3920252C9900017C28 /* SyncManager.swift */; };
+		47D6F0662040D32B00F45749 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D40758200966BD00329544 /* Dependencies.swift */; };
+		47D6F0672040D32B00F45749 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */; };
+		47D6F0682040D32B00F45749 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770AD011FF1B470006E755D /* ListCell.swift */; };
+		47D6F0692040D32B00F45749 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A493A6203F6E6B004051A6 /* Bundle.swift */; };
+		47D6F06A2040D32B00F45749 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474B441E2001A52C009897D2 /* SettingsViewController.swift */; };
+		47D6F06B2040D32B00F45749 /* UITableView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F43842038B24E003ECCAD /* UITableView + Extensions.swift */; };
+		47D6F06C2040D32B00F45749 /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
+		47D6F06D2040D32B00F45749 /* PocketAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */; };
+		47D6F0702040D32B00F45749 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */; };
+		47D6F0712040D32B00F45749 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474B441F2001A52C009897D2 /* SettingsViewController.xib */; };
+		47D6F0722040D32B00F45749 /* FullSyncViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4752C0862030F22300988A68 /* FullSyncViewController.xib */; };
+		47D6F0732040D32B00F45749 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */; };
+		47D6F0742040D32B00F45749 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 478F439C2038E52D003ECCAD /* Localizable.strings */; };
+		47D6F0752040D32B00F45749 /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770ACFA1FF18AF7006E755D /* ListViewController.xib */; };
+		47D6F0762040D32B00F45749 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */; };
+		47D6F0772040D32B00F45749 /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770AD021FF1B470006E755D /* ListCell.xib */; };
+		47D6F0782040D32B00F45749 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B3FFDD202539C8003CB27F /* SearchViewController.xib */; };
+		47D6F07B2040D32B00F45749 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 475E176D20262CAD007033F1 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */; };
 		47EEA3681FF02DDD0030BEF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */; };
 		47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */; };
@@ -74,6 +119,13 @@
 			remoteGlobalIDString = 475E176C20262CAD007033F1;
 			remoteInfo = ShareExtension;
 		};
+		47D6F0492040D32B00F45749 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 47EEA3531FF02DDD0030BEF1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 475E176C20262CAD007033F1;
+			remoteInfo = ShareExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -84,6 +136,17 @@
 			dstSubfolderSpec = 13;
 			files = (
 				475E177720262CAD007033F1 /* ShareExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47D6F07A2040D32B00F45749 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				47D6F07B2040D32B00F45749 /* ShareExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,9 +190,11 @@
 		47B3FFDC202539C8003CB27F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		47B3FFDD202539C8003CB27F /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		47D40758200966BD00329544 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
+		47D6F07F2040D32B00F45749 /* Llitgi Development.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Llitgi Development.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		47D6F0802040D32B00F45749 /* llitgi copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "llitgi copy-Info.plist"; path = "/Users/xavi/Developer/llitgi/llitgi/llitgi copy-Info.plist"; sourceTree = "<absolute>"; };
 		47E6128A203085BA00D26472 /* llitgi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = llitgi.entitlements; sourceTree = "<group>"; };
 		47E6128B203085DB00D26472 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
-		47EEA35B1FF02DDD0030BEF1 /* llitgi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = llitgi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		47EEA35B1FF02DDD0030BEF1 /* Llitgi Production.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Llitgi Production.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47EEA36A1FF02DDD0030BEF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -148,6 +213,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		475E176A20262CAD007033F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47D6F06E2040D32B00F45749 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -250,14 +322,16 @@
 				47EEA35D1FF02DDD0030BEF1 /* llitgi */,
 				475E176E20262CAD007033F1 /* ShareExtension */,
 				47EEA35C1FF02DDD0030BEF1 /* Products */,
+				47D6F0802040D32B00F45749 /* llitgi copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		47EEA35C1FF02DDD0030BEF1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				47EEA35B1FF02DDD0030BEF1 /* llitgi.app */,
+				47EEA35B1FF02DDD0030BEF1 /* Llitgi Production.app */,
 				475E176D20262CAD007033F1 /* ShareExtension.appex */,
+				47D6F07F2040D32B00F45749 /* Llitgi Development.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -371,9 +445,29 @@
 			productReference = 475E176D20262CAD007033F1 /* ShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		47EEA35A1FF02DDD0030BEF1 /* llitgi */ = {
+		47D6F0472040D32B00F45749 /* Llitgi Development */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 47EEA36F1FF02DDD0030BEF1 /* Build configuration list for PBXNativeTarget "llitgi" */;
+			buildConfigurationList = 47D6F07C2040D32B00F45749 /* Build configuration list for PBXNativeTarget "Llitgi Development" */;
+			buildPhases = (
+				47D6F04A2040D32B00F45749 /* Sources */,
+				47D6F06E2040D32B00F45749 /* Frameworks */,
+				47D6F06F2040D32B00F45749 /* Resources */,
+				47D6F0792040D32B00F45749 /* ShellScript */,
+				47D6F07A2040D32B00F45749 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				47D6F0482040D32B00F45749 /* PBXTargetDependency */,
+			);
+			name = "Llitgi Development";
+			productName = ReadLater;
+			productReference = 47D6F07F2040D32B00F45749 /* Llitgi Development.app */;
+			productType = "com.apple.product-type.application";
+		};
+		47EEA35A1FF02DDD0030BEF1 /* Llitgi Production */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 47EEA36F1FF02DDD0030BEF1 /* Build configuration list for PBXNativeTarget "Llitgi Production" */;
 			buildPhases = (
 				47EEA3571FF02DDD0030BEF1 /* Sources */,
 				47EEA3581FF02DDD0030BEF1 /* Frameworks */,
@@ -386,9 +480,9 @@
 			dependencies = (
 				475E177620262CAD007033F1 /* PBXTargetDependency */,
 			);
-			name = llitgi;
+			name = "Llitgi Production";
 			productName = ReadLater;
-			productReference = 47EEA35B1FF02DDD0030BEF1 /* llitgi.app */;
+			productReference = 47EEA35B1FF02DDD0030BEF1 /* Llitgi Production.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -409,6 +503,9 @@
 								enabled = 1;
 							};
 						};
+					};
+					47D6F0472040D32B00F45749 = {
+						ProvisioningStyle = Automatic;
 					};
 					47EEA35A1FF02DDD0030BEF1 = {
 						CreatedOnToolsVersion = 9.2;
@@ -434,7 +531,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				47EEA35A1FF02DDD0030BEF1 /* llitgi */,
+				47EEA35A1FF02DDD0030BEF1 /* Llitgi Production */,
+				47D6F0472040D32B00F45749 /* Llitgi Development */,
 				475E176C20262CAD007033F1 /* ShareExtension */,
 			);
 		};
@@ -448,6 +546,22 @@
 				4752C0832030BCA800988A68 /* Assets.xcassets in Resources */,
 				478F439A2038E52D003ECCAD /* Localizable.strings in Resources */,
 				475E177320262CAD007033F1 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47D6F06F2040D32B00F45749 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47D6F0702040D32B00F45749 /* LaunchScreen.storyboard in Resources */,
+				47D6F0712040D32B00F45749 /* SettingsViewController.xib in Resources */,
+				47D6F0722040D32B00F45749 /* FullSyncViewController.xib in Resources */,
+				47D6F0732040D32B00F45749 /* Assets.xcassets in Resources */,
+				47D6F0742040D32B00F45749 /* Localizable.strings in Resources */,
+				47D6F0752040D32B00F45749 /* ListViewController.xib in Resources */,
+				47D6F0762040D32B00F45749 /* AuthorizationViewController.xib in Resources */,
+				47D6F0772040D32B00F45749 /* ListCell.xib in Resources */,
+				47D6F0782040D32B00F45749 /* SearchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +597,19 @@
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"";
 		};
+		47D6F0792040D32B00F45749 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -499,6 +626,48 @@
 				475E1783202633EA007033F1 /* Typealias.swift in Sources */,
 				47392349202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
 				475E1784202633F9007033F1 /* Logger.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47D6F04A2040D32B00F45749 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47D6F04B2040D32B00F45749 /* SearchViewController.swift in Sources */,
+				47D6F04C2040D32B00F45749 /* UIView.swift in Sources */,
+				47D6F04D2040D32B00F45749 /* PreferencesManager.swift in Sources */,
+				47D6F04E2040D32B00F45749 /* AuthorizationViewController.swift in Sources */,
+				47D6F04F2040D32B00F45749 /* Logger.swift in Sources */,
+				47D6F0502040D32B00F45749 /* PocketAPIError.swift in Sources */,
+				47D6F0512040D32B00F45749 /* FullSyncViewController.swift in Sources */,
+				47D6F0522040D32B00F45749 /* Managed.swift in Sources */,
+				47D6F0532040D32B00F45749 /* Typealias.swift in Sources */,
+				47D6F0542040D32B00F45749 /* ViewControllerFactory.swift in Sources */,
+				47D6F0552040D32B00F45749 /* ListDataSource.swift in Sources */,
+				47D6F0562040D32B00F45749 /* ListSwipeActionManager.swift in Sources */,
+				47D6F0572040D32B00F45749 /* CoreDataNotifier.swift in Sources */,
+				47D6F0582040D32B00F45749 /* ViewController.swift in Sources */,
+				47D6F0592040D32B00F45749 /* PocketAPIManager.swift in Sources */,
+				47D6F05A2040D32B00F45749 /* ListViewController.swift in Sources */,
+				47D6F05B2040D32B00F45749 /* LitgiUserDefaults.swift in Sources */,
+				47D6F05C2040D32B00F45749 /* DataProvider.swift in Sources */,
+				47D6F05D2040D32B00F45749 /* NSManagedObject.swift in Sources */,
+				47D6F05E2040D32B00F45749 /* PocketAPIModification.swift in Sources */,
+				47D6F05F2040D32B00F45749 /* Item.swift in Sources */,
+				47D6F0602040D32B00F45749 /* CoreDataFactory.swift in Sources */,
+				47D6F0612040D32B00F45749 /* Notification.swift in Sources */,
+				47D6F0622040D32B00F45749 /* CoreDataModel.xcdatamodeld in Sources */,
+				47D6F0632040D32B00F45749 /* TabBarController.swift in Sources */,
+				47D6F0642040D32B00F45749 /* PocketAPIEndpoint.swift in Sources */,
+				47D6F0652040D32B00F45749 /* SyncManager.swift in Sources */,
+				47D6F0662040D32B00F45749 /* Dependencies.swift in Sources */,
+				47D6F0672040D32B00F45749 /* AppDelegate.swift in Sources */,
+				47D6F0682040D32B00F45749 /* ListCell.swift in Sources */,
+				47D6F0692040D32B00F45749 /* Bundle.swift in Sources */,
+				47D6F06A2040D32B00F45749 /* SettingsViewController.swift in Sources */,
+				47D6F06B2040D32B00F45749 /* UITableView + Extensions.swift in Sources */,
+				47D6F06C2040D32B00F45749 /* ReusableCells.swift in Sources */,
+				47D6F06D2040D32B00F45749 /* PocketAPIConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +720,11 @@
 			isa = PBXTargetDependency;
 			target = 475E176C20262CAD007033F1 /* ShareExtension */;
 			targetProxy = 475E177520262CAD007033F1 /* PBXContainerItemProxy */;
+		};
+		47D6F0482040D32B00F45749 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 475E176C20262CAD007033F1 /* ShareExtension */;
+			targetProxy = 47D6F0492040D32B00F45749 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -613,6 +787,44 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		47D6F07D2040D32B00F45749 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = llitgi/Resources/llitgi.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 63PYRNNP7M;
+				INFOPLIST_FILE = "llitgi copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DDEVELOPMENT";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xmollv.llitgi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		47D6F07E2040D32B00F45749 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = llitgi/Resources/llitgi.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 63PYRNNP7M;
+				INFOPLIST_FILE = "llitgi copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DDEVELOPMENT";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xmollv.llitgi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -773,6 +985,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		47D6F07C2040D32B00F45749 /* Build configuration list for PBXNativeTarget "Llitgi Development" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				47D6F07D2040D32B00F45749 /* Debug */,
+				47D6F07E2040D32B00F45749 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		47EEA3561FF02DDD0030BEF1 /* Build configuration list for PBXProject "llitgi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -782,7 +1003,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		47EEA36F1FF02DDD0030BEF1 /* Build configuration list for PBXNativeTarget "llitgi" */ = {
+		47EEA36F1FF02DDD0030BEF1 /* Build configuration list for PBXNativeTarget "Llitgi Production" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				47EEA3701FF02DDD0030BEF1 /* Debug */,
