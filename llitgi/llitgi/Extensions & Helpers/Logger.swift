@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Fabric
+import Crashlytics
 
 final class Logger {
     
@@ -29,8 +31,21 @@ final class Logger {
         }
     }
     
+    class func configureFabric() {
+        Fabric.with([Crashlytics.self, Answers.self])
+        #if DEVELOPMENT
+            Fabric.sharedSDK().debug = true
+        #endif
+    }
+    
     class func log(_ message: String, event: LogEvent = .debug, fileName: String = #file, line: Int = #line, funcName: String = #function) {
         debugPrint("[\(event.emoji)][\(sourceFileName(filePath: fileName))]:\(line) \(funcName): \(message)")
+        if event == .error {
+            #if DEVELOPMENT
+            #else
+                Answers.logCustomEvent(withName: message, customAttributes: ["Filenane": sourceFileName, "Line": line, "Function": funcName])
+            #endif
+        }
     }
     
     private class func sourceFileName(filePath: String) -> String {

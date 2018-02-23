@@ -12,6 +12,11 @@ end
 target 'Llitgi Production' do
     app_pods
 end
+
 target 'Llitgi Development' do
+    app_pods
+end
+
+target 'ShareExtension' do
     app_pods
 end

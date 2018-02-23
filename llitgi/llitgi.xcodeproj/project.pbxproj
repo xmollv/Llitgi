@@ -111,6 +111,7 @@
 		47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38C1FF074C70030BEF1 /* Typealias.swift */; };
 		47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */; };
 		C91D2CD99EBC00DB8C8C5703 /* Pods_Llitgi_Production.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7715A67EF3E62DCC397F1A0 /* Pods_Llitgi_Production.framework */; };
+		D71B3A8ED9C9C064DD3CCFB7 /* Pods_ShareExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD683829B0F5D5208E86795D /* Pods_ShareExtension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -212,11 +213,14 @@
 		47EEA38C1FF074C70030BEF1 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
 		47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIError.swift; sourceTree = "<group>"; };
 		5BD04DD3DE58DA1395432B86 /* Pods_Llitgi_Development.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Llitgi_Development.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D87A6F5319D266745A7B9D7 /* Pods-ShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ShareExtension/Pods-ShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		7566A89F3719EE7E0EC61729 /* Pods-Llitgi Development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi Development.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi Development/Pods-Llitgi Development.debug.xcconfig"; sourceTree = "<group>"; };
 		868B49300961C0E346EABE6E /* Pods-Llitgi Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi Development.release.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi Development/Pods-Llitgi Development.release.xcconfig"; sourceTree = "<group>"; };
 		B3A949D6B3890E004D16EFC5 /* Pods-Llitgi Production.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi Production.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi Production/Pods-Llitgi Production.debug.xcconfig"; sourceTree = "<group>"; };
 		B7715A67EF3E62DCC397F1A0 /* Pods_Llitgi_Production.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Llitgi_Production.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB8D0462ECA8C784A3A3EDE2 /* Pods-Llitgi Production.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi Production.release.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi Production/Pods-Llitgi Production.release.xcconfig"; sourceTree = "<group>"; };
+		C697C3D4C012693B9747E648 /* Pods-ShareExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.release.xcconfig"; path = "../Pods/Target Support Files/Pods-ShareExtension/Pods-ShareExtension.release.xcconfig"; sourceTree = "<group>"; };
+		DD683829B0F5D5208E86795D /* Pods_ShareExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +228,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D71B3A8ED9C9C064DD3CCFB7 /* Pods_ShareExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +256,7 @@
 			children = (
 				5BD04DD3DE58DA1395432B86 /* Pods_Llitgi_Development.framework */,
 				B7715A67EF3E62DCC397F1A0 /* Pods_Llitgi_Production.framework */,
+				DD683829B0F5D5208E86795D /* Pods_ShareExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -453,6 +459,8 @@
 				868B49300961C0E346EABE6E /* Pods-Llitgi Development.release.xcconfig */,
 				B3A949D6B3890E004D16EFC5 /* Pods-Llitgi Production.debug.xcconfig */,
 				BB8D0462ECA8C784A3A3EDE2 /* Pods-Llitgi Production.release.xcconfig */,
+				5D87A6F5319D266745A7B9D7 /* Pods-ShareExtension.debug.xcconfig */,
+				C697C3D4C012693B9747E648 /* Pods-ShareExtension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -464,9 +472,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 475E177820262CAD007033F1 /* Build configuration list for PBXNativeTarget "ShareExtension" */;
 			buildPhases = (
+				847CFB64008DE5C47E962ED4 /* [CP] Check Pods Manifest.lock */,
 				475E176920262CAD007033F1 /* Sources */,
 				475E176A20262CAD007033F1 /* Frameworks */,
 				475E176B20262CAD007033F1 /* Resources */,
+				CF3E2F360F16AA0EA929F1A3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -694,6 +704,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		847CFB64008DE5C47E962ED4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShareExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C17C226D8FBB28A50FCDD289 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -725,6 +753,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi Development/Pods-Llitgi Development-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CF3E2F360F16AA0EA929F1A3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-ShareExtension/Pods-ShareExtension-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D7E8C13E025B0DED30655C1F /* [CP] Copy Pods Resources */ = {
@@ -920,6 +963,7 @@
 /* Begin XCBuildConfiguration section */
 		475E177920262CAD007033F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D87A6F5319D266745A7B9D7 /* Pods-ShareExtension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -937,6 +981,7 @@
 		};
 		475E177A20262CAD007033F1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C697C3D4C012693B9747E648 /* Pods-ShareExtension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
