@@ -146,6 +146,11 @@ class ListViewController: ViewController {
     }
     
     @IBAction private func addButtonTapped(_ sender: UIButton) {
+        sender.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, animations: {
+            sender.transform = .identity
+        }, completion: nil)
+        
         self.activityIndicator.isHidden = false
         self.addButton.isHidden = true
         guard let url = UIPasteboard.general.url else {
