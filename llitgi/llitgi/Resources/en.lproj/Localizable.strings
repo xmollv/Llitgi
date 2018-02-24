@@ -30,6 +30,7 @@
 "sucess" = "Success! 🎉";
 "sync_title" = "Building your library...";
 "sync_explanation" = "We are downloading all your saved items. This only happens the first time, hold on tight.";
+"sync_explanation_success" = "All your items have been downloaded and stored locally. Now go and enjoy the app.";
 "to_archive" = "Archive";
 "unarchive" = "Unarchive";
 "unfavorite" = "Unfavorite";
