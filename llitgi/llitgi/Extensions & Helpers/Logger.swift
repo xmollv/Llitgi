@@ -38,7 +38,7 @@ final class Logger {
     class func log(_ message: String, event: LogEvent = .debug, fileName: String = #file, line: Int = #line, funcName: String = #function) {
         debugPrint("[\(event.emoji)][\(sourceFileName(filePath: fileName))]:\(line) \(funcName): \(message)")
         if event == .error {
-            Answers.logCustomEvent(withName: message, customAttributes: ["Filenane": sourceFileName, "Line": line, "Function": funcName])
+            Answers.logCustomEvent(withName: message, customAttributes: ["Filename": sourceFileName(filePath: fileName), "Line": line, "Function": funcName])
         }
     }
     

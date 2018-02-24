@@ -128,7 +128,21 @@ class ListViewController: ViewController {
                 if let appError = error as? AppError, appError == .isAlreadyFetching {
                     Logger.log("Error: \(error)", event: .warning)
                 } else {
+                    guard let pocketError = error as? PocketAPIError else {
+                        Logger.log("Error: \(error)", event: .error)
+                        return
+                    }
                     Logger.log("Error: \(error)", event: .error)
+                    switch pocketError {
+                    case .not200Status(let statusCode):
+                        if statusCode == 401 {
+                            guard let tabBar = strongSelf.tabBarController as? TabBarController  else { return }
+                            strongSelf.userPreferences.displayBadge(with: 0)
+                            strongSelf.dataProvider.logout()
+                            tabBar.setupAuthFlow()
+                        }
+                    default: break
+                    }
                 }
             }
             strongSelf.refreshControl.endRefreshing()
