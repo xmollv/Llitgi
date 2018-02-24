@@ -85,8 +85,7 @@ class AuthorizationViewController: ViewController {
                     return
                 }
                 strongSelf.dataProvider.updatePocket(token: token)
-                guard let tabBarController = strongSelf.tabBarController as? TabBarController else { return }
-                tabBarController.setupMainFlow()
+                strongSelf.authFinishedStartMainFlow()
             case .isFailure(let error):
                 if let notAuthError = error as? PocketAPIError {
                     switch notAuthError {
@@ -109,6 +108,15 @@ class AuthorizationViewController: ViewController {
     private func showErrorMessage() {
         self.errorLabel.isHidden = false
         self.errorLabel.text = NSLocalizedString("error_pocket", comment: "")
+    }
+    
+    private func authFinishedStartMainFlow() {
+        guard let tabBarController = self.tabBarController as? TabBarController else { return }
+        let fullSync: FullSyncViewController = self.factory.instantiate()
+        fullSync.modalPresentationStyle = .overFullScreen
+        fullSync.modalTransitionStyle = .crossDissolve
+        tabBarController.present(fullSync, animated: true, completion: nil)
+        tabBarController.setupMainFlow()
     }
 
 }

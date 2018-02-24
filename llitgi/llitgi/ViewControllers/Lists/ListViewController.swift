@@ -65,17 +65,6 @@ class ListViewController: ViewController {
         self.tableView.deselectRow(with: self.transitionCoordinator, animated: animated)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if self.syncManager.isFirstSync {
-            let fullSync: FullSyncViewController = self.factory.instantiate()
-            self.syncManager.delegate = fullSync
-            fullSync.modalPresentationStyle = .overFullScreen
-            fullSync.modalTransitionStyle = .crossDissolve
-            self.present(fullSync, animated: true, completion: nil)
-        }
-    }
-    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
