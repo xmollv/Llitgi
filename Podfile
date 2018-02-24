@@ -9,11 +9,7 @@ def app_pods
     pod 'Crashlytics'
 end
 
-target 'Llitgi Production' do
-    app_pods
-end
-
-target 'Llitgi Development' do
+target 'Llitgi' do
     app_pods
 end
 
