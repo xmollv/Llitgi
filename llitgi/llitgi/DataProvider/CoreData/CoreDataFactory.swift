@@ -144,7 +144,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     func search(_ text: String) -> [CoreDataItem] {
         let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        request.predicate = NSPredicate(format: "title_ CONTAINS[c] %@ OR url_ CONTAINS[c] %@", text, text)
+        request.predicate = NSPredicate(format: "(title_ CONTAINS[c] %@ OR url_ CONTAINS[c] %@) AND status_ != '2'", text, text)
         request.sortDescriptors = [NSSortDescriptor(key: "timeAdded_", ascending: false, selector: #selector(NSString.caseInsensitiveCompare(_:)))]
         
         var results: [CoreDataItem] = []

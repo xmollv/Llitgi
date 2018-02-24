@@ -212,7 +212,8 @@ extension SearchViewController: UITableViewDelegate {
             let modification = ItemModification(action: .delete, id: item.id)
             strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
             item.status = "2"
-            tableView.reloadRows(at: [indexPath], with: .automatic)
+            strongSelf.searchResults.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .none)
             success(true)
         }
         
