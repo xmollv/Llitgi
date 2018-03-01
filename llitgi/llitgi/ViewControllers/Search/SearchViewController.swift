@@ -49,15 +49,10 @@ class SearchViewController: ViewController {
     }
     
     //MARK: Public methods
-    func assignFirstResponderOnTextField() {
-        self.searchTextField.becomeFirstResponder()
-    }
-    
     func searchFromSpotlight(item: Item) {
         self.searchTextField.text = item.title
         self.searchResults = [item]
         self.tableView.reloadData()
-        self.open(url: item.url, animated: false)
     }
     
     //MARK:- Private methods
@@ -95,6 +90,11 @@ class SearchViewController: ViewController {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
+    
+    @IBAction func cancelButtonTapped(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 //MARK:- UITextFieldDelegate
