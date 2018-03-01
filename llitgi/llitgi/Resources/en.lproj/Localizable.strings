@@ -1,7 +1,7 @@
 "archive" = "Archive";
 "auth_error" = "It seems that the authorization didn't go quite well. Could you please try again?";
 "badge_count" = "Show app badge count";
-"badge_explanation" = "This will display a badge count on the app icon on your homescreen with the number of elements on your list.";
+"badge_explanation" = "We'll show you a badge on the app icon indicating how many items are on your list.";
 "delete" = "Delete";
 "dismiss" = "Dismiss";
 "error_body" = "Something went wrong";
@@ -24,6 +24,7 @@
 "pasteboard_not_valid" = "We're sorry, but your pasteboard doesn't contain any URLs. Please, copy a valid URL and try again.";
 "retry" = "Retry";
 "safari_open_explanation" = "Enabling this option will open Safari with the tapped link instead of opening the link in the app.";
+"safari_open_explanation" = "We'll launch Safari with the link that you've selected instead of using the in-app browser.";
 "saving_to_llitgi" = "Saving to Llitgi...";
 "search" = "Search";
 "settings" = "Settings";
