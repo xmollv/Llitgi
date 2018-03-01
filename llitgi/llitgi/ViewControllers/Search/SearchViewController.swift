@@ -83,12 +83,19 @@ class SearchViewController: ViewController {
     private func open(url: URL, animated: Bool = true) {
         switch self.userPreferences.openLinksWith {
         case .safariViewController:
-            let sfs = SFSafariViewController(url: url)
-            sfs.preferredControlTintColor = .black
+            let sfs = self.safariViewController(for: url)
             self.present(sfs, animated: animated, completion: nil)
         case .safari:
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
+    }
+    
+    private func safariViewController(for url: URL) -> SFSafariViewController {
+        let cfg = SFSafariViewController.Configuration()
+        cfg.entersReaderIfAvailable = self.userPreferences.openReaderMode
+        let sfs = SFSafariViewController(url: url, configuration: cfg)
+        sfs.preferredControlTintColor = .black
+        return sfs
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
@@ -227,8 +234,7 @@ extension SearchViewController: UIViewControllerPreviewingDelegate {
         guard let indexPath = self.tableView.indexPathForRow(at: location) else { return nil }
         previewingContext.sourceRect = self.tableView.rectForRow(at: indexPath)
         let url = self.searchResults[indexPath.row].url
-        let sfs = SFSafariViewController(url: url)
-        sfs.preferredControlTintColor = .black
+        let sfs = self.safariViewController(for: url)
         return sfs
     }
     

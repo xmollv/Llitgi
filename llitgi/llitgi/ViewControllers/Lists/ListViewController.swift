@@ -140,7 +140,9 @@ class ListViewController: ViewController {
     
     private func safariViewController(at indexPath: IndexPath) -> SFSafariViewController? {
         guard let url = self.dataSource?.item(at: indexPath)?.url else { return nil }
-        let sfs = SFSafariViewController(url: url)
+        let cfg = SFSafariViewController.Configuration()
+        cfg.entersReaderIfAvailable = self.userPreferences.openReaderMode
+        let sfs = SFSafariViewController(url: url, configuration: cfg)
         sfs.preferredControlTintColor = .black
         return sfs
     }

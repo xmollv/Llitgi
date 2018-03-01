@@ -21,6 +21,10 @@ class SettingsViewController: ViewController {
     @IBOutlet private var safariOpenerExplanationLabel: UILabel!
     @IBOutlet private var safariOpenerSwitch: UISwitch!
     
+    @IBOutlet private var safariReaderModeLabel: UILabel!
+    @IBOutlet private var safariReaderModeExplanationLabel: UILabel!
+    @IBOutlet private var safariReaderModeSwitch: UISwitch!
+    
     @IBOutlet private var logoutButton: UIButton!
     
     @IBOutlet private var buildLabel: UILabel!
@@ -32,6 +36,7 @@ class SettingsViewController: ViewController {
         self.setupLocalizedStrings()
         self.badgeCount(isEnabled: self.userPreferences.userHasEnabledNotifications)
         self.safariOpenerValue(opener: self.userPreferences.openLinksWith)
+        self.establishReaderMode(readerEnabled: self.userPreferences.openReaderMode)
     }
     
     //MARK:- IBActions
@@ -70,6 +75,14 @@ class SettingsViewController: ViewController {
         }
     }
     
+    private func establishReaderMode(readerEnabled: Bool) {
+        self.safariReaderModeSwitch.setOn(readerEnabled, animated: false)
+    }
+    
+    @IBAction func safariReaderModeChanged(_ sender: UISwitch) {
+        self.userPreferences.openReaderMode = sender.isOn
+    }
+    
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
         guard let tabBar = self.tabBarController as? TabBarController  else { return }
         self.userPreferences.displayBadge(with: 0)
@@ -84,6 +97,8 @@ class SettingsViewController: ViewController {
         self.badgeCountExplanationLabel.text = NSLocalizedString("badge_explanation", comment: "")
         self.safariOpenerLabel.text = NSLocalizedString("open_links_safari", comment: "")
         self.safariOpenerExplanationLabel.text = NSLocalizedString("safari_open_explanation", comment: "")
+        self.safariReaderModeLabel.text = NSLocalizedString("safari_reader_mode", comment: "")
+        self.safariReaderModeExplanationLabel.text = NSLocalizedString("safari_reader_mode_explanation", comment: "")
         self.logoutButton.setTitle(NSLocalizedString("logout", comment: ""), for: .normal)
         let formatString = NSLocalizedString("build_version", comment: "")
         self.buildLabel.text = String(format: formatString, arguments: [Bundle.main.versionNumber])

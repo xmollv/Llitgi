@@ -21,6 +21,7 @@ protocol BadgeDelegate: class {
 
 protocol PreferencesManager: class {
     var openLinksWith: SafariOpener { get set }
+    var openReaderMode: Bool { get set }
     
     weak var badgeDelegate: BadgeDelegate? { get set }
     var userHasEnabledNotifications: Bool { get set }
@@ -48,6 +49,14 @@ class UserPreferencesManager: PreferencesManager {
             return SafariOpener(rawValue: savedValue) ?? .safariViewController
         }
         set { LlitgiUserDefaults.shared.set(newValue.rawValue, forKey: kSafariOpener) }
+    }
+    
+    var openReaderMode: Bool {
+        get {
+            let savedValue = LlitgiUserDefaults.shared.bool(forKey: kReaderMode)
+            return savedValue
+        }
+        set { LlitgiUserDefaults.shared.set(newValue, forKey: kReaderMode) }
     }
     
     func enableBadge(shouldEnable: Bool, then: @escaping (Bool) -> ()) {

@@ -11,6 +11,7 @@ import Foundation
 let kAccesToken = "accessToken"
 let kEnabledNotifications = "enabledNotifications"
 let kSafariOpener = "safariOpener"
+let kReaderMode = "readerMode"
 let kLastSync = "lastSync"
 let kGroupUserDefaults = "group.com.xmollv.llitgi"
 
