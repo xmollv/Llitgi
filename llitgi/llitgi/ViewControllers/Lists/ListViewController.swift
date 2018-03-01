@@ -181,6 +181,11 @@ class ListViewController: ViewController {
             }
         }
     }
+    
+    @IBAction func searchButtonTapped(_ sender: UIButton) {
+        let search: SearchViewController =  self.factory.instantiate()
+        self.present(search, animated: true, completion: nil)
+    }
 
 }
 

@@ -42,13 +42,10 @@ class TabBarController: UITabBarController {
         let archiveViewController: ListViewController = self.factory.instantiateListViewController(type: .archive)
         archiveViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("archive", comment: ""), image: #imageLiteral(resourceName: "archive"), tag: 3)
         
-        let searchViewController: SearchViewController = self.factory.instantiate()
-        searchViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("search", comment: ""), image: #imageLiteral(resourceName: "search"), tag: 4)
-        
         let settingsViewController: SettingsViewController = self.factory.instantiate()
-        settingsViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("settings", comment: ""), image: #imageLiteral(resourceName: "settings"), tag: 5)
+        settingsViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("settings", comment: ""), image: #imageLiteral(resourceName: "settings"), tag: 4)
         
-        let tabs = [listViewController, favoritesViewController, archiveViewController, searchViewController, settingsViewController].map({ UINavigationController(rootViewController: $0) })
+        let tabs = [listViewController, favoritesViewController, archiveViewController, settingsViewController].map({ UINavigationController(rootViewController: $0) })
         
         self.setViewControllers(tabs, animated: false)
         self.tabBar.isHidden = false
