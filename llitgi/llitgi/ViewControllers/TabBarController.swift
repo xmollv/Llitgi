@@ -61,9 +61,6 @@ extension TabBarController: UITabBarControllerDelegate {
         if let list = newViewController as? ListViewController {
             guard list.isEqual(currentViewController) else { return true }
             list.scrollToTop()
-        } else if let search = newViewController as? SearchViewController {
-            guard search.isEqual(currentViewController) else { return true }
-            search.assignFirstResponderOnTextField()
         }
         return true
     }

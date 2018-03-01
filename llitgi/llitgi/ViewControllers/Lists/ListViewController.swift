@@ -183,6 +183,11 @@ class ListViewController: ViewController {
     }
     
     @IBAction func searchButtonTapped(_ sender: UIButton) {
+        sender.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, animations: {
+            sender.transform = .identity
+        }, completion: nil)
+        
         let search: SearchViewController =  self.factory.instantiate()
         self.present(search, animated: true, completion: nil)
     }

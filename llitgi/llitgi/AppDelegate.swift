@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let modelFactory: CoreDataFactory = CoreDataFactoryImplementation()
+    var viewControllerFactory: ViewControllerFactory!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -25,9 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let syncManager = SyncManager(dataProvider: dataProvider)
         let userPreferences = UserPreferencesManager()
         let dependencies = Dependencies(dataProvider: dataProvider, syncManager: syncManager, userPreferences: userPreferences)
-        let viewControllerFactory = ViewControllerFactory(dependencies: dependencies)
+        self.viewControllerFactory = ViewControllerFactory(dependencies: dependencies)
         
-        let rootViewController = TabBarController(factory: viewControllerFactory)
+        let rootViewController = TabBarController(factory: self.viewControllerFactory)
         if let _ = LlitgiUserDefaults.shared.string(forKey: kAccesToken) {
             rootViewController.setupMainFlow()
         } else {
@@ -57,12 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
                 guard let item = self.modelFactory.hasItem(identifiedBy: uniqueIdentifier) else { return false }
                 guard let tabBarController = application.keyWindow?.rootViewController as? TabBarController else { return false }
-                guard let viewControllers = tabBarController.viewControllers else { return false}
-                guard viewControllers.count == 5 else { return false }
-                tabBarController.selectedIndex = 3
-                guard let search = (viewControllers[3] as? UINavigationController)?.topViewController as? SearchViewController else { return false }
-                _ = search.view
-                search.searchFromSpotlight(item: item)
+                let search: SearchViewController = self.viewControllerFactory.instantiate()
+                tabBarController.present(search, animated: true, completion: nil)
             }
         }
         

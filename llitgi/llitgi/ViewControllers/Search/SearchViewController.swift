@@ -49,10 +49,6 @@ class SearchViewController: ViewController {
     }
     
     //MARK: Public methods
-    func assignFirstResponderOnTextField() {
-        self.searchTextField.becomeFirstResponder()
-    }
-    
     func searchFromSpotlight(item: Item) {
         self.searchTextField.text = item.title
         self.searchResults = [item]
