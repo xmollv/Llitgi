@@ -53,7 +53,6 @@ class SearchViewController: ViewController {
         self.searchTextField.text = item.title
         self.searchResults = [item]
         self.tableView.reloadData()
-        self.open(url: item.url, animated: false)
     }
     
     //MARK:- Private methods

@@ -58,8 +58,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
                 guard let item = self.modelFactory.hasItem(identifiedBy: uniqueIdentifier) else { return false }
                 guard let tabBarController = application.keyWindow?.rootViewController as? TabBarController else { return false }
-                let search: SearchViewController = self.viewControllerFactory.instantiate()
-                tabBarController.present(search, animated: true, completion: nil)
+                if let search = tabBarController.presentedViewController as? SearchViewController {
+                    search.searchFromSpotlight(item: item)
+                } else {
+                    let search: SearchViewController = self.viewControllerFactory.instantiate()
+                    tabBarController.present(search, animated: true, completion: nil)
+                    search.searchFromSpotlight(item: item)
+                }
             }
         }
         
