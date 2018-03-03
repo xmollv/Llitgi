@@ -11,6 +11,7 @@ import UIKit
 class AuthorizationViewController: ViewController {
     
     //MARK:- IBOutlets
+    @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var descriptionLabel: UILabel!
     @IBOutlet private var actionButton: UIButton!
     @IBOutlet private var errorLabel: UILabel!
@@ -69,6 +70,7 @@ class AuthorizationViewController: ViewController {
     
     //MARK: Private methods
     private func setupLocalizedStrings() {
+        self.titleLabel.text = NSLocalizedString("onboarding_title", comment: "")
         self.descriptionLabel.text = NSLocalizedString("onboarding", comment: "")
         self.actionButton.setTitle(NSLocalizedString("lets_do_it", comment: ""), for: .normal)
     }
