@@ -147,7 +147,7 @@ final class PocketAPIManager {
         case .app:
             url =  URL(string: "pocket-oauth-v1:///authorize?request_token=\(requestToken)&redirect_uri=\(redirectURI)")
         case .web:
-            url =  URL(string: "https://getpocket.com/auth/authorize?request_token=\(requestToken)&redirect_uri=\(redirectURI)")
+            url =  URL(string: "https://getpocket.com/auth/authorize?request_token=\(requestToken)&redirect_uri=\(redirectURI)&force=login")
         }
         return url
     }
