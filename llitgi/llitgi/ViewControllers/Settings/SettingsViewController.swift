@@ -27,6 +27,9 @@ class SettingsViewController: ViewController {
     
     @IBOutlet private var logoutButton: UIButton!
     
+    @IBOutlet private var creditsLabel: UILabel!
+    @IBOutlet private var twitterButton: UIButton!
+    @IBOutlet private var emailButton: UIButton!
     @IBOutlet private var buildLabel: UILabel!
     
     //MARK:- Lifecycle
@@ -90,6 +93,16 @@ class SettingsViewController: ViewController {
         tabBar.setupAuthFlow()
     }
     
+    @IBAction func twitterButtonTapped(_ sender: UIButton) {
+        guard let url = URL(string: "https://twitter.com/xmollv") else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
+    @IBAction func emailButtonTapped(_ sender: UIButton) {
+        guard let url = URL(string: "mailto:xmollv@gmail.com") else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
     //MARK:- Private methods
     private func setupLocalizedStrings() {
         self.titleLabel.text = NSLocalizedString("settings", comment: "")
@@ -100,6 +113,8 @@ class SettingsViewController: ViewController {
         self.safariReaderModeLabel.text = NSLocalizedString("safari_reader_mode", comment: "")
         self.safariReaderModeExplanationLabel.text = NSLocalizedString("safari_reader_mode_explanation", comment: "")
         self.logoutButton.setTitle(NSLocalizedString("logout", comment: ""), for: .normal)
+        self.creditsLabel.text = NSLocalizedString("credits", comment: "")
+        self.emailButton.setTitle(NSLocalizedString("email", comment: ""), for: .normal)
         let formatString = NSLocalizedString("build_version", comment: "")
         self.buildLabel.text = String(format: formatString, arguments: [Bundle.main.versionNumber])
     }
