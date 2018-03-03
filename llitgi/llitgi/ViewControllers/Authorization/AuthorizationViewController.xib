@@ -9,11 +9,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AuthorizationViewController" customModule="llitgi" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AuthorizationViewController" customModule="Llitgi" customModuleProvider="target">
             <connections>
                 <outlet property="actionButton" destination="G3b-Yf-I8e" id="HLf-44-iZK"/>
                 <outlet property="descriptionLabel" destination="5So-bS-xTM" id="Zyv-yQ-RPw"/>
                 <outlet property="errorLabel" destination="wbW-b1-5ze" id="iUS-xY-Azv"/>
+                <outlet property="titleLabel" destination="RH9-CI-Pq8" id="ARn-NS-28l"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,17 +23,23 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RH9-CI-Pq8">
+                    <rect key="frame" x="20" y="84" width="335" height="60"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4l0-SC-hMs">
-                    <rect key="frame" x="20" y="309.66666666666669" width="335" height="202.66666666666669"/>
+                    <rect key="frame" x="20" y="310" width="335" height="202.66666666666663"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet posuere tellus a feugiat." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5So-bS-xTM">
                             <rect key="frame" x="0.33333333333334281" y="20" width="335" height="71.666666666666671"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="QVQ-2x-Efg">
-                            <rect key="frame" x="20.333333333333343" y="131.66666666666663" width="294.66666666666663" height="51"/>
+                            <rect key="frame" x="20.333333333333343" y="131.66666666666669" width="294.66666666666663" height="51"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3b-Yf-I8e">
                                     <rect key="frame" x="0.0" y="0.0" width="294.66666666666669" height="51"/>
@@ -55,7 +62,7 @@
                                     </connections>
                                 </button>
                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbW-b1-5ze">
-                                    <rect key="frame" x="0.0" y="-441.33333333333331" width="294.66666666666669" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="-441.66666666666669" width="294.66666666666669" height="0.0"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                     <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -79,8 +86,11 @@
             <constraints>
                 <constraint firstItem="4l0-SC-hMs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="ECu-I3-4Ca"/>
                 <constraint firstItem="4l0-SC-hMs" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="RC5-Xw-Xig"/>
+                <constraint firstItem="RH9-CI-Pq8" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="U45-0h-RWG"/>
                 <constraint firstItem="4l0-SC-hMs" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="giy-gP-Gv2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RH9-CI-Pq8" secondAttribute="trailing" constant="20" id="tZ1-Oq-rlJ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4l0-SC-hMs" secondAttribute="trailing" constant="20" id="uQ6-Zo-nMi"/>
+                <constraint firstItem="RH9-CI-Pq8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="uSF-lB-dB5"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="34.5" y="54"/>

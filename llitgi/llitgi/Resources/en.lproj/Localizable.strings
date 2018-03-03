@@ -20,6 +20,7 @@
 "no_results_favorites_subtitle" = "It seems that you haven't saved anything on your favorites yet.";
 "no_results_archive_subtitle" = "It seems that you haven't archived anything yet.";
 "onboarding" = "We need permission to access your Pocket list. To do so, simply tap the button below.";
+"onboarding_title" = "Welcome to Llitgi.";
 "open_links_safari" = "Open items on Safari";
 "pasteboard_not_valid" = "We're sorry, but your pasteboard doesn't contain any URLs. Please, copy a valid URL and try again.";
 "retry" = "Retry";
