@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.0.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSExtension</key>
@@ -33,7 +33,7 @@
 				<key>NSExtensionActivationSupportsMovieWithMaxCount</key>
 				<integer>0</integer>
 				<key>NSExtensionActivationSupportsText</key>
-				<string>1</string>
+				<true/>
 				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
 				<integer>1</integer>
 			</dict>
