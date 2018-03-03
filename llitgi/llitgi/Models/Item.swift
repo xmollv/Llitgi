@@ -1,0 +1,99 @@
+//
+//  Item.swift
+//  llitgi
+//
+//  Created by Xavi Moll on 25/12/2017.
+//  Copyright © 2017 xmollv. All rights reserved.
+//
+
+import Foundation
+import CoreData
+
+protocol Item {
+    var id: String { get }
+    var title: String { get }
+    var url: URL { get }
+    var timeAdded: String { get }
+    var isFavorite: Bool { get set }
+    var status: String { get set }
+}
+
+@objc(CoreDataItem)
+final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
+    
+    //MARK:- Private properties
+    @NSManaged private var id_: String
+    @NSManaged private var title_: String
+    @NSManaged private var url_: String
+    @NSManaged private var timeAdded_: String
+    @NSManaged private var isFavorite_: Bool
+    @NSManaged private var status_: String
+    
+    //MARK:- Public properties
+    var id: String {
+        get { return self.read(key: "id_")! }
+        set { self.update(key: "id_", with: newValue) }
+    }
+    var title: String { return self.read(key: "title_")! }
+    var url: URL {
+        let stringUrl: String = self.read(key: "url_")!
+        return URL(string: stringUrl)!
+    }
+    var timeAdded: String { return self.read(key: "timeAdded_")! }
+    var isFavorite: Bool {
+        get { return self.read(key: "isFavorite_")! }
+        set {
+            guard let context = self.managedObjectContext else { return }
+            context.performAndWait {
+                self.isFavorite_ = newValue
+                self.save(context)
+            }
+        }
+    }
+    var status: String {
+        get { return self.read(key: "status_")! }
+        set {
+            guard let context = self.managedObjectContext else { return }
+            context.performAndWait {
+                self.status_ = newValue
+                self.save(context)
+            }
+        }
+    }
+    
+    private func save(_ context: NSManagedObjectContext) {
+        do {
+            try context.save()
+        } catch {
+            Logger.log("Unable to save the context.", event: .error)
+        }
+    }
+    
+    //MARK:- CoreDataManaged conformance
+    func update<T: Managed>(with json: JSONDictionary, on context: NSManagedObjectContext) -> T? {
+        guard let urlAsString = (json["resolved_url"] as? String) ?? (json["given_url"] as? String),
+            let _ = URL(string: urlAsString),
+            let isFavoriteString = json["favorite"] as? String,
+            let status = json["status"] as? String,
+            let timeAdded = json["time_added"] as? String else {
+                if let status = json["status"] as? String, status == "2" {} else {
+                    Logger.log("Unable to update CoreDataItem: \(json.description).", event: .error)
+                }
+                return nil
+        }
+        
+        context.performAndWait {
+            if let pocketTitle = (json["resolved_title"] as? String) ?? (json["given_title"] as? String), pocketTitle != "" {
+                self.title_ = pocketTitle
+            } else {
+                self.title_ = urlAsString
+            }
+            self.url_ = urlAsString
+            self.status_ = status
+            self.timeAdded_ = timeAdded
+            self.isFavorite_ = (isFavoriteString == "0") ? false : true
+        }
+        
+        return self as? T
+    }
+}
