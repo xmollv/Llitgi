@@ -15,6 +15,9 @@ class ListCell: UITableViewCell, NibLoadableView {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var urlLabel: UILabel!
     
+    @IBOutlet private var titleToFavoriteConstraint: NSLayoutConstraint!
+    @IBOutlet private var titleToTrailingConstraint: NSLayoutConstraint!
+    
     //MARK:- Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,7 +30,9 @@ class ListCell: UITableViewCell, NibLoadableView {
     }
     
     private func clearCell() {
-        self.favoriteView.backgroundColor = .white
+        self.favoriteView.isHidden = true
+        self.titleToFavoriteConstraint.isActive = false
+        self.titleToTrailingConstraint.isActive = true
         self.titleLabel.text = nil
         self.urlLabel.text = nil
     }
@@ -35,7 +40,9 @@ class ListCell: UITableViewCell, NibLoadableView {
     //MARK:- Public methods
     func configure(with item: Item) {
         if item.isFavorite {
-            self.favoriteView.backgroundColor = .black
+            self.favoriteView.isHidden = false
+            self.titleToTrailingConstraint.isActive = false
+            self.titleToFavoriteConstraint.isActive = true
         }
         self.titleLabel.text = item.title
         self.urlLabel.text = item.url.host
