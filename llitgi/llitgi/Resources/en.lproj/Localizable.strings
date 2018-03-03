@@ -7,6 +7,7 @@
 "error_body" = "Something went wrong";
 "error_pocket" = "Something went wrong communicating with Pocket. Could you please try again?";
 "error_title" = "Oops!";
+"email" = "Email";
 "favorite" = "Favorite";
 "favorites" = "Favorites";
 "lets_do_it" = "Login with Pocket";
@@ -35,6 +36,7 @@
 "to_archive" = "Archive";
 "unarchive" = "Unarchive";
 "unfavorite" = "Unfavorite";
-"build_version" = "Built with ❤️ in Barcelona. Version: %1$@";
+"credits" = "If you like the app and want to say thanks, or just send some feedback, you can reach me at:";
+"build_version" = "Version: %1$@";
 "safari_reader_mode" = "Reader View";
 "safari_reader_mode_explanation" = "We'll open all your items in Reader View. Some websites may not support this feature.";
