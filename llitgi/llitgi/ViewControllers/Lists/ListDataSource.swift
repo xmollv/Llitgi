@@ -29,11 +29,11 @@ class ListDataSource: NSObject {
             guard let strongSelf = self else { return }
             switch change {
             case .insert(let indexPath):
-                strongSelf.tableView?.insertRows(at: [indexPath], with: .none)
+                strongSelf.tableView?.insertRows(at: [indexPath], with: .automatic)
             case .delete(let indexPath):
-                strongSelf.tableView?.deleteRows(at: [indexPath], with: .none)
+                strongSelf.tableView?.deleteRows(at: [indexPath], with: .automatic)
             case .update(let indexPath):
-                strongSelf.tableView?.reloadRows(at: [indexPath], with: .none)
+                strongSelf.tableView?.reloadRows(at: [indexPath], with: .automatic)
             case .move(let from, let to):
                 strongSelf.tableView?.moveRow(at: from, to: to)
             }

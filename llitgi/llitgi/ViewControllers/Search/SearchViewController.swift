@@ -188,7 +188,7 @@ extension SearchViewController: UITableViewDelegate {
             success(true)
         }
         favoriteAction.title = item.isFavorite ? NSLocalizedString("unfavorite", comment: "") : NSLocalizedString("favorite", comment: "")
-        
+        favoriteAction.backgroundColor = UIColor(red: 242/255, green: 181/255, blue: 0/255, alpha: 1)
         return UISwipeActionsConfiguration(actions: [favoriteAction])
     }
     
