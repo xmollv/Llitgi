@@ -27,7 +27,7 @@ class ListCell: UITableViewCell, NibLoadableView {
     }
     
     private func clearCell() {
-        self.favoriteView.backgroundColor = .white
+        self.favoriteView.isHidden = true
         self.titleLabel.text = nil
         self.urlLabel.text = nil
     }
@@ -35,7 +35,7 @@ class ListCell: UITableViewCell, NibLoadableView {
     //MARK:- Public methods
     func configure(with item: Item) {
         if item.isFavorite {
-            self.favoriteView.backgroundColor = .black
+            self.favoriteView.isHidden = false
         }
         self.titleLabel.text = item.title
         self.urlLabel.text = item.url.host

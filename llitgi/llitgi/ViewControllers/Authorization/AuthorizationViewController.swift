@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class AuthorizationViewController: ViewController {
     
@@ -58,7 +59,10 @@ class AuthorizationViewController: ViewController {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 } else {
                     guard let url = strongSelf.dataProvider.urlForPocketOAuthWebsite else { return }
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    let sfs = SFSafariViewController(url: url)
+                    sfs.modalPresentationStyle = .overFullScreen
+                    sfs.preferredControlTintColor = .black
+                    strongSelf.present(sfs, animated: true, completion: nil)
                 }
                 
             case .isFailure(let error):
@@ -77,6 +81,7 @@ class AuthorizationViewController: ViewController {
     
     //Step 3. Verify the code against the API once the user has finished the OAuth flow
     @objc private func verifyCodeAndGetToken() {
+        self.dismiss(animated: false, completion: nil)
         self.dataProvider.performInMemory(endpoint: .authorize) { [weak self] (result: Result<[AuthorizeTokenResponse]>) in
             guard let strongSelf = self else { return }
             switch result {
