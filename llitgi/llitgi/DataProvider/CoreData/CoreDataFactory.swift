@@ -122,16 +122,24 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     func notifier(for type: TypeOfList) -> CoreDataNotifier {
         let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        request.sortDescriptors = [NSSortDescriptor(key: "timeAdded_", ascending: false)]
         
         var predicate: NSPredicate?
         switch type {
         case .myList:
             predicate = NSPredicate(format: "status_ == '0'")
+            let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
+            let id = NSSortDescriptor(key: "id_", ascending: false)
+            request.sortDescriptors = [addedTime, id]
         case .favorites:
             predicate = NSPredicate(format: "isFavorite_ == true")
+            let timeUpdated = NSSortDescriptor(key: "timeUpdated_", ascending: false)
+            let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
+            request.sortDescriptors = [timeUpdated, addedTime]
         case .archive:
             predicate = NSPredicate(format: "status_ == '1'")
+            let timeUpdated = NSSortDescriptor(key: "timeUpdated_", ascending: false)
+            let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
+            request.sortDescriptors = [timeUpdated, addedTime]
         }
         request.predicate = predicate
         
