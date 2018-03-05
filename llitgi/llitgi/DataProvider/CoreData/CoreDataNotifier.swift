@@ -92,15 +92,15 @@ extension CoreDataNotifier: NSFetchedResultsControllerDelegate {
         let change: PersistanceChange
         
         switch type {
+        case .update:
+            guard let indexPath = indexPath else { return }
+            change = .update(indexPath: indexPath)
         case .insert:
             guard let newIndexPath = newIndexPath else { return }
             change = .insert(indexPath: newIndexPath)
         case .move:
             guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return }
             change = .move(from: indexPath, to: newIndexPath)
-        case .update:
-            guard let indexPath = indexPath else { return }
-            change = .update(indexPath: indexPath)
         case .delete:
             guard let indexPath = indexPath else { return }
             change = .delete(indexPath: indexPath)

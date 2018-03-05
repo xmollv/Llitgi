@@ -14,6 +14,7 @@ protocol Item {
     var title: String { get }
     var url: URL { get }
     var timeAdded: String { get }
+    var timeUpdated: String { get }
     var isFavorite: Bool { get set }
     var status: String { get set }
 }
@@ -26,6 +27,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     @NSManaged private var title_: String
     @NSManaged private var url_: String
     @NSManaged private var timeAdded_: String
+    @NSManaged private var timeUpdated_: String
     @NSManaged private var isFavorite_: Bool
     @NSManaged private var status_: String
     
@@ -40,11 +42,15 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         return URL(string: stringUrl)!
     }
     var timeAdded: String { return self.read(key: "timeAdded_")! }
+    var timeUpdated: String { return self.read(key: "timeUpdated_")! }
     var isFavorite: Bool {
         get { return self.read(key: "isFavorite_")! }
         set {
             guard let context = self.managedObjectContext else { return }
             context.performAndWait {
+                if let updatedTime = String(Date().timeIntervalSince1970).split(separator: ".").first {
+                    self.timeUpdated_ = String(updatedTime)
+                }
                 self.isFavorite_ = newValue
                 self.save(context)
             }
@@ -55,6 +61,9 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         set {
             guard let context = self.managedObjectContext else { return }
             context.performAndWait {
+                if let updatedTime = String(Date().timeIntervalSince1970).split(separator: ".").first {
+                    self.timeUpdated_ = String(updatedTime)
+                }
                 self.status_ = newValue
                 self.save(context)
             }
@@ -91,6 +100,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
             self.url_ = urlAsString
             self.status_ = status
             self.timeAdded_ = timeAdded
+            self.timeUpdated_ = (json["time_updated"] as? String) ?? timeAdded
             self.isFavorite_ = (isFavoriteString == "0") ? false : true
         }
         
