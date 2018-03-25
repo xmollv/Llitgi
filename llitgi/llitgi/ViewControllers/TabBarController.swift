@@ -10,8 +10,10 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-    let factory: ViewControllerFactory
+    //MARK: Private properties
+    private let factory: ViewControllerFactory
     
+    //MARK: Lifecycle
     init(factory: ViewControllerFactory) {
         self.factory = factory
         super.init(nibName: nil, bundle: nil)
@@ -22,10 +24,7 @@ class TabBarController: UITabBarController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+    //MARK: Public methods
     func setupAuthFlow() {
         let authViewController: AuthorizationViewController = self.factory.instantiate()
         self.setViewControllers([authViewController], animated: false)
@@ -54,8 +53,7 @@ class TabBarController: UITabBarController {
 
 extension TabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        
-        guard let newViewController = (viewController as? UINavigationController)?.topViewController else { return true}
+        guard let newViewController = (viewController as? UINavigationController)?.topViewController else { return true }
         guard let currentViewController = (tabBarController.selectedViewController as? UINavigationController)?.topViewController else { return true }
         
         if let list = newViewController as? ListViewController {
