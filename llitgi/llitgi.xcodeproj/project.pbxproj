@@ -427,11 +427,12 @@
 				47EEA3571FF02DDD0030BEF1 /* Sources */,
 				47EEA3581FF02DDD0030BEF1 /* Frameworks */,
 				47EEA3591FF02DDD0030BEF1 /* Resources */,
-				4710EF531FF40A7F00D3DCA9 /* ShellScript */,
+				4710EF531FF40A7F00D3DCA9 /* Highlight TODO & FIXME */,
 				475E177B20262CAD007033F1 /* Embed App Extensions */,
 				F5145C42D21AF841E31A53CE /* [CP] Embed Pods Frameworks */,
 				F841294CB57E903F0824F10B /* [CP] Copy Pods Resources */,
-				47EB57932040D7AF0060A895 /* ShellScript */,
+				47EB57932040D7AF0060A895 /* Fabric script */,
+				47B015622067D12A002F184D /* Change build number on Archive */,
 			);
 			buildRules = (
 			);
@@ -522,26 +523,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4710EF531FF40A7F00D3DCA9 /* ShellScript */ = {
+		4710EF531FF40A7F00D3DCA9 /* Highlight TODO & FIXME */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Highlight TODO & FIXME";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"";
 		};
-		47EB57932040D7AF0060A895 /* ShellScript */ = {
+		47B015622067D12A002F184D /* Change build number on Archive */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Change build number on Archive";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Set the build number to the count of Git commits\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${INFOPLIST_FILE}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$SRCROOT/ShareExtension/Info.plist\"\n";
+		};
+		47EB57932040D7AF0060A895 /* Fabric script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Fabric script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
