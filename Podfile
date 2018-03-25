@@ -16,3 +16,9 @@ end
 target 'ShareExtension' do
     app_pods
 end
+
+plugin 'cocoapods-keys', {
+    :project => "Llitgi",
+    :keys => [
+    "TEST"
+    ]}

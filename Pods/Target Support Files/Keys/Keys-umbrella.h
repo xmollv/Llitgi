@@ -10,7 +10,8 @@
 #endif
 #endif
 
+#import "LlitgiKeys.h"
 
-FOUNDATION_EXPORT double Pods_Llitgi_ProductionVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_Llitgi_ProductionVersionString[];
+FOUNDATION_EXPORT double KeysVersionNumber;
+FOUNDATION_EXPORT const unsigned char KeysVersionString[];
 

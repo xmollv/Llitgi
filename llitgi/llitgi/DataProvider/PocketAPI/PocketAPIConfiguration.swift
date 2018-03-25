@@ -7,10 +7,12 @@
 //
 
 import Foundation
+import Keys
 
 class PocketAPIConfiguration {
+    
     /// This is the API key generated on the Pocket website
-    let consumerKey = "73483-2233031e613a5b40f9c466f7"
+    let consumerKey: String
     
     /// This is the redirect URI that Pocket will redirect once the OAuth
     /// process has finalized
@@ -25,6 +27,7 @@ class PocketAPIConfiguration {
     var accessToken: String?
     
     init() {
+        self.consumerKey = LlitgiKeys().pocketConsumerKey
         self.accessToken = LlitgiUserDefaults.shared.string(forKey: kAccesToken)
     }
 }
