@@ -1,0 +1,6 @@
+framework module Pods_Llitgi {
+  umbrella header "Pods-Llitgi-umbrella.h"
+
+  export *
+  module * { export * }
+}

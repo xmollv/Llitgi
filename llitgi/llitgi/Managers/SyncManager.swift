@@ -25,10 +25,8 @@ final class SyncManager {
     
     //MARK: Public methods
     func sync(fullSync: Bool = false, then: @escaping Completion<[CoreDataItem]>) {
-        guard !self.isSyncing else {
-            then(Result.isFailure(AppError.isAlreadyFetching))
-            return
-        }
+        guard !self.isSyncing else { return }
+        
         self.isSyncing = true
         
         let endpoint: PocketAPIEndpoint

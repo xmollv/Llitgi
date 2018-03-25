@@ -2,15 +2,22 @@ PODS:
   - Crashlytics (3.10.0):
     - Fabric (~> 1.7.3)
   - Fabric (1.7.3)
+  - Keys (1.0.0)
 
 DEPENDENCIES:
   - Crashlytics
   - Fabric
+  - Keys (from `Pods/CocoaPodsKeys`)
+
+EXTERNAL SOURCES:
+  Keys:
+    :path: Pods/CocoaPodsKeys
 
 SPEC CHECKSUMS:
   Crashlytics: a989ef242b66605577a425733797f810bd2725eb
   Fabric: bb495bb9a7a7677c6d03a1f8b83d95bc49b47e41
+  Keys: af65e23feef2a047b3277b1ef0399f1209ef9d46
 
-PODFILE CHECKSUM: 0302d61b70a21ee70a5434f72d4af9f374f87c58
+PODFILE CHECKSUM: f730b7a7f1ee5fc32784ecc69a35d3dfedae7633
 
 COCOAPODS: 1.4.0

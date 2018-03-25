@@ -84,6 +84,8 @@ final class PocketAPIManager {
                 } catch {
                     completion(Result.isFailure(PocketAPIError.unknown(error: error)))
                 }
+            case 400:
+                completion(Result.isFailure(PocketAPIError.invalidRequest))
             default:
                 completion(Result.isFailure(PocketAPIError.not200Status(statusCode: response.statusCode)))
             }

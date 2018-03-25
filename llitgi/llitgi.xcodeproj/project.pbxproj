@@ -64,6 +64,7 @@
 		47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */; };
 		47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38C1FF074C70030BEF1 /* Typealias.swift */; };
 		47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */; };
+		6B4C09813EC03B1F3F8A2FF4 /* Pods_Llitgi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E35206511581BF9456DCE2A /* Pods_Llitgi.framework */; };
 		C91D2CD99EBC00DB8C8C5703 /* Pods_Llitgi_Production.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7715A67EF3E62DCC397F1A0 /* Pods_Llitgi_Production.framework */; };
 		D71B3A8ED9C9C064DD3CCFB7 /* Pods_ShareExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD683829B0F5D5208E86795D /* Pods_ShareExtension.framework */; };
 /* End PBXBuildFile section */
@@ -93,6 +94,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1028683B4DB7CE8DE32CF5AE /* Pods-Llitgi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi/Pods-Llitgi.debug.xcconfig"; sourceTree = "<group>"; };
+		2E35206511581BF9456DCE2A /* Pods_Llitgi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Llitgi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		310376BF5921FC6FB2311F8B /* Pods-Llitgi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi.release.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi/Pods-Llitgi.release.xcconfig"; sourceTree = "<group>"; };
 		4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIModification.swift; sourceTree = "<group>"; };
 		4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSwipeActionManager.swift; sourceTree = "<group>"; };
 		4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFactory.swift; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C91D2CD99EBC00DB8C8C5703 /* Pods_Llitgi_Production.framework in Frameworks */,
+				6B4C09813EC03B1F3F8A2FF4 /* Pods_Llitgi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +188,7 @@
 				5BD04DD3DE58DA1395432B86 /* Pods_Llitgi_Development.framework */,
 				B7715A67EF3E62DCC397F1A0 /* Pods_Llitgi_Production.framework */,
 				DD683829B0F5D5208E86795D /* Pods_ShareExtension.framework */,
+				2E35206511581BF9456DCE2A /* Pods_Llitgi.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -385,6 +391,8 @@
 				BB8D0462ECA8C784A3A3EDE2 /* Pods-Llitgi Production.release.xcconfig */,
 				5D87A6F5319D266745A7B9D7 /* Pods-ShareExtension.debug.xcconfig */,
 				C697C3D4C012693B9747E648 /* Pods-ShareExtension.release.xcconfig */,
+				1028683B4DB7CE8DE32CF5AE /* Pods-Llitgi.debug.xcconfig */,
+				310376BF5921FC6FB2311F8B /* Pods-Llitgi.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -419,11 +427,12 @@
 				47EEA3571FF02DDD0030BEF1 /* Sources */,
 				47EEA3581FF02DDD0030BEF1 /* Frameworks */,
 				47EEA3591FF02DDD0030BEF1 /* Resources */,
-				4710EF531FF40A7F00D3DCA9 /* ShellScript */,
+				4710EF531FF40A7F00D3DCA9 /* Highlight TODO & FIXME */,
 				475E177B20262CAD007033F1 /* Embed App Extensions */,
 				F5145C42D21AF841E31A53CE /* [CP] Embed Pods Frameworks */,
 				F841294CB57E903F0824F10B /* [CP] Copy Pods Resources */,
-				47EB57932040D7AF0060A895 /* ShellScript */,
+				47EB57932040D7AF0060A895 /* Fabric script */,
+				47B015622067D12A002F184D /* Change build number on Archive */,
 			);
 			buildRules = (
 			);
@@ -514,26 +523,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4710EF531FF40A7F00D3DCA9 /* ShellScript */ = {
+		4710EF531FF40A7F00D3DCA9 /* Highlight TODO & FIXME */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Highlight TODO & FIXME";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"";
 		};
-		47EB57932040D7AF0060A895 /* ShellScript */ = {
+		47B015622067D12A002F184D /* Change build number on Archive */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Change build number on Archive";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Set the build number to the count of Git commits\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${INFOPLIST_FILE}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$SRCROOT/ShareExtension/Info.plist\"\n";
+		};
+		47EB57932040D7AF0060A895 /* Fabric script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Fabric script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,7 +576,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Llitgi Production-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Llitgi-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -597,13 +622,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi/Pods-Llitgi-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Keys/Keys.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Keys.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi Production/Pods-Llitgi Production-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi/Pods-Llitgi-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F841294CB57E903F0824F10B /* [CP] Copy Pods Resources */ = {
@@ -618,7 +646,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi Production/Pods-Llitgi Production-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi/Pods-Llitgi-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -867,7 +895,7 @@
 		};
 		47EEA3701FF02DDD0030BEF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B3A949D6B3890E004D16EFC5 /* Pods-Llitgi Production.debug.xcconfig */;
+			baseConfigurationReference = 1028683B4DB7CE8DE32CF5AE /* Pods-Llitgi.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -887,7 +915,7 @@
 		};
 		47EEA3711FF02DDD0030BEF1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BB8D0462ECA8C784A3A3EDE2 /* Pods-Llitgi Production.release.xcconfig */;
+			baseConfigurationReference = 310376BF5921FC6FB2311F8B /* Pods-Llitgi.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
