@@ -20,15 +20,11 @@ final class PocketAPIManager {
     
     //MARK:- Public properties
     var OAuthURLApp: URL? {
-        get {
-            return self.url(for: .app)
-        }
+        return self.url(for: .app)
     }
     
     var OAuthURLWebsite: URL? {
-        get {
-            return self.url(for: .web)
-        }
+        return self.url(for: .web)
     }
     
     //MARK:- Lifecycle

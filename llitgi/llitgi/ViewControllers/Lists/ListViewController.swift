@@ -119,7 +119,7 @@ class ListViewController: ViewController {
                     case .invalidRequest:
                         guard let tabBar = strongSelf.tabBarController as? TabBarController  else { return }
                         strongSelf.userPreferences.displayBadge(with: 0)
-                        strongSelf.dataProvider.logout()
+                        strongSelf.dataProvider.clearLocalStorage()
                         tabBar.setupAuthFlow()
                     default: break
                     }

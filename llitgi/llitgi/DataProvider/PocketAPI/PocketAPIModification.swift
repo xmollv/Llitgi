@@ -22,9 +22,7 @@ struct ItemModification {
     let id: String
     
     var wrappedAsDict: [String : String] {
-        get {
-            return ["action" : self.action.rawValue,
-                    "item_id" : self.id]
-        }
+        return ["action" : self.action.rawValue,
+                "item_id" : self.id]
     }
 }
