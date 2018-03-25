@@ -32,7 +32,7 @@ final class SyncManager {
         let endpoint: PocketAPIEndpoint
         if fullSync || self.lastSync == 0 {
             Logger.log("Last sync was 0 or you've forced a fullsync", event: .warning)
-            endpoint = .getAll
+            endpoint = .sync(last: nil)
         } else {
             Logger.log("Last sync was \(self.lastSync)")
             endpoint = .sync(last: self.lastSync)
