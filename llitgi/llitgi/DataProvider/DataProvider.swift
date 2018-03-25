@@ -51,10 +51,11 @@ final class DataProvider {
     func perform<T: Managed>(endpoint: PocketAPIEndpoint,
                              on resultQueue: DispatchQueue = DispatchQueue.main,
                              then: @escaping Completion<[T]>) {
-        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in
+        self.pocketAPI.perform(endpoint: endpoint) { [weak self] (result: Result<JSONArray>) in
+            guard let strongSelf = self else { return }
             switch result {
             case .isSuccess(let json):
-                let elements: [T] = self.modelFactory.build(jsonArray: json)
+                let elements: [T] = strongSelf.modelFactory.build(jsonArray: json)
                 resultQueue.async {
                     then(Result.isSuccess(elements))
                 }

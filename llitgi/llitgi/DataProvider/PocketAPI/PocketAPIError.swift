@@ -13,9 +13,6 @@ enum PocketAPIError: Error {
     case unknown(error: Error)
     case unexpectedResponse(response: URLResponse?)
     case not200Status(statusCode: Int)
+    case invalidRequest
     case unexpectedJSONFormat
-}
-
-enum AppError: Error {
-    case isAlreadyFetching
 }
