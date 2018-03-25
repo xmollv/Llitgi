@@ -12,11 +12,11 @@ final class SyncManager {
     
     //MARK: Private properties
     private let dataProvider: DataProvider
+    private var isSyncing = false
     private var lastSync: TimeInterval {
         get { return LlitgiUserDefaults.shared.double(forKey: kLastSync) }
         set { LlitgiUserDefaults.shared.set(newValue, forKey: kLastSync) }
     }
-    private var isSyncing = false
     
     //MARK: Lifecycle
     init(dataProvider: DataProvider) {
