@@ -34,7 +34,7 @@ class ListSwipeActionManager {
             }
             
             strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
-            item.isFavorite = !item.isFavorite
+            item.switchFavoriteStatus()
             success(true)
         }
         favoriteAction.title = item.isFavorite ? NSLocalizedString("unfavorite", comment: "") : NSLocalizedString("favorite", comment: "")
@@ -51,10 +51,10 @@ class ListSwipeActionManager {
             let modification: ItemModification
             if item.status == "0" {
                 modification = ItemModification(action: .archive, id: item.id)
-                item.status = "1"
+                item.changeStatus(to: "1")
             } else {
                 modification = ItemModification(action: .readd, id: item.id)
-                item.status = "0"
+                item.changeStatus(to: "0")
             }
             strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
             success(true)
@@ -66,7 +66,7 @@ class ListSwipeActionManager {
             guard let strongSelf = self else { return }
             let modification = ItemModification(action: .delete, id: item.id)
             strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
-            item.status = "2"
+            item.changeStatus(to: "2")
             success(true)
         }
         

@@ -15,14 +15,17 @@ protocol Item {
     var url: URL { get }
     var timeAdded: String { get }
     var timeUpdated: String { get }
-    var isFavorite: Bool { get set }
-    var status: String { get set }
+    var isFavorite: Bool { get }
+    var status: String { get }
+    
+    mutating func switchFavoriteStatus()
+    mutating func changeStatus(to: String)
 }
 
 @objc(CoreDataItem)
 final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     
-    //MARK:- Private properties
+    //MARK: Private properties
     @NSManaged private var id_: String
     @NSManaged private var title_: String
     @NSManaged private var url_: String
@@ -31,7 +34,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     @NSManaged private var isFavorite_: Bool
     @NSManaged private var status_: String
     
-    //MARK:- Public properties
+    //MARK: Public properties
     var id: String {
         get { return self.read(key: "id_")! }
         set { self.update(key: "id_", with: newValue) }
@@ -43,30 +46,32 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     }
     var timeAdded: String { return self.read(key: "timeAdded_")! }
     var timeUpdated: String { return self.read(key: "timeUpdated_")! }
-    var isFavorite: Bool {
-        get { return self.read(key: "isFavorite_")! }
-        set {
-            guard let context = self.managedObjectContext else { return }
-            context.performAndWait {
-                if let updatedTime = String(Date().timeIntervalSince1970).split(separator: ".").first {
-                    self.timeUpdated_ = String(updatedTime)
-                }
-                self.isFavorite_ = newValue
-                self.save(context)
-            }
+    var isFavorite: Bool { return self.read(key: "isFavorite_")! }
+    var status: String { return self.read(key: "status_")! }
+    
+    //MARK: Public methods
+    func switchFavoriteStatus() {
+        guard let context = self.managedObjectContext else { return }
+        context.performAndWait {
+            self.updateTimeLastModelUpdate()
+            self.isFavorite_ = !self.isFavorite_
+            self.save(context)
         }
     }
-    var status: String {
-        get { return self.read(key: "status_")! }
-        set {
-            guard let context = self.managedObjectContext else { return }
-            context.performAndWait {
-                if let updatedTime = String(Date().timeIntervalSince1970).split(separator: ".").first {
-                    self.timeUpdated_ = String(updatedTime)
-                }
-                self.status_ = newValue
-                self.save(context)
-            }
+    
+    func changeStatus(to newStatus: String) {
+        guard let context = self.managedObjectContext else { return }
+        context.performAndWait {
+            self.updateTimeLastModelUpdate()
+            self.status_ = newStatus
+            self.save(context)
+        }
+    }
+    
+    //MARK: Private methods
+    private func updateTimeLastModelUpdate() {
+        if let updatedTime = String(Date().timeIntervalSince1970).split(separator: ".").first {
+            self.timeUpdated_ = String(updatedTime)
         }
     }
     
