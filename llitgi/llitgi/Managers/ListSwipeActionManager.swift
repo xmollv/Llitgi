@@ -11,13 +11,16 @@ import UIKit
 
 class ListSwipeActionManager {
     
+    //MARK: Private properties
     private let dataProvider: DataProvider
     
+    //MARK: Lifecycle
     init(dataProvider: DataProvider) {
         self.dataProvider = dataProvider
     }
     
-    func buildLeadingActions(for item: Item, from tableView: UITableView) -> [UIContextualAction] {
+    //MARK: Public methods
+    func buildLeadingActions(for item: Item) -> [UIContextualAction] {
         var item = item
         
         let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
@@ -40,7 +43,7 @@ class ListSwipeActionManager {
         return [favoriteAction]
     }
     
-    func buildTrailingActions(for item: Item, from tableView: UITableView) -> [UIContextualAction] {
+    func buildTrailingActions(for item: Item) -> [UIContextualAction] {
         var item = item
         let archiveAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
