@@ -10,11 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    //MARK: Public properties
     let factory: ViewControllerFactory
     let dataProvider: DataProvider
     let syncManager: SyncManager
     let userPreferences: PreferencesManager
     
+    //MARK: Lifecycle
     required init(factory: ViewControllerFactory, dependencies: Dependencies) {
         self.factory = factory
         self.dataProvider = dependencies.dataProvider
@@ -28,6 +30,7 @@ class ViewController: UIViewController {
         fatalError("Dependency Injection required")
     }
     
+    //MARK: Public properties
     func keyboardNotification(_ notification: NSNotification, constraint: NSLayoutConstraint, view: UIView, defaultConstraintValue: CGFloat = 0) {
         if let userInfo = notification.userInfo {
             guard let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
