@@ -183,7 +183,7 @@ extension SearchViewController: UITableViewDelegate {
             }
             
             strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
-            item.isFavorite = !item.isFavorite
+            item.switchFavoriteStatus()
             tableView.reloadRows(at: [indexPath], with: .automatic)
             success(true)
         }
@@ -202,10 +202,10 @@ extension SearchViewController: UITableViewDelegate {
             let modification: ItemModification
             if item.status == "0" {
                 modification = ItemModification(action: .archive, id: item.id)
-                item.status = "1"
+                item.changeStatus(to: "1")
             } else {
                 modification = ItemModification(action: .readd, id: item.id)
-                item.status = "0"
+                item.changeStatus(to: "0")
             }
             strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
             tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -218,7 +218,7 @@ extension SearchViewController: UITableViewDelegate {
             guard let strongSelf = self else { return }
             let modification = ItemModification(action: .delete, id: item.id)
             strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
-            item.status = "2"
+            item.changeStatus(to: "2")
             strongSelf.searchResults.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .none)
             success(true)

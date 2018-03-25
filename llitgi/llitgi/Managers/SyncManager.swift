@@ -12,11 +12,11 @@ final class SyncManager {
     
     //MARK: Private properties
     private let dataProvider: DataProvider
+    private var isSyncing = false
     private var lastSync: TimeInterval {
         get { return LlitgiUserDefaults.shared.double(forKey: kLastSync) }
         set { LlitgiUserDefaults.shared.set(newValue, forKey: kLastSync) }
     }
-    private var isSyncing = false
     
     //MARK: Lifecycle
     init(dataProvider: DataProvider) {
@@ -32,7 +32,7 @@ final class SyncManager {
         let endpoint: PocketAPIEndpoint
         if fullSync || self.lastSync == 0 {
             Logger.log("Last sync was 0 or you've forced a fullsync", event: .warning)
-            endpoint = .getAll
+            endpoint = .sync(last: nil)
         } else {
             Logger.log("Last sync was \(self.lastSync)")
             endpoint = .sync(last: self.lastSync)

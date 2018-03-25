@@ -10,41 +10,24 @@ import Foundation
 
 final class DataProvider {
     
+    //MARK: Private properties
     private let pocketAPI: PocketAPIManager
     private let modelFactory: CoreDataFactory
     
-    var urlForPocketOAuthApp: URL? {
-        get {
-            return self.pocketAPI.OAuthURLApp
-        }
+    //MARK: Public properties
+    var pocketOAuthUrls: (app: URL?, web: URL?) {
+        return (self.pocketAPI.OAuthURLApp, self.pocketAPI.OAuthURLWebsite)
     }
     
-    var urlForPocketOAuthWebsite: URL? {
-        get {
-            return self.pocketAPI.OAuthURLWebsite
-        }
-    }
-    
+    //MARK: Lifecycle
     init(pocketAPI: PocketAPIManager, modelFactory: CoreDataFactory) {
         self.pocketAPI = pocketAPI
         self.modelFactory = modelFactory
     }
     
-    func updatePocket(code: String) {
-        self.pocketAPI.updatePocket(code: code)
-    }
-    
-    func updatePocket(token: String) {
-        self.pocketAPI.updatePocket(token: token)
-    }
-    
+    //MARK: Public methods
     func notifier(for type: TypeOfList) -> CoreDataNotifier {
         return self.modelFactory.notifier(for: type)
-    }
-    
-    func logout() {
-        LlitgiUserDefaults.shared.removePersistentDomain(forName: kGroupUserDefaults)
-        self.modelFactory.deleteAllModels()
     }
     
     /// Performs a network request based on the endpoint, and builds the objects that the API returned
@@ -103,6 +86,19 @@ final class DataProvider {
                 }
             }
         }
+    }
+    
+    func clearLocalStorage() {
+        LlitgiUserDefaults.shared.removePersistentDomain(forName: kGroupUserDefaults)
+        self.modelFactory.deleteAllModels()
+    }
+    
+    func updatePocket(code: String) {
+        self.pocketAPI.updatePocket(code: code)
+    }
+    
+    func updatePocket(token: String) {
+        self.pocketAPI.updatePocket(token: token)
     }
     
     func search(_ text: String) -> [Item] {

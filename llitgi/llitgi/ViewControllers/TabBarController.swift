@@ -10,8 +10,10 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-    let factory: ViewControllerFactory
+    //MARK: Private properties
+    private let factory: ViewControllerFactory
     
+    //MARK: Lifecycle
     init(factory: ViewControllerFactory) {
         self.factory = factory
         super.init(nibName: nil, bundle: nil)
@@ -22,10 +24,7 @@ class TabBarController: UITabBarController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+    //MARK: Public methods
     func setupAuthFlow() {
         let authViewController: AuthorizationViewController = self.factory.instantiate()
         self.setViewControllers([authViewController], animated: false)
@@ -33,13 +32,13 @@ class TabBarController: UITabBarController {
     }
 
     func setupMainFlow() {
-        let listViewController: ListViewController = self.factory.instantiateListViewController(type: .myList)
+        let listViewController: ListViewController = self.factory.instantiate(for: .myList)
         listViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("my_list", comment: ""), image: #imageLiteral(resourceName: "list"), tag: 1)
         
-        let favoritesViewController: ListViewController = self.factory.instantiateListViewController(type: .favorites)
+        let favoritesViewController: ListViewController = self.factory.instantiate(for: .favorites)
         favoritesViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("favorites", comment: ""), image: #imageLiteral(resourceName: "favorite"), tag: 2)
         
-        let archiveViewController: ListViewController = self.factory.instantiateListViewController(type: .archive)
+        let archiveViewController: ListViewController = self.factory.instantiate(for: .archive)
         archiveViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("archive", comment: ""), image: #imageLiteral(resourceName: "archive"), tag: 3)
         
         let settingsViewController: SettingsViewController = self.factory.instantiate()
@@ -54,8 +53,7 @@ class TabBarController: UITabBarController {
 
 extension TabBarController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        
-        guard let newViewController = (viewController as? UINavigationController)?.topViewController else { return true}
+        guard let newViewController = (viewController as? UINavigationController)?.topViewController else { return true }
         guard let currentViewController = (tabBarController.selectedViewController as? UINavigationController)?.topViewController else { return true }
         
         if let list = newViewController as? ListViewController {

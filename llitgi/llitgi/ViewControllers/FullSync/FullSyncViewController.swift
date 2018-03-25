@@ -17,10 +17,10 @@ private enum State {
 class FullSyncViewController: ViewController {
     
     //MARK: IBOutlets
-    @IBOutlet var syncTitleLabel: UILabel!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet var syncExplanationLabel: UILabel!
-    @IBOutlet var syncDoneButton: UIButton!
+    @IBOutlet private var syncTitleLabel: UILabel!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var syncExplanationLabel: UILabel!
+    @IBOutlet private var syncDoneButton: UIButton!
     
     //MARK: Private properties
     private var state: State = .loading {

@@ -119,7 +119,7 @@ class ListViewController: ViewController {
                     case .invalidRequest:
                         guard let tabBar = strongSelf.tabBarController as? TabBarController  else { return }
                         strongSelf.userPreferences.displayBadge(with: 0)
-                        strongSelf.dataProvider.logout()
+                        strongSelf.dataProvider.clearLocalStorage()
                         tabBar.setupAuthFlow()
                     default: break
                     }
@@ -212,13 +212,13 @@ extension ListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let item = self.dataSource?.item(at: indexPath) else { return nil }
-        let actions = self.swipeActionManager.buildLeadingActions(for: item, from: tableView)
+        let actions = self.swipeActionManager.buildLeadingActions(for: item)
         return UISwipeActionsConfiguration(actions: actions)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let item = self.dataSource?.item(at: indexPath) else { return nil }
-        let actions = self.swipeActionManager.buildTrailingActions(for: item, from: tableView)
+        let actions = self.swipeActionManager.buildTrailingActions(for: item)
         return UISwipeActionsConfiguration(actions: actions)
     }
 }
