@@ -13,9 +13,14 @@ final class DataProvider {
     //MARK: Private properties
     private let pocketAPI: PocketAPIManager
     private let modelFactory: CoreDataFactory
+    private var isSyncing = false
+    private var lastSync: TimeInterval {
+        get { return LlitgiUserDefaults.shared.double(forKey: kLastSync) }
+        set { LlitgiUserDefaults.shared.set(newValue, forKey: kLastSync) }
+    }
     
     //MARK: Public properties
-    var pocketOAuthUrls: (app: URL?, web: URL?) {
+     var pocketOAuthUrls: (app: URL?, web: URL?) {
         return (self.pocketAPI.OAuthURLApp, self.pocketAPI.OAuthURLWebsite)
     }
     
@@ -84,6 +89,30 @@ final class DataProvider {
                 resultQueue.async {
                     completion(EmptyResult.isFailure(error))
                 }
+            }
+        }
+    }
+    
+    func syncLibrary(fullSync: Bool = false, then: @escaping Completion<[Item]>) {
+        guard !self.isSyncing else { return }
+        self.isSyncing = true
+        
+        let endpoint: PocketAPIEndpoint
+        if fullSync || self.lastSync == 0 {
+            endpoint = .sync(last: nil)
+        } else {
+            endpoint = .sync(last: self.lastSync)
+        }
+        
+        self.perform(endpoint: endpoint) { [weak self] (result: Result<[CoreDataItem]>) in
+            guard let strongSelf = self else { return }
+            strongSelf.isSyncing = false
+            switch result {
+            case .isSuccess(let items):
+                strongSelf.lastSync = Date().timeIntervalSince1970
+                then(Result.isSuccess(items))
+            case .isFailure(let error):
+                then(Result.isFailure(error))
             }
         }
     }

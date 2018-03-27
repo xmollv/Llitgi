@@ -23,9 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialization of dependencies
         let pocketAPI = PocketAPIManager()
         let dataProvider = DataProvider(pocketAPI: pocketAPI, modelFactory: modelFactory)
-        let syncManager = SyncManager(dataProvider: dataProvider)
         let userPreferences = UserPreferencesManager()
-        let dependencies = Dependencies(dataProvider: dataProvider, syncManager: syncManager, userPreferences: userPreferences)
+        let dependencies = Dependencies(dataProvider: dataProvider, userPreferences: userPreferences)
         self.viewControllerFactory = ViewControllerFactory(dependencies: dependencies)
         
         let rootViewController = TabBarController(factory: self.viewControllerFactory)
