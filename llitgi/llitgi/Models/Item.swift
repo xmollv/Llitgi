@@ -79,7 +79,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
         do {
             try context.save()
         } catch {
-            Logger.log("Unable to save the context.", event: .error)
+            Logger.log(error.localizedDescription, event: .error)
         }
     }
     

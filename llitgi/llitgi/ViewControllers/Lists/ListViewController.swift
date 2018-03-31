@@ -124,7 +124,7 @@ class ListViewController: ViewController {
                     default: break
                     }
                 }
-                Logger.log("Error: \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
             strongSelf.refreshControl.endRefreshing()
         }
@@ -171,7 +171,7 @@ class ListViewController: ViewController {
             case .isSuccess:
                 strongSelf.pullToRefresh()
             case .isFailure(let error):
-                Logger.log("Error: \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
     }

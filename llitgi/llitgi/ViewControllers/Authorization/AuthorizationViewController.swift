@@ -67,7 +67,7 @@ class AuthorizationViewController: ViewController {
                 
             case .isFailure(let error):
                 strongSelf.showErrorMessage()
-                Logger.log("Error: \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
     }
@@ -107,7 +107,7 @@ class AuthorizationViewController: ViewController {
                 } else {
                     strongSelf.showErrorMessage()
                 }
-                Logger.log("Error: \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
     }

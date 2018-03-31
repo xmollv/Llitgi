@@ -106,7 +106,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             do {
                 results = try self.context.fetch(request)
             } catch {
-                Logger.log("Error trying to fetch when searching: \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
         return results
@@ -120,7 +120,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             do {
                 result = try self.context.fetch(request).first
             } catch {
-                Logger.log("Error trying to fetch when searching: \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
         return result
@@ -129,7 +129,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     func deleteAllModels() {
         CSSearchableIndex.default().deleteAllSearchableItems { (error) in
             guard let error = error else { return }
-            Logger.log("Error deindexing everything: \(error.localizedDescription)", event: .error)
+            Logger.log(error.localizedDescription, event: .error)
         }
         self.storeContainer.managedObjectModel.entities.flatMap {
             guard let name = $0.name else {
@@ -175,7 +175,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             do {
                 try self.context.save()
             } catch {
-                Logger.log("Error trying to save the context: \(error.localizedDescription)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
     }
@@ -217,14 +217,14 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         let item = CSSearchableItem(uniqueIdentifier: item.id, domainIdentifier: "com.xmollv.llitgi", attributeSet: attributeSet)
         CSSearchableIndex.default().indexSearchableItems([item]) { error in
             guard let error = error else { return }
-            Logger.log("Error indexing: \(error.localizedDescription)", event: .error)
+            Logger.log(error.localizedDescription, event: .error)
         }
     }
     
     private func deindexItem(id: String) {
         CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id]) { error in
             guard let error = error else { return }
-            Logger.log("Error deindexing: \(error.localizedDescription)", event: .error)
+            Logger.log(error.localizedDescription, event: .error)
         }
     }
     
@@ -239,7 +239,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
                     context.delete(managedObject)
                 }
             } catch {
-                Logger.log("Error on deleting entity: \(fetchRequest.entity?.name ?? ""): \(error.localizedDescription)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
     }

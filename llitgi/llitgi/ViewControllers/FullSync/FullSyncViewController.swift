@@ -81,7 +81,7 @@ class FullSyncViewController: ViewController {
                 strongSelf.state = .loaded
             case .isFailure(let error):
                 strongSelf.state = .error
-                Logger.log("Unable to perform a fullsync: \(error.localizedDescription)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
     }

@@ -76,7 +76,7 @@ class ShareViewController: UIViewController {
         itemProvider.loadItem(forTypeIdentifier: kUTTypeURL as String, options: nil) { [weak self] (item, error) in
             guard let strongSelf = self else { return }
             guard error == nil else {
-                Logger.log("An error ocurred when loading the item: \(error.localizedDescription)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
                 strongSelf.dismiss()
                 return
             }
@@ -143,7 +143,7 @@ class ShareViewController: UIViewController {
                 strongSelf.dismiss()
             case .isFailure(let error):
                 strongSelf.state = .error
-                Logger.log("Unable to save the URL. \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
     }
