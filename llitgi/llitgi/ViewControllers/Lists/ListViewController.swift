@@ -108,11 +108,11 @@ class ListViewController: ViewController {
     }
     
     @objc private func pullToRefresh() {
-        self.syncManager.sync() { [weak self] (result: Result<[CoreDataItem]>) in
+        self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:
-                break
+                strongSelf.userPreferences.displayBadge(with: strongSelf.dataProvider.numberOfItems(on: .myList))
             case .isFailure(let error):
                 if let pocketError = error as? PocketAPIError {
                     switch pocketError {

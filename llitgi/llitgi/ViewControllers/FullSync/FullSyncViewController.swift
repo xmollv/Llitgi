@@ -74,7 +74,7 @@ class FullSyncViewController: ViewController {
     //MARK: Private methods
     private func fullSync() {
         self.state = .loading
-        self.syncManager.sync(fullSync: true) { [weak self] (result: Result<[CoreDataItem]>) in
+        self.dataProvider.syncLibrary(fullSync: true) { [weak self] (result: Result<[Item]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:

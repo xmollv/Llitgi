@@ -13,14 +13,12 @@ class ViewController: UIViewController {
     //MARK: Public properties
     let factory: ViewControllerFactory
     let dataProvider: DataProvider
-    let syncManager: SyncManager
     let userPreferences: PreferencesManager
     
     //MARK: Lifecycle
     required init(factory: ViewControllerFactory, dependencies: Dependencies) {
         self.factory = factory
         self.dataProvider = dependencies.dataProvider
-        self.syncManager = dependencies.syncManager
         self.userPreferences = dependencies.userPreferences
         super.init(nibName: String(describing: type(of: self)), bundle: Bundle(for: type(of: self)))
     }
