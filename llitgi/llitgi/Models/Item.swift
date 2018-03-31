@@ -53,7 +53,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     func switchFavoriteStatus() {
         guard let context = self.managedObjectContext else { return }
         context.performAndWait {
-            self.updateTimeLastModelUpdate()
+            self.overrideLastTimeUpdated()
             self.isFavorite_ = !self.isFavorite_
             self.save(context)
         }
@@ -62,14 +62,14 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     func changeStatus(to newStatus: String) {
         guard let context = self.managedObjectContext else { return }
         context.performAndWait {
-            self.updateTimeLastModelUpdate()
+            self.overrideLastTimeUpdated()
             self.status_ = newStatus
             self.save(context)
         }
     }
     
     //MARK: Private methods
-    private func updateTimeLastModelUpdate() {
+    private func overrideLastTimeUpdated() {
         if let updatedTime = String(Date().timeIntervalSince1970).split(separator: ".").first {
             self.timeUpdated_ = String(updatedTime)
         }
