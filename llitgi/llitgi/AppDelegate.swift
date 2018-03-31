@@ -13,19 +13,20 @@ import CoreSpotlight
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let modelFactory: CoreDataFactory = CoreDataFactoryImplementation()
-    var dataProvider: DataProvider!
-    var viewControllerFactory: ViewControllerFactory!
+    private let pocketAPI = PocketAPIManager()
+    private let modelFactory: CoreDataFactory = CoreDataFactoryImplementation()
+    private let userPreferences = UserPreferencesManager()
+    private var dataProvider: DataProvider!
+    private var viewControllerFactory: ViewControllerFactory!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         Logger.configureFabric()
         
         // Initialization of dependencies
-        let pocketAPI = PocketAPIManager()
-        self.dataProvider = DataProvider(pocketAPI: pocketAPI, modelFactory: modelFactory)
-        let userPreferences = UserPreferencesManager()
-        let dependencies = Dependencies(dataProvider: self.dataProvider, userPreferences: userPreferences)
+        
+        self.dataProvider = DataProvider(pocketAPI: pocketAPI, modelFactory: self.modelFactory)
+        let dependencies = Dependencies(dataProvider: self.dataProvider, userPreferences: self.userPreferences)
         self.viewControllerFactory = ViewControllerFactory(dependencies: dependencies)
         
         let rootViewController = TabBarController(factory: self.viewControllerFactory)
@@ -78,10 +79,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         
-        self.dataProvider.syncLibrary { (result) in
+        self.dataProvider.syncLibrary { [weak self] (result) in
+            guard let strongSelf = self else { return }
             switch result {
             case .isSuccess(let items):
                 // Because this is a sync operation, we just need to care if we get data or not
+                strongSelf.userPreferences.displayBadge(with: strongSelf.dataProvider.numberOfItems(on: .myList))
                 items.isEmpty ? completionHandler(.noData) : completionHandler(.newData)
             case .isFailure(let error):
                 Logger.log(error.localizedDescription, event: .error)

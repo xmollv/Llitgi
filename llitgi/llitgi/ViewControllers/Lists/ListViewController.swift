@@ -112,7 +112,7 @@ class ListViewController: ViewController {
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:
-                break
+                strongSelf.userPreferences.displayBadge(with: strongSelf.dataProvider.numberOfItems(on: .myList))
             case .isFailure(let error):
                 if let pocketError = error as? PocketAPIError {
                     switch pocketError {
