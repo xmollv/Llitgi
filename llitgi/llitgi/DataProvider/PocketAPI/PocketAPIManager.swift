@@ -20,15 +20,11 @@ final class PocketAPIManager {
     
     //MARK:- Public properties
     var OAuthURLApp: URL? {
-        get {
-            return self.url(for: .app)
-        }
+        return self.url(for: .app)
     }
     
     var OAuthURLWebsite: URL? {
-        get {
-            return self.url(for: .web)
-        }
+        return self.url(for: .web)
     }
     
     //MARK:- Lifecycle
@@ -84,6 +80,8 @@ final class PocketAPIManager {
                 } catch {
                     completion(Result.isFailure(PocketAPIError.unknown(error: error)))
                 }
+            case 400:
+                completion(Result.isFailure(PocketAPIError.invalidRequest))
             default:
                 completion(Result.isFailure(PocketAPIError.not200Status(statusCode: response.statusCode)))
             }
@@ -114,19 +112,16 @@ final class PocketAPIManager {
         case .authorize:
             guard let authCode = self.apiConfig.authCode else { break }
             payload["code"] = authCode
-        case .getAll:
-            guard let token = self.apiConfig.accessToken else { break }
-            payload["access_token"] = token
-            payload["sort"] = "newest"
-            payload["detailType"] = "simple"
-            payload["state"] = "all"
         case .sync(let lastSync):
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
             payload["sort"] = "newest"
             payload["detailType"] = "simple"
             payload["state"] = "all"
-            payload["since"] = lastSync
+            if let lastSync = lastSync {
+                // If we don't pass the since timestamp we get the full library
+                payload["since"] = lastSync
+            }
         case .modify(let typeOfModification):
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token

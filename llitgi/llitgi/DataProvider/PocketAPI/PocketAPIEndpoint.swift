@@ -14,11 +14,8 @@ enum PocketAPIEndpoint {
     case authorize
     
     // Already authorized endpoints
-    case getAll
-    case sync(last: TimeInterval)
-    
+    case sync(last: TimeInterval?)
     case modify(ItemModification)
-    
     case add(URL)
     
     /// Returns the full URL to perform the request
@@ -29,7 +26,7 @@ enum PocketAPIEndpoint {
             return baseUrl.appendingPathComponent("oauth/request")
         case .authorize:
             return baseUrl.appendingPathComponent("oauth/authorize")
-        case .getAll, .sync:
+        case .sync:
             return baseUrl.appendingPathComponent("get")
         case .modify:
             return baseUrl.appendingPathComponent("send")
@@ -41,22 +38,19 @@ enum PocketAPIEndpoint {
     /// Transforms the raw JSON(Any) into a JSONArray 
     var parser: (Any?) -> JSONArray? {
         switch self {
-        case .requestToken, .authorize:
+        // Response is a JSON object
+        case .requestToken, .authorize, .modify, .add:
             return { (json: Any?) in
                 guard let elements = json as? JSONDictionary else { return nil }
                 return [elements]
             }
-        case .getAll, .sync:
+        // Response is an array of JSON objects
+        case .sync:
             return { (json: Any?) in
                 guard let dict = json as? JSONDictionary else { return nil }
                 let listAsDict = (dict["list"] as? JSONDictionary) ?? [:]
                 let list = listAsDict.values.flatMap { $0 as? JSONDictionary }
                 return list
-            }
-        case .modify, .add:
-            return { (json: Any?) in
-                guard let dict = json as? JSONDictionary else { return nil }
-                return [dict]
             }
         }
     }

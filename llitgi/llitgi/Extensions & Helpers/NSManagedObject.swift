@@ -29,7 +29,7 @@ extension NSManagedObject {
                 let fetchedElements = try context.fetch(request) as? [T]
                 fetchedElement = fetchedElements?.first
             } catch {
-                Logger.log("Error trying to perform a fetch: \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
         return fetchedElement

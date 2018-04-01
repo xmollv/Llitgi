@@ -17,17 +17,14 @@ protocol CoreDataFactory: class {
     func search(_: String) -> [CoreDataItem]
     func hasItem(identifiedBy id: String) -> CoreDataItem?
     func deleteAllModels()
+    func numberOfItems(on: TypeOfList) -> Int
 }
 
 final class CoreDataFactoryImplementation: CoreDataFactory {
 
-    let name: String
-    let fileManager: FileManager
-    
-    init(name: String = "CoreDataModel", fileManager: FileManager = FileManager.default) {
-        self.name = name
-        self.fileManager = fileManager
-    }
+    //MARK: Private properties
+    private let name: String
+    private let fileManager: FileManager
     
     private lazy var mainThreadContext: NSManagedObjectContext = {
         let context = self.storeContainer.viewContext
@@ -56,68 +53,17 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         return container
     }()
     
-    func saveBackgroundContext() {
-        self.context.performAndWait {
-            do {
-                try self.context.save()
-            } catch {
-                Logger.log("Error trying to save the context: \(error.localizedDescription)", event: .error)
-            }
-        }
+    //MARK:  Lifecycle
+    init(name: String = "CoreDataModel", fileManager: FileManager = FileManager.default) {
+        self.name = name
+        self.fileManager = fileManager
     }
     
+    //MARK: Public methods
     func build<T: Managed>(jsonArray: JSONArray) -> [T] {
         let objects: [T] = jsonArray.flatMap { self.build(json: $0, in: self.context) }
         self.saveBackgroundContext()
         return objects
-    }
-    
-    private func build<T: Managed>(json: JSONDictionary, in context: NSManagedObjectContext) -> T? {
-        let object: T? = T.fetchOrCreate(with: json, in: context)
-        guard let updatedObject: T = object?.update(with: json, on: context) else {
-            self.delete(object, in: context)
-            return nil
-        }
-        if let item = updatedObject as? Item, item.status == "2" {
-            self.delete(updatedObject, in: context)
-            return nil
-        }
-        
-        if let item = updatedObject as? CoreDataItem {
-            self.indexInSpotlight(item: item)
-        }
-        
-        return updatedObject
-    }
-    
-    private func delete<T: Managed>(_ object: T?, in context: NSManagedObjectContext) {
-        guard let object = object else { return }
-        Logger.log("Maked \(object.id) to be deleted.", event: .warning)
-        if let item = object as? CoreDataItem {
-            self.deindexItem(id: item.id)
-        }
-        context.performAndWait {
-            context.delete(object)
-        }
-    }
-    
-    private func indexInSpotlight(item: CoreDataItem) {
-        let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeText as String)
-        attributeSet.title = item.title
-        attributeSet.contentDescription = item.url.absoluteString
-        
-        let item = CSSearchableItem(uniqueIdentifier: item.id, domainIdentifier: "com.xmollv.llitgi", attributeSet: attributeSet)
-        CSSearchableIndex.default().indexSearchableItems([item]) { error in
-            guard let error = error else { return }
-            Logger.log("Error indexing: \(error.localizedDescription)", event: .error)
-        }
-    }
-    
-    private func deindexItem(id: String) {
-        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id]) { error in
-            guard let error = error else { return }
-            Logger.log("Error deindexing: \(error.localizedDescription)", event: .error)
-        }
     }
     
     func notifier(for type: TypeOfList) -> CoreDataNotifier {
@@ -160,7 +106,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             do {
                 results = try self.context.fetch(request)
             } catch {
-                Logger.log("Error trying to fetch when searching: \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
         return results
@@ -174,7 +120,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             do {
                 result = try self.context.fetch(request).first
             } catch {
-                Logger.log("Error trying to fetch when searching: \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
         return result
@@ -183,7 +129,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     func deleteAllModels() {
         CSSearchableIndex.default().deleteAllSearchableItems { (error) in
             guard let error = error else { return }
-            Logger.log("Error deindexing everything: \(error.localizedDescription)", event: .error)
+            Logger.log(error.localizedDescription, event: .error)
         }
         self.storeContainer.managedObjectModel.entities.flatMap {
             guard let name = $0.name else {
@@ -192,9 +138,94 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             }
             let fetch:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: name)
             return fetch
-        }.forEach { self.deleteResults(of: $0) }
-
+            }.forEach { self.deleteResults(of: $0) }
+        
         self.saveBackgroundContext()
+    }
+    
+    func numberOfItems(on list: TypeOfList) -> Int {
+        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        
+        var predicate: NSPredicate?
+        switch list {
+        case .myList:
+            predicate = NSPredicate(format: "status_ == '0'")
+        case .favorites:
+            predicate = NSPredicate(format: "isFavorite_ == true")
+        case .archive:
+            predicate = NSPredicate(format: "status_ == '1'")
+        }
+        request.predicate = predicate
+        
+        var count: Int = 0
+        self.context.performAndWait {
+            do {
+                count = try self.context.count(for: request)
+            } catch {
+                Logger.log(error.localizedDescription, event: .error)
+            }
+        }
+        
+        return count
+    }
+    
+    //MARK: Private methods
+    private func saveBackgroundContext() {
+        self.context.performAndWait {
+            do {
+                try self.context.save()
+            } catch {
+                Logger.log(error.localizedDescription, event: .error)
+            }
+        }
+    }
+    
+    private func build<T: Managed>(json: JSONDictionary, in context: NSManagedObjectContext) -> T? {
+        let object: T? = T.fetchOrCreate(with: json, in: context)
+        guard let updatedObject: T = object?.update(with: json, on: context) else {
+            self.delete(object, in: context)
+            return nil
+        }
+        if let item = updatedObject as? Item, item.status == "2" {
+            self.delete(updatedObject, in: context)
+            return nil
+        }
+        
+        if let item = updatedObject as? CoreDataItem {
+            self.indexInSpotlight(item: item)
+        }
+        
+        return updatedObject
+    }
+    
+    private func delete<T: Managed>(_ object: T?, in context: NSManagedObjectContext) {
+        guard let object = object else { return }
+        Logger.log("Maked \(object.id) to be deleted.", event: .warning)
+        if let item = object as? CoreDataItem {
+            self.deindexItem(id: item.id)
+        }
+        context.performAndWait {
+            context.delete(object)
+        }
+    }
+    
+    private func indexInSpotlight(item: CoreDataItem) {
+        let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeText as String)
+        attributeSet.title = item.title
+        attributeSet.contentDescription = item.url.absoluteString
+        
+        let item = CSSearchableItem(uniqueIdentifier: item.id, domainIdentifier: "com.xmollv.llitgi", attributeSet: attributeSet)
+        CSSearchableIndex.default().indexSearchableItems([item]) { error in
+            guard let error = error else { return }
+            Logger.log(error.localizedDescription, event: .error)
+        }
+    }
+    
+    private func deindexItem(id: String) {
+        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id]) { error in
+            guard let error = error else { return }
+            Logger.log(error.localizedDescription, event: .error)
+        }
     }
     
     private func deleteResults(of fetchRequest: NSFetchRequest<NSFetchRequestResult>) {
@@ -208,7 +239,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
                     context.delete(managedObject)
                 }
             } catch {
-                Logger.log("Error on deleting entity: \(fetchRequest.entity?.name ?? ""): \(error.localizedDescription)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
     }

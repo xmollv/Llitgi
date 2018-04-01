@@ -108,31 +108,23 @@ class ListViewController: ViewController {
     }
     
     @objc private func pullToRefresh() {
-        self.syncManager.sync() { [weak self] (result: Result<[CoreDataItem]>) in
+        self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:
-                break
+                strongSelf.userPreferences.displayBadge(with: strongSelf.dataProvider.numberOfItems(on: .myList))
             case .isFailure(let error):
-                if let appError = error as? AppError, appError == .isAlreadyFetching {
-                    Logger.log("Error: \(error)", event: .warning)
-                } else {
-                    guard let pocketError = error as? PocketAPIError else {
-                        Logger.log("Error: \(error)", event: .error)
-                        return
-                    }
-                    Logger.log("Error: \(error)", event: .error)
+                if let pocketError = error as? PocketAPIError {
                     switch pocketError {
-                    case .not200Status(let statusCode):
-                        if statusCode == 401 {
-                            guard let tabBar = strongSelf.tabBarController as? TabBarController  else { return }
-                            strongSelf.userPreferences.displayBadge(with: 0)
-                            strongSelf.dataProvider.logout()
-                            tabBar.setupAuthFlow()
-                        }
+                    case .invalidRequest:
+                        guard let tabBar = strongSelf.tabBarController as? TabBarController  else { return }
+                        strongSelf.userPreferences.displayBadge(with: 0)
+                        strongSelf.dataProvider.clearLocalStorage()
+                        tabBar.setupAuthFlow()
                     default: break
                     }
                 }
+                Logger.log(error.localizedDescription, event: .error)
             }
             strongSelf.refreshControl.endRefreshing()
         }
@@ -179,7 +171,7 @@ class ListViewController: ViewController {
             case .isSuccess:
                 strongSelf.pullToRefresh()
             case .isFailure(let error):
-                Logger.log("Error: \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
     }
@@ -220,13 +212,13 @@ extension ListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let item = self.dataSource?.item(at: indexPath) else { return nil }
-        let actions = self.swipeActionManager.buildLeadingActions(for: item, from: tableView)
+        let actions = self.swipeActionManager.buildLeadingActions(for: item)
         return UISwipeActionsConfiguration(actions: actions)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let item = self.dataSource?.item(at: indexPath) else { return nil }
-        let actions = self.swipeActionManager.buildTrailingActions(for: item, from: tableView)
+        let actions = self.swipeActionManager.buildTrailingActions(for: item)
         return UISwipeActionsConfiguration(actions: actions)
     }
 }

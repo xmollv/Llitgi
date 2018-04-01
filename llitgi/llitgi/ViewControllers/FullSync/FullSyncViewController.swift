@@ -17,10 +17,10 @@ private enum State {
 class FullSyncViewController: ViewController {
     
     //MARK: IBOutlets
-    @IBOutlet var syncTitleLabel: UILabel!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet var syncExplanationLabel: UILabel!
-    @IBOutlet var syncDoneButton: UIButton!
+    @IBOutlet private var syncTitleLabel: UILabel!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var syncExplanationLabel: UILabel!
+    @IBOutlet private var syncDoneButton: UIButton!
     
     //MARK: Private properties
     private var state: State = .loading {
@@ -74,14 +74,14 @@ class FullSyncViewController: ViewController {
     //MARK: Private methods
     private func fullSync() {
         self.state = .loading
-        self.syncManager.sync(fullSync: true) { [weak self] (result: Result<[CoreDataItem]>) in
+        self.dataProvider.syncLibrary(fullSync: true) { [weak self] (result: Result<[Item]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:
                 strongSelf.state = .loaded
             case .isFailure(let error):
                 strongSelf.state = .error
-                Logger.log("Unable to perform a fullsync: \(error.localizedDescription)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
     }

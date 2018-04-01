@@ -31,6 +31,7 @@ protocol PreferencesManager: class {
 
 class UserPreferencesManager: PreferencesManager {
     
+    //MARK: Public properties
     weak var badgeDelegate: BadgeDelegate? = nil
     
     var userHasEnabledNotifications: Bool {
@@ -61,25 +62,25 @@ class UserPreferencesManager: PreferencesManager {
     
     func enableBadge(shouldEnable: Bool, then: @escaping (Bool) -> ()) {
         if shouldEnable {
-            UNUserNotificationCenter.current().requestAuthorization(options: [.badge], completionHandler: { (granted, error) in
+            UNUserNotificationCenter.current().requestAuthorization(options: [.badge], completionHandler: { [weak self] (granted, error) in
                 DispatchQueue.main.async {
-                    self.userHasEnabledNotifications = granted
+                    self?.userHasEnabledNotifications = granted
                     then(granted)
                 }
             })
         } else {
-            DispatchQueue.main.async {
-                self.userHasEnabledNotifications = false
-                UIApplication.shared.applicationIconBadgeNumber = 0
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.displayBadge(with: 0)
+                strongSelf.userHasEnabledNotifications = false
                 then(false)
             }
         }
     }
     
     func displayBadge(with numberOfElements: Int) {
-        if self.userHasEnabledNotifications {
-            UIApplication.shared.applicationIconBadgeNumber = numberOfElements
-        }
+        guard self.userHasEnabledNotifications else { return }
+        UIApplication.shared.applicationIconBadgeNumber = numberOfElements
     }
     
 }

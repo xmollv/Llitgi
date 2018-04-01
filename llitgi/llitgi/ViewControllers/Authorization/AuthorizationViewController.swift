@@ -55,10 +55,10 @@ class AuthorizationViewController: ViewController {
                 
                 // Step 2. Open Safari to perform the Oauth
                 if UIApplication.shared.canOpenURL(URL(string: "pocket-oauth-v1://")!) {
-                    guard let url = strongSelf.dataProvider.urlForPocketOAuthApp else { return }
+                    guard let url = strongSelf.dataProvider.pocketOAuthUrls.app else { return }
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 } else {
-                    guard let url = strongSelf.dataProvider.urlForPocketOAuthWebsite else { return }
+                    guard let url = strongSelf.dataProvider.pocketOAuthUrls.web else { return }
                     let sfs = SFSafariViewController(url: url)
                     sfs.modalPresentationStyle = .overFullScreen
                     sfs.preferredControlTintColor = .black
@@ -67,7 +67,7 @@ class AuthorizationViewController: ViewController {
                 
             case .isFailure(let error):
                 strongSelf.showErrorMessage()
-                Logger.log("Error: \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
     }
@@ -107,7 +107,7 @@ class AuthorizationViewController: ViewController {
                 } else {
                     strongSelf.showErrorMessage()
                 }
-                Logger.log("Error: \(error)", event: .error)
+                Logger.log(error.localizedDescription, event: .error)
             }
         }
     }
