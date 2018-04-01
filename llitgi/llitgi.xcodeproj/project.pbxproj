@@ -439,7 +439,6 @@
 				F5145C42D21AF841E31A53CE /* [CP] Embed Pods Frameworks */,
 				F841294CB57E903F0824F10B /* [CP] Copy Pods Resources */,
 				47EB57932040D7AF0060A895 /* Fabric script */,
-				47B015622067D12A002F184D /* Change build number on Archive */,
 			);
 			buildRules = (
 			);
@@ -548,20 +547,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"";
-		};
-		47B015622067D12A002F184D /* Change build number on Archive */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Change build number on Archive";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "# Set the build number to the count of Git commits\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${INFOPLIST_FILE}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$SRCROOT/ShareExtension/Info.plist\"\n";
 		};
 		47EB57932040D7AF0060A895 /* Fabric script */ = {
 			isa = PBXShellScriptBuildPhase;
