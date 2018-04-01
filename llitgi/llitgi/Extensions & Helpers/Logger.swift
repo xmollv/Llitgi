@@ -32,7 +32,14 @@ final class Logger {
     }
     
     class func configureFabric() {
-        Fabric.with([Crashlytics.self, Answers.self])
+        do {
+            if let url = Bundle.main.url(forResource: "fabric.apikey", withExtension: nil) {
+                let key = try String(contentsOf: url, encoding: .utf8).trimmingCharacters(in: .whitespacesAndNewlines)
+                Fabric.with([Crashlytics.start(withAPIKey: key), Answers.self])
+            }
+        } catch {
+            NSLog("Could not retrieve Crashlytics API key. Check that fabric.apikey exists, contains your Crashlytics API key, and is a member of the target")
+        }
     }
     
     class func log(_ message: String, event: LogEvent = .debug, fileName: String = #file, line: Int = #line, funcName: String = #function) {
