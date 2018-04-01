@@ -18,3 +18,5 @@ xcuserdata
 *.swp
 *.~nib
 Pods/CocoaPodsKeys
+fabric.apikey
+fabric.buildsecret
