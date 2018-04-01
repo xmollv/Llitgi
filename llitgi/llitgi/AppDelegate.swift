@@ -22,8 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         Logger.configureFabric()
-        UIApplication.shared.setMinimumBackgroundFetchInterval(900)
-
+        UIApplication.shared.setMinimumBackgroundFetchInterval(3600)
         
         self.dataProvider = DataProvider(pocketAPI: pocketAPI, modelFactory: self.modelFactory)
         let dependencies = Dependencies(dataProvider: self.dataProvider, userPreferences: self.userPreferences)
