@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_LlitgiVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_LlitgiVersionString[];
+FOUNDATION_EXPORT double Pods_llitgiVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_llitgiVersionString[];
 

@@ -9,7 +9,7 @@ def app_pods
     pod 'Crashlytics'
 end
 
-target 'Llitgi' do
+target 'llitgi' do
     app_pods
 end
 
@@ -18,7 +18,6 @@ target 'ShareExtension' do
 end
 
 plugin 'cocoapods-keys', {
-    :project => "Llitgi",
-    :keys => [
-    "TEST"
-    ]}
+    :project => "llitgi",
+    :keys => ["PocketConsumerKey"]
+}

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DFCF630A35ABD67B607E42B /* Pods_llitgi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1EF984A8A5E16A0E4DBB630 /* Pods_llitgi.framework */; };
 		4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */; };
 		4710EF521FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */; };
 		4710EF561FF4338A00D3DCA9 /* CoreDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */; };
@@ -63,8 +64,6 @@
 		47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */; };
 		47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38C1FF074C70030BEF1 /* Typealias.swift */; };
 		47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */; };
-		6B4C09813EC03B1F3F8A2FF4 /* Pods_Llitgi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E35206511581BF9456DCE2A /* Pods_Llitgi.framework */; };
-		C91D2CD99EBC00DB8C8C5703 /* Pods_Llitgi_Production.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7715A67EF3E62DCC397F1A0 /* Pods_Llitgi_Production.framework */; };
 		D71B3A8ED9C9C064DD3CCFB7 /* Pods_ShareExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD683829B0F5D5208E86795D /* Pods_ShareExtension.framework */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +93,7 @@
 
 /* Begin PBXFileReference section */
 		1028683B4DB7CE8DE32CF5AE /* Pods-Llitgi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi/Pods-Llitgi.debug.xcconfig"; sourceTree = "<group>"; };
+		2197DDCD26A99BB268127C34 /* Pods-llitgi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-llitgi.release.xcconfig"; path = "../Pods/Target Support Files/Pods-llitgi/Pods-llitgi.release.xcconfig"; sourceTree = "<group>"; };
 		2E35206511581BF9456DCE2A /* Pods_Llitgi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Llitgi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		310376BF5921FC6FB2311F8B /* Pods-Llitgi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi.release.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi/Pods-Llitgi.release.xcconfig"; sourceTree = "<group>"; };
 		4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIModification.swift; sourceTree = "<group>"; };
@@ -133,7 +133,7 @@
 		47D40758200966BD00329544 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		47E6128A203085BA00D26472 /* llitgi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = llitgi.entitlements; sourceTree = "<group>"; };
 		47E6128B203085DB00D26472 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
-		47EEA35B1FF02DDD0030BEF1 /* Llitgi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Llitgi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		47EEA35B1FF02DDD0030BEF1 /* llitgi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = llitgi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47EEA36A1FF02DDD0030BEF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -152,6 +152,8 @@
 		5D87A6F5319D266745A7B9D7 /* Pods-ShareExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareExtension.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-ShareExtension/Pods-ShareExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		7566A89F3719EE7E0EC61729 /* Pods-Llitgi Development.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi Development.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi Development/Pods-Llitgi Development.debug.xcconfig"; sourceTree = "<group>"; };
 		868B49300961C0E346EABE6E /* Pods-Llitgi Development.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi Development.release.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi Development/Pods-Llitgi Development.release.xcconfig"; sourceTree = "<group>"; };
+		97A5D5A2D4E3668FFCA95F67 /* Pods-llitgi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-llitgi.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-llitgi/Pods-llitgi.debug.xcconfig"; sourceTree = "<group>"; };
+		A1EF984A8A5E16A0E4DBB630 /* Pods_llitgi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_llitgi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A949D6B3890E004D16EFC5 /* Pods-Llitgi Production.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi Production.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi Production/Pods-Llitgi Production.debug.xcconfig"; sourceTree = "<group>"; };
 		B7715A67EF3E62DCC397F1A0 /* Pods_Llitgi_Production.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Llitgi_Production.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB8D0462ECA8C784A3A3EDE2 /* Pods-Llitgi Production.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Llitgi Production.release.xcconfig"; path = "../Pods/Target Support Files/Pods-Llitgi Production/Pods-Llitgi Production.release.xcconfig"; sourceTree = "<group>"; };
@@ -172,8 +174,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C91D2CD99EBC00DB8C8C5703 /* Pods_Llitgi_Production.framework in Frameworks */,
-				6B4C09813EC03B1F3F8A2FF4 /* Pods_Llitgi.framework in Frameworks */,
+				1DFCF630A35ABD67B607E42B /* Pods_llitgi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +188,7 @@
 				B7715A67EF3E62DCC397F1A0 /* Pods_Llitgi_Production.framework */,
 				DD683829B0F5D5208E86795D /* Pods_ShareExtension.framework */,
 				2E35206511581BF9456DCE2A /* Pods_Llitgi.framework */,
+				A1EF984A8A5E16A0E4DBB630 /* Pods_llitgi.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -284,7 +286,7 @@
 		47EEA35C1FF02DDD0030BEF1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				47EEA35B1FF02DDD0030BEF1 /* Llitgi.app */,
+				47EEA35B1FF02DDD0030BEF1 /* llitgi.app */,
 				475E176D20262CAD007033F1 /* ShareExtension.appex */,
 			);
 			name = Products;
@@ -390,6 +392,8 @@
 				C697C3D4C012693B9747E648 /* Pods-ShareExtension.release.xcconfig */,
 				1028683B4DB7CE8DE32CF5AE /* Pods-Llitgi.debug.xcconfig */,
 				310376BF5921FC6FB2311F8B /* Pods-Llitgi.release.xcconfig */,
+				97A5D5A2D4E3668FFCA95F67 /* Pods-llitgi.debug.xcconfig */,
+				2197DDCD26A99BB268127C34 /* Pods-llitgi.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -416,9 +420,9 @@
 			productReference = 475E176D20262CAD007033F1 /* ShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		47EEA35A1FF02DDD0030BEF1 /* Llitgi */ = {
+		47EEA35A1FF02DDD0030BEF1 /* llitgi */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 47EEA36F1FF02DDD0030BEF1 /* Build configuration list for PBXNativeTarget "Llitgi" */;
+			buildConfigurationList = 47EEA36F1FF02DDD0030BEF1 /* Build configuration list for PBXNativeTarget "llitgi" */;
 			buildPhases = (
 				57BA89101CF2E80F6DDEA83C /* [CP] Check Pods Manifest.lock */,
 				47EEA3571FF02DDD0030BEF1 /* Sources */,
@@ -436,9 +440,9 @@
 			dependencies = (
 				475E177620262CAD007033F1 /* PBXTargetDependency */,
 			);
-			name = Llitgi;
+			name = llitgi;
 			productName = ReadLater;
-			productReference = 47EEA35B1FF02DDD0030BEF1 /* Llitgi.app */;
+			productReference = 47EEA35B1FF02DDD0030BEF1 /* llitgi.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -487,7 +491,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				47EEA35A1FF02DDD0030BEF1 /* Llitgi */,
+				47EEA35A1FF02DDD0030BEF1 /* llitgi */,
 				475E176C20262CAD007033F1 /* ShareExtension */,
 			);
 		};
@@ -576,7 +580,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Llitgi-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-llitgi-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -622,7 +626,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi/Pods-Llitgi-frameworks.sh",
+				"${SRCROOT}/../Pods/Target Support Files/Pods-llitgi/Pods-llitgi-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Keys/Keys.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -631,7 +635,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi/Pods-Llitgi-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-llitgi/Pods-llitgi-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F841294CB57E903F0824F10B /* [CP] Copy Pods Resources */ = {
@@ -646,7 +650,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-Llitgi/Pods-Llitgi-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-llitgi/Pods-llitgi-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -894,7 +898,7 @@
 		};
 		47EEA3701FF02DDD0030BEF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1028683B4DB7CE8DE32CF5AE /* Pods-Llitgi.debug.xcconfig */;
+			baseConfigurationReference = 97A5D5A2D4E3668FFCA95F67 /* Pods-llitgi.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -914,7 +918,7 @@
 		};
 		47EEA3711FF02DDD0030BEF1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 310376BF5921FC6FB2311F8B /* Pods-Llitgi.release.xcconfig */;
+			baseConfigurationReference = 2197DDCD26A99BB268127C34 /* Pods-llitgi.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -952,7 +956,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		47EEA36F1FF02DDD0030BEF1 /* Build configuration list for PBXNativeTarget "Llitgi" */ = {
+		47EEA36F1FF02DDD0030BEF1 /* Build configuration list for PBXNativeTarget "llitgi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				47EEA3701FF02DDD0030BEF1 /* Debug */,
