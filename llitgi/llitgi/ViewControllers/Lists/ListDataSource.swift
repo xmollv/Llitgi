@@ -57,6 +57,9 @@ class ListDataSource: NSObject {
 extension ListDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let numberOfElements = self.notifier?.numberOfObjects(on: section) ?? 0
+        if self.typeOfList == .myList {
+            self.userPreferences.displayBadge(with: numberOfElements)
+        }
         if numberOfElements == 0 {
             let title: String
             let subtitle: String

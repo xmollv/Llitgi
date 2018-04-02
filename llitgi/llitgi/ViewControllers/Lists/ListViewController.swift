@@ -111,8 +111,7 @@ class ListViewController: ViewController {
         self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess:
-                strongSelf.userPreferences.displayBadge(with: strongSelf.dataProvider.numberOfItems(on: .myList))
+            case .isSuccess: break
             case .isFailure(let error):
                 if let pocketError = error as? PocketAPIError {
                     switch pocketError {
@@ -239,6 +238,6 @@ extension ListViewController: UIViewControllerPreviewingDelegate {
 
 extension ListViewController: BadgeDelegate {
     func displayBadgeEnabled() {
-        self.userPreferences.displayBadge(with: self.dataProvider.numberOfItems(on: .myList))
+        self.tableView.reloadData()
     }
 }
