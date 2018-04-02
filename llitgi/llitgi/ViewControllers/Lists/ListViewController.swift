@@ -239,6 +239,6 @@ extension ListViewController: UIViewControllerPreviewingDelegate {
 
 extension ListViewController: BadgeDelegate {
     func displayBadgeEnabled() {
-        self.tableView.reloadData()
+        self.userPreferences.displayBadge(with: self.dataProvider.numberOfItems(on: .myList))
     }
 }
