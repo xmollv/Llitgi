@@ -23,7 +23,7 @@ protocol PreferencesManager: class {
     var openLinksWith: SafariOpener { get set }
     var openReaderMode: Bool { get set }
     
-    weak var badgeDelegate: BadgeDelegate? { get set }
+    var badgeDelegate: BadgeDelegate? { get set }
     var userHasEnabledNotifications: Bool { get }
     func enableBadge(shouldEnable: Bool, then: @escaping (Bool)->())
     func displayBadge(with: Int)

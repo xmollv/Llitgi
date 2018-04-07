@@ -61,7 +61,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     //MARK: Public methods
     func build<T: Managed>(jsonArray: JSONArray) -> [T] {
-        let objects: [T] = jsonArray.flatMap { self.build(json: $0, in: self.context) }
+        let objects: [T] = jsonArray.compactMap { self.build(json: $0, in: self.context) }
         self.saveBackgroundContext()
         return objects
     }
@@ -131,7 +131,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             guard let error = error else { return }
             Logger.log(error.localizedDescription, event: .error)
         }
-        self.storeContainer.managedObjectModel.entities.flatMap {
+        self.storeContainer.managedObjectModel.entities.compactMap {
             guard let name = $0.name else {
                 Logger.log("This entity doesn't have a name: \($0)")
                 return nil

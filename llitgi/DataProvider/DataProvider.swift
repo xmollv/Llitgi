@@ -62,7 +62,7 @@ final class DataProvider {
         self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in
             switch result {
             case .isSuccess(let json):
-                let builtElements = json.flatMap{ T(dict: $0) }
+                let builtElements = json.compactMap{ T(dict: $0) }
                 resultQueue.async {
                     then(Result.isSuccess(builtElements))
                 }
