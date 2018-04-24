@@ -48,13 +48,6 @@ class SearchViewController: ViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    //MARK: Public methods
-    func searchFromSpotlight(item: Item) {
-        self.searchTextField.text = item.title
-        self.searchResults = [item]
-        self.tableView.reloadData()
-    }
-    
     //MARK:- Private methods
     private func configureSearchTextField() {
         self.searchTextField.delegate = self

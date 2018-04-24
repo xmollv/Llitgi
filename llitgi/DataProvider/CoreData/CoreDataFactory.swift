@@ -183,40 +183,14 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             return nil
         }
         
-        if let item = updatedObject as? CoreDataItem {
-            self.indexInSpotlight(item: item)
-        }
-        
         return updatedObject
     }
     
     private func delete<T: Managed>(_ object: T?, in context: NSManagedObjectContext) {
         guard let object = object else { return }
         Logger.log("Maked \(object.id) to be deleted.", event: .warning)
-        if let item = object as? CoreDataItem {
-            self.deindexItem(id: item.id)
-        }
         context.performAndWait {
             context.delete(object)
-        }
-    }
-    
-    private func indexInSpotlight(item: CoreDataItem) {
-        let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeText as String)
-        attributeSet.title = item.title
-        attributeSet.contentDescription = item.url.absoluteString
-        
-        let item = CSSearchableItem(uniqueIdentifier: item.id, domainIdentifier: "com.xmollv.llitgi", attributeSet: attributeSet)
-        CSSearchableIndex.default().indexSearchableItems([item]) { error in
-            guard let error = error else { return }
-            Logger.log(error.localizedDescription, event: .error)
-        }
-    }
-    
-    private func deindexItem(id: String) {
-        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id]) { error in
-            guard let error = error else { return }
-            Logger.log(error.localizedDescription, event: .error)
         }
     }
     
