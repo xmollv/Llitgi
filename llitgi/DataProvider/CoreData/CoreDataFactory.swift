@@ -25,43 +25,35 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     //MARK: Private properties
     private let name: String
     private let fileManager: FileManager
-    
-    private lazy var mainThreadContext: NSManagedObjectContext = {
-        let context = self.storeContainer.viewContext
-        context.automaticallyMergesChangesFromParent = true
-        return context
-    }()
-    
-    private lazy var context: NSManagedObjectContext = {
-        let context = self.storeContainer.newBackgroundContext()
-        context.automaticallyMergesChangesFromParent = true
-        return context
-    }()
-    
-    private lazy var storeContainer: NSPersistentContainer = {
-        let storeURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(name)
-        let description = NSPersistentStoreDescription(url: storeURL)
-        description.setOption(FileProtectionType.completeUnlessOpen.rawValue as NSString, forKey: NSPersistentStoreFileProtectionKey)
-        
-        let container = NSPersistentContainer(name: "CoreDataModel")
-        container.persistentStoreDescriptions = [description]
-        container.loadPersistentStores { (storeDescription, error) in
-            if let error = error as NSError? {
-                Logger.log("Unresolved error \(error), \(error.userInfo)", event: .error)
-            }
-        }
-        return container
-    }()
+    private let storeContainer: NSPersistentContainer
+    private let mainThreadContext: NSManagedObjectContext
+    private let backgroundContext: NSManagedObjectContext
     
     //MARK:  Lifecycle
     init(name: String = "CoreDataModel", fileManager: FileManager = FileManager.default) {
         self.name = name
         self.fileManager = fileManager
+        self.storeContainer = NSPersistentContainer(name: name)
+        
+        let storeURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(name)
+        let description = NSPersistentStoreDescription(url: storeURL)
+        self.storeContainer.persistentStoreDescriptions = [description]
+        self.storeContainer.loadPersistentStores { (storeDescription, error) in
+            if let _ = error {
+                fatalError("Unable to load the persistent stores.")
+            }
+        }
+        
+        self.mainThreadContext = self.storeContainer.viewContext
+        self.mainThreadContext.automaticallyMergesChangesFromParent = true
+        
+        self.backgroundContext = self.storeContainer.newBackgroundContext()
+        self.backgroundContext.automaticallyMergesChangesFromParent = true
     }
     
     //MARK: Public methods
     func build<T: Managed>(jsonArray: JSONArray) -> [T] {
-        let objects: [T] = jsonArray.compactMap { self.build(json: $0, in: self.context) }
+        let objects: [T] = jsonArray.compactMap { self.build(json: $0, in: self.backgroundContext) }
         self.saveBackgroundContext()
         return objects
     }
@@ -102,9 +94,9 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         request.sortDescriptors = [NSSortDescriptor(key: "timeAdded_", ascending: false, selector: #selector(NSString.caseInsensitiveCompare(_:)))]
         
         var results: [CoreDataItem] = []
-        self.context.performAndWait {
+        self.backgroundContext.performAndWait {
             do {
-                results = try self.context.fetch(request)
+                results = try self.backgroundContext.fetch(request)
             } catch {
                 Logger.log(error.localizedDescription, event: .error)
             }
@@ -116,9 +108,9 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
         request.predicate = NSPredicate(format: "id_ == %@ ", id)
         var result: CoreDataItem?
-        self.context.performAndWait {
+        self.backgroundContext.performAndWait {
             do {
-                result = try self.context.fetch(request).first
+                result = try self.backgroundContext.fetch(request).first
             } catch {
                 Logger.log(error.localizedDescription, event: .error)
             }
@@ -158,9 +150,9 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         request.predicate = predicate
         
         var count: Int = 0
-        self.context.performAndWait {
+        self.backgroundContext.performAndWait {
             do {
-                count = try self.context.count(for: request)
+                count = try self.backgroundContext.count(for: request)
             } catch {
                 Logger.log(error.localizedDescription, event: .error)
             }
@@ -171,9 +163,9 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     //MARK: Private methods
     private func saveBackgroundContext() {
-        self.context.performAndWait {
+        self.backgroundContext.performAndWait {
             do {
-                try self.context.save()
+                try self.backgroundContext.save()
             } catch {
                 Logger.log(error.localizedDescription, event: .error)
             }
@@ -191,52 +183,26 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             return nil
         }
         
-        if let item = updatedObject as? CoreDataItem {
-            self.indexInSpotlight(item: item)
-        }
-        
         return updatedObject
     }
     
     private func delete<T: Managed>(_ object: T?, in context: NSManagedObjectContext) {
         guard let object = object else { return }
         Logger.log("Maked \(object.id) to be deleted.", event: .warning)
-        if let item = object as? CoreDataItem {
-            self.deindexItem(id: item.id)
-        }
         context.performAndWait {
             context.delete(object)
         }
     }
     
-    private func indexInSpotlight(item: CoreDataItem) {
-        let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeText as String)
-        attributeSet.title = item.title
-        attributeSet.contentDescription = item.url.absoluteString
-        
-        let item = CSSearchableItem(uniqueIdentifier: item.id, domainIdentifier: "com.xmollv.llitgi", attributeSet: attributeSet)
-        CSSearchableIndex.default().indexSearchableItems([item]) { error in
-            guard let error = error else { return }
-            Logger.log(error.localizedDescription, event: .error)
-        }
-    }
-    
-    private func deindexItem(id: String) {
-        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [id]) { error in
-            guard let error = error else { return }
-            Logger.log(error.localizedDescription, event: .error)
-        }
-    }
-    
     private func deleteResults(of fetchRequest: NSFetchRequest<NSFetchRequestResult>) {
-        self.context.performAndWait {
+        self.backgroundContext.performAndWait {
             do {
-                try self.context.fetch(fetchRequest).forEach {
+                try self.backgroundContext.fetch(fetchRequest).forEach {
                     guard let managedObject = $0 as? NSManagedObject else {
                         Logger.log("The object was not a NSManagedObject: \($0)")
                         return
                     }
-                    context.delete(managedObject)
+                    backgroundContext.delete(managedObject)
                 }
             } catch {
                 Logger.log(error.localizedDescription, event: .error)
