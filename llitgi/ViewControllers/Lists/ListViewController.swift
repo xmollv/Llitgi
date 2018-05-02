@@ -18,14 +18,12 @@ enum TypeOfList {
 class ListViewController: ViewController {
 
     //MARK:- IBOutlets
-    @IBOutlet private var titleLabel: UILabel!
-    @IBOutlet private var addButton: UIButton!
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private var tableView: UITableView!
     
     //MARK: Private properties
     private let typeOfList: TypeOfList
     private let swipeActionManager: ListSwipeActionManager
+    private let searchController = UISearchController(searchResultsController: nil)
     private var dataSource: ListDataSource?
     private var cellHeights: [IndexPath : CGFloat] = [:]
     
@@ -53,8 +51,18 @@ class ListViewController: ViewController {
                                                selector: #selector(self.pullToRefresh),
                                                name: .UIApplicationDidBecomeActive,
                                                object: nil)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.registerForPreviewing(with: self, sourceView: self.tableView)
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.searchController = self.searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        self.searchController.searchBar.placeholder = L10n.General.search
+        //self.searchController.searchResultsUpdater = self
+        self.searchController.obscuresBackgroundDuringPresentation = false
+        self.searchController.searchBar.scopeButtonTitles = ["All", "My List", "Favorites", "Archive"]
+        self.searchController.searchBar.delegate = self
+        self.definesPresentationContext = true
+        
         self.configureUI(for: self.typeOfList)
         self.configureTableView()
         self.pullToRefresh()
@@ -84,12 +92,10 @@ class ListViewController: ViewController {
             title = L10n.Titles.myList
         case .favorites:
             title = L10n.Titles.favorites
-            self.addButton.isHidden = true
         case .archive:
             title = L10n.Titles.archive
-            self.addButton.isHidden = true
         }
-        self.titleLabel.text = title
+        self.title = title
     }
     
     private func configureTableView() {
@@ -139,40 +145,40 @@ class ListViewController: ViewController {
     }
     
     @IBAction private func addButtonTapped(_ sender: UIButton) {
-        sender.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, animations: {
-            sender.transform = .identity
-        }, completion: nil)
-        
-        self.activityIndicator.isHidden = false
-        self.addButton.isHidden = true
-        guard let url = UIPasteboard.general.url else {
-            self.activityIndicator.isHidden = true
-            self.addButton.isHidden = false
-            
-            let errorTitle = L10n.General.errorTitle
-            let errorMessage = L10n.Add.invalidPasteboard
-            
-            let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
-            let dimissTitle = L10n.General.dismiss
-            errorAlert.addAction(UIAlertAction(title: dimissTitle, style: .default) { [weak self] (action) in
-                self?.dismiss(animated: true, completion: nil)
-            })
-            self.present(errorAlert, animated: true, completion: nil)
-            return
-        }
-        
-        self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] (result: EmptyResult) in
-            guard let strongSelf = self else { return }
-            strongSelf.activityIndicator.isHidden = true
-            strongSelf.addButton.isHidden = false
-            switch result {
-            case .isSuccess:
-                strongSelf.pullToRefresh()
-            case .isFailure(let error):
-                Logger.log(error.localizedDescription, event: .error)
-            }
-        }
+//        sender.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+//        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, animations: {
+//            sender.transform = .identity
+//        }, completion: nil)
+//
+//        self.activityIndicator.isHidden = false
+//        self.addButton.isHidden = true
+//        guard let url = UIPasteboard.general.url else {
+//            self.activityIndicator.isHidden = true
+//            self.addButton.isHidden = false
+//
+//            let errorTitle = L10n.General.errorTitle
+//            let errorMessage = L10n.Add.invalidPasteboard
+//
+//            let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+//            let dimissTitle = L10n.General.dismiss
+//            errorAlert.addAction(UIAlertAction(title: dimissTitle, style: .default) { [weak self] (action) in
+//                self?.dismiss(animated: true, completion: nil)
+//            })
+//            self.present(errorAlert, animated: true, completion: nil)
+//            return
+//        }
+//
+//        self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] (result: EmptyResult) in
+//            guard let strongSelf = self else { return }
+//            strongSelf.activityIndicator.isHidden = true
+//            strongSelf.addButton.isHidden = false
+//            switch result {
+//            case .isSuccess:
+//                strongSelf.pullToRefresh()
+//            case .isFailure(let error):
+//                Logger.log(error.localizedDescription, event: .error)
+//            }
+//        }
     }
     
     @IBAction func searchButtonTapped(_ sender: UIButton) {
@@ -239,5 +245,15 @@ extension ListViewController: UIViewControllerPreviewingDelegate {
 extension ListViewController: BadgeDelegate {
     func displayBadgeEnabled() {
         self.tableView.reloadData()
+    }
+}
+
+extension ListViewController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        self.tabBarController?.tabBar.isHidden = false
     }
 }
