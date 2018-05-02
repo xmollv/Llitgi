@@ -8,8 +8,6 @@
 
 import Foundation
 import CoreData
-import CoreSpotlight
-import MobileCoreServices
 
 protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
@@ -119,10 +117,6 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     }
     
     func deleteAllModels() {
-        CSSearchableIndex.default().deleteAllSearchableItems { (error) in
-            guard let error = error else { return }
-            Logger.log(error.localizedDescription, event: .error)
-        }
         self.storeContainer.managedObjectModel.entities.compactMap {
             guard let name = $0.name else {
                 Logger.log("This entity doesn't have a name: \($0)")
