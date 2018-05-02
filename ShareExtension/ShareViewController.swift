@@ -32,12 +32,12 @@ class ShareViewController: UIViewController {
                 guard let strongSelf = self else { return }
                 switch strongSelf.state {
                 case .loading:
-                    strongSelf.titleLabel.text = NSLocalizedString("saving_to_llitgi", comment: "")
+                    strongSelf.titleLabel.text = L10n.ShareExtension.saving
                     strongSelf.activityIndicator.startAnimating()
                     strongSelf.activityIndicator.isHidden = false
                     strongSelf.retryButton.isHidden = true
                 case .error:
-                    strongSelf.titleLabel.text = NSLocalizedString("error_body", comment: "")
+                    strongSelf.titleLabel.text = L10n.General.pocketError
                     strongSelf.activityIndicator.stopAnimating()
                     strongSelf.activityIndicator.isHidden = true
                     strongSelf.retryButton.isHidden = false
@@ -59,7 +59,7 @@ class ShareViewController: UIViewController {
         }
         
         self.state = .loading
-        self.retryButton.setTitle(NSLocalizedString("retry", comment: ""), for: .normal)
+        self.retryButton.setTitle(L10n.General.retry, for: .normal)
         
         guard let itemProvider = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments?.first as? NSItemProvider else {
             Logger.log("The itemProvider can't be found", event: .error)

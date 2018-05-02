@@ -105,17 +105,17 @@ class SettingsViewController: ViewController {
     
     //MARK:- Private methods
     private func setupLocalizedStrings() {
-        self.titleLabel.text = NSLocalizedString("settings", comment: "")
-        self.badgeCountLabel.text = NSLocalizedString("badge_count", comment: "")
-        self.badgeCountExplanationLabel.text = NSLocalizedString("badge_explanation", comment: "")
-        self.safariOpenerLabel.text = NSLocalizedString("open_links_safari", comment: "")
-        self.safariOpenerExplanationLabel.text = NSLocalizedString("safari_open_explanation", comment: "")
-        self.safariReaderModeLabel.text = NSLocalizedString("safari_reader_mode", comment: "")
-        self.safariReaderModeExplanationLabel.text = NSLocalizedString("safari_reader_mode_explanation", comment: "")
-        self.logoutButton.setTitle(NSLocalizedString("logout", comment: ""), for: .normal)
-        self.creditsLabel.text = NSLocalizedString("credits", comment: "")
-        self.emailButton.setTitle(NSLocalizedString("email", comment: ""), for: .normal)
-        let formatString = NSLocalizedString("build_version", comment: "")
+        self.titleLabel.text = L10n.Titles.settings
+        self.badgeCountLabel.text = L10n.Settings.badgeCountTitle
+        self.badgeCountExplanationLabel.text = L10n.Settings.badgeCountExplanation
+        self.safariOpenerLabel.text = L10n.Settings.safariOpenerTitle
+        self.safariOpenerExplanationLabel.text = L10n.Settings.safariOpenerDescription
+        self.safariReaderModeLabel.text = L10n.Settings.safariReaderTitle
+        self.safariReaderModeExplanationLabel.text = L10n.Settings.safariReaderDescription
+        self.logoutButton.setTitle(L10n.General.logout, for: .normal)
+        self.creditsLabel.text = L10n.Settings.credits
+        self.emailButton.setTitle(L10n.Settings.email, for: .normal)
+        let formatString = L10n.Settings.buildVersion
         self.buildLabel.text = String(format: formatString, arguments: [Bundle.main.versionNumber])
     }
 
