@@ -4,7 +4,6 @@
 "badge_explanation" = "We'll show you a badge on the app icon indicating how many items are on your list.";
 "delete" = "Delete";
 "dismiss" = "Dismiss";
-"error_body" = "Something went wrong";
 "error_pocket" = "Something went wrong communicating with Pocket. Could you please try again?";
 "error_title" = "Oops!";
 "email" = "Email";

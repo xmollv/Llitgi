@@ -33,16 +33,16 @@ class TabBarController: UITabBarController {
 
     func setupMainFlow() {
         let listViewController: ListViewController = self.factory.instantiate(for: .myList)
-        listViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("my_list", comment: ""), image: #imageLiteral(resourceName: "list"), tag: 1)
+        listViewController.tabBarItem = UITabBarItem(title: L10n.Titles.myList, image: #imageLiteral(resourceName: "list"), tag: 1)
         
         let favoritesViewController: ListViewController = self.factory.instantiate(for: .favorites)
-        favoritesViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("favorites", comment: ""), image: #imageLiteral(resourceName: "favorite"), tag: 2)
+        favoritesViewController.tabBarItem = UITabBarItem(title: L10n.Titles.favorites, image: #imageLiteral(resourceName: "favorite"), tag: 2)
         
         let archiveViewController: ListViewController = self.factory.instantiate(for: .archive)
-        archiveViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("archive", comment: ""), image: #imageLiteral(resourceName: "archive"), tag: 3)
+        archiveViewController.tabBarItem = UITabBarItem(title: L10n.Titles.archive, image: #imageLiteral(resourceName: "archive"), tag: 3)
         
         let settingsViewController: SettingsViewController = self.factory.instantiate()
-        settingsViewController.tabBarItem = UITabBarItem(title: NSLocalizedString("settings", comment: ""), image: #imageLiteral(resourceName: "settings"), tag: 4)
+        settingsViewController.tabBarItem = UITabBarItem(title: L10n.Titles.settings, image: #imageLiteral(resourceName: "settings"), tag: 4)
         
         let tabs = [listViewController, favoritesViewController, archiveViewController, settingsViewController].map({ UINavigationController(rootViewController: $0) })
         

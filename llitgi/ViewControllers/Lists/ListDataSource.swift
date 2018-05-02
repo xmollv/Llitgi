@@ -65,14 +65,14 @@ extension ListDataSource: UITableViewDataSource {
             let subtitle: String
             switch self.typeOfList {
             case .myList:
-                title = NSLocalizedString("no_results_myList_title", comment: "")
-                subtitle = NSLocalizedString("no_results_myList_subtitle", comment: "")
+                title = L10n.ListEmptyStates.myListTitle
+                subtitle = L10n.ListEmptyStates.myListSubtitle
             case .favorites:
-                title = NSLocalizedString("no_results", comment: "")
-                subtitle = NSLocalizedString("no_results_favorites_subtitle", comment: "")
+                title = L10n.ListEmptyStates.favoritesTitle
+                subtitle = L10n.ListEmptyStates.favoritesSubtitle
             case .archive:
-                title = NSLocalizedString("no_results", comment: "")
-                subtitle = NSLocalizedString("no_results_archive_subtitle", comment: "")
+                title = L10n.ListEmptyStates.archiveTitle
+                subtitle = L10n.ListEmptyStates.archiveSubtitle
             }
             tableView.establishEmptyState(title: title, subtitle: subtitle)
         } else {

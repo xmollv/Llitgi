@@ -81,12 +81,12 @@ class ListViewController: ViewController {
         let title: String
         switch type {
         case .myList:
-            title = NSLocalizedString("my_list", comment: "")
+            title = L10n.Titles.myList
         case .favorites:
-            title = NSLocalizedString("favorites", comment: "")
+            title = L10n.Titles.favorites
             self.addButton.isHidden = true
         case .archive:
-            title = NSLocalizedString("archive", comment: "")
+            title = L10n.Titles.favorites
             self.addButton.isHidden = true
         }
         self.titleLabel.text = title
@@ -150,11 +150,11 @@ class ListViewController: ViewController {
             self.activityIndicator.isHidden = true
             self.addButton.isHidden = false
             
-            let errorTitle = NSLocalizedString("error_title", comment: "")
-            let errorMessage = NSLocalizedString("pasteboard_not_valid", comment: "")
+            let errorTitle = L10n.General.errorTitle
+            let errorMessage = L10n.Add.invalidPasteboard
             
             let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
-            let dimissTitle = NSLocalizedString("dismiss", comment: "")
+            let dimissTitle = L10n.General.dismiss
             errorAlert.addAction(UIAlertAction(title: dimissTitle, style: .default) { [weak self] (action) in
                 self?.dismiss(animated: true, completion: nil)
             })

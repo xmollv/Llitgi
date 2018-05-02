@@ -52,6 +52,8 @@
 		47B3FFDE202539C8003CB27F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B3FFDC202539C8003CB27F /* SearchViewController.swift */; };
 		47B3FFDF202539C8003CB27F /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B3FFDD202539C8003CB27F /* SearchViewController.xib */; };
 		47D40759200966BD00329544 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D40758200966BD00329544 /* Dependencies.swift */; };
+		47DE472B209A53D500770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
+		47DE472C209A5C6E00770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */; };
 		47EEA3681FF02DDD0030BEF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */; };
 		47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */; };
@@ -128,6 +130,7 @@
 		47B3FFDC202539C8003CB27F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		47B3FFDD202539C8003CB27F /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		47D40758200966BD00329544 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
+		47DE472A209A53D500770884 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		47E6128A203085BA00D26472 /* llitgi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = llitgi.entitlements; sourceTree = "<group>"; };
 		47E6128B203085DB00D26472 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		47EEA35B1FF02DDD0030BEF1 /* llitgi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = llitgi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -340,6 +343,7 @@
 			children = (
 				47D40758200966BD00329544 /* Dependencies.swift */,
 				47392347202667E3005526C5 /* LitgiUserDefaults.swift */,
+				47DE472A209A53D500770884 /* L10n.swift */,
 				47376DE31FF07F9500B8E70C /* Logger.swift */,
 				47EEA38C1FF074C70030BEF1 /* Typealias.swift */,
 				4770ACF41FF111A9006E755D /* UIView.swift */,
@@ -501,6 +505,7 @@
 				475E177020262CAD007033F1 /* ShareViewController.swift in Sources */,
 				475E1781202633A4007033F1 /* PocketAPIModification.swift in Sources */,
 				475E177F202633A4007033F1 /* PocketAPIConfiguration.swift in Sources */,
+				47DE472C209A5C6E00770884 /* L10n.swift in Sources */,
 				475E1780202633A4007033F1 /* PocketAPIEndpoint.swift in Sources */,
 				475E1782202633A4007033F1 /* PocketAPIError.swift in Sources */,
 				475E1783202633EA007033F1 /* Typealias.swift in Sources */,
@@ -517,6 +522,7 @@
 				4770ACF51FF111A9006E755D /* UIView.swift in Sources */,
 				47803EA52009674D003D58E2 /* PreferencesManager.swift in Sources */,
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
+				47DE472B209A53D500770884 /* L10n.swift in Sources */,
 				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,
 				47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */,
 				4752C0872030F22300988A68 /* FullSyncViewController.swift in Sources */,
