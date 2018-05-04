@@ -86,7 +86,7 @@ class ListViewController: ViewController {
             title = L10n.Titles.favorites
             self.addButton.isHidden = true
         case .archive:
-            title = L10n.Titles.favorites
+            title = L10n.Titles.archive
             self.addButton.isHidden = true
         }
         self.titleLabel.text = title
