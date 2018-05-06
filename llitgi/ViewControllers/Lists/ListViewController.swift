@@ -13,6 +13,14 @@ enum TypeOfList {
     case myList
     case favorites
     case archive
+    
+    var position: Int {
+        switch self {
+        case .myList: return 1
+        case .favorites: return 2
+        case .archive: return 3
+        }
+    }
 }
 
 class ListViewController: ViewController {
@@ -22,6 +30,7 @@ class ListViewController: ViewController {
     
     //MARK: Private properties
     private let typeOfList: TypeOfList
+    private var typeOfListForSearch: TypeOfList
     private let swipeActionManager: ListSwipeActionManager
     private let searchController = UISearchController(searchResultsController: nil)
     private var dataSource: ListDataSource?
@@ -36,6 +45,7 @@ class ListViewController: ViewController {
     //MARK:- Lifecycle
     required init(factory: ViewControllerFactory, dependencies: Dependencies, type: TypeOfList) {
         self.typeOfList = type
+        self.typeOfListForSearch = type
         self.swipeActionManager = ListSwipeActionManager(dataProvider: dependencies.dataProvider)
         super.init(factory: factory, dependencies: dependencies)
     }
@@ -49,7 +59,6 @@ class ListViewController: ViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: .UIApplicationDidBecomeActive, object: nil)
         self.registerForPreviewing(with: self, sourceView: self.tableView)
-        //self.configureUI(for: self.typeOfList)
         self.configureSearchController()
         self.configureTableView()
         self.pullToRefresh()
@@ -88,13 +97,14 @@ class ListViewController: ViewController {
     }
     
     private func configureSearchController() {
-        self.navigationItem.searchController = self.searchController
-        self.navigationItem.hidesSearchBarWhenScrolling = false
         self.searchController.searchBar.placeholder = L10n.General.search
         self.searchController.searchResultsUpdater = self
         self.searchController.obscuresBackgroundDuringPresentation = false
-        self.searchController.searchBar.scopeButtonTitles = ["All", "My List", "Favorites", "Archive"]
+        self.searchController.searchBar.scopeButtonTitles = [L10n.Titles.all, L10n.Titles.myList, L10n.Titles.favorites, L10n.Titles.archive]
+        self.searchController.searchBar.selectedScopeButtonIndex = self.typeOfList.position
         self.searchController.searchBar.delegate = self
+        self.navigationItem.searchController = self.searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
         self.definesPresentationContext = true
     }
     
@@ -221,6 +231,28 @@ extension ListViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         self.tabBarController?.tabBar.isHidden = false
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        //Reset to the default state
+        self.searchController.searchBar.selectedScopeButtonIndex = self.typeOfList.position
+        self.typeOfListForSearch = self.typeOfList
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        switch selectedScope {
+        case 0:
+            break
+        case 1:
+            self.typeOfListForSearch = .myList
+        case 2:
+            self.typeOfListForSearch = .favorites
+        case 3:
+            self.typeOfListForSearch = .archive
+        default:
+            fatalError("This segmented control is not supported")
+        }
+        self.updateSearchResults(for: self.searchController)
+    }
 }
 
 extension ListViewController: UISearchResultsUpdating {
@@ -228,9 +260,9 @@ extension ListViewController: UISearchResultsUpdating {
         let searchText = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces) ?? ""
         let notifier: CoreDataNotifier
         if searchText.isEmpty {
-            notifier = self.dataProvider.notifier(for: self.typeOfList)
+            notifier = self.dataProvider.notifier(for: self.typeOfListForSearch)
         } else {
-            notifier = self.dataProvider.notifier(for: self.typeOfList, filteredBy: searchText)
+            notifier = self.dataProvider.notifier(for: self.typeOfListForSearch, filteredBy: searchText)
         }
         self.dataSource?.establishNotifier(notifier: notifier)
         self.tableView.reloadData()

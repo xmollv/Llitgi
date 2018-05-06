@@ -39,3 +39,4 @@
 "build_version" = "Version: %1$@";
 "safari_reader_mode" = "Reader View";
 "safari_reader_mode_explanation" = "We'll open all your items in Reader View. Some websites may not support this feature.";
+"all" = "All";
