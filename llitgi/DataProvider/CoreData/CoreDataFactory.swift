@@ -69,6 +69,11 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         
         let typePredicate: NSPredicate
         switch type {
+        case .all:
+            typePredicate = NSPredicate(format: "status_ != '2'")
+            let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
+            let id = NSSortDescriptor(key: "id_", ascending: false)
+            request.sortDescriptors = [addedTime, id]
         case .myList:
             typePredicate = NSPredicate(format: "status_ == '0'")
             let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
@@ -128,6 +133,8 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         
         var predicate: NSPredicate?
         switch list {
+        case .all:
+            predicate = NSPredicate(format: "status_ != '2'")
         case .myList:
             predicate = NSPredicate(format: "status_ == '0'")
         case .favorites:

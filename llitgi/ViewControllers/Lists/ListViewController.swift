@@ -10,12 +10,14 @@ import UIKit
 import SafariServices
 
 enum TypeOfList {
+    case all
     case myList
     case favorites
     case archive
     
     var position: Int {
         switch self {
+        case .all: return 0
         case .myList: return 1
         case .favorites: return 2
         case .archive: return 3
@@ -30,7 +32,11 @@ class ListViewController: ViewController {
     
     //MARK: Private properties
     private let typeOfList: TypeOfList
-    private var typeOfListForSearch: TypeOfList
+    private var typeOfListForSearch: TypeOfList {
+        didSet {
+            self.dataSource?.typeOfList = self.typeOfListForSearch
+        }
+    }
     private let swipeActionManager: ListSwipeActionManager
     private let searchController = UISearchController(searchResultsController: nil)
     private var dataSource: ListDataSource?
@@ -241,7 +247,7 @@ extension ListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         switch selectedScope {
         case 0:
-            break
+            self.typeOfListForSearch = .all
         case 1:
             self.typeOfListForSearch = .myList
         case 2:
@@ -258,13 +264,13 @@ extension ListViewController: UISearchBarDelegate {
 extension ListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces) ?? ""
-        let notifier: CoreDataNotifier
         if searchText.isEmpty {
-            notifier = self.dataProvider.notifier(for: self.typeOfListForSearch)
+            let notifier = self.dataProvider.notifier(for: self.typeOfListForSearch)
+            self.dataSource?.establishNotifier(notifier: notifier, isSearch: false)
         } else {
-            notifier = self.dataProvider.notifier(for: self.typeOfListForSearch, filteredBy: searchText)
+            let notifier = self.dataProvider.notifier(for: self.typeOfListForSearch, filteredBy: searchText)
+            self.dataSource?.establishNotifier(notifier: notifier, isSearch: true)
         }
-        self.dataSource?.establishNotifier(notifier: notifier)
         self.tableView.reloadData()
     }
 }
