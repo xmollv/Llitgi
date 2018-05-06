@@ -49,8 +49,6 @@
 		479E18E520724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		479E18E620724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A493A6203F6E6B004051A6 /* Bundle.swift */; };
-		47B3FFDE202539C8003CB27F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B3FFDC202539C8003CB27F /* SearchViewController.swift */; };
-		47B3FFDF202539C8003CB27F /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B3FFDD202539C8003CB27F /* SearchViewController.xib */; };
 		47D40759200966BD00329544 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D40758200966BD00329544 /* Dependencies.swift */; };
 		47DE472B209A53D500770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47DE472C209A5C6E00770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
@@ -127,8 +125,6 @@
 		478F43A12038E77B003ECCAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		479E18E420724652002E3BB1 /* PocketConsumerKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PocketConsumerKey; sourceTree = "<group>"; };
 		47A493A6203F6E6B004051A6 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
-		47B3FFDC202539C8003CB27F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		47B3FFDD202539C8003CB27F /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		47D40758200966BD00329544 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		47DE472A209A53D500770884 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		47E6128A203085BA00D26472 /* llitgi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = llitgi.entitlements; sourceTree = "<group>"; };
@@ -238,15 +234,6 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		47B3FFDB202539AD003CB27F /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				47B3FFDC202539C8003CB27F /* SearchViewController.swift */,
-				47B3FFDD202539C8003CB27F /* SearchViewController.xib */,
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
 		47EEA3521FF02DDD0030BEF1 = {
 			isa = PBXGroup;
 			children = (
@@ -301,7 +288,6 @@
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 				4752C0842030F20300988A68 /* FullSync */,
 				4770ACF81FF189CD006E755D /* Lists */,
-				47B3FFDB202539AD003CB27F /* Search */,
 				474B441D2001A517009897D2 /* Settings */,
 			);
 			path = ViewControllers;
@@ -473,7 +459,6 @@
 				47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */,
 				4770AD041FF1B470006E755D /* ListCell.xib in Resources */,
 				479E18E520724653002E3BB1 /* PocketConsumerKey in Resources */,
-				47B3FFDF202539C8003CB27F /* SearchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,7 +503,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47B3FFDE202539C8003CB27F /* SearchViewController.swift in Sources */,
 				4770ACF51FF111A9006E755D /* UIView.swift in Sources */,
 				47803EA52009674D003D58E2 /* PreferencesManager.swift in Sources */,
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
