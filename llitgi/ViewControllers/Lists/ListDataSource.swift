@@ -22,7 +22,21 @@ class ListDataSource: NSObject {
         self.typeOfList = typeOfList
         super.init()
         self.tableView = tableView
-        
+        self.establishNotifier(notifier: notifier)
+    }
+    
+    //MARK:- Public methods
+    func item(at indexPath: IndexPath) -> Item? {
+        let item: Item? = self.notifier?.object(at: indexPath)
+        return item
+    }
+    
+    func numberOfItems() -> Int? {
+        return self.notifier?.numberOfObjects(on: 0)
+    }
+    
+    func establishNotifier(notifier: CoreDataNotifier) {
+        self.notifier = nil
         self.notifier = notifier.onBeginChanging({ [weak self] in
             self?.tableView?.beginUpdates()
         }).onObjectChanged({ [weak self] (change) in
@@ -40,16 +54,6 @@ class ListDataSource: NSObject {
         }).onFinishChanging({ [weak self] in
             self?.tableView?.endUpdates()
         }).startNotifying()
-    }
-    
-    //MARK:- Public methods
-    func item(at indexPath: IndexPath) -> Item? {
-        let item: Item? = self.notifier?.object(at: indexPath)
-        return item
-    }
-    
-    func numberOfItems() -> Int? {
-        return self.notifier?.numberOfObjects(on: 0)
     }
 }
 

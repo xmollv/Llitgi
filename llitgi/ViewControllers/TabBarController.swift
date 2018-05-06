@@ -33,21 +33,30 @@ class TabBarController: UITabBarController {
 
     func setupMainFlow() {
         let listViewController: ListViewController = self.factory.instantiate(for: .myList)
+        listViewController.title = L10n.Titles.myList
         listViewController.tabBarItem = UITabBarItem(title: L10n.Titles.myList, image: #imageLiteral(resourceName: "list"), tag: 1)
         
         let favoritesViewController: ListViewController = self.factory.instantiate(for: .favorites)
+        favoritesViewController.title = L10n.Titles.favorites
         favoritesViewController.tabBarItem = UITabBarItem(title: L10n.Titles.favorites, image: #imageLiteral(resourceName: "favorite"), tag: 2)
         
         let archiveViewController: ListViewController = self.factory.instantiate(for: .archive)
+        archiveViewController.title = L10n.Titles.archive
         archiveViewController.tabBarItem = UITabBarItem(title: L10n.Titles.archive, image: #imageLiteral(resourceName: "archive"), tag: 3)
         
         let settingsViewController: SettingsViewController = self.factory.instantiate()
+        settingsViewController.title = L10n.Titles.settings
         settingsViewController.tabBarItem = UITabBarItem(title: L10n.Titles.settings, image: #imageLiteral(resourceName: "settings"), tag: 4)
         
         let tabs = [listViewController, favoritesViewController, archiveViewController, settingsViewController].map({ UINavigationController(rootViewController: $0) })
+        tabs.forEach {
+            $0.navigationBar.prefersLargeTitles = true
+            $0.navigationBar.barTintColor = .white
+            $0.navigationBar.isTranslucent = false
+        }
         
-        self.setViewControllers(tabs, animated: false)
         self.tabBar.isHidden = false
+        self.setViewControllers(tabs, animated: false)
     }
 }
 

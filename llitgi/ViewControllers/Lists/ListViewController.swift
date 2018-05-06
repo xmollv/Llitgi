@@ -47,23 +47,10 @@ class ListViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.pullToRefresh),
-                                               name: .UIApplicationDidBecomeActive,
-                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: .UIApplicationDidBecomeActive, object: nil)
         self.registerForPreviewing(with: self, sourceView: self.tableView)
-        
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.searchController = self.searchController
-        self.navigationItem.hidesSearchBarWhenScrolling = false
-        self.searchController.searchBar.placeholder = L10n.General.search
-        //self.searchController.searchResultsUpdater = self
-        self.searchController.obscuresBackgroundDuringPresentation = false
-        self.searchController.searchBar.scopeButtonTitles = ["All", "My List", "Favorites", "Archive"]
-        self.searchController.searchBar.delegate = self
-        self.definesPresentationContext = true
-        
-        self.configureUI(for: self.typeOfList)
+        //self.configureUI(for: self.typeOfList)
+        self.configureSearchController()
         self.configureTableView()
         self.pullToRefresh()
     }
@@ -85,19 +72,6 @@ class ListViewController: ViewController {
     }
     
     //MARK: Private methods
-    private func configureUI(for type: TypeOfList) {
-        let title: String
-        switch type {
-        case .myList:
-            title = L10n.Titles.myList
-        case .favorites:
-            title = L10n.Titles.favorites
-        case .archive:
-            title = L10n.Titles.archive
-        }
-        self.title = title
-    }
-    
     private func configureTableView() {
         self.dataSource = ListDataSource(tableView: self.tableView,
                                          userPreferences: self.userPreferences,
@@ -113,22 +87,23 @@ class ListViewController: ViewController {
         }
     }
     
+    private func configureSearchController() {
+        self.navigationItem.searchController = self.searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        self.searchController.searchBar.placeholder = L10n.General.search
+        self.searchController.searchResultsUpdater = self
+        self.searchController.obscuresBackgroundDuringPresentation = false
+        self.searchController.searchBar.scopeButtonTitles = ["All", "My List", "Favorites", "Archive"]
+        self.searchController.searchBar.delegate = self
+        self.definesPresentationContext = true
+    }
+    
     @objc private func pullToRefresh() {
         self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess: break
             case .isFailure(let error):
-                if let pocketError = error as? PocketAPIError {
-                    switch pocketError {
-                    case .invalidRequest:
-                        guard let tabBar = strongSelf.tabBarController as? TabBarController  else { return }
-                        strongSelf.userPreferences.displayBadge(with: 0)
-                        strongSelf.dataProvider.clearLocalStorage()
-                        tabBar.setupAuthFlow()
-                    default: break
-                    }
-                }
                 Logger.log(error.localizedDescription, event: .error)
             }
             strongSelf.refreshControl.endRefreshing()
@@ -245,5 +220,19 @@ extension ListViewController: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         self.tabBarController?.tabBar.isHidden = false
+    }
+}
+
+extension ListViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchText = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces) ?? ""
+        let notifier: CoreDataNotifier
+        if searchText.isEmpty {
+            notifier = self.dataProvider.notifier(for: self.typeOfList)
+        } else {
+            notifier = self.dataProvider.notifier(for: self.typeOfList, filteredBy: searchText)
+        }
+        self.dataSource?.establishNotifier(notifier: notifier)
+        self.tableView.reloadData()
     }
 }
