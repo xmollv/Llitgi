@@ -234,14 +234,11 @@ extension ListViewController: UISearchBarDelegate {
         self.tabBarController?.tabBar.isHidden = true
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        self.tabBarController?.tabBar.isHidden = false
-    }
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         //Reset to the default state
         self.searchController.searchBar.selectedScopeButtonIndex = self.typeOfList.position
         self.typeOfListForSearch = self.typeOfList
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
