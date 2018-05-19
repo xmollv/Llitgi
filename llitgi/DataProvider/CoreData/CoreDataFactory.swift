@@ -11,8 +11,7 @@ import CoreData
 
 protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
-    func notifier(for: TypeOfList) -> CoreDataNotifier
-    func search(_: String) -> [CoreDataItem]
+    func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier
     func hasItem(identifiedBy id: String) -> CoreDataItem?
     func deleteAllModels()
     func numberOfItems(on: TypeOfList) -> Int
@@ -56,50 +55,50 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         return objects
     }
     
-    func notifier(for type: TypeOfList) -> CoreDataNotifier {
+    func notifier(for type: TypeOfList, matching query: String?) -> CoreDataNotifier {
         let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
         
-        var predicate: NSPredicate?
+        // Store the predicates to be able to create an NSCompoundPredicate at the end
+        var predicates: [NSPredicate] = []
+        
+        if let query = query {
+            // We use this for the search. Otherwise, the FRC returns every item matching the type
+            let searchPredicate = NSPredicate(format: "(title_ CONTAINS[c] %@ OR url_ CONTAINS[c] %@) AND status_ != '2'", query, query)
+            predicates.append(searchPredicate)
+        }
+        
+        let typePredicate: NSPredicate
         switch type {
+        case .all:
+            typePredicate = NSPredicate(format: "status_ != '2'")
+            let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
+            let id = NSSortDescriptor(key: "id_", ascending: false)
+            request.sortDescriptors = [addedTime, id]
         case .myList:
-            predicate = NSPredicate(format: "status_ == '0'")
+            typePredicate = NSPredicate(format: "status_ == '0'")
             let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
             let id = NSSortDescriptor(key: "id_", ascending: false)
             request.sortDescriptors = [addedTime, id]
         case .favorites:
-            predicate = NSPredicate(format: "isFavorite_ == true")
+            typePredicate = NSPredicate(format: "isFavorite_ == true")
             let timeUpdated = NSSortDescriptor(key: "timeUpdated_", ascending: false)
             let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
             request.sortDescriptors = [timeUpdated, addedTime]
         case .archive:
-            predicate = NSPredicate(format: "status_ == '1'")
+            typePredicate = NSPredicate(format: "status_ == '1'")
             let timeUpdated = NSSortDescriptor(key: "timeUpdated_", ascending: false)
             let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
             request.sortDescriptors = [timeUpdated, addedTime]
         }
-        request.predicate = predicate
+        predicates.append(typePredicate)
+        
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates.compactMap { $0 })
         
         let frc = NSFetchedResultsController(fetchRequest: request,
                                              managedObjectContext: self.mainThreadContext,
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
         return CoreDataNotifier(fetchResultController: frc)
-    }
-    
-    func search(_ text: String) -> [CoreDataItem] {
-        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        request.predicate = NSPredicate(format: "(title_ CONTAINS[c] %@ OR url_ CONTAINS[c] %@) AND status_ != '2'", text, text)
-        request.sortDescriptors = [NSSortDescriptor(key: "timeAdded_", ascending: false, selector: #selector(NSString.caseInsensitiveCompare(_:)))]
-        
-        var results: [CoreDataItem] = []
-        self.backgroundContext.performAndWait {
-            do {
-                results = try self.backgroundContext.fetch(request)
-            } catch {
-                Logger.log(error.localizedDescription, event: .error)
-            }
-        }
-        return results
     }
     
     func hasItem(identifiedBy id: String) -> CoreDataItem?  {
@@ -134,6 +133,8 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         
         var predicate: NSPredicate?
         switch list {
+        case .all:
+            predicate = NSPredicate(format: "status_ != '2'")
         case .myList:
             predicate = NSPredicate(format: "status_ == '0'")
         case .favorites:

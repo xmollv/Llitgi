@@ -24,6 +24,7 @@ enum L10n {
     }
     
     enum Titles {
+        static let all = NSLocalizedString("all", comment: "")
         static let myList = NSLocalizedString("my_list", comment: "")
         static let favorites = NSLocalizedString("favorites", comment: "")
         static let archive = NSLocalizedString("archive", comment: "")
@@ -46,6 +47,8 @@ enum L10n {
     }
     
     enum ListEmptyStates {
+        static let allTitle = NSLocalizedString("no_results_all_title", comment: "")
+        static let allSubtitle = NSLocalizedString("no_results_all_subtitle", comment: "")
         static let myListTitle = NSLocalizedString("no_results_myList_title", comment: "")
         static let myListSubtitle = NSLocalizedString("no_results_myList_subtitle", comment: "")
         static let favoritesTitle = NSLocalizedString("no_results", comment: "")

@@ -13,8 +13,11 @@ class ListDataSource: NSObject {
     //MARK:- Private properties
     weak private var tableView: UITableView?
     private let userPreferences: PreferencesManager
-    private let typeOfList: TypeOfList
     private var notifier: CoreDataNotifier?
+    
+    //MARK:- Public properties
+    var typeOfList: TypeOfList
+    var isSearch: Bool = false
     
     //MARK:- Lifecycle
     init(tableView: UITableView, userPreferences: PreferencesManager, typeOfList: TypeOfList, notifier: CoreDataNotifier) {
@@ -22,7 +25,22 @@ class ListDataSource: NSObject {
         self.typeOfList = typeOfList
         super.init()
         self.tableView = tableView
-        
+        self.establishNotifier(notifier: notifier, isSearch: false)
+    }
+    
+    //MARK:- Public methods
+    func item(at indexPath: IndexPath) -> Item? {
+        let item: Item? = self.notifier?.object(at: indexPath)
+        return item
+    }
+    
+    func numberOfItems() -> Int? {
+        return self.notifier?.numberOfObjects(on: 0)
+    }
+    
+    func establishNotifier(notifier: CoreDataNotifier, isSearch: Bool) {
+        self.isSearch = isSearch
+        self.notifier = nil
         self.notifier = notifier.onBeginChanging({ [weak self] in
             self?.tableView?.beginUpdates()
         }).onObjectChanged({ [weak self] (change) in
@@ -41,16 +59,6 @@ class ListDataSource: NSObject {
             self?.tableView?.endUpdates()
         }).startNotifying()
     }
-    
-    //MARK:- Public methods
-    func item(at indexPath: IndexPath) -> Item? {
-        let item: Item? = self.notifier?.object(at: indexPath)
-        return item
-    }
-    
-    func numberOfItems() -> Int? {
-        return self.notifier?.numberOfObjects(on: 0)
-    }
 }
 
 //MARK:- UITableViewDataSource
@@ -63,16 +71,25 @@ extension ListDataSource: UITableViewDataSource {
         if numberOfElements == 0 {
             let title: String
             let subtitle: String
-            switch self.typeOfList {
-            case .myList:
-                title = L10n.ListEmptyStates.myListTitle
-                subtitle = L10n.ListEmptyStates.myListSubtitle
-            case .favorites:
-                title = L10n.ListEmptyStates.favoritesTitle
-                subtitle = L10n.ListEmptyStates.favoritesSubtitle
-            case .archive:
-                title = L10n.ListEmptyStates.archiveTitle
-                subtitle = L10n.ListEmptyStates.archiveSubtitle
+            
+            if self.isSearch {
+                title = L10n.ListEmptyStates.searchTitle
+                subtitle = L10n.ListEmptyStates.searchSubtitle
+            } else {
+                switch self.typeOfList {
+                case .all:
+                    title = L10n.ListEmptyStates.allTitle
+                    subtitle = L10n.ListEmptyStates.allSubtitle
+                case .myList:
+                    title = L10n.ListEmptyStates.myListTitle
+                    subtitle = L10n.ListEmptyStates.myListSubtitle
+                case .favorites:
+                    title = L10n.ListEmptyStates.favoritesTitle
+                    subtitle = L10n.ListEmptyStates.favoritesSubtitle
+                case .archive:
+                    title = L10n.ListEmptyStates.archiveTitle
+                    subtitle = L10n.ListEmptyStates.archiveSubtitle
+                }
             }
             tableView.establishEmptyState(title: title, subtitle: subtitle)
         } else {

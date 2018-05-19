@@ -36,26 +36,24 @@
 		4770ACF51FF111A9006E755D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF41FF111A9006E755D /* UIView.swift */; };
 		4770ACF71FF17AFD006E755D /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF61FF17AFD006E755D /* Notification.swift */; };
 		4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF91FF18AF7006E755D /* ListViewController.swift */; };
-		4770ACFC1FF18AF7006E755D /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770ACFA1FF18AF7006E755D /* ListViewController.xib */; };
 		4770ACFE1FF1B108006E755D /* ListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFD1FF1B108006E755D /* ListDataSource.swift */; };
 		4770AD001FF1B3B8006E755D /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
 		4770AD031FF1B470006E755D /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770AD011FF1B470006E755D /* ListCell.swift */; };
 		4770AD041FF1B470006E755D /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770AD021FF1B470006E755D /* ListCell.xib */; };
 		47803EA52009674D003D58E2 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47803EA42009674D003D58E2 /* PreferencesManager.swift */; };
 		478F43832037078C003ECCAD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F43822037078C003ECCAD /* TabBarController.swift */; };
-		478F43852038B24E003ECCAD /* UITableView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F43842038B24E003ECCAD /* UITableView + Extensions.swift */; };
+		478F43852038B24E003ECCAD /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F43842038B24E003ECCAD /* UITableView.swift */; };
 		478F43992038E52D003ECCAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 478F439C2038E52D003ECCAD /* Localizable.strings */; };
 		478F439A2038E52D003ECCAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 478F439C2038E52D003ECCAD /* Localizable.strings */; };
 		479E18E520724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		479E18E620724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A493A6203F6E6B004051A6 /* Bundle.swift */; };
-		47B3FFDE202539C8003CB27F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B3FFDC202539C8003CB27F /* SearchViewController.swift */; };
-		47B3FFDF202539C8003CB27F /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47B3FFDD202539C8003CB27F /* SearchViewController.xib */; };
 		47D40759200966BD00329544 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D40758200966BD00329544 /* Dependencies.swift */; };
+		47DB058020B009BE001485DF /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DB057E20B009BE001485DF /* ListViewController.xib */; };
+		47DB058220B067DB001485DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47DB058120B067DB001485DF /* Assets.xcassets */; };
 		47DE472B209A53D500770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47DE472C209A5C6E00770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */; };
-		47EEA3681FF02DDD0030BEF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */; };
 		47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */; };
 		47EEA37A1FF034FD0030BEF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3791FF034FD0030BEF1 /* ViewController.swift */; };
 		47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */; };
@@ -115,27 +113,25 @@
 		4770ACF41FF111A9006E755D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		4770ACF61FF17AFD006E755D /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		4770ACF91FF18AF7006E755D /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		4770ACFA1FF18AF7006E755D /* ListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
 		4770ACFD1FF1B108006E755D /* ListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDataSource.swift; sourceTree = "<group>"; };
 		4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCells.swift; sourceTree = "<group>"; };
 		4770AD011FF1B470006E755D /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		4770AD021FF1B470006E755D /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
 		47803EA42009674D003D58E2 /* PreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesManager.swift; sourceTree = "<group>"; };
 		478F43822037078C003ECCAD /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		478F43842038B24E003ECCAD /* UITableView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Extensions.swift"; sourceTree = "<group>"; };
+		478F43842038B24E003ECCAD /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		478F43A02038E5A8003ECCAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		478F43A12038E77B003ECCAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		479E18E420724652002E3BB1 /* PocketConsumerKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PocketConsumerKey; sourceTree = "<group>"; };
 		47A493A6203F6E6B004051A6 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
-		47B3FFDC202539C8003CB27F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		47B3FFDD202539C8003CB27F /* SearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		47D40758200966BD00329544 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
+		47DB057E20B009BE001485DF /* ListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
+		47DB058120B067DB001485DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47DE472A209A53D500770884 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		47E6128A203085BA00D26472 /* llitgi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = llitgi.entitlements; sourceTree = "<group>"; };
 		47E6128B203085DB00D26472 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		47EEA35B1FF02DDD0030BEF1 /* llitgi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = llitgi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47EEA36A1FF02DDD0030BEF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47EEA36C1FF02DDD0030BEF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47EEA3791FF034FD0030BEF1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -221,7 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				4770ACF91FF18AF7006E755D /* ListViewController.swift */,
-				4770ACFA1FF18AF7006E755D /* ListViewController.xib */,
+				47DB057E20B009BE001485DF /* ListViewController.xib */,
 				4770ACFD1FF1B108006E755D /* ListDataSource.swift */,
 				4770AD011FF1B470006E755D /* ListCell.swift */,
 				4770AD021FF1B470006E755D /* ListCell.xib */,
@@ -236,15 +232,6 @@
 				4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */,
 			);
 			path = Managers;
-			sourceTree = "<group>";
-		};
-		47B3FFDB202539AD003CB27F /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				47B3FFDC202539C8003CB27F /* SearchViewController.swift */,
-				47B3FFDD202539C8003CB27F /* SearchViewController.xib */,
-			);
-			path = Search;
 			sourceTree = "<group>";
 		};
 		47EEA3521FF02DDD0030BEF1 = {
@@ -282,7 +269,7 @@
 		47EEA3721FF02F750030BEF1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				47EEA3671FF02DDD0030BEF1 /* Assets.xcassets */,
+				47DB058120B067DB001485DF /* Assets.xcassets */,
 				478F439C2038E52D003ECCAD /* Localizable.strings */,
 				47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */,
 				47EEA36C1FF02DDD0030BEF1 /* Info.plist */,
@@ -301,7 +288,6 @@
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 				4752C0842030F20300988A68 /* FullSync */,
 				4770ACF81FF189CD006E755D /* Lists */,
-				47B3FFDB202539AD003CB27F /* Search */,
 				474B441D2001A517009897D2 /* Settings */,
 			);
 			path = ViewControllers;
@@ -350,7 +336,7 @@
 				4770ACF61FF17AFD006E755D /* Notification.swift */,
 				4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */,
 				4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */,
-				478F43842038B24E003ECCAD /* UITableView + Extensions.swift */,
+				478F43842038B24E003ECCAD /* UITableView.swift */,
 				47A493A6203F6E6B004051A6 /* Bundle.swift */,
 			);
 			path = "Extensions & Helpers";
@@ -465,15 +451,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */,
+				47DB058020B009BE001485DF /* ListViewController.xib in Resources */,
 				474B44212001A52D009897D2 /* SettingsViewController.xib in Resources */,
 				4752C0882030F22300988A68 /* FullSyncViewController.xib in Resources */,
-				47EEA3681FF02DDD0030BEF1 /* Assets.xcassets in Resources */,
 				478F43992038E52D003ECCAD /* Localizable.strings in Resources */,
-				4770ACFC1FF18AF7006E755D /* ListViewController.xib in Resources */,
 				47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */,
 				4770AD041FF1B470006E755D /* ListCell.xib in Resources */,
+				47DB058220B067DB001485DF /* Assets.xcassets in Resources */,
 				479E18E520724653002E3BB1 /* PocketConsumerKey in Resources */,
-				47B3FFDF202539C8003CB27F /* SearchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,7 +503,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47B3FFDE202539C8003CB27F /* SearchViewController.swift in Sources */,
 				4770ACF51FF111A9006E755D /* UIView.swift in Sources */,
 				47803EA52009674D003D58E2 /* PreferencesManager.swift in Sources */,
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
@@ -550,7 +534,7 @@
 				4770AD031FF1B470006E755D /* ListCell.swift in Sources */,
 				47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */,
 				474B44202001A52D009897D2 /* SettingsViewController.swift in Sources */,
-				478F43852038B24E003ECCAD /* UITableView + Extensions.swift in Sources */,
+				478F43852038B24E003ECCAD /* UITableView.swift in Sources */,
 				4770AD001FF1B3B8006E755D /* ReusableCells.swift in Sources */,
 				47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */,
 			);
