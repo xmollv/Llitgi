@@ -118,26 +118,25 @@ class ListViewController: UITableViewController {
     }
     
     private func configureSearchController() {
-        self.searchController.searchBar.placeholder = L10n.General.search
         self.searchController.searchResultsUpdater = self
         self.searchController.obscuresBackgroundDuringPresentation = false
+        self.searchController.searchBar.placeholder = L10n.General.search
         self.searchController.searchBar.scopeButtonTitles = [L10n.Titles.all, L10n.Titles.myList, L10n.Titles.favorites, L10n.Titles.archive]
         self.searchController.searchBar.selectedScopeButtonIndex = self.typeOfList.position
         self.searchController.searchBar.delegate = self
+        self.definesPresentationContext = true
         self.navigationItem.searchController = self.searchController
         self.navigationItem.hidesSearchBarWhenScrolling = false
-        self.definesPresentationContext = true
     }
     
     @objc private func pullToRefresh() {
         self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
-            guard let strongSelf = self else { return }
             switch result {
             case .isSuccess: break
             case .isFailure(let error):
                 Logger.log(error.localizedDescription, event: .error)
             }
-            strongSelf.refreshControl?.endRefreshing()
+            self?.refreshControl?.endRefreshing()
         }
     }
     
