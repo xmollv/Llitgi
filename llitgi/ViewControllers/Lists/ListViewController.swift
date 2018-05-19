@@ -100,7 +100,7 @@ class ListViewController: UITableViewController {
         loading.startAnimating()
         self.loadingButton = UIBarButtonItem(customView: loading)
         self.navigationItem.rightBarButtonItem = self.addButton
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(self.displaySettings(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), landscapeImagePhone: #imageLiteral(resourceName: "settings_landscape"), style: .plain, target: self, action: #selector(self.displaySettings(_:)))
     }
     
     private func configureTableView() {
