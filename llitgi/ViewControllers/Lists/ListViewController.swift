@@ -25,24 +25,23 @@ enum TypeOfList {
     }
 }
 
-class ListViewController: ViewController {
-
-    //MARK:- IBOutlets
-    @IBOutlet private var tableView: UITableView!
+class ListViewController: UITableViewController {
     
     //MARK: Private properties
+    private let factory: ViewControllerFactory
+    private let dataProvider: DataProvider
+    private let userPreferences: PreferencesManager
     private let typeOfList: TypeOfList
+    private let swipeActionManager: ListSwipeActionManager
+    private let searchController = UISearchController(searchResultsController: nil)
+    private var dataSource: ListDataSource?
     private var typeOfListForSearch: TypeOfList {
         didSet {
             self.dataSource?.typeOfList = self.typeOfListForSearch
         }
     }
-    private let swipeActionManager: ListSwipeActionManager
-    private let searchController = UISearchController(searchResultsController: nil)
-    private var dataSource: ListDataSource?
-    private var cellHeights: [IndexPath : CGFloat] = [:]
     
-    private lazy var refreshControl: UIRefreshControl = {
+    private lazy var customRefreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
         return refreshControl
@@ -50,19 +49,23 @@ class ListViewController: ViewController {
     
     //MARK:- Lifecycle
     required init(factory: ViewControllerFactory, dependencies: Dependencies, type: TypeOfList) {
+        self.factory = factory
+        self.dataProvider = dependencies.dataProvider
+        self.userPreferences = dependencies.userPreferences
         self.typeOfList = type
         self.typeOfListForSearch = type
         self.swipeActionManager = ListSwipeActionManager(dataProvider: dependencies.dataProvider)
-        super.init(factory: factory, dependencies: dependencies)
+        super.init(nibName: String(describing: ListViewController.self), bundle: nil)
     }
     
     @available(*, unavailable)
-    required init(factory: ViewControllerFactory, dependencies: Dependencies) {
-        fatalError("init(factory:dataProvider:) has not been implemented")
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.extendedLayoutIncludesOpaqueBars = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: .UIApplicationDidBecomeActive, object: nil)
         self.registerForPreviewing(with: self, sourceView: self.tableView)
         self.configureSearchController()
@@ -96,7 +99,7 @@ class ListViewController: ViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self.dataSource
         self.tableView.tableFooterView = UIView()
-        self.tableView.refreshControl = self.refreshControl
+        self.refreshControl = self.customRefreshControl
         if self.typeOfList == .myList {
             self.userPreferences.badgeDelegate = self
         }
@@ -122,7 +125,7 @@ class ListViewController: ViewController {
             case .isFailure(let error):
                 Logger.log(error.localizedDescription, event: .error)
             }
-            strongSelf.refreshControl.endRefreshing()
+            strongSelf.refreshControl?.endRefreshing()
         }
     }
     
@@ -175,17 +178,8 @@ class ListViewController: ViewController {
 }
 
 //MARK:- UITableViewDelegate
-extension ListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        self.cellHeights[indexPath] = cell.frame.size.height
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let height = self.cellHeights[indexPath] else { return UITableViewAutomaticDimension }
-        return height
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension ListViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch self.userPreferences.openLinksWith {
         case .safariViewController:
             guard let sfs = self.safariViewController(at: indexPath) else { return }
@@ -196,13 +190,13 @@ extension ListViewController: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let item = self.dataSource?.item(at: indexPath) else { return nil }
         let actions = self.swipeActionManager.buildLeadingActions(for: item)
         return UISwipeActionsConfiguration(actions: actions)
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let item = self.dataSource?.item(at: indexPath) else { return nil }
         let actions = self.swipeActionManager.buildTrailingActions(for: item)
         return UISwipeActionsConfiguration(actions: actions)

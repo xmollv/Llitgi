@@ -53,9 +53,11 @@ class TabBarController: UITabBarController {
             $0.navigationBar.prefersLargeTitles = true
             $0.navigationBar.barTintColor = .white
             $0.navigationBar.isTranslucent = false
+            $0.navigationBar.isOpaque = true
         }
         
         self.tabBar.isHidden = false
+        self.tabBar.barTintColor = .white
         self.setViewControllers(tabs, animated: false)
     }
 }
