@@ -181,6 +181,14 @@ class ListViewController: UITableViewController {
     
     @IBAction private func displaySettings(_ sender: UIBarButtonItem) {
         let settingsViewController: SettingsViewController = self.factory.instantiate()
+        //TODO: This is an extremely ugly hack, but I'm too tired rn
+        settingsViewController.logoutBlock = { [weak self] in
+            guard let strongSelf = self else { return }
+            guard let tabBar = strongSelf.tabBarController as? TabBarController  else { return }
+            strongSelf.userPreferences.displayBadge(with: 0)
+            strongSelf.dataProvider.clearLocalStorage()
+            tabBar.setupAuthFlow()
+        }
         let navController = UINavigationController(rootViewController: settingsViewController)
         navController.navigationBar.barTintColor = .white
         navController.navigationBar.isTranslucent = false

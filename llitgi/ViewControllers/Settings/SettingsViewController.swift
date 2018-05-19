@@ -30,6 +30,9 @@ class SettingsViewController: ViewController {
     @IBOutlet private var emailButton: UIButton!
     @IBOutlet private var buildLabel: UILabel!
     
+    //MARK: Public properties
+    var logoutBlock: (() -> ())? = nil
+    
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,10 +92,8 @@ class SettingsViewController: ViewController {
     }
     
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
-        guard let tabBar = self.tabBarController as? TabBarController  else { return }
-        self.userPreferences.displayBadge(with: 0)
-        self.dataProvider.clearLocalStorage()
-        tabBar.setupAuthFlow()
+        self.logoutBlock?()
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func twitterButtonTapped(_ sender: UIButton) {
