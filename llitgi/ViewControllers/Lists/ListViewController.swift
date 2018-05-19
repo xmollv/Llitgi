@@ -34,6 +34,8 @@ class ListViewController: UITableViewController {
     private let typeOfList: TypeOfList
     private let swipeActionManager: ListSwipeActionManager
     private let searchController = UISearchController(searchResultsController: nil)
+    private var addButton: UIBarButtonItem? = nil
+    private var loadingButton: UIBarButtonItem? = nil
     private var dataSource: ListDataSource?
     private var typeOfListForSearch: TypeOfList {
         didSet {
@@ -68,6 +70,7 @@ class ListViewController: UITableViewController {
         self.extendedLayoutIncludesOpaqueBars = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: .UIApplicationDidBecomeActive, object: nil)
         self.registerForPreviewing(with: self, sourceView: self.tableView)
+        self.configureNavigationItems()
         self.configureSearchController()
         self.configureTableView()
         self.pullToRefresh()
@@ -90,6 +93,15 @@ class ListViewController: UITableViewController {
     }
     
     //MARK: Private methods
+    private func configureNavigationItems() {
+        self.addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButtonTapped(_:)))
+        let loading = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        loading.tintColor = .black
+        loading.startAnimating()
+        self.loadingButton = UIBarButtonItem(customView: loading)
+        self.navigationItem.rightBarButtonItem = self.addButton
+    }
+    
     private func configureTableView() {
         self.dataSource = ListDataSource(tableView: self.tableView,
                                          userPreferences: self.userPreferences,
@@ -139,40 +151,32 @@ class ListViewController: UITableViewController {
     }
     
     @IBAction private func addButtonTapped(_ sender: UIButton) {
-//        sender.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
-//        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, animations: {
-//            sender.transform = .identity
-//        }, completion: nil)
-//
-//        self.activityIndicator.isHidden = false
-//        self.addButton.isHidden = true
-//        guard let url = UIPasteboard.general.url else {
-//            self.activityIndicator.isHidden = true
-//            self.addButton.isHidden = false
-//
-//            let errorTitle = L10n.General.errorTitle
-//            let errorMessage = L10n.Add.invalidPasteboard
-//
-//            let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
-//            let dimissTitle = L10n.General.dismiss
-//            errorAlert.addAction(UIAlertAction(title: dimissTitle, style: .default) { [weak self] (action) in
-//                self?.dismiss(animated: true, completion: nil)
-//            })
-//            self.present(errorAlert, animated: true, completion: nil)
-//            return
-//        }
-//
-//        self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] (result: EmptyResult) in
-//            guard let strongSelf = self else { return }
-//            strongSelf.activityIndicator.isHidden = true
-//            strongSelf.addButton.isHidden = false
-//            switch result {
-//            case .isSuccess:
-//                strongSelf.pullToRefresh()
-//            case .isFailure(let error):
-//                Logger.log(error.localizedDescription, event: .error)
-//            }
-//        }
+        self.navigationItem.rightBarButtonItem = self.loadingButton
+        guard let url = UIPasteboard.general.url else {
+            self.navigationItem.rightBarButtonItem = self.addButton
+
+            let errorTitle = L10n.General.errorTitle
+            let errorMessage = L10n.Add.invalidPasteboard
+
+            let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+            let dimissTitle = L10n.General.dismiss
+            errorAlert.addAction(UIAlertAction(title: dimissTitle, style: .default) { [weak self] (action) in
+                self?.dismiss(animated: true, completion: nil)
+            })
+            self.present(errorAlert, animated: true, completion: nil)
+            return
+        }
+
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] (result: EmptyResult) in
+            guard let strongSelf = self else { return }
+            strongSelf.navigationItem.rightBarButtonItem = strongSelf.addButton
+            switch result {
+            case .isSuccess:
+                strongSelf.pullToRefresh()
+            case .isFailure(let error):
+                Logger.log(error.localizedDescription, event: .error)
+            }
+        }
     }
 
 }
