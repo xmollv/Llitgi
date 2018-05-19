@@ -11,8 +11,6 @@ import UIKit
 class SettingsViewController: ViewController {
 
     //MARK:- IBOutlets
-    @IBOutlet private var titleLabel: UILabel!
-
     @IBOutlet private var badgeCountLabel: UILabel!
     @IBOutlet private var badgeCountExplanationLabel: UILabel!
     @IBOutlet private var badgeCountSwitch: UISwitch!
@@ -35,7 +33,7 @@ class SettingsViewController: ViewController {
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.done(_:)))
         self.setupLocalizedStrings()
         self.badgeCount(isEnabled: self.userPreferences.userHasEnabledNotifications)
         self.safariOpenerValue(opener: self.userPreferences.openLinksWith)
@@ -43,6 +41,10 @@ class SettingsViewController: ViewController {
     }
     
     //MARK:- IBActions
+    @IBAction private func done(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     private func badgeCount(isEnabled: Bool) {
         switch isEnabled {
         case true:
@@ -105,7 +107,7 @@ class SettingsViewController: ViewController {
     
     //MARK:- Private methods
     private func setupLocalizedStrings() {
-        self.titleLabel.text = L10n.Titles.settings
+        self.title = L10n.Titles.settings
         self.badgeCountLabel.text = L10n.Settings.badgeCountTitle
         self.badgeCountExplanationLabel.text = L10n.Settings.badgeCountExplanation
         self.safariOpenerLabel.text = L10n.Settings.safariOpenerTitle

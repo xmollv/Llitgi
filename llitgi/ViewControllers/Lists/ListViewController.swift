@@ -100,6 +100,7 @@ class ListViewController: UITableViewController {
         loading.startAnimating()
         self.loadingButton = UIBarButtonItem(customView: loading)
         self.navigationItem.rightBarButtonItem = self.addButton
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(self.displaySettings(_:)))
     }
     
     private func configureTableView() {
@@ -176,6 +177,15 @@ class ListViewController: UITableViewController {
                 Logger.log(error.localizedDescription, event: .error)
             }
         }
+    }
+    
+    @IBAction private func displaySettings(_ sender: UIBarButtonItem) {
+        let settingsViewController: SettingsViewController = self.factory.instantiate()
+        let navController = UINavigationController(rootViewController: settingsViewController)
+        navController.navigationBar.barTintColor = .white
+        navController.navigationBar.isTranslucent = false
+        navController.navigationBar.isOpaque = true
+        self.present(navController, animated: true, completion: nil)
     }
 
 }
