@@ -107,7 +107,7 @@ class SettingsViewController: ViewController {
     }
     
     @IBAction func emailButtonTapped(_ sender: UIButton) {
-        guard let url = URL(string: "mailto:xmollv@gmail.com") else { return }
+        guard let url = URL(string: "mailto:xmollv@gmail.com?subject=[Llitgi]") else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
