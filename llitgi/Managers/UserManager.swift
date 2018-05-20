@@ -19,19 +19,28 @@ protocol BadgeDelegate: class {
     func displayBadgeEnabled()
 }
 
-protocol PreferencesManager: class {
+protocol UserManager: class {
+    var isLoggedIn: Bool { get }
     var openLinksWith: SafariOpener { get set }
     var openReaderMode: Bool { get set }
-    
     var badgeDelegate: BadgeDelegate? { get set }
     var userHasEnabledNotifications: Bool { get }
+    
     func enableBadge(shouldEnable: Bool, then: @escaping (Bool)->())
     func displayBadge(with: Int)
 }
 
-class UserPreferencesManager: PreferencesManager {
+class UserPreferencesManager: UserManager {
     
     //MARK: Public properties
+    var isLoggedIn: Bool {
+        if let _ = LlitgiUserDefaults.shared.string(forKey: kAccesToken) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     weak var badgeDelegate: BadgeDelegate? = nil
     
     var userHasEnabledNotifications: Bool {

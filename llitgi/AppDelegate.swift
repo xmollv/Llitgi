@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private let window = UIWindow(frame: UIScreen.main.bounds)
     private let dataProvider = DataProvider(pocketAPI: PocketAPIManager(), modelFactory: CoreDataFactoryImplementation())
-    private let userManager: PreferencesManager = UserPreferencesManager()
+    private let userManager: UserManager = UserPreferencesManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let viewControllerFactory = ViewControllerFactory(dataProvider: self.dataProvider, userManager: self.userManager)
         
         let rootViewController = TabBarController(factory: viewControllerFactory)
-        if let _ = LlitgiUserDefaults.shared.string(forKey: kAccesToken) {
+        if self.userManager.isLoggedIn {
             rootViewController.setupMainFlow()
         } else {
             rootViewController.setupAuthFlow()
@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // The user is not logged in, there's no point in trying to sync anything
-        guard let _ = LlitgiUserDefaults.shared.string(forKey: kAccesToken) else {
+        guard !self.userManager.isLoggedIn else {
             completionHandler(.noData)
             return
         }

@@ -40,7 +40,7 @@
 		4770AD001FF1B3B8006E755D /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
 		4770AD031FF1B470006E755D /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770AD011FF1B470006E755D /* ListCell.swift */; };
 		4770AD041FF1B470006E755D /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770AD021FF1B470006E755D /* ListCell.xib */; };
-		47803EA52009674D003D58E2 /* PreferencesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47803EA42009674D003D58E2 /* PreferencesManager.swift */; };
+		47803EA52009674D003D58E2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47803EA42009674D003D58E2 /* UserManager.swift */; };
 		478F43832037078C003ECCAD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F43822037078C003ECCAD /* TabBarController.swift */; };
 		478F43852038B24E003ECCAD /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F43842038B24E003ECCAD /* UITableView.swift */; };
 		478F43992038E52D003ECCAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 478F439C2038E52D003ECCAD /* Localizable.strings */; };
@@ -115,7 +115,7 @@
 		4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCells.swift; sourceTree = "<group>"; };
 		4770AD011FF1B470006E755D /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		4770AD021FF1B470006E755D /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
-		47803EA42009674D003D58E2 /* PreferencesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesManager.swift; sourceTree = "<group>"; };
+		47803EA42009674D003D58E2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		478F43822037078C003ECCAD /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		478F43842038B24E003ECCAD /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		478F43A02038E5A8003ECCAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 		47803EA320096727003D58E2 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				47803EA42009674D003D58E2 /* PreferencesManager.swift */,
+				47803EA42009674D003D58E2 /* UserManager.swift */,
 				4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */,
 			);
 			path = Managers;
@@ -498,7 +498,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4770ACF51FF111A9006E755D /* UIView.swift in Sources */,
-				47803EA52009674D003D58E2 /* PreferencesManager.swift in Sources */,
+				47803EA52009674D003D58E2 /* UserManager.swift in Sources */,
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
 				47DE472B209A53D500770884 /* L10n.swift in Sources */,
 				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,

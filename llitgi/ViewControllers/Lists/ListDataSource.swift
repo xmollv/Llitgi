@@ -12,7 +12,7 @@ class ListDataSource: NSObject {
     
     //MARK:- Private properties
     weak private var tableView: UITableView?
-    private let userPreferences: PreferencesManager
+    private let userPreferences: UserManager
     private var notifier: CoreDataNotifier?
     
     //MARK:- Public properties
@@ -20,7 +20,7 @@ class ListDataSource: NSObject {
     var isSearch: Bool = false
     
     //MARK:- Lifecycle
-    init(tableView: UITableView, userPreferences: PreferencesManager, typeOfList: TypeOfList, notifier: CoreDataNotifier) {
+    init(tableView: UITableView, userPreferences: UserManager, typeOfList: TypeOfList, notifier: CoreDataNotifier) {
         self.userPreferences = userPreferences
         self.typeOfList = typeOfList
         super.init()

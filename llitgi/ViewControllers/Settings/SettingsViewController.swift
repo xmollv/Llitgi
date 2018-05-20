@@ -31,13 +31,13 @@ class SettingsViewController: UIViewController {
     @IBOutlet private var buildLabel: UILabel!
     
     //MARK: Private properties
-    private let userManager: PreferencesManager
+    private let userManager: UserManager
     
     //MARK: Public properties
     var logoutBlock: (() -> ())? = nil
     
     //MARK:- Lifecycle
-    init(userManager: PreferencesManager) {
+    init(userManager: UserManager) {
         self.userManager = userManager
         super.init(nibName: String(describing: SettingsViewController.self), bundle: nil)
     }

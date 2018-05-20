@@ -30,7 +30,7 @@ class ListViewController: UITableViewController {
     //MARK: Private properties
     private let factory: ViewControllerFactory
     private let dataProvider: DataProvider
-    private let userManager: PreferencesManager
+    private let userManager: UserManager
     private let typeOfList: TypeOfList
     private let swipeActionManager: ListSwipeActionManager
     private let searchController = UISearchController(searchResultsController: nil)
@@ -50,7 +50,7 @@ class ListViewController: UITableViewController {
     }()
     
     //MARK:- Lifecycle
-    required init(dataProvider: DataProvider, factory: ViewControllerFactory, userManager: PreferencesManager, type: TypeOfList) {
+    required init(dataProvider: DataProvider, factory: ViewControllerFactory, userManager: UserManager, type: TypeOfList) {
         self.factory = factory
         self.dataProvider = dataProvider
         self.userManager = userManager

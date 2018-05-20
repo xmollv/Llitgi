@@ -13,10 +13,10 @@ final class ViewControllerFactory {
     
     //MARK: Private properties
     private let dataProvider: DataProvider
-    private let userManager: PreferencesManager
+    private let userManager: UserManager
     
     //MARK: Lifecycle
-    init(dataProvider: DataProvider, userManager: PreferencesManager) {
+    init(dataProvider: DataProvider, userManager: UserManager) {
         self.dataProvider = dataProvider
         self.userManager = userManager
     }
