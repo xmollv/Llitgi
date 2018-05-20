@@ -31,8 +31,8 @@ final class DataProvider {
     }
     
     //MARK: Public methods
-    func notifier(for type: TypeOfList) -> CoreDataNotifier {
-        return self.modelFactory.notifier(for: type)
+    func notifier(for type: TypeOfList, filteredBy query: String? = nil) -> CoreDataNotifier {
+        return self.modelFactory.notifier(for: type, matching: query)
     }
     
     /// Performs a network request based on the endpoint, and builds the objects that the API returned
@@ -128,10 +128,6 @@ final class DataProvider {
     
     func updatePocket(token: String) {
         self.pocketAPI.updatePocket(token: token)
-    }
-    
-    func search(_ text: String) -> [Item] {
-        return self.modelFactory.search(text)
     }
     
     func numberOfItems(on list: TypeOfList) -> Int {

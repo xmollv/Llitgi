@@ -12,20 +12,29 @@ import UIKit
 final class ViewControllerFactory {
     
     //MARK: Private properties
-    private let dependecies: Dependencies
+    private let dataProvider: DataProvider
+    private let userManager: UserManager
     
     //MARK: Lifecycle
-    init(dependencies: Dependencies) {
-        self.dependecies = dependencies
+    init(dataProvider: DataProvider, userManager: UserManager) {
+        self.dataProvider = dataProvider
+        self.userManager = userManager
     }
     
     //MARK: Public methods
-    func instantiate<T: ViewController>() -> T {
-        let viewController = T(factory: self, dependencies: self.dependecies)
-        return viewController
+    func instantiateAuth() -> AuthorizationViewController {
+        return AuthorizationViewController(dataProvider: self.dataProvider, factory: self)
     }
     
-    func instantiate(for type: TypeOfList) -> ListViewController {
-        return ListViewController(factory: self, dependencies: self.dependecies, type: type)
+    func instantiateList(for type: TypeOfList) -> ListViewController {
+        return ListViewController(dataProvider: self.dataProvider, factory: self, userManager: self.userManager, type: type)
+    }
+    
+    func instantiateSettings() -> SettingsViewController {
+        return SettingsViewController(userManager: self.userManager)
+    }
+    
+    func instantiateFullSync() -> FullSyncViewController {
+        return FullSyncViewController(dataProvider: self.dataProvider)
     }
 }

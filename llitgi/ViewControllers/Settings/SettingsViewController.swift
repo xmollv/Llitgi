@@ -8,11 +8,9 @@
 
 import UIKit
 
-class SettingsViewController: ViewController {
+class SettingsViewController: UIViewController {
 
     //MARK:- IBOutlets
-    @IBOutlet private var titleLabel: UILabel!
-
     @IBOutlet private var badgeCountLabel: UILabel!
     @IBOutlet private var badgeCountExplanationLabel: UILabel!
     @IBOutlet private var badgeCountSwitch: UISwitch!
@@ -27,22 +25,42 @@ class SettingsViewController: ViewController {
     
     @IBOutlet private var logoutButton: UIButton!
     
-    @IBOutlet private var creditsLabel: UILabel!
+    @IBOutlet private var githubButton: UIButton!
     @IBOutlet private var twitterButton: UIButton!
     @IBOutlet private var emailButton: UIButton!
     @IBOutlet private var buildLabel: UILabel!
     
+    //MARK: Private properties
+    private let userManager: UserManager
+    
+    //MARK: Public properties
+    var logoutBlock: (() -> ())? = nil
+    
     //MARK:- Lifecycle
+    init(userManager: UserManager) {
+        self.userManager = userManager
+        super.init(nibName: String(describing: SettingsViewController.self), bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.done(_:)))
         self.setupLocalizedStrings()
-        self.badgeCount(isEnabled: self.userPreferences.userHasEnabledNotifications)
-        self.safariOpenerValue(opener: self.userPreferences.openLinksWith)
-        self.establishReaderMode(readerEnabled: self.userPreferences.openReaderMode)
+        self.badgeCount(isEnabled: self.userManager.userHasEnabledNotifications)
+        self.safariOpenerValue(opener: self.userManager.openLinksWith)
+        self.establishReaderMode(readerEnabled: self.userManager.openReaderMode)
     }
     
     //MARK:- IBActions
+    @IBAction private func done(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     private func badgeCount(isEnabled: Bool) {
         switch isEnabled {
         case true:
@@ -53,7 +71,7 @@ class SettingsViewController: ViewController {
     }
     
     @IBAction private func badgeCountValueChanged(_ sender: UISwitch) {
-        self.userPreferences.enableBadge(shouldEnable: sender.isOn) { (success) in
+        self.userManager.enableBadge(shouldEnable: sender.isOn) { (success) in
             if !success {
                 sender.setOn(false, animated: true)
             }
@@ -72,9 +90,9 @@ class SettingsViewController: ViewController {
     @IBAction private func safariOpenerValueChanged(_ sender: UISwitch) {
         switch sender.isOn {
         case true:
-            self.userPreferences.openLinksWith = .safari
+            self.userManager.openLinksWith = .safari
         case false:
-            self.userPreferences.openLinksWith = .safariViewController
+            self.userManager.openLinksWith = .safariViewController
         }
     }
     
@@ -83,14 +101,17 @@ class SettingsViewController: ViewController {
     }
     
     @IBAction func safariReaderModeChanged(_ sender: UISwitch) {
-        self.userPreferences.openReaderMode = sender.isOn
+        self.userManager.openReaderMode = sender.isOn
     }
     
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
-        guard let tabBar = self.tabBarController as? TabBarController  else { return }
-        self.userPreferences.displayBadge(with: 0)
-        self.dataProvider.clearLocalStorage()
-        tabBar.setupAuthFlow()
+        self.logoutBlock?()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func githubButtonTapped(_ sender: UIButton) {
+        guard let url = URL(string: "https://github.com/xmollv/llitgi") else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     @IBAction func twitterButtonTapped(_ sender: UIButton) {
@@ -99,23 +120,24 @@ class SettingsViewController: ViewController {
     }
     
     @IBAction func emailButtonTapped(_ sender: UIButton) {
-        guard let url = URL(string: "mailto:xmollv@gmail.com") else { return }
+        guard let url = URL(string: "mailto:xmollv@gmail.com?subject=[Llitgi]") else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     //MARK:- Private methods
     private func setupLocalizedStrings() {
-        self.titleLabel.text = NSLocalizedString("settings", comment: "")
-        self.badgeCountLabel.text = NSLocalizedString("badge_count", comment: "")
-        self.badgeCountExplanationLabel.text = NSLocalizedString("badge_explanation", comment: "")
-        self.safariOpenerLabel.text = NSLocalizedString("open_links_safari", comment: "")
-        self.safariOpenerExplanationLabel.text = NSLocalizedString("safari_open_explanation", comment: "")
-        self.safariReaderModeLabel.text = NSLocalizedString("safari_reader_mode", comment: "")
-        self.safariReaderModeExplanationLabel.text = NSLocalizedString("safari_reader_mode_explanation", comment: "")
-        self.logoutButton.setTitle(NSLocalizedString("logout", comment: ""), for: .normal)
-        self.creditsLabel.text = NSLocalizedString("credits", comment: "")
-        self.emailButton.setTitle(NSLocalizedString("email", comment: ""), for: .normal)
-        let formatString = NSLocalizedString("build_version", comment: "")
+        self.title = L10n.Titles.settings
+        self.badgeCountLabel.text = L10n.Settings.badgeCountTitle
+        self.badgeCountExplanationLabel.text = L10n.Settings.badgeCountExplanation
+        self.safariOpenerLabel.text = L10n.Settings.safariOpenerTitle
+        self.safariOpenerExplanationLabel.text = L10n.Settings.safariOpenerDescription
+        self.safariReaderModeLabel.text = L10n.Settings.safariReaderTitle
+        self.safariReaderModeExplanationLabel.text = L10n.Settings.safariReaderDescription
+        self.logoutButton.setTitle(L10n.General.logout, for: .normal)
+        self.githubButton.setTitle(L10n.Settings.github, for: .normal)
+        self.twitterButton.setTitle(L10n.Settings.twitter, for: .normal)
+        self.emailButton.setTitle(L10n.Settings.email, for: .normal)
+        let formatString = L10n.Settings.buildVersion
         self.buildLabel.text = String(format: formatString, arguments: [Bundle.main.versionNumber])
     }
 

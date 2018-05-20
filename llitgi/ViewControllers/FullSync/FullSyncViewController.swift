@@ -14,7 +14,7 @@ private enum State {
     case error
 }
 
-class FullSyncViewController: ViewController {
+class FullSyncViewController: UIViewController {
     
     //MARK: IBOutlets
     @IBOutlet private var syncTitleLabel: UILabel!
@@ -23,28 +23,29 @@ class FullSyncViewController: ViewController {
     @IBOutlet private var syncDoneButton: UIButton!
     
     //MARK: Private properties
+    private let dataProvider: DataProvider
     private var state: State = .loading {
         didSet {
             switch state {
             case .loading:
-                self.syncTitleLabel.text = NSLocalizedString("sync_title", comment: "")
-                self.syncExplanationLabel.text = NSLocalizedString("sync_explanation", comment: "")
+                self.syncTitleLabel.text = L10n.Sync.title
+                self.syncExplanationLabel.text = L10n.Sync.explanation
                 UIView.animate(withDuration: 0.25) {
                     self.activityIndicator.isHidden = false
                     self.syncDoneButton.isHidden = true
                 }
             case .loaded:
-                self.syncTitleLabel.text = NSLocalizedString("sucess", comment: "")
-                self.syncExplanationLabel.text = NSLocalizedString("sync_explanation_success", comment: "")
-                self.syncDoneButton.setTitle(NSLocalizedString("lets_go", comment: ""), for: .normal)
+                self.syncTitleLabel.text = L10n.Sync.successTitle
+                self.syncExplanationLabel.text = L10n.Sync.successExplanation
+                self.syncDoneButton.setTitle(L10n.Sync.successButton, for: .normal)
                 UIView.animate(withDuration: 0.25) {
                     self.activityIndicator.isHidden = true
                     self.syncDoneButton.isHidden = false
                 }
             case .error:
-                self.syncTitleLabel.text = NSLocalizedString("error_title", comment: "")
-                self.syncExplanationLabel.text = NSLocalizedString("error_pocket", comment: "")
-                self.syncDoneButton.setTitle(NSLocalizedString("retry", comment: ""), for: .normal)
+                self.syncTitleLabel.text = L10n.General.errorTitle
+                self.syncExplanationLabel.text = L10n.General.pocketError
+                self.syncDoneButton.setTitle(L10n.General.retry, for: .normal)
                 UIView.animate(withDuration: 0.25) {
                     self.activityIndicator.isHidden = true
                     self.syncDoneButton.isHidden = false
@@ -54,6 +55,16 @@ class FullSyncViewController: ViewController {
     }
     
     //MARK: Lifecycle
+    init(dataProvider: DataProvider) {
+        self.dataProvider = dataProvider
+        super.init(nibName: String(describing: FullSyncViewController.self), bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fullSync()
