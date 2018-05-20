@@ -35,8 +35,9 @@
 "to_archive" = "Archive";
 "unarchive" = "Unarchive";
 "unfavorite" = "Unfavorite";
-"credits" = "If you like the app and want to say thanks, or just send some feedback, you can reach me at:";
 "build_version" = "Version: %1$@";
 "safari_reader_mode" = "Reader View";
 "safari_reader_mode_explanation" = "We'll open all your items in Reader View. Some websites may not support this feature.";
 "all" = "All";
+"Settings.github" = "GitHub";
+"Settings.twitter" = "Twitter";

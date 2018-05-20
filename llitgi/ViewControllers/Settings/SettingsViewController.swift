@@ -25,7 +25,7 @@ class SettingsViewController: ViewController {
     
     @IBOutlet private var logoutButton: UIButton!
     
-    @IBOutlet private var creditsLabel: UILabel!
+    @IBOutlet private var githubButton: UIButton!
     @IBOutlet private var twitterButton: UIButton!
     @IBOutlet private var emailButton: UIButton!
     @IBOutlet private var buildLabel: UILabel!
@@ -96,6 +96,11 @@ class SettingsViewController: ViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func githubButtonTapped(_ sender: UIButton) {
+        guard let url = URL(string: "https://github.com/xmollv/llitgi") else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
     @IBAction func twitterButtonTapped(_ sender: UIButton) {
         guard let url = URL(string: "https://twitter.com/xmollv") else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -116,7 +121,8 @@ class SettingsViewController: ViewController {
         self.safariReaderModeLabel.text = L10n.Settings.safariReaderTitle
         self.safariReaderModeExplanationLabel.text = L10n.Settings.safariReaderDescription
         self.logoutButton.setTitle(L10n.General.logout, for: .normal)
-        self.creditsLabel.text = L10n.Settings.credits
+        self.githubButton.setTitle(L10n.Settings.github, for: .normal)
+        self.twitterButton.setTitle(L10n.Settings.twitter, for: .normal)
         self.emailButton.setTitle(L10n.Settings.email, for: .normal)
         let formatString = L10n.Settings.buildVersion
         self.buildLabel.text = String(format: formatString, arguments: [Bundle.main.versionNumber])
