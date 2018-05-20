@@ -12,19 +12,15 @@ import CoreSpotlight
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
-    private var dataProvider: DataProvider!
-    private let userPreferences = UserPreferencesManager()
+    private let window = UIWindow(frame: UIScreen.main.bounds)
+    private let dataProvider = DataProvider(pocketAPI: PocketAPIManager(), modelFactory: CoreDataFactoryImplementation())
+    private let userManager: PreferencesManager = UserPreferencesManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         UIApplication.shared.setMinimumBackgroundFetchInterval(1800)
         
-        let pocketAPI = PocketAPIManager()
-        let modelFactory = CoreDataFactoryImplementation()
-        self.dataProvider = DataProvider(pocketAPI: pocketAPI, modelFactory: modelFactory)
-        let dependencies = Dependencies(dataProvider: self.dataProvider, userPreferences: self.userPreferences)
-        let viewControllerFactory = ViewControllerFactory(dependencies: dependencies)
+        let viewControllerFactory = ViewControllerFactory(dataProvider: self.dataProvider, userManager: self.userManager)
         
         let rootViewController = TabBarController(factory: viewControllerFactory)
         if let _ = LlitgiUserDefaults.shared.string(forKey: kAccesToken) {
@@ -34,10 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Establishing the window and rootViewController
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.makeKeyAndVisible()
-        self.window?.tintColor = .black
-        self.window?.rootViewController = rootViewController
+        self.window.makeKeyAndVisible()
+        self.window.tintColor = .black
+        self.window.rootViewController = rootViewController
         
         return true
     }
@@ -62,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             switch result {
             case .isSuccess(let items):
                 // Because this is a sync operation, we just need to care if we get data or not
-                strongSelf.userPreferences.displayBadge(with: strongSelf.dataProvider.numberOfItems(on: .myList))
+                strongSelf.userManager.displayBadge(with: strongSelf.dataProvider.numberOfItems(on: .myList))
                 items.isEmpty ? completionHandler(.noData) : completionHandler(.newData)
             case .isFailure(let error):
                 Logger.log(error.localizedDescription, event: .error)

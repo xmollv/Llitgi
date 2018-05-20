@@ -14,7 +14,7 @@ private enum State {
     case error
 }
 
-class FullSyncViewController: ViewController {
+class FullSyncViewController: UIViewController {
     
     //MARK: IBOutlets
     @IBOutlet private var syncTitleLabel: UILabel!
@@ -23,6 +23,7 @@ class FullSyncViewController: ViewController {
     @IBOutlet private var syncDoneButton: UIButton!
     
     //MARK: Private properties
+    private let dataProvider: DataProvider
     private var state: State = .loading {
         didSet {
             switch state {
@@ -54,6 +55,16 @@ class FullSyncViewController: ViewController {
     }
     
     //MARK: Lifecycle
+    init(dataProvider: DataProvider) {
+        self.dataProvider = dataProvider
+        super.init(nibName: String(describing: FullSyncViewController.self), bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fullSync()

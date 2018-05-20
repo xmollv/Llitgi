@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: ViewController {
+class SettingsViewController: UIViewController {
 
     //MARK:- IBOutlets
     @IBOutlet private var badgeCountLabel: UILabel!
@@ -30,17 +30,30 @@ class SettingsViewController: ViewController {
     @IBOutlet private var emailButton: UIButton!
     @IBOutlet private var buildLabel: UILabel!
     
+    //MARK: Private properties
+    private let userManager: PreferencesManager
+    
     //MARK: Public properties
     var logoutBlock: (() -> ())? = nil
     
     //MARK:- Lifecycle
+    init(userManager: PreferencesManager) {
+        self.userManager = userManager
+        super.init(nibName: String(describing: SettingsViewController.self), bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.done(_:)))
         self.setupLocalizedStrings()
-        self.badgeCount(isEnabled: self.userPreferences.userHasEnabledNotifications)
-        self.safariOpenerValue(opener: self.userPreferences.openLinksWith)
-        self.establishReaderMode(readerEnabled: self.userPreferences.openReaderMode)
+        self.badgeCount(isEnabled: self.userManager.userHasEnabledNotifications)
+        self.safariOpenerValue(opener: self.userManager.openLinksWith)
+        self.establishReaderMode(readerEnabled: self.userManager.openReaderMode)
     }
     
     //MARK:- IBActions
@@ -58,7 +71,7 @@ class SettingsViewController: ViewController {
     }
     
     @IBAction private func badgeCountValueChanged(_ sender: UISwitch) {
-        self.userPreferences.enableBadge(shouldEnable: sender.isOn) { (success) in
+        self.userManager.enableBadge(shouldEnable: sender.isOn) { (success) in
             if !success {
                 sender.setOn(false, animated: true)
             }
@@ -77,9 +90,9 @@ class SettingsViewController: ViewController {
     @IBAction private func safariOpenerValueChanged(_ sender: UISwitch) {
         switch sender.isOn {
         case true:
-            self.userPreferences.openLinksWith = .safari
+            self.userManager.openLinksWith = .safari
         case false:
-            self.userPreferences.openLinksWith = .safariViewController
+            self.userManager.openLinksWith = .safariViewController
         }
     }
     
@@ -88,7 +101,7 @@ class SettingsViewController: ViewController {
     }
     
     @IBAction func safariReaderModeChanged(_ sender: UISwitch) {
-        self.userPreferences.openReaderMode = sender.isOn
+        self.userManager.openReaderMode = sender.isOn
     }
     
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {

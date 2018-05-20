@@ -48,14 +48,12 @@
 		479E18E520724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		479E18E620724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A493A6203F6E6B004051A6 /* Bundle.swift */; };
-		47D40759200966BD00329544 /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D40758200966BD00329544 /* Dependencies.swift */; };
 		47DB058020B009BE001485DF /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DB057E20B009BE001485DF /* ListViewController.xib */; };
 		47DB058220B067DB001485DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47DB058120B067DB001485DF /* Assets.xcassets */; };
 		47DE472B209A53D500770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47DE472C209A5C6E00770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */; };
 		47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */; };
-		47EEA37A1FF034FD0030BEF1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3791FF034FD0030BEF1 /* ViewController.swift */; };
 		47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */; };
 		47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */; };
 		47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3821FF037D40030BEF1 /* DataProvider.swift */; };
@@ -124,7 +122,6 @@
 		478F43A12038E77B003ECCAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		479E18E420724652002E3BB1 /* PocketConsumerKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PocketConsumerKey; sourceTree = "<group>"; };
 		47A493A6203F6E6B004051A6 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
-		47D40758200966BD00329544 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 		47DB057E20B009BE001485DF /* ListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
 		47DB058120B067DB001485DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47DE472A209A53D500770884 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
@@ -134,7 +131,6 @@
 		47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47EEA36A1FF02DDD0030BEF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47EEA36C1FF02DDD0030BEF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		47EEA3791FF034FD0030BEF1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthorizationViewController.xib; sourceTree = "<group>"; };
 		47EEA3821FF037D40030BEF1 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
@@ -283,7 +279,6 @@
 			isa = PBXGroup;
 			children = (
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
-				47EEA3791FF034FD0030BEF1 /* ViewController.swift */,
 				478F43822037078C003ECCAD /* TabBarController.swift */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 				4752C0842030F20300988A68 /* FullSync */,
@@ -327,7 +322,6 @@
 		47EEA38E1FF074D80030BEF1 /* Extensions & Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				47D40758200966BD00329544 /* Dependencies.swift */,
 				47392347202667E3005526C5 /* LitgiUserDefaults.swift */,
 				47DE472A209A53D500770884 /* L10n.swift */,
 				47376DE31FF07F9500B8E70C /* Logger.swift */,
@@ -516,7 +510,6 @@
 				4770ACFE1FF1B108006E755D /* ListDataSource.swift in Sources */,
 				4710EF521FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift in Sources */,
 				4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */,
-				47EEA37A1FF034FD0030BEF1 /* ViewController.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */,
 				47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
@@ -529,7 +522,6 @@
 				4710EF5B1FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld in Sources */,
 				478F43832037078C003ECCAD /* TabBarController.swift in Sources */,
 				47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */,
-				47D40759200966BD00329544 /* Dependencies.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
 				4770AD031FF1B470006E755D /* ListCell.swift in Sources */,
 				47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */,
