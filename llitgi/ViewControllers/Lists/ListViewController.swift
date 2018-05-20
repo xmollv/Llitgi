@@ -30,7 +30,7 @@ class ListViewController: UITableViewController {
     //MARK: Private properties
     private let factory: ViewControllerFactory
     private let dataProvider: DataProvider
-    private let userPreferences: PreferencesManager
+    private let userManager: UserManager
     private let typeOfList: TypeOfList
     private let swipeActionManager: ListSwipeActionManager
     private let searchController = UISearchController(searchResultsController: nil)
@@ -50,13 +50,13 @@ class ListViewController: UITableViewController {
     }()
     
     //MARK:- Lifecycle
-    required init(factory: ViewControllerFactory, dependencies: Dependencies, type: TypeOfList) {
+    required init(dataProvider: DataProvider, factory: ViewControllerFactory, userManager: UserManager, type: TypeOfList) {
         self.factory = factory
-        self.dataProvider = dependencies.dataProvider
-        self.userPreferences = dependencies.userPreferences
+        self.dataProvider = dataProvider
+        self.userManager = userManager
         self.typeOfList = type
         self.typeOfListForSearch = type
-        self.swipeActionManager = ListSwipeActionManager(dataProvider: dependencies.dataProvider)
+        self.swipeActionManager = ListSwipeActionManager(dataProvider: dataProvider)
         super.init(nibName: String(describing: ListViewController.self), bundle: nil)
     }
     
@@ -105,7 +105,7 @@ class ListViewController: UITableViewController {
     
     private func configureTableView() {
         self.dataSource = ListDataSource(tableView: self.tableView,
-                                         userPreferences: self.userPreferences,
+                                         userPreferences: self.userManager,
                                          typeOfList: self.typeOfList,
                                          notifier: self.dataProvider.notifier(for: self.typeOfList))
         self.tableView.register(ListCell.self)
@@ -114,7 +114,7 @@ class ListViewController: UITableViewController {
         self.tableView.tableFooterView = UIView()
         self.refreshControl = self.customRefreshControl
         if self.typeOfList == .myList {
-            self.userPreferences.badgeDelegate = self
+            self.userManager.badgeDelegate = self
         }
     }
     
@@ -144,7 +144,7 @@ class ListViewController: UITableViewController {
     private func safariViewController(at indexPath: IndexPath) -> SFSafariViewController? {
         guard let url = self.dataSource?.item(at: indexPath)?.url else { return nil }
         let cfg = SFSafariViewController.Configuration()
-        cfg.entersReaderIfAvailable = self.userPreferences.openReaderMode
+        cfg.entersReaderIfAvailable = self.userManager.openReaderMode
         let sfs = SFSafariViewController(url: url, configuration: cfg)
         sfs.preferredControlTintColor = .black
         return sfs
@@ -180,12 +180,12 @@ class ListViewController: UITableViewController {
     }
     
     @IBAction private func displaySettings(_ sender: UIBarButtonItem) {
-        let settingsViewController: SettingsViewController = self.factory.instantiate()
+        let settingsViewController = self.factory.instantiateSettings()
         //TODO: This is an extremely ugly hack, but I'm too tired rn
         settingsViewController.logoutBlock = { [weak self] in
             guard let strongSelf = self else { return }
             guard let tabBar = strongSelf.tabBarController as? TabBarController  else { return }
-            strongSelf.userPreferences.displayBadge(with: 0)
+            strongSelf.userManager.displayBadge(with: 0)
             strongSelf.dataProvider.clearLocalStorage()
             tabBar.setupAuthFlow()
         }
@@ -201,7 +201,7 @@ class ListViewController: UITableViewController {
 //MARK:- UITableViewDelegate
 extension ListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch self.userPreferences.openLinksWith {
+        switch self.userManager.openLinksWith {
         case .safariViewController:
             guard let sfs = self.safariViewController(at: indexPath) else { return }
             self.present(sfs, animated: true, completion: nil)
