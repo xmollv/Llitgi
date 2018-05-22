@@ -36,7 +36,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ExH-Xh-jTv">
                                     <rect key="frame" x="0.0" y="0.0" width="335" height="94.666666666666671"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="favorite" translatesAutoresizingMaskIntoConstraints="NO" id="mIj-4c-GFg">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="open-book" translatesAutoresizingMaskIntoConstraints="NO" id="mIj-4c-GFg">
                                             <rect key="frame" x="0.0" y="17.333333333333371" width="60" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="60" id="TcR-05-ysn"/>
@@ -66,7 +66,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ki2-e1-uGF">
                                     <rect key="frame" x="0.0" y="124.66666666666669" width="335" height="77"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="archive" translatesAutoresizingMaskIntoConstraints="NO" id="4WU-Hz-wty">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sync" translatesAutoresizingMaskIntoConstraints="NO" id="4WU-Hz-wty">
                                             <rect key="frame" x="0.0" y="8.6666666666666856" width="60" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="30a-U3-IY1"/>
@@ -96,7 +96,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KxN-7O-j6M">
                                     <rect key="frame" x="0.0" y="231.66666666666669" width="335" height="77"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings" translatesAutoresizingMaskIntoConstraints="NO" id="yU8-vo-syG">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="github-logo" translatesAutoresizingMaskIntoConstraints="NO" id="yU8-vo-syG">
                                             <rect key="frame" x="0.0" y="8.6666666666666288" width="60" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="60" id="oLn-lS-rJL"/>
@@ -176,8 +176,8 @@
         </view>
     </objects>
     <resources>
-        <image name="archive" width="23" height="21"/>
-        <image name="favorite" width="23" height="22"/>
-        <image name="settings" width="20" height="20"/>
+        <image name="github-logo" width="60" height="60"/>
+        <image name="open-book" width="60" height="60"/>
+        <image name="sync" width="60" height="60"/>
     </resources>
 </document>
