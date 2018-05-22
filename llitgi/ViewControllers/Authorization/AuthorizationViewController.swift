@@ -13,9 +13,8 @@ class AuthorizationViewController: UIViewController {
     
     //MARK:- IBOutlets
     @IBOutlet private var titleLabel: UILabel!
-    @IBOutlet private var descriptionLabel: UILabel!
+    //@IBOutlet private var descriptionLabel: UILabel!
     @IBOutlet private var actionButton: UIButton!
-    @IBOutlet private var errorLabel: UILabel!
     
     //MARK: Provate properties
     private let dataProvider: DataProvider
@@ -36,15 +35,7 @@ class AuthorizationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.verifyCodeAndGetToken), name: .OAuthFinished, object: nil)
-        self.actionButton.alpha = 0
         self.setupLocalizedStrings()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        UIView.animate(withDuration: 0.25, delay: 1.5, options: [], animations: {
-            self.actionButton.alpha = 1
-        }, completion: nil)
     }
     
     deinit {
@@ -54,7 +45,6 @@ class AuthorizationViewController: UIViewController {
     //MARK: IBActions
     @IBAction private func actionButtonTapped(_ sender: UIButton) {
         sender.isEnabled = false
-        self.errorLabel.isHidden = true
         // Step 1. Grab the token to initiate the OAuth steps
         self.dataProvider.performInMemory(endpoint: .requestToken) { [weak self] (result: Result<[RequestTokenResponse]>) in
             sender.isEnabled = true
@@ -90,7 +80,7 @@ class AuthorizationViewController: UIViewController {
     //MARK: Private methods
     private func setupLocalizedStrings() {
         self.titleLabel.text = L10n.Onboarding.title
-        self.descriptionLabel.text = L10n.Onboarding.description
+        //self.descriptionLabel.text = L10n.Onboarding.description
         self.actionButton.setTitle(L10n.Onboarding.button, for: .normal)
     }
     
@@ -113,8 +103,9 @@ class AuthorizationViewController: UIViewController {
                     switch notAuthError {
                     case .not200Status(let statusCode):
                         if statusCode == 403 {
-                            strongSelf.errorLabel.isHidden = false
-                            strongSelf.errorLabel.text = L10n.Onboarding.authError
+                            //TODO:
+//                            strongSelf.errorLabel.isHidden = false
+//                            strongSelf.errorLabel.text = L10n.Onboarding.authError
                         }
                     default:
                         strongSelf.showErrorMessage()
@@ -128,8 +119,9 @@ class AuthorizationViewController: UIViewController {
     }
     
     private func showErrorMessage() {
-        self.errorLabel.isHidden = false
-        self.errorLabel.text = L10n.General.pocketError
+        //TODO:
+//        self.errorLabel.isHidden = false
+//        self.errorLabel.text = L10n.General.pocketError
     }
     
     private func authFinishedStartMainFlow() {
