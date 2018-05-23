@@ -13,6 +13,22 @@ class TabBarController: UITabBarController {
     //MARK: Private properties
     private let factory: ViewControllerFactory
     
+    override var shouldAutorotate: Bool {
+        if self.viewControllers?.count == 1 {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if self.viewControllers?.count == 1 {
+            return .portrait
+        } else {
+            return .all
+        }
+    }
+    
     //MARK: Lifecycle
     init(factory: ViewControllerFactory) {
         self.factory = factory

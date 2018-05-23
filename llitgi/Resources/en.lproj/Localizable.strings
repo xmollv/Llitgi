@@ -1,15 +1,23 @@
+"Onboarding.title" = "Welcome to Llitgi.";
+"Onboarding.offlineTitle" = "Offline first";
+"Onboarding.offlineDescription" = "Your whole Pocket library lives on your device. That means that you can access it anywhere, anytime and enables for lightning fast search.";
+"Onboarding.syncTitle" = "Sync between devices";
+"Onboarding.syncDescription" = "Everything that happens on Llitgi gets synced with Pocket and with any other device that you own.";
+"Onboarding.minimalistTitle" = "Minimalist & Open Source";
+"Onboarding.minimalistDescription" = "We try our best to not be in the way of you reading your articles. Oh, and we don't collect any user data.";
+"Onboarding.action" = "Login with Pocket";
+
 "archive" = "Archive";
-"auth_error" = "It seems that the authorization didn't go quite well. Could you please try again?";
 "badge_count" = "Show app badge count";
 "badge_explanation" = "We'll show you a badge on the app icon indicating how many items are on your list.";
 "delete" = "Delete";
 "dismiss" = "Dismiss";
 "error_pocket" = "Something went wrong communicating with Pocket. Could you please try again?";
 "error_title" = "Oops!";
+"error_description" = "Something went wrong.";
 "email" = "Email";
 "favorite" = "Favorite";
 "favorites" = "Favorites";
-"lets_do_it" = "Login with Pocket";
 "lets_go" = "Let's go!";
 "logout" = "Logout";
 "my_list" = "My List";
@@ -19,8 +27,6 @@
 "no_results_myList_subtitle" = "You don't have anything else to read. Go out and enjoy the day!";
 "no_results_favorites_subtitle" = "It seems that you haven't saved anything on your favorites yet.";
 "no_results_archive_subtitle" = "It seems that you haven't archived anything yet.";
-"onboarding" = "We need permission to access your Pocket list. To do so, simply tap the button below.";
-"onboarding_title" = "Welcome to Llitgi.";
 "open_links_safari" = "Open items on Safari";
 "pasteboard_not_valid" = "We're sorry, but your pasteboard doesn't contain any URLs. Please, copy a valid URL and try again.";
 "retry" = "Retry";
