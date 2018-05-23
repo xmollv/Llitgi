@@ -73,22 +73,22 @@ extension ListDataSource: UITableViewDataSource {
             let subtitle: String
             
             if self.isSearch {
-                title = L10n.ListEmptyStates.searchTitle
-                subtitle = L10n.ListEmptyStates.searchSubtitle
+                title = L10n.EmptyStates.searchTitle
+                subtitle = L10n.EmptyStates.searchSubtitle
             } else {
                 switch self.typeOfList {
                 case .all:
-                    title = L10n.ListEmptyStates.allTitle
-                    subtitle = L10n.ListEmptyStates.allSubtitle
+                    title = L10n.EmptyStates.allTitle
+                    subtitle = L10n.EmptyStates.allSubtitle
                 case .myList:
-                    title = L10n.ListEmptyStates.myListTitle
-                    subtitle = L10n.ListEmptyStates.myListSubtitle
+                    title = L10n.EmptyStates.myListTitle
+                    subtitle = L10n.EmptyStates.myListSubtitle
                 case .favorites:
-                    title = L10n.ListEmptyStates.favoritesTitle
-                    subtitle = L10n.ListEmptyStates.favoritesSubtitle
+                    title = L10n.EmptyStates.favoritesTitle
+                    subtitle = L10n.EmptyStates.favoritesSubtitle
                 case .archive:
-                    title = L10n.ListEmptyStates.archiveTitle
-                    subtitle = L10n.ListEmptyStates.archiveSubtitle
+                    title = L10n.EmptyStates.archiveTitle
+                    subtitle = L10n.EmptyStates.archiveSubtitle
                 }
             }
             tableView.establishEmptyState(title: title, subtitle: subtitle)

@@ -1,43 +1,56 @@
-"archive" = "Archive";
-"auth_error" = "It seems that the authorization didn't go quite well. Could you please try again?";
-"badge_count" = "Show app badge count";
-"badge_explanation" = "We'll show you a badge on the app icon indicating how many items are on your list.";
-"delete" = "Delete";
-"dismiss" = "Dismiss";
-"error_pocket" = "Something went wrong communicating with Pocket. Could you please try again?";
-"error_title" = "Oops!";
-"email" = "Email";
-"favorite" = "Favorite";
-"favorites" = "Favorites";
-"lets_do_it" = "Login with Pocket";
-"lets_go" = "Let's go!";
-"logout" = "Logout";
-"my_list" = "My List";
-"no_results" = "No results";
-"no_results_search" = "It seems that nothing on your library matches your search.";
-"no_results_myList_title" = "Hooray! 🙌🏻";
-"no_results_myList_subtitle" = "You don't have anything else to read. Go out and enjoy the day!";
-"no_results_favorites_subtitle" = "It seems that you haven't saved anything on your favorites yet.";
-"no_results_archive_subtitle" = "It seems that you haven't archived anything yet.";
-"onboarding" = "We need permission to access your Pocket list. To do so, simply tap the button below.";
-"onboarding_title" = "Welcome to Llitgi.";
-"open_links_safari" = "Open items on Safari";
-"pasteboard_not_valid" = "We're sorry, but your pasteboard doesn't contain any URLs. Please, copy a valid URL and try again.";
-"retry" = "Retry";
-"safari_open_explanation" = "We'll launch Safari with the item that you've selected instead of using the in-app browser.";
-"saving_to_llitgi" = "Saving to Llitgi...";
-"search" = "Search";
-"settings" = "Settings";
-"sucess" = "Success! 🎉";
-"sync_title" = "Building your library...";
-"sync_explanation" = "We are downloading all your saved items. This only happens the first time, hold on tight.";
-"sync_explanation_success" = "All your items have been downloaded and stored locally. Now go and enjoy the app.";
-"to_archive" = "Archive";
-"unarchive" = "Unarchive";
-"unfavorite" = "Unfavorite";
-"build_version" = "Version: %1$@";
-"safari_reader_mode" = "Reader View";
-"safari_reader_mode_explanation" = "We'll open all your items in Reader View. Some websites may not support this feature.";
-"all" = "All";
+"General.dismiss" = "Dismiss";
+"General.logout" = "Logout";
+"General.retry" = "Retry";
+"General.search" = "Search";
+"General.errorPocket" = "Something went wrong communicating with Pocket. Could you please try again?";
+"General.errorTitle" = "Oops!";
+"General.errorDescription" = "Something went wrong.";
+
+"Onboarding.title" = "Welcome to Llitgi.";
+"Onboarding.offlineTitle" = "Offline first";
+"Onboarding.offlineDescription" = "Your whole Pocket library lives on your device. That means that you can access it anywhere, anytime and enables for lightning fast search.";
+"Onboarding.syncTitle" = "Sync between devices";
+"Onboarding.syncDescription" = "Everything that happens on Llitgi gets synced with Pocket and with any other device that you own.";
+"Onboarding.minimalistTitle" = "Minimalist & Open Source";
+"Onboarding.minimalistDescription" = "We try our best to not be in the way of you reading your articles. Oh, and we don't collect any user data.";
+"Onboarding.action" = "Login with Pocket";
+
+"Add.invalidPasteboard" = "We're sorry, but your pasteboard doesn't contain any URLs. Please, copy a valid URL and try again.";
+
+"Titles.all" = "All";
+"Titles.myList" = "My List";
+"Titles.favorites" = "Favorites";
+"Titles.archive" = "Archive";
+"Titles.settings" = "Settings";
+
+"Sync.success" = "Success! 🎉";
+"Sync.title" = "Building your library...";
+"Sync.explanation" = "We are downloading all your saved items. This only happens the first time, hold on tight.";
+"Sync.successExplanation" = "All your items have been downloaded and stored locally. Now go and enjoy the app.";
+"Sync.successButton" = "Let's go!";
+
+"EmptyStates.noResults" = "No results";
+"EmptyStates.noResultsSubtitle" = "It seems that nothing on your library matches your search.";
+"EmptyStates.myListTitle" = "Hooray! 🙌🏻";
+"EmptyStates.myListSubtitle" = "You don't have anything else to read. Go out and enjoy the day!";
+"EmptyStates.favoritesSubtitle" = "It seems that you haven't saved anything on your favorites yet.";
+"EmptyStates.archiveSubtitle" = "It seems that you haven't archived anything yet.";
+
+"Actions.delete" = "Delete";
+"Actions.favorite" = "Favorite";
+"Actions.archive" = "Archive";
+"Actions.unarchive" = "Unarchive";
+"Actions.unfavorite" = "Unfavorite";
+
+"Settings.badgecount" = "Show app badge count";
+"Settings.badgeExplanation" = "We'll show you a badge on the app icon indicating how many items are on your list.";
+"Settings.safariOpenerTitle" = "Open items on Safari";
+"Settings.safariOpenerExplanation" = "We'll launch Safari with the item that you've selected instead of using the in-app browser.";
+"Settings.safariReaderTitle" = "Reader View";
+"Settings.safariReaderExplanation" = "We'll open all your items in Reader View. Some websites may not support this feature.";
 "Settings.github" = "GitHub";
 "Settings.twitter" = "Twitter";
+"Settings.email" = "Email";
+"Settings.buildVersion" = "Version: %1$@";
+
+"ShareExtension.saving" = "Saving to Llitgi...";

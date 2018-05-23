@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreSpotlight
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
