@@ -16,6 +16,7 @@ enum L10n {
         static let search = NSLocalizedString("search", comment: "")
         static let logout = NSLocalizedString("logout", comment: "")
         static let errorTitle = NSLocalizedString("error_title", comment: "")
+        static let errorDescription = NSLocalizedString("error_description", comment: "")
         static let pocketError = NSLocalizedString("error_pocket", comment: "")
     }
     

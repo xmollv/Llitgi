@@ -116,7 +116,7 @@ class AuthorizationViewController: UIViewController {
     }
     
     private func showErrorMessage() {
-        
+        self.presentErrorAlert()
     }
     
     private func authFinishedStartMainFlow() {

@@ -14,6 +14,7 @@
 		4710EF5B1FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF591FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld */; };
 		4710EF5F1FF50F6A00D3DCA9 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */; };
 		4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF601FF51D8500D3DCA9 /* Managed.swift */; };
+		471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FE2E820B5EFED0059AEA7 /* UIViewController.swift */; };
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		47376DE71FF0831600B8E70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Item.swift */; };
 		47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47392347202667E3005526C5 /* LitgiUserDefaults.swift */; };
@@ -97,6 +98,7 @@
 		4710EF5A1FF451C500D3DCA9 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
 		4710EF601FF51D8500D3DCA9 /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
+		471FE2E820B5EFED0059AEA7 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47376DE61FF0831600B8E70C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		47392347202667E3005526C5 /* LitgiUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LitgiUserDefaults.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */,
 				478F43842038B24E003ECCAD /* UITableView.swift */,
 				47A493A6203F6E6B004051A6 /* Bundle.swift */,
+				471FE2E820B5EFED0059AEA7 /* UIViewController.swift */,
 			);
 			path = "Extensions & Helpers";
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				4710EF521FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift in Sources */,
 				4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
+				471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */,
 				4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */,
 				47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
 				47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */,

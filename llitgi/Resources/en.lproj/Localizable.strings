@@ -14,6 +14,7 @@
 "dismiss" = "Dismiss";
 "error_pocket" = "Something went wrong communicating with Pocket. Could you please try again?";
 "error_title" = "Oops!";
+"error_description" = "Something went wrong.";
 "email" = "Email";
 "favorite" = "Favorite";
 "favorites" = "Favorites";
