@@ -32,10 +32,14 @@ enum L10n {
     }
     
     enum Onboarding {
-        static let title = NSLocalizedString("onboarding_title", comment: "")
-        static let description = NSLocalizedString("onboarding", comment: "")
-        static let button = NSLocalizedString("lets_do_it", comment: "")
-        static let authError = NSLocalizedString("auth_error", comment: "")
+        static let title = NSLocalizedString("Onboarding.title", comment: "")
+        static let offlineTitle = NSLocalizedString("Onboarding.offlineTitle", comment: "")
+        static let offlineDescription = NSLocalizedString("Onboarding.offlineDescription", comment: "")
+        static let syncTitle = NSLocalizedString("Onboarding.syncTitle", comment: "")
+        static let syncDescription = NSLocalizedString("Onboarding.syncDescription", comment: "")
+        static let minimalistTitle = NSLocalizedString("Onboarding.minimalistTitle", comment: "")
+        static let minimalistDescription = NSLocalizedString("Onboarding.minimalistDescription", comment: "")
+        static let button = NSLocalizedString("Onboarding.action", comment: "")
     }
     
     enum Sync {

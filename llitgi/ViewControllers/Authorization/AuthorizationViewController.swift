@@ -13,7 +13,12 @@ class AuthorizationViewController: UIViewController {
     
     //MARK:- IBOutlets
     @IBOutlet private var titleLabel: UILabel!
-    //@IBOutlet private var descriptionLabel: UILabel!
+    @IBOutlet private var offlineTitleLabel: UILabel!
+    @IBOutlet private var offlineDescriptionLabel: UILabel!
+    @IBOutlet private var syncTitleLabel: UILabel!
+    @IBOutlet private var syncDescriptionLabel: UILabel!
+    @IBOutlet private var minimalistTitleLabel: UILabel!
+    @IBOutlet private var minimalistDescriptionLabel: UILabel!
     @IBOutlet private var actionButton: UIButton!
     
     //MARK: Provate properties
@@ -80,7 +85,12 @@ class AuthorizationViewController: UIViewController {
     //MARK: Private methods
     private func setupLocalizedStrings() {
         self.titleLabel.text = L10n.Onboarding.title
-        //self.descriptionLabel.text = L10n.Onboarding.description
+        self.offlineTitleLabel.text = L10n.Onboarding.offlineTitle
+        self.offlineDescriptionLabel.text = L10n.Onboarding.offlineDescription
+        self.syncTitleLabel.text = L10n.Onboarding.syncTitle
+        self.syncDescriptionLabel.text = L10n.Onboarding.syncDescription
+        self.minimalistTitleLabel.text = L10n.Onboarding.minimalistTitle
+        self.minimalistDescriptionLabel.text = L10n.Onboarding.minimalistDescription
         self.actionButton.setTitle(L10n.Onboarding.button, for: .normal)
     }
     
@@ -99,29 +109,14 @@ class AuthorizationViewController: UIViewController {
                 strongSelf.dataProvider.updatePocket(token: token)
                 strongSelf.authFinishedStartMainFlow()
             case .isFailure(let error):
-                if let notAuthError = error as? PocketAPIError {
-                    switch notAuthError {
-                    case .not200Status(let statusCode):
-                        if statusCode == 403 {
-                            //TODO:
-//                            strongSelf.errorLabel.isHidden = false
-//                            strongSelf.errorLabel.text = L10n.Onboarding.authError
-                        }
-                    default:
-                        strongSelf.showErrorMessage()
-                    }
-                } else {
-                    strongSelf.showErrorMessage()
-                }
+                strongSelf.showErrorMessage()
                 Logger.log(error.localizedDescription, event: .error)
             }
         }
     }
     
     private func showErrorMessage() {
-        //TODO:
-//        self.errorLabel.isHidden = false
-//        self.errorLabel.text = L10n.General.pocketError
+        
     }
     
     private func authFinishedStartMainFlow() {

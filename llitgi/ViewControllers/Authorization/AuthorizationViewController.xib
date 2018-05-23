@@ -12,6 +12,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AuthorizationViewController" customModule="llitgi" customModuleProvider="target">
             <connections>
                 <outlet property="actionButton" destination="G3b-Yf-I8e" id="HLf-44-iZK"/>
+                <outlet property="minimalistDescriptionLabel" destination="eaa-Lc-lvR" id="BYN-GN-g26"/>
+                <outlet property="minimalistTitleLabel" destination="JdQ-ru-dch" id="EcG-oP-Bf3"/>
+                <outlet property="offlineDescriptionLabel" destination="8XT-P9-AyU" id="WuY-z1-yI1"/>
+                <outlet property="offlineTitleLabel" destination="iZJ-CX-DgA" id="3I2-gR-hbT"/>
+                <outlet property="syncDescriptionLabel" destination="CDd-ud-iep" id="1Xz-Io-jL1"/>
+                <outlet property="syncTitleLabel" destination="gc2-2y-dwf" id="gsK-3K-CIc"/>
                 <outlet property="titleLabel" destination="RH9-CI-Pq8" id="ARn-NS-28l"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -31,30 +37,29 @@
                     <rect key="frame" x="20" y="203.66666666666666" width="335" height="483.33333333333337"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="EhB-Kx-Cw4">
-                            <rect key="frame" x="0.0" y="87.666666666666657" width="335" height="308.66666666666674"/>
+                            <rect key="frame" x="0.0" y="122.33333333333334" width="335" height="240.00000000000003"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ExH-Xh-jTv">
-                                    <rect key="frame" x="0.0" y="0.0" width="335" height="94.666666666666671"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="335" height="60"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="open-book" translatesAutoresizingMaskIntoConstraints="NO" id="mIj-4c-GFg">
-                                            <rect key="frame" x="0.0" y="17.333333333333371" width="60" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="60" id="TcR-05-ysn"/>
                                                 <constraint firstAttribute="width" constant="60" id="Tqn-yj-oC5"/>
                                             </constraints>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="sH3-cT-CdU">
-                                            <rect key="frame" x="70" y="0.0" width="265" height="94.666666666666671"/>
+                                            <rect key="frame" x="70" y="9.3333333333333144" width="265" height="41"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" text="Offline first" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZJ-CX-DgA">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZJ-CX-DgA">
                                                     <rect key="frame" x="0.0" y="0.0" width="265" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8XT-P9-AyU">
-                                                    <rect key="frame" x="0.0" y="23" width="265" height="71.666666666666671"/>
-                                                    <string key="text">Your whole Pocket library lives on your device. That means that you can access it anywhere, anytime and enables for lightning fast search.</string>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8XT-P9-AyU">
+                                                    <rect key="frame" x="0.0" y="23" width="265" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -64,26 +69,26 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ki2-e1-uGF">
-                                    <rect key="frame" x="0.0" y="124.66666666666669" width="335" height="77"/>
+                                    <rect key="frame" x="0.0" y="90" width="335" height="60"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sync" translatesAutoresizingMaskIntoConstraints="NO" id="4WU-Hz-wty">
-                                            <rect key="frame" x="0.0" y="8.6666666666666856" width="60" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="30a-U3-IY1"/>
                                                 <constraint firstAttribute="height" constant="60" id="cS0-yJ-bEP"/>
                                             </constraints>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="PXY-0c-zfq">
-                                            <rect key="frame" x="70" y="0.0" width="265" height="77"/>
+                                            <rect key="frame" x="70" y="9.3333333333333144" width="265" height="41"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" text="Sync between devices" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gc2-2y-dwf">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gc2-2y-dwf">
                                                     <rect key="frame" x="0.0" y="0.0" width="265" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Everything that happens on Llitgi gets synced with Pocket and with any other device that you own." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDd-ud-iep">
-                                                    <rect key="frame" x="0.0" y="23" width="265" height="54"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDd-ud-iep">
+                                                    <rect key="frame" x="0.0" y="23" width="265" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -94,26 +99,26 @@
                                     <viewLayoutGuide key="safeArea" id="xPj-bn-gYQ"/>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KxN-7O-j6M">
-                                    <rect key="frame" x="0.0" y="231.66666666666669" width="335" height="77"/>
+                                    <rect key="frame" x="0.0" y="180" width="335" height="60"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="github-logo" translatesAutoresizingMaskIntoConstraints="NO" id="yU8-vo-syG">
-                                            <rect key="frame" x="0.0" y="8.6666666666666288" width="60" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="60" id="oLn-lS-rJL"/>
                                                 <constraint firstAttribute="width" constant="60" id="ztV-id-01C"/>
                                             </constraints>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="pSO-QD-GaB">
-                                            <rect key="frame" x="70" y="0.0" width="265" height="77"/>
+                                            <rect key="frame" x="70" y="9.3333333333333712" width="265" height="41"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" text="Minimalist &amp; Open Source" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdQ-ru-dch">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdQ-ru-dch">
                                                     <rect key="frame" x="0.0" y="0.0" width="265" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="We try our best to not be in the way of you reading your articles. Oh, and we don't collect any user data." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaa-Lc-lvR">
-                                                    <rect key="frame" x="0.0" y="23" width="265" height="54"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaa-Lc-lvR">
+                                                    <rect key="frame" x="0.0" y="23" width="265" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
