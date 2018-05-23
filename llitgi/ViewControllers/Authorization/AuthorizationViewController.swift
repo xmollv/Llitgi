@@ -57,7 +57,7 @@ class AuthorizationViewController: UIViewController {
             switch result {
             case .isSuccess(let tokenResponse):
                 guard let code = tokenResponse.first?.code else {
-                    strongSelf.showErrorMessage()
+                    strongSelf.presentErrorAlert()
                     Logger.log("The tokenResponse was an empty array.", event: .error)
                     return
                 }
@@ -76,7 +76,7 @@ class AuthorizationViewController: UIViewController {
                 }
                 
             case .isFailure(let error):
-                strongSelf.showErrorMessage()
+                strongSelf.presentErrorAlert()
                 Logger.log(error.localizedDescription, event: .error)
             }
         }
@@ -102,21 +102,17 @@ class AuthorizationViewController: UIViewController {
             switch result {
             case .isSuccess(let tokenResponse):
                 guard let token = tokenResponse.first?.accessToken else {
-                    strongSelf.showErrorMessage()
+                    strongSelf.presentErrorAlert()
                     Logger.log("The tokenResponse was an empty array.", event: .error)
                     return
                 }
                 strongSelf.dataProvider.updatePocket(token: token)
                 strongSelf.authFinishedStartMainFlow()
             case .isFailure(let error):
-                strongSelf.showErrorMessage()
+                strongSelf.presentErrorAlert()
                 Logger.log(error.localizedDescription, event: .error)
             }
         }
-    }
-    
-    private func showErrorMessage() {
-        self.presentErrorAlert()
     }
     
     private func authFinishedStartMainFlow() {
