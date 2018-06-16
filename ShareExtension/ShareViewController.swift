@@ -53,7 +53,7 @@ class ShareViewController: UIViewController {
             guard let strongSelf = self else { return }
             strongSelf.closeButton.isHidden = false
             strongSelf.closeButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-            UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, animations: {
+            UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, animations: {
                 strongSelf.closeButton.transform = .identity
             }, completion: nil)
         }
@@ -122,7 +122,6 @@ class ShareViewController: UIViewController {
     @IBAction func closeButtonTapped(_ sender: UIButton) {
         self.dismiss()
     }
-    
     
     @IBAction func retryButtonTapped(_ sender: UIButton) {
         self.state = .loading
