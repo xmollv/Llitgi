@@ -140,8 +140,14 @@ class ShareViewController: UIViewController {
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:
+                DispatchQueue.main.async {
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+                }
                 strongSelf.dismiss()
             case .isFailure(let error):
+                DispatchQueue.main.async {
+                    UINotificationFeedbackGenerator().notificationOccurred(.error)
+                }
                 strongSelf.state = .error
                 Logger.log(error.localizedDescription, event: .error)
             }
