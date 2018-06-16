@@ -153,6 +153,7 @@ class ListViewController: UITableViewController {
     @IBAction private func addButtonTapped(_ sender: UIButton) {
         self.navigationItem.rightBarButtonItem = self.loadingButton
         guard let url = UIPasteboard.general.url else {
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
             self.navigationItem.rightBarButtonItem = self.addButton
 
             let errorTitle = L10n.General.errorTitle
@@ -172,6 +173,7 @@ class ListViewController: UITableViewController {
             strongSelf.navigationItem.rightBarButtonItem = strongSelf.addButton
             switch result {
             case .isSuccess:
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
                 strongSelf.pullToRefresh()
             case .isFailure(let error):
                 Logger.log(error.localizedDescription, event: .error)
