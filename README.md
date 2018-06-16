@@ -1,6 +1,4 @@
-# Llitgi
-
-<p float="left">
+<p>
   <img src="Screenshots/iPhone_X_1.png" width="200" />
   <img src="Screenshots/iPhone_X_2.png" width="200" /> 
   <img src="Screenshots/iPhone_X_3.png" width="200" />
