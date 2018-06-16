@@ -70,6 +70,8 @@ class TabBarController: UITabBarController {
         
         self.tabBar.isHidden = false
         self.tabBar.barTintColor = .white
+        self.tabBar.isTranslucent = false
+        self.tabBar.isOpaque = true
         self.setViewControllers(tabs, animated: false)
     }
 }
