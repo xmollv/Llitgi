@@ -1,3 +1,12 @@
+# Llitgi
+
+<p float="left">
+  <img src="Screenshots/iPhone_X_1.png" width="200" />
+  <img src="Screenshots/iPhone_X_2.png" width="200" /> 
+  <img src="Screenshots/iPhone_X_3.png" width="200" />
+  <img src="Screenshots/iPhone_X_4.png" width="200" />
+</p>
+
 ## About
 
 Llitgi is a simple & lightweight Pocket client for iOS:
@@ -7,15 +16,6 @@ Llitgi is a simple & lightweight Pocket client for iOS:
 - Gesture driven UI 👈🏻
 - Clean and minimal 🌱
 - Sync changes with the Pocket API 🚀
-
-## Screenshots
-
-<p align="center">
-    <img src="Screenshots/iPhone_X_1.png">
-    <img src="Screenshots/iPhone_X_2.png">
-    <img src="Screenshots/iPhone_X_3.png">
-    <img src="Screenshots/iPhone_X_4.png">
-</p>
 
 ## Installation
 
