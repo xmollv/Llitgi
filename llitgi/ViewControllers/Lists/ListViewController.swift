@@ -36,7 +36,8 @@ class ListViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private var addButton: UIBarButtonItem? = nil
     private var loadingButton: UIBarButtonItem? = nil
-    private var dataSource: ListDataSource?
+    private var dataSource: ListDataSource? = nil
+    private var cellHeights: [IndexPath : CGFloat] = [:]
     private var typeOfListForSearch: TypeOfList {
         didSet {
             self.dataSource?.typeOfList = self.typeOfListForSearch
@@ -200,6 +201,15 @@ class ListViewController: UITableViewController {
 
 //MARK:- UITableViewDelegate
 extension ListViewController {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.cellHeights[indexPath] = cell.frame.size.height
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let height = self.cellHeights[indexPath] else { return UITableViewAutomaticDimension }
+        return height
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch self.userManager.openLinksWith {
         case .safariViewController:
