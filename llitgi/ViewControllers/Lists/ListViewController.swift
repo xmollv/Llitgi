@@ -193,8 +193,6 @@ class ListViewController: UITableViewController {
         }
         let navController = UINavigationController(rootViewController: settingsViewController)
         navController.navigationBar.barTintColor = .white
-        navController.navigationBar.isTranslucent = false
-        navController.navigationBar.isOpaque = true
         self.present(navController, animated: true, completion: nil)
     }
 

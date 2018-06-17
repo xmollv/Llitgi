@@ -64,14 +64,10 @@ class TabBarController: UITabBarController {
         tabs.forEach {
             $0.navigationBar.prefersLargeTitles = true
             $0.navigationBar.barTintColor = .white
-            $0.navigationBar.isTranslucent = false
-            $0.navigationBar.isOpaque = true
         }
         
         self.tabBar.isHidden = false
         self.tabBar.barTintColor = .white
-        self.tabBar.isTranslucent = false
-        self.tabBar.isOpaque = true
         self.setViewControllers(tabs, animated: false)
     }
 }
