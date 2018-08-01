@@ -153,7 +153,8 @@ class ListViewController: UITableViewController {
     
     @IBAction private func addButtonTapped(_ sender: UIButton) {
         self.navigationItem.rightBarButtonItem = self.loadingButton
-        guard let url = UIPasteboard.general.url else {
+        guard let pasteboardItem = UIPasteboard.general.string,
+            let url = URL(string: pasteboardItem) else {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             self.navigationItem.rightBarButtonItem = self.addButton
 
