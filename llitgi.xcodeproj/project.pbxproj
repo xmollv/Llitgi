@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B5C90C72115756A002CDB9B /* FlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C90C62115756A002CDB9B /* FlowManager.swift */; };
+		0B8227402107B7FF007CF8F3 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82273F2107B7FF007CF8F3 /* SplitViewController.swift */; };
+		0B8227442107C2AD007CF8F3 /* SafariShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8227432107C2AD007CF8F3 /* SafariShowing.swift */; };
 		4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */; };
 		4710EF521FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */; };
 		4710EF561FF4338A00D3DCA9 /* CoreDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */; };
@@ -91,6 +94,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0B5C90C62115756A002CDB9B /* FlowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowManager.swift; sourceTree = "<group>"; };
+		0B82273F2107B7FF007CF8F3 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		0B8227432107C2AD007CF8F3 /* SafariShowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariShowing.swift; sourceTree = "<group>"; };
 		4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIModification.swift; sourceTree = "<group>"; };
 		4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSwipeActionManager.swift; sourceTree = "<group>"; };
 		4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFactory.swift; sourceTree = "<group>"; };
@@ -226,8 +232,10 @@
 		47803EA320096727003D58E2 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				0B8227432107C2AD007CF8F3 /* SafariShowing.swift */,
 				47803EA42009674D003D58E2 /* UserManager.swift */,
 				4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */,
+				0B5C90C62115756A002CDB9B /* FlowManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -282,6 +290,7 @@
 			children = (
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
 				478F43822037078C003ECCAD /* TabBarController.swift */,
+				0B82273F2107B7FF007CF8F3 /* SplitViewController.swift */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 				4752C0842030F20300988A68 /* FullSync */,
 				4770ACF81FF189CD006E755D /* Lists */,
@@ -507,14 +516,17 @@
 				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,
 				47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */,
 				4752C0872030F22300988A68 /* FullSyncViewController.swift in Sources */,
+				0B5C90C72115756A002CDB9B /* FlowManager.swift in Sources */,
 				4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */,
 				47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */,
 				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
 				4770ACFE1FF1B108006E755D /* ListDataSource.swift in Sources */,
 				4710EF521FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift in Sources */,
+				0B8227442107C2AD007CF8F3 /* SafariShowing.swift in Sources */,
 				4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */,
+				0B8227402107B7FF007CF8F3 /* SplitViewController.swift in Sources */,
 				4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */,
 				47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
 				47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */,

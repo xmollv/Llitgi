@@ -14,20 +14,23 @@ final class ViewControllerFactory {
     //MARK: Private properties
     private let dataProvider: DataProvider
     private let userManager: UserManager
+    private let flowManager: FlowManager
+    var safariShowing: SafariShowing!
     
     //MARK: Lifecycle
-    init(dataProvider: DataProvider, userManager: UserManager) {
+    init(dataProvider: DataProvider, userManager: UserManager, flowManager: FlowManager) {
         self.dataProvider = dataProvider
         self.userManager = userManager
+        self.flowManager = flowManager
     }
     
     //MARK: Public methods
     func instantiateAuth() -> AuthorizationViewController {
-        return AuthorizationViewController(dataProvider: self.dataProvider, factory: self)
+        return AuthorizationViewController(dataProvider: self.dataProvider, factory: self, flowManager: self.flowManager)
     }
     
     func instantiateList(for type: TypeOfList) -> ListViewController {
-        return ListViewController(dataProvider: self.dataProvider, factory: self, userManager: self.userManager, type: type)
+        return ListViewController(dataProvider: self.dataProvider, factory: self, userManager: self.userManager, type: type, flowManager: self.flowManager, safariShowing: safariShowing)
     }
     
     func instantiateSettings() -> SettingsViewController {

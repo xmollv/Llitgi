@@ -24,11 +24,13 @@ class AuthorizationViewController: UIViewController {
     //MARK: Provate properties
     private let dataProvider: DataProvider
     private let factory: ViewControllerFactory
+    private let flowManager: FlowManager
     
     //MARK:- Lifecycle
-    init(dataProvider: DataProvider, factory: ViewControllerFactory) {
+    init(dataProvider: DataProvider, factory: ViewControllerFactory, flowManager: FlowManager) {
         self.dataProvider = dataProvider
         self.factory = factory
+        self.flowManager = flowManager
         super.init(nibName: String(describing: AuthorizationViewController.self), bundle: nil)
     }
     
@@ -121,7 +123,7 @@ class AuthorizationViewController: UIViewController {
         fullSync.modalPresentationStyle = .overFullScreen
         fullSync.modalTransitionStyle = .crossDissolve
         tabBarController.present(fullSync, animated: true, completion: nil)
-        tabBarController.setupMainFlow()
+        flowManager.setupMainFlow()
     }
 
 }
