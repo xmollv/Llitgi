@@ -197,7 +197,7 @@ class ListViewController: UITableViewController {
         }
         let navController = UINavigationController(rootViewController: settingsViewController)
         navController.navigationBar.barTintColor = .white
-        navController.modalPresentationStyle = .pageSheet
+        navController.modalPresentationStyle = .formSheet
         self.present(navController, animated: true, completion: nil)
     }
 
