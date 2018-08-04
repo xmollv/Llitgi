@@ -14,6 +14,7 @@ let kSafariOpener = "safariOpener"
 let kReaderMode = "readerMode"
 let kLastSync = "lastSync"
 let kGroupUserDefaults = "group.com.xmollv.llitgi"
+let kEnabledOverlayMode = "enabledOverlayMode"
 
 final class LlitgiUserDefaults {
     private init() {}

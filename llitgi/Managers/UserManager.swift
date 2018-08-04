@@ -25,6 +25,7 @@ protocol UserManager: class {
     var openReaderMode: Bool { get set }
     var badgeDelegate: BadgeDelegate? { get set }
     var userHasEnabledNotifications: Bool { get }
+    var userHasEnabledOverlayMode: Bool { get set }
     
     func enableBadge(shouldEnable: Bool, then: @escaping (Bool)->())
     func displayBadge(with: Int)
@@ -67,6 +68,11 @@ class UserPreferencesManager: UserManager {
             return savedValue
         }
         set { LlitgiUserDefaults.shared.set(newValue, forKey: kReaderMode) }
+    }
+    
+    var userHasEnabledOverlayMode: Bool {
+        get { return LlitgiUserDefaults.shared.bool(forKey: kEnabledOverlayMode) }
+        set { LlitgiUserDefaults.shared.set(newValue, forKey: kEnabledOverlayMode)}
     }
     
     func enableBadge(shouldEnable: Bool, then: @escaping (Bool) -> ()) {

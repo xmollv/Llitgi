@@ -79,6 +79,8 @@ enum L10n {
         static let safariOpenerDescription = NSLocalizedString("Settings.safariOpenerExplanation", comment: "")
         static let safariReaderTitle = NSLocalizedString("Settings.safariReaderTitle", comment: "")
         static let safariReaderDescription = NSLocalizedString("Settings.safariReaderExplanation", comment: "")
+        static let overlayModeTitle = NSLocalizedString("Settings.overlayModeTitle", comment: "")
+        static let overlayModeDescription = NSLocalizedString("Settings.overlayModeDescription", comment: "")
         static let github = NSLocalizedString("Settings.github", comment: "")
         static let twitter = NSLocalizedString("Settings.twitter", comment: "")
         static let email = NSLocalizedString("Settings.email", comment: "")

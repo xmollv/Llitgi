@@ -25,11 +25,15 @@ class SplitViewController: UISplitViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupMainFlow() {
+    func setupMainFlow(shouldEnableOverlayMode: Bool) {
         let master = TabBarController(factory: factory)
         master.setupMainFlow()
         self.viewControllers = [master]
-        preferredDisplayMode = .allVisible
+        if (shouldEnableOverlayMode) {
+            preferredDisplayMode = .primaryOverlay
+        } else {
+            preferredDisplayMode = .allVisible
+        }
     }
 }
 
@@ -40,20 +44,11 @@ extension SplitViewController: SafariShowing {
 }
 
 extension SplitViewController: OverlayDisplaying {
-    func overlayDisplayMode(shouldBeSet: Bool) {
-        DispatchQueue.main.async {
-            if shouldBeSet {
-                self.preferredDisplayMode = .primaryOverlay
-                print("Setting preferredDisplayMode to primaryOverlay")
-            } else {
-                self.preferredDisplayMode = .allVisible
-                print("Setting preferredDisplayMode to allVisible")
-            }
+    func overlayDisplayMode(isEnabled: Bool) {
+        if (isEnabled) {
+            self.preferredDisplayMode = .primaryOverlay
+        } else {
+            self.preferredDisplayMode = .allVisible
         }
     }
-    
-    func isOverlayDisplayModeSet() -> Bool {
-        return preferredDisplayMode == .primaryOverlay
-    }
-    
 }
