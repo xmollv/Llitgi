@@ -51,4 +51,8 @@ final class ViewControllerFactory {
     func instantiateFullSync() -> FullSyncViewController {
         return FullSyncViewController(dataProvider: self.dataProvider)
     }
+    
+    func instantiateEmptyDetail() -> EmptyDetailViewController {
+        return EmptyDetailViewController(nibName: String(describing: EmptyDetailViewController.self), bundle: nil)
+    }
 }
