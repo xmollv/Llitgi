@@ -11,20 +11,30 @@ import UIKit
 class SettingsViewController: UIViewController {
 
     //MARK:- IBOutlets
+    
+    // Badge count
     @IBOutlet private var badgeCountLabel: UILabel!
     @IBOutlet private var badgeCountExplanationLabel: UILabel!
     @IBOutlet private var badgeCountSwitch: UISwitch!
     
+    // Safari opener
     @IBOutlet private var safariOpenerLabel: UILabel!
     @IBOutlet private var safariOpenerExplanationLabel: UILabel!
     @IBOutlet private var safariOpenerSwitch: UISwitch!
     
+    // Safari reader
     @IBOutlet private var safariReaderModeLabel: UILabel!
     @IBOutlet private var safariReaderModeExplanationLabel: UILabel!
     @IBOutlet private var safariReaderModeSwitch: UISwitch!
     
-    @IBOutlet private var logoutButton: UIButton!
+    // Overlay mode
+    @IBOutlet weak var overlayModeStackView: UIStackView!
+    @IBOutlet weak var overlayModeLabel: UILabel!
+    @IBOutlet weak var overlayModeExplanationLabel: UILabel!
+    @IBOutlet weak var overlayModeSwitch: UISwitch!
     
+    // Other buttons
+    @IBOutlet private var logoutButton: UIButton!
     @IBOutlet private var githubButton: UIButton!
     @IBOutlet private var twitterButton: UIButton!
     @IBOutlet private var emailButton: UIButton!
@@ -33,12 +43,15 @@ class SettingsViewController: UIViewController {
     //MARK: Private properties
     private let userManager: UserManager
     
+    private weak var overlayDisplaying: OverlayDisplaying?
+    
     //MARK: Public properties
     var logoutBlock: (() -> ())? = nil
     
     //MARK:- Lifecycle
-    init(userManager: UserManager) {
+    init(userManager: UserManager, overlayDisplaying: OverlayDisplaying) {
         self.userManager = userManager
+        self.overlayDisplaying = overlayDisplaying
         super.init(nibName: String(describing: SettingsViewController.self), bundle: nil)
     }
     
@@ -54,13 +67,22 @@ class SettingsViewController: UIViewController {
         self.badgeCount(isEnabled: self.userManager.userHasEnabledNotifications)
         self.safariOpenerValue(opener: self.userManager.openLinksWith)
         self.establishReaderMode(readerEnabled: self.userManager.openReaderMode)
+        
+        if UIDevice.current.userInterfaceIdiom != .pad {
+            overlayModeStackView.isHidden = true
+        } else {
+            self.overlayMode(isEnabled: self.userManager.userHasEnabledOverlayMode)
+        }
     }
     
     //MARK:- IBActions
     @IBAction private func done(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) {
+            self.overlayDisplaying?.overlayDisplayMode(isEnabled: self.userManager.userHasEnabledOverlayMode)
+        }
     }
     
+    // Badge count
     private func badgeCount(isEnabled: Bool) {
         switch isEnabled {
         case true:
@@ -78,6 +100,7 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    // Safari opener
     private func safariOpenerValue(opener: SafariOpener) {
         switch opener {
         case .safari:
@@ -96,6 +119,7 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    // Reader mode
     private func establishReaderMode(readerEnabled: Bool) {
         self.safariReaderModeSwitch.setOn(readerEnabled, animated: false)
     }
@@ -104,9 +128,20 @@ class SettingsViewController: UIViewController {
         self.userManager.openReaderMode = sender.isOn
     }
     
+    // Overlay mode
+    private func overlayMode(isEnabled: Bool) {
+        self.overlayModeSwitch.setOn(isEnabled, animated: false)
+    }
+
+    @IBAction func overlayModeChanged(_ sender: UISwitch) {
+        self.userManager.userHasEnabledOverlayMode = sender.isOn
+    }
+    
+    // Other buttons
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
-        self.logoutBlock?()
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) {
+            self.logoutBlock?()
+        }
     }
     
     @IBAction func githubButtonTapped(_ sender: UIButton) {
@@ -133,6 +168,8 @@ class SettingsViewController: UIViewController {
         self.safariOpenerExplanationLabel.text = L10n.Settings.safariOpenerDescription
         self.safariReaderModeLabel.text = L10n.Settings.safariReaderTitle
         self.safariReaderModeExplanationLabel.text = L10n.Settings.safariReaderDescription
+        self.overlayModeLabel.text = L10n.Settings.overlayModeTitle
+        self.overlayModeExplanationLabel.text = L10n.Settings.overlayModeDescription
         self.logoutButton.setTitle(L10n.General.logout, for: .normal)
         self.githubButton.setTitle(L10n.Settings.github, for: .normal)
         self.twitterButton.setTitle(L10n.Settings.twitter, for: .normal)

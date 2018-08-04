@@ -31,6 +31,7 @@ class ListViewController: UITableViewController {
     private let factory: ViewControllerFactory
     private let dataProvider: DataProvider
     private let userManager: UserManager
+    private let flowManager: FlowManager
     private let typeOfList: TypeOfList
     private let swipeActionManager: ListSwipeActionManager
     private let searchController = UISearchController(searchResultsController: nil)
@@ -43,6 +44,7 @@ class ListViewController: UITableViewController {
             self.dataSource?.typeOfList = self.typeOfListForSearch
         }
     }
+    private weak var safariShowing: SafariShowing?
     
     private lazy var customRefreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -51,13 +53,15 @@ class ListViewController: UITableViewController {
     }()
     
     //MARK:- Lifecycle
-    required init(dataProvider: DataProvider, factory: ViewControllerFactory, userManager: UserManager, type: TypeOfList) {
+    required init(dataProvider: DataProvider, factory: ViewControllerFactory, userManager: UserManager, type: TypeOfList, flowManager: FlowManager, safariShowing: SafariShowing) {
         self.factory = factory
         self.dataProvider = dataProvider
+        self.flowManager = flowManager
         self.userManager = userManager
         self.typeOfList = type
         self.typeOfListForSearch = type
         self.swipeActionManager = ListSwipeActionManager(dataProvider: dataProvider)
+        self.safariShowing = safariShowing
         super.init(nibName: String(describing: ListViewController.self), bundle: nil)
     }
     
@@ -187,13 +191,13 @@ class ListViewController: UITableViewController {
         //TODO: This is an extremely ugly hack, but I'm too tired rn
         settingsViewController.logoutBlock = { [weak self] in
             guard let strongSelf = self else { return }
-            guard let tabBar = strongSelf.tabBarController as? TabBarController  else { return }
             strongSelf.userManager.displayBadge(with: 0)
             strongSelf.dataProvider.clearLocalStorage()
-            tabBar.setupAuthFlow()
+            strongSelf.flowManager.setupAuthFlow()
         }
         let navController = UINavigationController(rootViewController: settingsViewController)
         navController.navigationBar.barTintColor = .white
+        navController.modalPresentationStyle = .formSheet
         self.present(navController, animated: true, completion: nil)
     }
 
@@ -214,7 +218,7 @@ extension ListViewController {
         switch self.userManager.openLinksWith {
         case .safariViewController:
             guard let sfs = self.safariViewController(at: indexPath) else { return }
-            self.present(sfs, animated: true, completion: nil)
+            safariShowing?.show(safariViewController: sfs)
         case .safari:
             guard let url = self.dataSource?.item(at: indexPath)?.url else { return }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)

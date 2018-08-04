@@ -48,9 +48,13 @@
 "Settings.safariOpenerExplanation" = "We'll launch Safari with the item that you've selected instead of using the in-app browser.";
 "Settings.safariReaderTitle" = "Reader View";
 "Settings.safariReaderExplanation" = "We'll open all your items in Reader View. Some websites may not support this feature.";
+"Settings.overlayModeTitle" = "Overlay Mode";
+"Settings.overlayModeDescription"= "Allows to read in full screen on iPad. Pull from the left side to reveal list of items.";
 "Settings.github" = "GitHub";
 "Settings.twitter" = "Twitter";
 "Settings.email" = "Email";
 "Settings.buildVersion" = "Version: %1$@";
+
+"EmptyDetail.description" = "Choose an item from the list to start reading.\n You may need to swipe from the left edge if using overlay mode.";
 
 "ShareExtension.saving" = "Saving to Llitgi...";

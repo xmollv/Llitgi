@@ -15,26 +15,44 @@ final class ViewControllerFactory {
     private let dataProvider: DataProvider
     private let userManager: UserManager
     
+    private weak var flowManager: FlowManager?
+    weak var safariShowing: SafariShowing?
+    weak var overlayDisplaying: OverlayDisplaying?
+    
     //MARK: Lifecycle
-    init(dataProvider: DataProvider, userManager: UserManager) {
+    init(dataProvider: DataProvider, userManager: UserManager, flowManager: FlowManager) {
         self.dataProvider = dataProvider
         self.userManager = userManager
+        self.flowManager = flowManager
     }
     
     //MARK: Public methods
     func instantiateAuth() -> AuthorizationViewController {
-        return AuthorizationViewController(dataProvider: self.dataProvider, factory: self)
+        guard let flowManager = flowManager else {
+            fatalError("need to inject flowManager into ViewControllerFactory")
+        }
+        return AuthorizationViewController(dataProvider: self.dataProvider, factory: self, flowManager: flowManager)
     }
     
     func instantiateList(for type: TypeOfList) -> ListViewController {
-        return ListViewController(dataProvider: self.dataProvider, factory: self, userManager: self.userManager, type: type)
+        guard let flowManager = flowManager , let safariShowing = safariShowing else {
+            fatalError("need to inject flowManager and safariShowing into ViewControllerFactory")
+        }
+        return ListViewController(dataProvider: self.dataProvider, factory: self, userManager: self.userManager, type: type, flowManager: flowManager, safariShowing: safariShowing)
     }
     
     func instantiateSettings() -> SettingsViewController {
-        return SettingsViewController(userManager: self.userManager)
+        guard let overlayDisplaying = overlayDisplaying else {
+            fatalError("need to inject overlayDisplaying into ViewControllerFactory")
+        }
+        return SettingsViewController(userManager: self.userManager, overlayDisplaying: overlayDisplaying)
     }
     
     func instantiateFullSync() -> FullSyncViewController {
         return FullSyncViewController(dataProvider: self.dataProvider)
+    }
+    
+    func instantiateEmptyDetail() -> EmptyDetailViewController {
+        return EmptyDetailViewController(nibName: String(describing: EmptyDetailViewController.self), bundle: nil)
     }
 }
