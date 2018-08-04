@@ -105,8 +105,9 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
-        self.logoutBlock?()
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) {
+            self.logoutBlock?()
+        }
     }
     
     @IBAction func githubButtonTapped(_ sender: UIButton) {
