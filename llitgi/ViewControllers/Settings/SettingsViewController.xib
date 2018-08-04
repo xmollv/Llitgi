@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -40,7 +41,7 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6UK-5m-Gr8">
                     <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hkm-EY-XLf">
+                        <view contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hkm-EY-XLf">
                             <rect key="frame" x="0.0" y="0.0" width="375.33333333333331" height="548"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="uNS-na-vvN">
@@ -272,12 +273,12 @@
                                 <constraint firstItem="spg-UY-3vD" firstAttribute="top" secondItem="geg-cl-9IZ" secondAttribute="bottom" constant="20" id="Et7-2y-ug6"/>
                                 <constraint firstItem="spg-UY-3vD" firstAttribute="trailing" secondItem="uNS-na-vvN" secondAttribute="trailing" constant="-20" id="LeT-Yr-xQ8"/>
                                 <constraint firstAttribute="bottom" secondItem="spg-UY-3vD" secondAttribute="bottom" constant="20" id="R7G-bM-N95"/>
-                                <constraint firstItem="uNS-na-vvN" firstAttribute="leading" secondItem="hkm-EY-XLf" secondAttribute="leading" constant="18" id="S9v-QX-sAz"/>
+                                <constraint firstItem="uNS-na-vvN" firstAttribute="leading" secondItem="hkm-EY-XLf" secondAttribute="leadingMargin" constant="10" id="S9v-QX-sAz"/>
                                 <constraint firstItem="uNS-na-vvN" firstAttribute="top" secondItem="hkm-EY-XLf" secondAttribute="top" constant="18" id="arS-oF-PZT"/>
                                 <constraint firstItem="geg-cl-9IZ" firstAttribute="top" secondItem="uNS-na-vvN" secondAttribute="bottom" constant="40" id="cCy-yi-4eH"/>
                                 <constraint firstItem="spg-UY-3vD" firstAttribute="leading" secondItem="uNS-na-vvN" secondAttribute="leading" constant="20" id="eaa-Ux-QxS"/>
                                 <constraint firstItem="geg-cl-9IZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uNS-na-vvN" secondAttribute="leading" priority="999" constant="20" id="kta-dj-UZJ"/>
-                                <constraint firstAttribute="trailing" secondItem="uNS-na-vvN" secondAttribute="trailing" constant="18" id="rQv-aw-bDi"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="uNS-na-vvN" secondAttribute="trailing" constant="10" id="rQv-aw-bDi"/>
                             </constraints>
                         </view>
                     </subviews>
