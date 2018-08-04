@@ -16,5 +16,4 @@ class EmptyDetailViewController: UIViewController {
         super.viewDidLoad()
         descriptionLabel.text = L10n.EmptyDetail.descriptionTitle
     }
-    
 }

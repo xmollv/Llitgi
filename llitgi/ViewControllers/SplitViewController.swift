@@ -28,8 +28,12 @@ class SplitViewController: UISplitViewController {
     func setupMainFlow(shouldEnableOverlayMode: Bool) {
         let master = TabBarController(factory: factory)
         master.setupMainFlow()
-        let emptyDetail = factory.instantiateEmptyDetail()
-        self.viewControllers = [master, emptyDetail]
+        var viewControllers : [UIViewController] = [master]
+        if (UIDevice.current.userInterfaceIdiom == .pad) {
+            let emptyDetail = factory.instantiateEmptyDetail()
+            viewControllers.append(emptyDetail)
+        }
+        self.viewControllers = viewControllers
         if (shouldEnableOverlayMode) {
             preferredDisplayMode = .primaryOverlay
         } else {
@@ -57,8 +61,10 @@ extension SplitViewController: OverlayDisplaying {
 
 extension SplitViewController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        let emptyDetail = factory.instantiateEmptyDetail()
-        showDetailViewController(emptyDetail, sender: self)
+        if (UIDevice.current.userInterfaceIdiom == .pad) {
+            let emptyDetail = factory.instantiateEmptyDetail()
+            showDetailViewController(emptyDetail, sender: self)
+        }
     }
 }
 
