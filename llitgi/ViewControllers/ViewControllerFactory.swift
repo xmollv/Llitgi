@@ -14,8 +14,9 @@ final class ViewControllerFactory {
     //MARK: Private properties
     private let dataProvider: DataProvider
     private let userManager: UserManager
-    private let flowManager: FlowManager
-    var safariShowing: SafariShowing!
+    
+    private weak var flowManager: FlowManager?
+    weak var safariShowing: SafariShowing?
     
     //MARK: Lifecycle
     init(dataProvider: DataProvider, userManager: UserManager, flowManager: FlowManager) {
@@ -26,11 +27,17 @@ final class ViewControllerFactory {
     
     //MARK: Public methods
     func instantiateAuth() -> AuthorizationViewController {
-        return AuthorizationViewController(dataProvider: self.dataProvider, factory: self, flowManager: self.flowManager)
+        guard let flowManager = flowManager else {
+            fatalError("need to inject flowManager into ViewControllerFactory")
+        }
+        return AuthorizationViewController(dataProvider: self.dataProvider, factory: self, flowManager: flowManager)
     }
     
     func instantiateList(for type: TypeOfList) -> ListViewController {
-        return ListViewController(dataProvider: self.dataProvider, factory: self, userManager: self.userManager, type: type, flowManager: self.flowManager, safariShowing: safariShowing)
+        guard let flowManager = flowManager , let safariShowing = safariShowing else {
+            fatalError("need to inject flowManager and safariShowing into ViewControllerFactory")
+        }
+        return ListViewController(dataProvider: self.dataProvider, factory: self, userManager: self.userManager, type: type, flowManager: flowManager, safariShowing: safariShowing)
     }
     
     func instantiateSettings() -> SettingsViewController {
