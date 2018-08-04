@@ -17,6 +17,7 @@ final class ViewControllerFactory {
     
     private weak var flowManager: FlowManager?
     weak var safariShowing: SafariShowing?
+    weak var overlayDisplaying: OverlayDisplaying?
     
     //MARK: Lifecycle
     init(dataProvider: DataProvider, userManager: UserManager, flowManager: FlowManager) {
@@ -41,7 +42,10 @@ final class ViewControllerFactory {
     }
     
     func instantiateSettings() -> SettingsViewController {
-        return SettingsViewController(userManager: self.userManager)
+        guard let overlayDisplaying = overlayDisplaying else {
+            fatalError("need to inject overlayDisplaying into ViewControllerFactory")
+        }
+        return SettingsViewController(userManager: self.userManager, overlayDisplaying: overlayDisplaying)
     }
     
     func instantiateFullSync() -> FullSyncViewController {

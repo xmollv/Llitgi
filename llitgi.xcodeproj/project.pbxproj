@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B5C90C72115756A002CDB9B /* FlowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C90C62115756A002CDB9B /* FlowManager.swift */; };
+		0B5C90C921157BE3002CDB9B /* OverlayDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5C90C821157BE3002CDB9B /* OverlayDisplaying.swift */; };
 		0B8227402107B7FF007CF8F3 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B82273F2107B7FF007CF8F3 /* SplitViewController.swift */; };
 		0B8227442107C2AD007CF8F3 /* SafariShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8227432107C2AD007CF8F3 /* SafariShowing.swift */; };
 		4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */; };
@@ -95,6 +96,7 @@
 
 /* Begin PBXFileReference section */
 		0B5C90C62115756A002CDB9B /* FlowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowManager.swift; sourceTree = "<group>"; };
+		0B5C90C821157BE3002CDB9B /* OverlayDisplaying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayDisplaying.swift; sourceTree = "<group>"; };
 		0B82273F2107B7FF007CF8F3 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		0B8227432107C2AD007CF8F3 /* SafariShowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariShowing.swift; sourceTree = "<group>"; };
 		4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIModification.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				47803EA42009674D003D58E2 /* UserManager.swift */,
 				4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */,
 				0B5C90C62115756A002CDB9B /* FlowManager.swift */,
+				0B5C90C821157BE3002CDB9B /* OverlayDisplaying.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				478F43852038B24E003ECCAD /* UITableView.swift in Sources */,
 				4770AD001FF1B3B8006E755D /* ReusableCells.swift in Sources */,
 				47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */,
+				0B5C90C921157BE3002CDB9B /* OverlayDisplaying.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

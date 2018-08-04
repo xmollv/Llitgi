@@ -19,7 +19,6 @@ class SplitViewController: UISplitViewController {
     init(factory: ViewControllerFactory) {
         self.factory = factory
         super.init(nibName: nil, bundle: nil)
-        preferredDisplayMode = .allVisible
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,12 +29,31 @@ class SplitViewController: UISplitViewController {
         let master = TabBarController(factory: factory)
         master.setupMainFlow()
         self.viewControllers = [master]
+        preferredDisplayMode = .allVisible
     }
 }
-
 
 extension SplitViewController: SafariShowing {
     func show(safariViewController: SFSafariViewController) {
         showDetailViewController(safariViewController, sender: self)
     }
+}
+
+extension SplitViewController: OverlayDisplaying {
+    func overlayDisplayMode(shouldBeSet: Bool) {
+        DispatchQueue.main.async {
+            if shouldBeSet {
+                self.preferredDisplayMode = .primaryOverlay
+                print("Setting preferredDisplayMode to primaryOverlay")
+            } else {
+                self.preferredDisplayMode = .allVisible
+                print("Setting preferredDisplayMode to allVisible")
+            }
+        }
+    }
+    
+    func isOverlayDisplayModeSet() -> Bool {
+        return preferredDisplayMode == .primaryOverlay
+    }
+    
 }
