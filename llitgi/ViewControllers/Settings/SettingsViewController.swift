@@ -33,12 +33,15 @@ class SettingsViewController: UIViewController {
     //MARK: Private properties
     private let userManager: UserManager
     
+    private weak var overlayDisplaying: OverlayDisplaying?
+    
     //MARK: Public properties
     var logoutBlock: (() -> ())? = nil
     
     //MARK:- Lifecycle
-    init(userManager: UserManager) {
+    init(userManager: UserManager, overlayDisplaying: OverlayDisplaying) {
         self.userManager = userManager
+        self.overlayDisplaying = overlayDisplaying
         super.init(nibName: String(describing: SettingsViewController.self), bundle: nil)
     }
     
