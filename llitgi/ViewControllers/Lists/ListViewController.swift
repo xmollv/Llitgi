@@ -44,7 +44,7 @@ class ListViewController: UITableViewController {
             self.dataSource?.typeOfList = self.typeOfListForSearch
         }
     }
-    private let safariShowing: SafariShowing
+    private weak var safariShowing: SafariShowing?
     
     private lazy var customRefreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -191,7 +191,6 @@ class ListViewController: UITableViewController {
         //TODO: This is an extremely ugly hack, but I'm too tired rn
         settingsViewController.logoutBlock = { [weak self] in
             guard let strongSelf = self else { return }
-            guard let tabBar = strongSelf.tabBarController as? TabBarController  else { return }
             strongSelf.userManager.displayBadge(with: 0)
             strongSelf.dataProvider.clearLocalStorage()
             strongSelf.flowManager.setupAuthFlow()
@@ -218,7 +217,7 @@ extension ListViewController {
         switch self.userManager.openLinksWith {
         case .safariViewController:
             guard let sfs = self.safariViewController(at: indexPath) else { return }
-            safariShowing.show(safariViewController: sfs)
+            safariShowing?.show(safariViewController: sfs)
         case .safari:
             guard let url = self.dataSource?.item(at: indexPath)?.url else { return }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
