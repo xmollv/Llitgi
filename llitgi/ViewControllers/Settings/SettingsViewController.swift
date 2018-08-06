@@ -70,6 +70,7 @@ class SettingsViewController: UIViewController {
         
         if UIDevice.current.userInterfaceIdiom != .pad {
             overlayModeStackView.isHidden = true
+            overlayModeExplanationLabel.isHidden = true
         } else {
             self.overlayMode(isEnabled: self.userManager.userHasEnabledOverlayMode)
         }
