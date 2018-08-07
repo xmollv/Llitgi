@@ -85,6 +85,10 @@ enum L10n {
         static let buildVersion = NSLocalizedString("Settings.buildVersion", comment: "")
     }
     
+    enum EmptyDetail {
+        static let descriptionTitle = NSLocalizedString("EmptyDetail.description", comment: "")
+    }
+    
     enum ShareExtension {
         static let saving = NSLocalizedString("ShareExtension.saving", comment: "")
     }

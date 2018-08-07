@@ -14,24 +14,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let window = UIWindow(frame: UIScreen.main.bounds)
     private let dataProvider = DataProvider(pocketAPI: PocketAPIManager(), modelFactory: CoreDataFactoryImplementation())
     private let userManager: UserManager = UserPreferencesManager()
+    private var flowManager: FlowManager?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         UIApplication.shared.setMinimumBackgroundFetchInterval(1800)
         
-        let viewControllerFactory = ViewControllerFactory(dataProvider: self.dataProvider, userManager: self.userManager)
+        flowManager = FlowManager(window: window, dataProvider: dataProvider, userManager: userManager)
         
-        let rootViewController = TabBarController(factory: viewControllerFactory)
         if self.userManager.isLoggedIn {
-            rootViewController.setupMainFlow()
+            flowManager?.setupMainFlow()
         } else {
-            rootViewController.setupAuthFlow()
+            flowManager?.setupAuthFlow()
         }
         
         // Establishing the window and rootViewController
         self.window.makeKeyAndVisible()
         self.window.tintColor = .black
-        self.window.rootViewController = rootViewController
         
         return true
     }
