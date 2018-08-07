@@ -53,6 +53,6 @@
 "Settings.email" = "Email";
 "Settings.buildVersion" = "Version: %1$@";
 
-"EmptyDetail.description" = "Choose an item from the list to start reading.\n You may need to swipe from the left edge if using overlay mode.";
+"EmptyDetail.description" = "Choose an item from the list to start reading.";
 
 "ShareExtension.saving" = "Saving to Llitgi...";
