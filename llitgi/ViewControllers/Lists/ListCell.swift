@@ -26,6 +26,12 @@ class ListCell: UITableViewCell, NibLoadableView {
         self.clearCell()
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        let color = self.favoriteView.backgroundColor
+        super.setSelected(selected, animated: animated)
+        self.favoriteView.backgroundColor = color
+    }
+    
     private func clearCell() {
         self.favoriteView.isHidden = true
         self.titleLabel.text = nil
