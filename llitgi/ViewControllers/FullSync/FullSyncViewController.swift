@@ -54,6 +54,9 @@ class FullSyncViewController: UIViewController {
         }
     }
     
+    //MARK: Public properties
+    var finishedSyncing: (() -> Void)?
+    
     //MARK: Lifecycle
     init(dataProvider: DataProvider) {
         self.dataProvider = dataProvider
@@ -76,7 +79,7 @@ class FullSyncViewController: UIViewController {
         case .loading:
             break
         case .loaded:
-            self.dismiss(animated: true, completion: nil)
+            self.finishedSyncing?()
         case .error:
             self.fullSync()
         }

@@ -50,6 +50,9 @@ class ListViewController: UITableViewController {
         return refreshControl
     }()
     
+    //MARK: Public properties
+    var settingsButtonTapped: (() -> Void)? = nil
+    
     //MARK:- Lifecycle
     required init(dataProvider: DataProvider, factory: ViewControllerFactory, userManager: UserManager, type: TypeOfList) {
         self.factory = factory
@@ -184,18 +187,7 @@ class ListViewController: UITableViewController {
     }
     
     @IBAction private func displaySettings(_ sender: UIBarButtonItem) {
-        let settingsViewController = self.factory.instantiateSettings()
-        //TODO: This is an extremely ugly hack, but I'm too tired rn
-        settingsViewController.logoutBlock = { [weak self] in
-            guard let strongSelf = self else { return }
-            guard let tabBar = strongSelf.tabBarController as? TabBarController  else { return }
-            strongSelf.userManager.displayBadge(with: 0)
-            strongSelf.dataProvider.clearLocalStorage()
-            tabBar.setupAuthFlow()
-        }
-        let navController = UINavigationController(rootViewController: settingsViewController)
-        navController.navigationBar.barTintColor = .white
-        self.present(navController, animated: true, completion: nil)
+        self.settingsButtonTapped?()
     }
 
 }

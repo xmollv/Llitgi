@@ -31,7 +31,7 @@ final class ViewControllerFactory {
     }
     
     func instantiateSettings() -> SettingsViewController {
-        return SettingsViewController(userManager: self.userManager)
+        return SettingsViewController(userManager: self.userManager, dataProvider: self.dataProvider)
     }
     
     func instantiateFullSync() -> FullSyncViewController {
