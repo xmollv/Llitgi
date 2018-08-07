@@ -24,6 +24,12 @@ final class AppCoordinator: NSObject, Coordinator {
     private let factory: ViewControllerFactory
     private let userManager: UserManager
     
+    private lazy var presentSafariClosure: ((SFSafariViewController) -> Void)? = { [weak self] sfs in
+        guard let strongSelf = self else { return }
+        sfs.delegate = strongSelf
+        strongSelf.splitViewController.showDetailViewController(sfs, sender: nil)
+    }
+    
     //MARK: Public properties
     var firstViewController: UIViewController {
         return self.tabBarController
@@ -52,11 +58,7 @@ final class AppCoordinator: NSObject, Coordinator {
         listViewController.settingsButtonTapped = { [weak self] in
             self?.showSettings()
         }
-        listViewController.safariToPresent = { [weak self] sfs in
-            guard let strongSelf = self else { return }
-            sfs.delegate = strongSelf
-            strongSelf.splitViewController.showDetailViewController(sfs, sender: nil)
-        }
+        listViewController.safariToPresent = self.presentSafariClosure
         listViewController.title = L10n.Titles.myList
         listViewController.tabBarItem = UITabBarItem(title: L10n.Titles.myList, image: #imageLiteral(resourceName: "list"), tag: 1)
         
@@ -64,11 +66,7 @@ final class AppCoordinator: NSObject, Coordinator {
         favoritesViewController.settingsButtonTapped = { [weak self] in
             self?.showSettings()
         }
-        favoritesViewController.safariToPresent = { [weak self] sfs in
-            guard let strongSelf = self else { return }
-            sfs.delegate = strongSelf
-            strongSelf.splitViewController.showDetailViewController(sfs, sender: nil)
-        }
+        favoritesViewController.safariToPresent = self.presentSafariClosure
         favoritesViewController.title = L10n.Titles.favorites
         favoritesViewController.tabBarItem = UITabBarItem(title: L10n.Titles.favorites, image: #imageLiteral(resourceName: "favorite"), tag: 2)
         
@@ -76,11 +74,7 @@ final class AppCoordinator: NSObject, Coordinator {
         archiveViewController.settingsButtonTapped = { [weak self] in
             self?.showSettings()
         }
-        archiveViewController.safariToPresent = { [weak self] sfs in
-            guard let strongSelf = self else { return }
-            sfs.delegate = strongSelf
-            strongSelf.splitViewController.showDetailViewController(sfs, sender: nil)
-        }
+        archiveViewController.safariToPresent = self.presentSafariClosure
         archiveViewController.title = L10n.Titles.archive
         archiveViewController.tabBarItem = UITabBarItem(title: L10n.Titles.archive, image: #imageLiteral(resourceName: "archive"), tag: 3)
         
