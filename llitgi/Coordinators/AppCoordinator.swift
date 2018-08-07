@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SafariServices
 
 protocol Coordinator {
     var firstViewController: UIViewController { get }
@@ -19,6 +20,7 @@ final class AppCoordinator: NSObject, Coordinator {
     //MARK: Private properties
     private let splitViewController: UISplitViewController
     private let tabBarController: UITabBarController
+    private let emptyViewController: EmptyDetailViewController
     private let factory: ViewControllerFactory
     private let userManager: UserManager
     
@@ -31,6 +33,7 @@ final class AppCoordinator: NSObject, Coordinator {
     init(window: UIWindow, tabBarController: UITabBarController = UITabBarController(), factory: ViewControllerFactory, userManager: UserManager) {
         self.splitViewController = UISplitViewController()
         self.tabBarController = tabBarController
+        self.emptyViewController = factory.instantiateEmptyDetail()
         self.factory = factory
         self.userManager = userManager
         
@@ -50,7 +53,9 @@ final class AppCoordinator: NSObject, Coordinator {
             self?.showSettings()
         }
         listViewController.safariToPresent = { [weak self] sfs in
-            self?.splitViewController.showDetailViewController(sfs, sender: nil)
+            guard let strongSelf = self else { return }
+            sfs.delegate = strongSelf
+            strongSelf.splitViewController.showDetailViewController(sfs, sender: nil)
         }
         listViewController.title = L10n.Titles.myList
         listViewController.tabBarItem = UITabBarItem(title: L10n.Titles.myList, image: #imageLiteral(resourceName: "list"), tag: 1)
@@ -60,7 +65,9 @@ final class AppCoordinator: NSObject, Coordinator {
             self?.showSettings()
         }
         favoritesViewController.safariToPresent = { [weak self] sfs in
-            self?.splitViewController.showDetailViewController(sfs, sender: nil)
+            guard let strongSelf = self else { return }
+            sfs.delegate = strongSelf
+            strongSelf.splitViewController.showDetailViewController(sfs, sender: nil)
         }
         favoritesViewController.title = L10n.Titles.favorites
         favoritesViewController.tabBarItem = UITabBarItem(title: L10n.Titles.favorites, image: #imageLiteral(resourceName: "favorite"), tag: 2)
@@ -70,7 +77,9 @@ final class AppCoordinator: NSObject, Coordinator {
             self?.showSettings()
         }
         archiveViewController.safariToPresent = { [weak self] sfs in
-            self?.splitViewController.showDetailViewController(sfs, sender: nil)
+            guard let strongSelf = self else { return }
+            sfs.delegate = strongSelf
+            strongSelf.splitViewController.showDetailViewController(sfs, sender: nil)
         }
         archiveViewController.title = L10n.Titles.archive
         archiveViewController.tabBarItem = UITabBarItem(title: L10n.Titles.archive, image: #imageLiteral(resourceName: "archive"), tag: 3)
@@ -89,7 +98,7 @@ final class AppCoordinator: NSObject, Coordinator {
             self.showLogin(animated: false)
         }
         
-        self.splitViewController.viewControllers = [self.tabBarController]
+        self.splitViewController.viewControllers = [self.tabBarController, self.emptyViewController]
         self.splitViewController.preferredDisplayMode = .allVisible
         self.splitViewController.delegate = self
     }
@@ -150,5 +159,12 @@ extension AppCoordinator: UITabBarControllerDelegate {
             list.scrollToTop()
         }
         return true
+    }
+}
+
+extension AppCoordinator: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        guard UIDevice.current.userInterfaceIdiom == .pad && self.splitViewController.traitCollection.horizontalSizeClass == .regular else { return }
+        self.splitViewController.showDetailViewController(self.emptyViewController, sender: nil)
     }
 }

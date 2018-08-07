@@ -5,6 +5,7 @@
 "General.errorPocket" = "Something went wrong communicating with Pocket. Could you please try again?";
 "General.errorTitle" = "Oops!";
 "General.errorDescription" = "Something went wrong.";
+"General.emptyDetail" = "Choose an item from the list to start reading.";
 
 "Onboarding.title" = "Welcome to Llitgi.";
 "Onboarding.offlineTitle" = "Offline first";

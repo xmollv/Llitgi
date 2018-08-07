@@ -18,6 +18,7 @@ enum L10n {
         static let errorTitle = NSLocalizedString("General.errorTitle", comment: "")
         static let errorDescription = NSLocalizedString("General.errorDescription", comment: "")
         static let pocketError = NSLocalizedString("General.errorPocket", comment: "")
+        static let emptyDetail = NSLocalizedString("General.emptyDetail", comment: "")
     }
     
     enum Add {
