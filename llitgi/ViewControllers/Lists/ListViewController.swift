@@ -132,6 +132,7 @@ class ListViewController: UITableViewController {
     }
     
     @objc private func pullToRefresh() {
+        guard self.userManager.isLoggedIn else { return }
         self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
             switch result {
             case .isSuccess: break
