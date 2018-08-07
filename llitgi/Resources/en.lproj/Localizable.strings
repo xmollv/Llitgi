@@ -32,8 +32,7 @@
 
 "EmptyStates.noResults" = "No results";
 "EmptyStates.noResultsSubtitle" = "It seems that nothing on your library matches your search.";
-"EmptyStates.myListTitle" = "Hooray! 🙌🏻";
-"EmptyStates.myListSubtitle" = "You don't have anything else to read. Go out and enjoy the day!";
+"EmptyStates.myListSubtitle" = "It seems that you haven't saved anything yet.";
 "EmptyStates.favoritesSubtitle" = "It seems that you haven't saved anything on your favorites yet.";
 "EmptyStates.archiveSubtitle" = "It seems that you haven't archived anything yet.";
 

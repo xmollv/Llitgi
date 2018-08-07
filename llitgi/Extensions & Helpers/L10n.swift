@@ -55,7 +55,7 @@ enum L10n {
     enum EmptyStates {
         static let allTitle = NSLocalizedString("EmptyStates.noResults", comment: "")
         static let allSubtitle = ""
-        static let myListTitle = NSLocalizedString("EmptyStates.myListTitle", comment: "")
+        static let myListTitle = NSLocalizedString("EmptyStates.noResults", comment: "")
         static let myListSubtitle = NSLocalizedString("EmptyStates.myListSubtitle", comment: "")
         static let favoritesTitle = NSLocalizedString("EmptyStates.noResults", comment: "")
         static let favoritesSubtitle = NSLocalizedString("EmptyStates.favoritesSubtitle", comment: "")
