@@ -11,7 +11,6 @@ import UIKit
 import SafariServices
 
 protocol Coordinator {
-    var firstViewController: UIViewController { get }
     func start()
 }
 
@@ -30,11 +29,6 @@ final class AppCoordinator: NSObject, Coordinator {
         strongSelf.splitViewController.showDetailViewController(sfs, sender: nil)
     }
     
-    //MARK: Public properties
-    var firstViewController: UIViewController {
-        return self.tabBarController
-    }
-    
     //MARK: Lifecycle
     init(window: UIWindow, tabBarController: UITabBarController = UITabBarController(), factory: ViewControllerFactory, userManager: UserManager) {
         self.splitViewController = UISplitViewController()
@@ -43,17 +37,8 @@ final class AppCoordinator: NSObject, Coordinator {
         self.factory = factory
         self.userManager = userManager
         
-        // Configure the window
-        window.tintColor = .black
-        window.rootViewController = self.splitViewController
-        window.makeKeyAndVisible()
-        
         super.init()
-        self.tabBarController.delegate = self
-    }
-    
-    //MARK: Public methods
-    func start() {
+        
         let listViewController: ListViewController = self.factory.instantiateList(for: .myList)
         listViewController.settingsButtonTapped = { [weak self] in
             self?.showSettings()
@@ -86,12 +71,21 @@ final class AppCoordinator: NSObject, Coordinator {
         }
         
         self.tabBarController.tabBar.barTintColor = .white
+        self.tabBarController.delegate = self
         self.tabBarController.setViewControllers(tabs, animated: false)
         
         self.splitViewController.viewControllers = [self.tabBarController, self.emptyViewController]
         self.splitViewController.preferredDisplayMode = .allVisible
         self.splitViewController.delegate = self
         
+        // Configure the window
+        window.makeKeyAndVisible()
+        window.tintColor = .black
+        window.rootViewController = self.splitViewController
+    }
+    
+    //MARK: Public methods
+    func start() {
         if !self.userManager.isLoggedIn {
             self.showLogin(animated: false)
         }
