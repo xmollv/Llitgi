@@ -101,16 +101,27 @@ final class AppCoordinator: NSObject, Coordinator {
     private func showLogin(animated: Bool = true) {
         let login = self.factory.instantiateAuth()
         login.modalPresentationStyle = .formSheet
+        
+        login.safariToPresent = { [weak login] sfs in
+            login?.present(sfs, animated: true, completion: nil)
+        }
+        
         login.loginFinished = { [weak self] in
             self?.splitViewController.dismiss(animated: true, completion: { [weak self] in
                 self?.showFullSync()
             })
         }
+        
         self.splitViewController.present(login, animated: animated, completion: nil)
     }
     
     private func showSettings() {
         let settingsViewController = self.factory.instantiateSettings()
+        
+        settingsViewController.doneBlock = { [weak self] in
+            self?.splitViewController.dismiss(animated: true, completion: nil)
+        }
+        
         settingsViewController.logoutBlock = { [weak self] in
             self?.splitViewController.dismiss(animated: true, completion: { [weak self] in
                 self?.showLogin()

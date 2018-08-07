@@ -25,7 +25,8 @@ class AuthorizationViewController: UIViewController {
     private let dataProvider: DataProvider
     
     //MARK: Public properties
-    var loginFinished: (() -> Void)? = nil
+    var loginFinished: (() -> Void)?
+    var safariToPresent: ((SFSafariViewController) -> Void)?
     
     //MARK:- Lifecycle
     init(dataProvider: DataProvider) {
@@ -74,7 +75,7 @@ class AuthorizationViewController: UIViewController {
                     sfs.modalPresentationStyle = .formSheet
                     sfs.preferredControlTintColor = .black
                     sfs.preferredBarTintColor = .white
-                    strongSelf.present(sfs, animated: true, completion: nil)
+                    strongSelf.safariToPresent?(sfs)
                 }
                 
             case .isFailure(let error):

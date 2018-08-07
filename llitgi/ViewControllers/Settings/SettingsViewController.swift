@@ -35,7 +35,8 @@ class SettingsViewController: UIViewController {
     private let dataProvider: DataProvider
     
     //MARK: Public properties
-    var logoutBlock: (() -> ())? = nil
+    var logoutBlock: (() -> Void)?
+    var doneBlock: (() -> Void)?
     
     //MARK:- Lifecycle
     init(userManager: UserManager, dataProvider: DataProvider) {
@@ -60,7 +61,7 @@ class SettingsViewController: UIViewController {
     
     //MARK:- IBActions
     @IBAction private func done(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        self.doneBlock?()
     }
     
     private func badgeCount(isEnabled: Bool) {
