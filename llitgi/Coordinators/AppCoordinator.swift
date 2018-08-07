@@ -123,7 +123,9 @@ final class AppCoordinator: NSObject, Coordinator {
         }
         
         settingsViewController.logoutBlock = { [weak self] in
-            self?.splitViewController.dismiss(animated: true, completion: { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.splitViewController.showDetailViewController(strongSelf.emptyViewController, sender: nil)
+            strongSelf.splitViewController.dismiss(animated: true, completion: { [weak self] in
                 self?.showLogin()
             })
         }
