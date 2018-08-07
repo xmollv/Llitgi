@@ -19,6 +19,7 @@ class SplitViewController: UISplitViewController {
     init(factory: ViewControllerFactory) {
         self.factory = factory
         super.init(nibName: nil, bundle: nil)
+        preferredDisplayMode = .allVisible
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,6 +38,7 @@ class SplitViewController: UISplitViewController {
         preferredDisplayMode = .allVisible
     }
 }
+
 
 extension SplitViewController: SafariShowing {
     func show(safariViewController: SFSafariViewController) {

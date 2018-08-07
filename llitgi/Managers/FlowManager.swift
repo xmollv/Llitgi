@@ -35,7 +35,6 @@ class FlowManager {
         let rootViewController = SplitViewController(factory: viewControllerFactory)
         // Can't be injected at initializer due to circular dependency
         viewControllerFactory.safariShowing = rootViewController
-        viewControllerFactory.overlayDisplaying = rootViewController
         
         rootViewController.setupMainFlow()
         window.rootViewController = rootViewController
