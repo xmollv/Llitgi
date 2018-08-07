@@ -28,7 +28,6 @@ enum TypeOfList {
 class ListViewController: UITableViewController {
     
     //MARK: Private properties
-    private let factory: ViewControllerFactory
     private let dataProvider: DataProvider
     private let userManager: UserManager
     private let typeOfList: TypeOfList
@@ -55,8 +54,7 @@ class ListViewController: UITableViewController {
     var safariToPresent: ((SFSafariViewController) -> Void)?
     
     //MARK:- Lifecycle
-    required init(dataProvider: DataProvider, factory: ViewControllerFactory, userManager: UserManager, type: TypeOfList) {
-        self.factory = factory
+    required init(dataProvider: DataProvider, userManager: UserManager, type: TypeOfList) {
         self.dataProvider = dataProvider
         self.userManager = userManager
         self.typeOfList = type

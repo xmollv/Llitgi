@@ -23,15 +23,13 @@ class AuthorizationViewController: UIViewController {
     
     //MARK: Private properties
     private let dataProvider: DataProvider
-    private let factory: ViewControllerFactory
     
     //MARK: Public properties
     var loginFinished: (() -> Void)? = nil
     
     //MARK:- Lifecycle
-    init(dataProvider: DataProvider, factory: ViewControllerFactory) {
+    init(dataProvider: DataProvider) {
         self.dataProvider = dataProvider
-        self.factory = factory
         super.init(nibName: String(describing: AuthorizationViewController.self), bundle: nil)
     }
     

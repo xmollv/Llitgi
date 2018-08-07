@@ -23,11 +23,11 @@ final class ViewControllerFactory {
     
     //MARK: Public methods
     func instantiateAuth() -> AuthorizationViewController {
-        return AuthorizationViewController(dataProvider: self.dataProvider, factory: self)
+        return AuthorizationViewController(dataProvider: self.dataProvider)
     }
     
     func instantiateList(for type: TypeOfList) -> ListViewController {
-        return ListViewController(dataProvider: self.dataProvider, factory: self, userManager: self.userManager, type: type)
+        return ListViewController(dataProvider: self.dataProvider, userManager: self.userManager, type: type)
     }
     
     func instantiateSettings() -> SettingsViewController {
