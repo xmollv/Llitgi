@@ -37,7 +37,7 @@ class FlowManager {
         viewControllerFactory.safariShowing = rootViewController
         viewControllerFactory.overlayDisplaying = rootViewController
         
-        rootViewController.setupMainFlow(shouldEnableOverlayMode: self.userManager.userHasEnabledOverlayMode)
+        rootViewController.setupMainFlow()
         window.rootViewController = rootViewController
     }
 }

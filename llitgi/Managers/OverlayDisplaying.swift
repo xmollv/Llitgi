@@ -9,5 +9,6 @@
 import Foundation
 
 protocol OverlayDisplaying: class {
-    func overlayDisplayMode(isEnabled: Bool)
+    func overlayDisplayMode(shouldBeSet: Bool)
+    func isOverlayDisplayModeSet() -> Bool
 }

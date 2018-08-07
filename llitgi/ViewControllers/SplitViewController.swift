@@ -25,7 +25,7 @@ class SplitViewController: UISplitViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupMainFlow(shouldEnableOverlayMode: Bool) {
+    func setupMainFlow() {
         let master = TabBarController(factory: factory)
         master.setupMainFlow()
         var viewControllers : [UIViewController] = [master]
@@ -34,11 +34,7 @@ class SplitViewController: UISplitViewController {
             viewControllers.append(emptyDetail)
         }
         self.viewControllers = viewControllers
-        if (shouldEnableOverlayMode) {
-            preferredDisplayMode = .primaryOverlay
-        } else {
-            preferredDisplayMode = .allVisible
-        }
+        preferredDisplayMode = .allVisible
     }
 }
 
@@ -49,22 +45,12 @@ extension SplitViewController: SafariShowing {
     }
 }
 
-extension SplitViewController: OverlayDisplaying {
-    func overlayDisplayMode(isEnabled: Bool) {
-        if (isEnabled) {
-            preferredDisplayMode = .primaryOverlay
-        } else {
-            preferredDisplayMode = .allVisible
-        }
-    }
-}
-
 extension SplitViewController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         if (UIDevice.current.userInterfaceIdiom == .pad) {
             let emptyDetail = factory.instantiateEmptyDetail()
             showDetailViewController(emptyDetail, sender: self)
-        }
-    }
+		}
+	}
 }
 
