@@ -31,7 +31,6 @@ class ListViewController: UITableViewController {
     private let dataProvider: DataProvider
     private let userManager: UserManager
     private let typeOfList: TypeOfList
-    private let swipeActionManager: ListSwipeActionManager
     private let searchController = UISearchController(searchResultsController: nil)
     private var addButton: UIBarButtonItem? = nil
     private var loadingButton: UIBarButtonItem? = nil
@@ -59,7 +58,6 @@ class ListViewController: UITableViewController {
         self.userManager = userManager
         self.typeOfList = type
         self.typeOfListForSearch = type
-        self.swipeActionManager = ListSwipeActionManager(dataProvider: dataProvider)
         super.init(nibName: String(describing: ListViewController.self), bundle: nil)
     }
     
@@ -215,15 +213,55 @@ extension ListViewController {
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let item = self.dataSource?.item(at: indexPath) else { return nil }
-        let actions = self.swipeActionManager.buildLeadingActions(for: item)
-        return UISwipeActionsConfiguration(actions: actions)
+        guard var item = self.dataSource?.item(at: indexPath) else { return nil }
+        let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            
+            let modification: ItemModification
+            if item.isFavorite {
+                modification = ItemModification(action: .unfavorite, id: item.id)
+            } else {
+                modification = ItemModification(action: .favorite, id: item.id)
+            }
+            
+            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
+            item.switchFavoriteStatus()
+            success(true)
+        }
+        favoriteAction.title = item.isFavorite ? L10n.Actions.unfavorite : L10n.Actions.favorite
+        favoriteAction.backgroundColor = UIColor(red: 242/255, green: 181/255, blue: 0/255, alpha: 1)
+        
+        return UISwipeActionsConfiguration(actions: [favoriteAction])
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let item = self.dataSource?.item(at: indexPath) else { return nil }
-        let actions = self.swipeActionManager.buildTrailingActions(for: item)
-        return UISwipeActionsConfiguration(actions: actions)
+        guard var item = self.dataSource?.item(at: indexPath) else { return nil }
+        
+        let archiveAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            
+            let modification: ItemModification
+            if item.status == "0" {
+                modification = ItemModification(action: .archive, id: item.id)
+                item.changeStatus(to: "1")
+            } else {
+                modification = ItemModification(action: .readd, id: item.id)
+                item.changeStatus(to: "0")
+            }
+            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
+            success(true)
+        }
+        archiveAction.title = item.status == "0" ? L10n.Actions.archive : L10n.Actions.unarchive
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: L10n.Actions.delete) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            let modification = ItemModification(action: .delete, id: item.id)
+            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
+            item.changeStatus(to: "2")
+            success(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [archiveAction, deleteAction])
     }
 }
 

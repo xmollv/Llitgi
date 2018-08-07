@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */; };
-		4710EF521FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */; };
 		4710EF561FF4338A00D3DCA9 /* CoreDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */; };
 		4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF571FF44E5100D3DCA9 /* CoreDataNotifier.swift */; };
 		4710EF5B1FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF591FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld */; };
@@ -94,7 +93,6 @@
 
 /* Begin PBXFileReference section */
 		4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIModification.swift; sourceTree = "<group>"; };
-		4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSwipeActionManager.swift; sourceTree = "<group>"; };
 		4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFactory.swift; sourceTree = "<group>"; };
 		4710EF571FF44E5100D3DCA9 /* CoreDataNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataNotifier.swift; sourceTree = "<group>"; };
 		4710EF5A1FF451C500D3DCA9 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -248,7 +246,6 @@
 			isa = PBXGroup;
 			children = (
 				47803EA42009674D003D58E2 /* UserManager.swift */,
-				4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -536,7 +533,6 @@
 				47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */,
 				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
 				4770ACFE1FF1B108006E755D /* ListDataSource.swift in Sources */,
-				4710EF521FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift in Sources */,
 				4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */,
