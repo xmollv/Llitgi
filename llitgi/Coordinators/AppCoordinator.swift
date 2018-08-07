@@ -124,7 +124,10 @@ final class AppCoordinator: NSObject, Coordinator {
         
         settingsViewController.logoutBlock = { [weak self] in
             guard let strongSelf = self else { return }
-            strongSelf.splitViewController.showDetailViewController(strongSelf.emptyViewController, sender: nil)
+            if strongSelf.splitViewController.traitCollection.horizontalSizeClass == .regular {
+                strongSelf.splitViewController.showDetailViewController(strongSelf.emptyViewController, sender: nil)
+            }
+            
             strongSelf.splitViewController.dismiss(animated: true, completion: { [weak self] in
                 self?.showLogin()
             })
@@ -171,7 +174,7 @@ extension AppCoordinator: UITabBarControllerDelegate {
 
 extension AppCoordinator: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        guard UIDevice.current.userInterfaceIdiom == .pad && self.splitViewController.traitCollection.horizontalSizeClass == .regular else { return }
+        guard self.splitViewController.traitCollection.horizontalSizeClass == .regular else { return }
         self.splitViewController.showDetailViewController(self.emptyViewController, sender: nil)
     }
 }
