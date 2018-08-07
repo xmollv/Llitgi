@@ -88,13 +88,13 @@ final class AppCoordinator: NSObject, Coordinator {
         self.tabBarController.tabBar.barTintColor = .white
         self.tabBarController.setViewControllers(tabs, animated: false)
         
-        if !self.userManager.isLoggedIn {
-            self.showLogin(animated: false)
-        }
-        
         self.splitViewController.viewControllers = [self.tabBarController, self.emptyViewController]
         self.splitViewController.preferredDisplayMode = .allVisible
         self.splitViewController.delegate = self
+        
+        if !self.userManager.isLoggedIn {
+            self.showLogin(animated: false)
+        }
     }
     
     //MARK: Private methods
