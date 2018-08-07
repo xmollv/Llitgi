@@ -75,6 +75,7 @@ class AuthorizationViewController: UIViewController {
                     let sfs = SFSafariViewController(url: url)
                     sfs.modalPresentationStyle = .formSheet
                     sfs.preferredControlTintColor = .black
+                    sfs.preferredBarTintColor = .white
                     strongSelf.present(sfs, animated: true, completion: nil)
                 }
                 

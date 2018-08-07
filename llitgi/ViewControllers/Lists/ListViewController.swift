@@ -51,7 +51,8 @@ class ListViewController: UITableViewController {
     }()
     
     //MARK: Public properties
-    var settingsButtonTapped: (() -> Void)? = nil
+    var settingsButtonTapped: (() -> Void)?
+    var safariToPresent: ((SFSafariViewController) -> Void)?
     
     //MARK:- Lifecycle
     required init(dataProvider: DataProvider, factory: ViewControllerFactory, userManager: UserManager, type: TypeOfList) {
@@ -151,6 +152,7 @@ class ListViewController: UITableViewController {
         cfg.entersReaderIfAvailable = self.userManager.openReaderMode
         let sfs = SFSafariViewController(url: url, configuration: cfg)
         sfs.preferredControlTintColor = .black
+        sfs.preferredBarTintColor = .white
         return sfs
     }
     
@@ -207,7 +209,7 @@ extension ListViewController {
         switch self.userManager.openLinksWith {
         case .safariViewController:
             guard let sfs = self.safariViewController(at: indexPath) else { return }
-            self.present(sfs, animated: true, completion: nil)
+            self.safariToPresent?(sfs)
         case .safari:
             guard let url = self.dataSource?.item(at: indexPath)?.url else { return }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
