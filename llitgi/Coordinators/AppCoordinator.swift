@@ -36,6 +36,7 @@ final class AppCoordinator: NSObject, Coordinator {
     private lazy var presentSafariClosure: ((SFSafariViewController) -> Void)? = { [weak self] sfs in
         guard let strongSelf = self else { return }
         strongSelf.presentedSafari = sfs
+        strongSelf.presentedSafari?.delegate = strongSelf
         strongSelf.splitViewController.showDetailViewController(sfs, sender: nil)
     }
     
@@ -148,5 +149,13 @@ extension AppCoordinator: UITabBarControllerDelegate {
             list.scrollToTop()
         }
         return true
+    }
+}
+
+extension AppCoordinator: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        guard self.splitViewController.traitCollection.horizontalSizeClass == .regular else { return }
+        self.presentedSafari = nil
+        self.splitViewController.showDetailViewController(self.navController, sender: nil)
     }
 }
