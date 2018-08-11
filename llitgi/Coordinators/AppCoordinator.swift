@@ -126,6 +126,7 @@ final class AppCoordinator: NSObject, Coordinator {
         
         settingsViewController.logoutBlock = { [weak self] in
             guard let strongSelf = self else { return }
+            strongSelf.presentedSafari = nil
             if strongSelf.splitViewController.traitCollection.horizontalSizeClass == .regular {
                 strongSelf.splitViewController.showDetailViewController(strongSelf.navController, sender: nil)
             }
