@@ -17,8 +17,13 @@ protocol Coordinator {
 final class AppCoordinator: NSObject, Coordinator {
     
     //MARK: Private properties
+    private let factory: ViewControllerFactory
+    private let userManager: UserManager
+    // This one is the root
     private let splitViewController: UISplitViewController
+    // This one is the master
     private let tabBarController: UITabBarController
+    // This one is the detail
     private var navController: UINavigationController {
         let navController = UINavigationController()
         navController.setNavigationBarHidden(true, animated: false)
@@ -28,10 +33,8 @@ final class AppCoordinator: NSObject, Coordinator {
         }
         return navController
     }
-    weak private var presentedSafari: SFSafariViewController?
-    private let factory: ViewControllerFactory
-    private let userManager: UserManager
     
+    weak private var presentedSafari: SFSafariViewController?
     private lazy var presentSafariClosure: ((SFSafariViewController) -> Void)? = { [weak self] sfs in
         guard let strongSelf = self else { return }
         strongSelf.presentedSafari = sfs
@@ -39,40 +42,18 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     //MARK: Lifecycle
-    init(window: UIWindow, tabBarController: UITabBarController = UITabBarController(), factory: ViewControllerFactory, userManager: UserManager) {
-        self.splitViewController = UISplitViewController()
-        self.tabBarController = tabBarController
+    init(window: UIWindow, factory: ViewControllerFactory, userManager: UserManager) {
         self.factory = factory
         self.userManager = userManager
+        self.splitViewController = UISplitViewController()
+        self.tabBarController = UITabBarController()
         
         super.init()
         
-        let listViewController: ListViewController = self.factory.instantiateList(for: .myList)
-        listViewController.settingsButtonTapped = { [weak self] in
-            self?.showSettings()
-        }
-        listViewController.safariToPresent = self.presentSafariClosure
-        listViewController.title = L10n.Titles.myList
-        listViewController.tabBarItem = UITabBarItem(title: L10n.Titles.myList, image: #imageLiteral(resourceName: "list"), tag: 1)
-        
-        let favoritesViewController: ListViewController = self.factory.instantiateList(for: .favorites)
-        favoritesViewController.settingsButtonTapped = { [weak self] in
-            self?.showSettings()
-        }
-        favoritesViewController.safariToPresent = self.presentSafariClosure
-        favoritesViewController.title = L10n.Titles.favorites
-        favoritesViewController.tabBarItem = UITabBarItem(title: L10n.Titles.favorites, image: #imageLiteral(resourceName: "favorite"), tag: 2)
-        
-        let archiveViewController: ListViewController = self.factory.instantiateList(for: .archive)
-        archiveViewController.settingsButtonTapped = { [weak self] in
-            self?.showSettings()
-        }
-        archiveViewController.safariToPresent = self.presentSafariClosure
-        archiveViewController.title = L10n.Titles.archive
-        archiveViewController.tabBarItem = UITabBarItem(title: L10n.Titles.archive, image: #imageLiteral(resourceName: "archive"), tag: 3)
-        
-        let tabs = [listViewController, favoritesViewController, archiveViewController].map { (viewController) -> UINavigationController in
-            let navController = UINavigationController(rootViewController: viewController)
+        let tabs = self.factory.instantiateLists().map { (vc) -> UINavigationController in
+            vc.safariToPresent = self.presentSafariClosure
+            vc.settingsButtonTapped = { [weak self] in self?.showSettings() }
+            let navController = UINavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
             navController.navigationBar.barTintColor = .white
             return navController
