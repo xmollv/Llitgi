@@ -21,9 +21,7 @@ final class AppCoordinator: NSObject, Coordinator {
     private let userManager: UserManager
     // This one is the root
     private let splitViewController: UISplitViewController
-    // This one is the master
-    private let tabBarController: UITabBarController
-    // This one is the detail
+    // This one is the detail that keeps changing
     private var navController: UINavigationController {
         let navController = UINavigationController()
         navController.setNavigationBarHidden(true, animated: false)
@@ -46,8 +44,7 @@ final class AppCoordinator: NSObject, Coordinator {
         self.factory = factory
         self.userManager = userManager
         self.splitViewController = UISplitViewController()
-        self.tabBarController = UITabBarController()
-        
+
         super.init()
         
         let tabs = self.factory.instantiateLists().map { (vc) -> UINavigationController in
@@ -59,11 +56,12 @@ final class AppCoordinator: NSObject, Coordinator {
             return navController
         }
         
-        self.tabBarController.tabBar.barTintColor = .white
-        self.tabBarController.delegate = self
-        self.tabBarController.setViewControllers(tabs, animated: false)
+        let tabBarController = UITabBarController()
+        tabBarController.tabBar.barTintColor = .white
+        tabBarController.delegate = self
+        tabBarController.setViewControllers(tabs, animated: false)
         
-        self.splitViewController.viewControllers = [self.tabBarController, self.navController]
+        self.splitViewController.viewControllers = [tabBarController, self.navController]
         self.splitViewController.preferredDisplayMode = .allVisible
         self.splitViewController.delegate = self
         
@@ -135,7 +133,7 @@ final class AppCoordinator: NSObject, Coordinator {
 
 extension AppCoordinator: UISplitViewControllerDelegate {
     func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
-        self.tabBarController.dismiss(animated: false, completion: nil)
+        splitViewController.dismiss(animated: false, completion: nil)
         return self.navController
     }
 }
