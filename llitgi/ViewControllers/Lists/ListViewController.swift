@@ -82,6 +82,12 @@ class ListViewController: UITableViewController {
         self.tableView.deselectRow(with: self.transitionCoordinator, animated: animated)
     }
     
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        if newCollection.horizontalSizeClass == .compact {
+            self.tableView.deselectRow(with: coordinator, animated: true)
+        }
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

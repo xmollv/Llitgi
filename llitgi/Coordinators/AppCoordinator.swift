@@ -19,14 +19,21 @@ final class AppCoordinator: NSObject, Coordinator {
     //MARK: Private properties
     private let splitViewController: UISplitViewController
     private let tabBarController: UITabBarController
-    private let emptyViewController: EmptyDetailViewController
+    private var navController: UINavigationController {
+        let navController = UINavigationController()
+        navController.setNavigationBarHidden(true, animated: false)
+        navController.view.backgroundColor = .white
+        if let sfs = self.presentedSafari {
+            navController.setViewControllers([sfs], animated: true)
+        }
+        return navController
+    }
     weak private var presentedSafari: SFSafariViewController?
     private let factory: ViewControllerFactory
     private let userManager: UserManager
     
     private lazy var presentSafariClosure: ((SFSafariViewController) -> Void)? = { [weak self] sfs in
         guard let strongSelf = self else { return }
-        sfs.delegate = strongSelf
         strongSelf.presentedSafari = sfs
         strongSelf.splitViewController.showDetailViewController(sfs, sender: nil)
     }
@@ -35,7 +42,6 @@ final class AppCoordinator: NSObject, Coordinator {
     init(window: UIWindow, tabBarController: UITabBarController = UITabBarController(), factory: ViewControllerFactory, userManager: UserManager) {
         self.splitViewController = UISplitViewController()
         self.tabBarController = tabBarController
-        self.emptyViewController = factory.instantiateEmptyDetail()
         self.factory = factory
         self.userManager = userManager
         
@@ -76,7 +82,7 @@ final class AppCoordinator: NSObject, Coordinator {
         self.tabBarController.delegate = self
         self.tabBarController.setViewControllers(tabs, animated: false)
         
-        self.splitViewController.viewControllers = [self.tabBarController, UINavigationController()]
+        self.splitViewController.viewControllers = [self.tabBarController, self.navController]
         self.splitViewController.preferredDisplayMode = .allVisible
         self.splitViewController.delegate = self
         
@@ -121,7 +127,7 @@ final class AppCoordinator: NSObject, Coordinator {
         settingsViewController.logoutBlock = { [weak self] in
             guard let strongSelf = self else { return }
             if strongSelf.splitViewController.traitCollection.horizontalSizeClass == .regular {
-                strongSelf.splitViewController.showDetailViewController(strongSelf.emptyViewController, sender: nil)
+                strongSelf.splitViewController.showDetailViewController(strongSelf.navController, sender: nil)
             }
             
             strongSelf.splitViewController.dismiss(animated: true, completion: { [weak self] in
@@ -148,10 +154,7 @@ final class AppCoordinator: NSObject, Coordinator {
 extension AppCoordinator: UISplitViewControllerDelegate {
     func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
         self.tabBarController.dismiss(animated: false, completion: nil)
-        let navController = UINavigationController(rootViewController: self.presentedSafari ?? self.emptyViewController)
-        navController.setNavigationBarHidden(true, animated: false)
-        navController.navigationBar.barTintColor = .white
-        return navController
+        return self.navController
     }
 }
 
@@ -165,12 +168,5 @@ extension AppCoordinator: UITabBarControllerDelegate {
             list.scrollToTop()
         }
         return true
-    }
-}
-
-extension AppCoordinator: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-//        guard self.splitViewController.traitCollection.horizontalSizeClass == .regular else { return }
-//        self.splitViewController.showDetailViewController(self.emptyViewController, sender: nil)
     }
 }

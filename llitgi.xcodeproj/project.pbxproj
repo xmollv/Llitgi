@@ -15,8 +15,6 @@
 		4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF601FF51D8500D3DCA9 /* Managed.swift */; };
 		471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FE2E820B5EFED0059AEA7 /* UIViewController.swift */; };
 		4727DE61211055AE00444D5D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4727DE60211055AE00444D5D /* AppCoordinator.swift */; };
-		472D79B9211A332C0094BEA5 /* EmptyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472D79B7211A332C0094BEA5 /* EmptyDetailViewController.swift */; };
-		472D79BA211A332C0094BEA5 /* EmptyDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 472D79B8211A332C0094BEA5 /* EmptyDetailViewController.xib */; };
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		47376DE71FF0831600B8E70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Item.swift */; };
 		47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47392347202667E3005526C5 /* LitgiUserDefaults.swift */; };
@@ -100,8 +98,6 @@
 		4710EF601FF51D8500D3DCA9 /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		471FE2E820B5EFED0059AEA7 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		4727DE60211055AE00444D5D /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		472D79B7211A332C0094BEA5 /* EmptyDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDetailViewController.swift; sourceTree = "<group>"; };
-		472D79B8211A332C0094BEA5 /* EmptyDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyDetailViewController.xib; sourceTree = "<group>"; };
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47376DE61FF0831600B8E70C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		47392347202667E3005526C5 /* LitgiUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LitgiUserDefaults.swift; sourceTree = "<group>"; };
@@ -179,15 +175,6 @@
 				4727DE60211055AE00444D5D /* AppCoordinator.swift */,
 			);
 			path = Coordinators;
-			sourceTree = "<group>";
-		};
-		472D79B6211A32DC0094BEA5 /* EmptyDetail */ = {
-			isa = PBXGroup;
-			children = (
-				472D79B7211A332C0094BEA5 /* EmptyDetailViewController.swift */,
-				472D79B8211A332C0094BEA5 /* EmptyDetailViewController.xib */,
-			);
-			path = EmptyDetail;
 			sourceTree = "<group>";
 		};
 		47376DE51FF082F800B8E70C /* Models */ = {
@@ -304,7 +291,6 @@
 				4752C0842030F20300988A68 /* FullSync */,
 				4770ACF81FF189CD006E755D /* Lists */,
 				474B441D2001A517009897D2 /* Settings */,
-				472D79B6211A32DC0094BEA5 /* EmptyDetail */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -473,7 +459,6 @@
 				478F43992038E52D003ECCAD /* Localizable.strings in Resources */,
 				47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */,
 				4770AD041FF1B470006E755D /* ListCell.xib in Resources */,
-				472D79BA211A332C0094BEA5 /* EmptyDetailViewController.xib in Resources */,
 				47DB058220B067DB001485DF /* Assets.xcassets in Resources */,
 				479E18E520724653002E3BB1 /* PocketConsumerKey in Resources */,
 			);
@@ -523,7 +508,6 @@
 				4770ACF51FF111A9006E755D /* UIView.swift in Sources */,
 				47803EA52009674D003D58E2 /* UserManager.swift in Sources */,
 				4727DE61211055AE00444D5D /* AppCoordinator.swift in Sources */,
-				472D79B9211A332C0094BEA5 /* EmptyDetailViewController.swift in Sources */,
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
 				47DE472B209A53D500770884 /* L10n.swift in Sources */,
 				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,

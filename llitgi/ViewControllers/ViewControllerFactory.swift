@@ -37,8 +37,4 @@ final class ViewControllerFactory {
     func instantiateFullSync() -> FullSyncViewController {
         return FullSyncViewController(dataProvider: self.dataProvider)
     }
-    
-    func instantiateEmptyDetail() -> EmptyDetailViewController {
-        return EmptyDetailViewController()
-    }
 }
