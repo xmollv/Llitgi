@@ -21,14 +21,16 @@ class AuthorizationViewController: UIViewController {
     @IBOutlet private var minimalistDescriptionLabel: UILabel!
     @IBOutlet private var actionButton: UIButton!
     
-    //MARK: Provate properties
+    //MARK: Private properties
     private let dataProvider: DataProvider
-    private let factory: ViewControllerFactory
+    
+    //MARK: Public properties
+    var loginFinished: (() -> Void)?
+    var safariToPresent: ((SFSafariViewController) -> Void)?
     
     //MARK:- Lifecycle
-    init(dataProvider: DataProvider, factory: ViewControllerFactory) {
+    init(dataProvider: DataProvider) {
         self.dataProvider = dataProvider
-        self.factory = factory
         super.init(nibName: String(describing: AuthorizationViewController.self), bundle: nil)
     }
     
@@ -70,9 +72,10 @@ class AuthorizationViewController: UIViewController {
                 } else {
                     guard let url = strongSelf.dataProvider.pocketOAuthUrls.web else { return }
                     let sfs = SFSafariViewController(url: url)
-                    sfs.modalPresentationStyle = .overFullScreen
+                    sfs.modalPresentationStyle = .formSheet
                     sfs.preferredControlTintColor = .black
-                    strongSelf.present(sfs, animated: true, completion: nil)
+                    sfs.preferredBarTintColor = .white
+                    strongSelf.safariToPresent?(sfs)
                 }
                 
             case .isFailure(let error):
@@ -107,21 +110,12 @@ class AuthorizationViewController: UIViewController {
                     return
                 }
                 strongSelf.dataProvider.updatePocket(token: token)
-                strongSelf.authFinishedStartMainFlow()
+                strongSelf.loginFinished?()
             case .isFailure(let error):
                 strongSelf.presentErrorAlert()
                 Logger.log(error.localizedDescription, event: .error)
             }
         }
-    }
-    
-    private func authFinishedStartMainFlow() {
-        guard let tabBarController = self.tabBarController as? TabBarController else { return }
-        let fullSync = self.factory.instantiateFullSync()
-        fullSync.modalPresentationStyle = .overFullScreen
-        fullSync.modalTransitionStyle = .crossDissolve
-        tabBarController.present(fullSync, animated: true, completion: nil)
-        tabBarController.setupMainFlow()
     }
 
 }

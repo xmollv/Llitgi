@@ -68,33 +68,6 @@ extension ListDataSource: UITableViewDataSource {
         if self.typeOfList == .myList && !isSearch {
             self.userPreferences.displayBadge(with: numberOfElements)
         }
-        if numberOfElements == 0 {
-            let title: String
-            let subtitle: String
-            
-            if self.isSearch {
-                title = L10n.EmptyStates.searchTitle
-                subtitle = L10n.EmptyStates.searchSubtitle
-            } else {
-                switch self.typeOfList {
-                case .all:
-                    title = L10n.EmptyStates.allTitle
-                    subtitle = L10n.EmptyStates.allSubtitle
-                case .myList:
-                    title = L10n.EmptyStates.myListTitle
-                    subtitle = L10n.EmptyStates.myListSubtitle
-                case .favorites:
-                    title = L10n.EmptyStates.favoritesTitle
-                    subtitle = L10n.EmptyStates.favoritesSubtitle
-                case .archive:
-                    title = L10n.EmptyStates.archiveTitle
-                    subtitle = L10n.EmptyStates.archiveSubtitle
-                }
-            }
-            tableView.establishEmptyState(title: title, subtitle: subtitle)
-        } else {
-            tableView.backgroundView = nil
-        }
         return numberOfElements
     }
     

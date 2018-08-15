@@ -23,15 +23,31 @@ final class ViewControllerFactory {
     
     //MARK: Public methods
     func instantiateAuth() -> AuthorizationViewController {
-        return AuthorizationViewController(dataProvider: self.dataProvider, factory: self)
+        return AuthorizationViewController(dataProvider: self.dataProvider)
     }
     
-    func instantiateList(for type: TypeOfList) -> ListViewController {
-        return ListViewController(dataProvider: self.dataProvider, factory: self, userManager: self.userManager, type: type)
+    func instantiateLists() -> [ListViewController] {
+        let listViewController: ListViewController = self.instantiateList(for: .myList)
+        listViewController.title = L10n.Titles.myList
+        listViewController.tabBarItem = UITabBarItem(title: L10n.Titles.myList, image: #imageLiteral(resourceName: "list"), tag: 1)
+        
+        let favoritesViewController: ListViewController = self.instantiateList(for: .favorites)
+        favoritesViewController.title = L10n.Titles.favorites
+        favoritesViewController.tabBarItem = UITabBarItem(title: L10n.Titles.favorites, image: #imageLiteral(resourceName: "favorite"), tag: 2)
+        
+        let archiveViewController: ListViewController = self.instantiateList(for: .archive)
+        archiveViewController.title = L10n.Titles.archive
+        archiveViewController.tabBarItem = UITabBarItem(title: L10n.Titles.archive, image: #imageLiteral(resourceName: "archive"), tag: 3)
+        
+        return [listViewController, favoritesViewController, archiveViewController]
+    }
+    
+    private func instantiateList(for type: TypeOfList) -> ListViewController {
+        return ListViewController(dataProvider: self.dataProvider, userManager: self.userManager, type: type)
     }
     
     func instantiateSettings() -> SettingsViewController {
-        return SettingsViewController(userManager: self.userManager)
+        return SettingsViewController(userManager: self.userManager, dataProvider: self.dataProvider)
     }
     
     func instantiateFullSync() -> FullSyncViewController {

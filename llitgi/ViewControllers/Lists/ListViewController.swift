@@ -28,11 +28,9 @@ enum TypeOfList {
 class ListViewController: UITableViewController {
     
     //MARK: Private properties
-    private let factory: ViewControllerFactory
     private let dataProvider: DataProvider
     private let userManager: UserManager
     private let typeOfList: TypeOfList
-    private let swipeActionManager: ListSwipeActionManager
     private let searchController = UISearchController(searchResultsController: nil)
     private var addButton: UIBarButtonItem? = nil
     private var loadingButton: UIBarButtonItem? = nil
@@ -50,14 +48,16 @@ class ListViewController: UITableViewController {
         return refreshControl
     }()
     
+    //MARK: Public properties
+    var settingsButtonTapped: (() -> Void)?
+    var safariToPresent: ((SFSafariViewController) -> Void)?
+    
     //MARK:- Lifecycle
-    required init(dataProvider: DataProvider, factory: ViewControllerFactory, userManager: UserManager, type: TypeOfList) {
-        self.factory = factory
+    required init(dataProvider: DataProvider, userManager: UserManager, type: TypeOfList) {
         self.dataProvider = dataProvider
         self.userManager = userManager
         self.typeOfList = type
         self.typeOfListForSearch = type
-        self.swipeActionManager = ListSwipeActionManager(dataProvider: dataProvider)
         super.init(nibName: String(describing: ListViewController.self), bundle: nil)
     }
     
@@ -80,6 +80,12 @@ class ListViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.deselectRow(with: self.transitionCoordinator, animated: animated)
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        if newCollection.horizontalSizeClass == .compact {
+            self.tableView.deselectRow(with: coordinator, animated: true)
+        }
     }
     
     deinit {
@@ -132,6 +138,7 @@ class ListViewController: UITableViewController {
     }
     
     @objc private func pullToRefresh() {
+        guard self.userManager.isLoggedIn else { return }
         self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
             switch result {
             case .isSuccess: break
@@ -148,12 +155,14 @@ class ListViewController: UITableViewController {
         cfg.entersReaderIfAvailable = self.userManager.openReaderMode
         let sfs = SFSafariViewController(url: url, configuration: cfg)
         sfs.preferredControlTintColor = .black
+        sfs.preferredBarTintColor = .white
         return sfs
     }
     
     @IBAction private func addButtonTapped(_ sender: UIButton) {
         self.navigationItem.rightBarButtonItem = self.loadingButton
-        guard let url = UIPasteboard.general.url else {
+        guard let pasteboardItem = UIPasteboard.general.string,
+            let url = URL(string: pasteboardItem) else {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             self.navigationItem.rightBarButtonItem = self.addButton
 
@@ -183,18 +192,7 @@ class ListViewController: UITableViewController {
     }
     
     @IBAction private func displaySettings(_ sender: UIBarButtonItem) {
-        let settingsViewController = self.factory.instantiateSettings()
-        //TODO: This is an extremely ugly hack, but I'm too tired rn
-        settingsViewController.logoutBlock = { [weak self] in
-            guard let strongSelf = self else { return }
-            guard let tabBar = strongSelf.tabBarController as? TabBarController  else { return }
-            strongSelf.userManager.displayBadge(with: 0)
-            strongSelf.dataProvider.clearLocalStorage()
-            tabBar.setupAuthFlow()
-        }
-        let navController = UINavigationController(rootViewController: settingsViewController)
-        navController.navigationBar.barTintColor = .white
-        self.present(navController, animated: true, completion: nil)
+        self.settingsButtonTapped?()
     }
 
 }
@@ -214,7 +212,7 @@ extension ListViewController {
         switch self.userManager.openLinksWith {
         case .safariViewController:
             guard let sfs = self.safariViewController(at: indexPath) else { return }
-            self.present(sfs, animated: true, completion: nil)
+            self.safariToPresent?(sfs)
         case .safari:
             guard let url = self.dataSource?.item(at: indexPath)?.url else { return }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -222,15 +220,55 @@ extension ListViewController {
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let item = self.dataSource?.item(at: indexPath) else { return nil }
-        let actions = self.swipeActionManager.buildLeadingActions(for: item)
-        return UISwipeActionsConfiguration(actions: actions)
+        guard var item = self.dataSource?.item(at: indexPath) else { return nil }
+        let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            
+            let modification: ItemModification
+            if item.isFavorite {
+                modification = ItemModification(action: .unfavorite, id: item.id)
+            } else {
+                modification = ItemModification(action: .favorite, id: item.id)
+            }
+            
+            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
+            item.switchFavoriteStatus()
+            success(true)
+        }
+        favoriteAction.title = item.isFavorite ? L10n.Actions.unfavorite : L10n.Actions.favorite
+        favoriteAction.backgroundColor = UIColor(red: 242/255, green: 181/255, blue: 0/255, alpha: 1)
+        
+        return UISwipeActionsConfiguration(actions: [favoriteAction])
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let item = self.dataSource?.item(at: indexPath) else { return nil }
-        let actions = self.swipeActionManager.buildTrailingActions(for: item)
-        return UISwipeActionsConfiguration(actions: actions)
+        guard var item = self.dataSource?.item(at: indexPath) else { return nil }
+        
+        let archiveAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            
+            let modification: ItemModification
+            if item.status == "0" {
+                modification = ItemModification(action: .archive, id: item.id)
+                item.changeStatus(to: "1")
+            } else {
+                modification = ItemModification(action: .readd, id: item.id)
+                item.changeStatus(to: "0")
+            }
+            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
+            success(true)
+        }
+        archiveAction.title = item.status == "0" ? L10n.Actions.archive : L10n.Actions.unarchive
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: L10n.Actions.delete) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            let modification = ItemModification(action: .delete, id: item.id)
+            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
+            item.changeStatus(to: "2")
+            success(true)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [archiveAction, deleteAction])
     }
 }
 
