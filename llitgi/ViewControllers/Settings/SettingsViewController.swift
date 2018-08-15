@@ -109,7 +109,6 @@ class SettingsViewController: UIViewController {
     
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
         self.userManager.displayBadge(with: 0)
-        self.dataProvider.clearLocalStorage()
         self.logoutBlock?()
     }
     

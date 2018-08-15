@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.setMinimumBackgroundFetchInterval(1800)
         
         let viewControllerFactory = ViewControllerFactory(dataProvider: self.dataProvider, userManager: self.userManager)
-        self.appCoordinator = AppCoordinator(window: self.window, factory: viewControllerFactory, userManager: self.userManager)
+        self.appCoordinator = AppCoordinator(window: self.window, factory: viewControllerFactory, userManager: self.userManager, dataProvider: self.dataProvider)
         self.appCoordinator.start()
         
         return true

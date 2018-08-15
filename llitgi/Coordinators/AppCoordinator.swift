@@ -19,6 +19,7 @@ final class AppCoordinator: NSObject, Coordinator {
     //MARK: Private properties
     private let factory: ViewControllerFactory
     private let userManager: UserManager
+    private let dataProvider: DataProvider
     private let splitViewController: UISplitViewController
     private let tabBarController: UITabBarController
     weak private var presentedSafari: SFSafariViewController?
@@ -31,9 +32,10 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     //MARK: Lifecycle
-    init(window: UIWindow, factory: ViewControllerFactory, userManager: UserManager) {
+    init(window: UIWindow, factory: ViewControllerFactory, userManager: UserManager, dataProvider: DataProvider) {
         self.factory = factory
         self.userManager = userManager
+        self.dataProvider = dataProvider
         self.splitViewController = UISplitViewController()
         self.tabBarController = UITabBarController()
 
@@ -104,6 +106,7 @@ final class AppCoordinator: NSObject, Coordinator {
             
             strongSelf.splitViewController.dismiss(animated: true, completion: { [weak self] in
                 self?.showLogin()
+                self?.dataProvider.clearLocalStorage()
             })
         }
         let navController = UINavigationController(rootViewController: settingsViewController)
