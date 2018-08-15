@@ -134,7 +134,9 @@ final class AppCoordinator: NSObject, Coordinator {
 
 extension AppCoordinator: UISplitViewControllerDelegate {
     func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
-        splitViewController.dismiss(animated: false, completion: nil)
+        if splitViewController.presentedViewController is SFSafariViewController {
+            splitViewController.dismiss(animated: false, completion: nil)
+        }
         return self.navController
     }
 }
