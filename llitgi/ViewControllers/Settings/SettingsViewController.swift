@@ -32,13 +32,16 @@ class SettingsViewController: UIViewController {
     
     //MARK: Private properties
     private let userManager: UserManager
+    private let dataProvider: DataProvider
     
     //MARK: Public properties
-    var logoutBlock: (() -> ())? = nil
+    var logoutBlock: (() -> Void)?
+    var doneBlock: (() -> Void)?
     
     //MARK:- Lifecycle
-    init(userManager: UserManager) {
+    init(userManager: UserManager, dataProvider: DataProvider) {
         self.userManager = userManager
+        self.dataProvider = dataProvider
         super.init(nibName: String(describing: SettingsViewController.self), bundle: nil)
     }
     
@@ -58,7 +61,7 @@ class SettingsViewController: UIViewController {
     
     //MARK:- IBActions
     @IBAction private func done(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        self.doneBlock?()
     }
     
     private func badgeCount(isEnabled: Bool) {
@@ -105,8 +108,8 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
+        self.userManager.displayBadge(with: 0)
         self.logoutBlock?()
-        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func githubButtonTapped(_ sender: UIButton) {

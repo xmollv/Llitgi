@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */; };
-		4710EF521FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */; };
 		4710EF561FF4338A00D3DCA9 /* CoreDataFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */; };
 		4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF571FF44E5100D3DCA9 /* CoreDataNotifier.swift */; };
 		4710EF5B1FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF591FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld */; };
 		4710EF5F1FF50F6A00D3DCA9 /* NSManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */; };
 		4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF601FF51D8500D3DCA9 /* Managed.swift */; };
 		471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FE2E820B5EFED0059AEA7 /* UIViewController.swift */; };
+		4727DE61211055AE00444D5D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4727DE60211055AE00444D5D /* AppCoordinator.swift */; };
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		47376DE71FF0831600B8E70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Item.swift */; };
 		47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47392347202667E3005526C5 /* LitgiUserDefaults.swift */; };
@@ -42,7 +42,6 @@
 		4770AD031FF1B470006E755D /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770AD011FF1B470006E755D /* ListCell.swift */; };
 		4770AD041FF1B470006E755D /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770AD021FF1B470006E755D /* ListCell.xib */; };
 		47803EA52009674D003D58E2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47803EA42009674D003D58E2 /* UserManager.swift */; };
-		478F43832037078C003ECCAD /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F43822037078C003ECCAD /* TabBarController.swift */; };
 		478F43852038B24E003ECCAD /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F43842038B24E003ECCAD /* UITableView.swift */; };
 		478F43992038E52D003ECCAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 478F439C2038E52D003ECCAD /* Localizable.strings */; };
 		478F439A2038E52D003ECCAD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 478F439C2038E52D003ECCAD /* Localizable.strings */; };
@@ -92,13 +91,13 @@
 
 /* Begin PBXFileReference section */
 		4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIModification.swift; sourceTree = "<group>"; };
-		4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSwipeActionManager.swift; sourceTree = "<group>"; };
 		4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFactory.swift; sourceTree = "<group>"; };
 		4710EF571FF44E5100D3DCA9 /* CoreDataNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataNotifier.swift; sourceTree = "<group>"; };
 		4710EF5A1FF451C500D3DCA9 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObject.swift; sourceTree = "<group>"; };
 		4710EF601FF51D8500D3DCA9 /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		471FE2E820B5EFED0059AEA7 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		4727DE60211055AE00444D5D /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47376DE61FF0831600B8E70C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		47392347202667E3005526C5 /* LitgiUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LitgiUserDefaults.swift; sourceTree = "<group>"; };
@@ -118,7 +117,6 @@
 		4770AD011FF1B470006E755D /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		4770AD021FF1B470006E755D /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
 		47803EA42009674D003D58E2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		478F43822037078C003ECCAD /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		478F43842038B24E003ECCAD /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		478F43A02038E5A8003ECCAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		478F43A12038E77B003ECCAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -169,6 +167,14 @@
 				4710EF571FF44E5100D3DCA9 /* CoreDataNotifier.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		4727DE5F2110559C00444D5D /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				4727DE60211055AE00444D5D /* AppCoordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		47376DE51FF082F800B8E70C /* Models */ = {
@@ -227,7 +233,6 @@
 			isa = PBXGroup;
 			children = (
 				47803EA42009674D003D58E2 /* UserManager.swift */,
-				4710EF511FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 				47EEA3801FF037B30030BEF1 /* DataProvider */,
 				47803EA320096727003D58E2 /* Managers */,
 				47376DE51FF082F800B8E70C /* Models */,
+				4727DE5F2110559C00444D5D /* Coordinators */,
 				47EEA3781FF034E80030BEF1 /* ViewControllers */,
 				47EEA38E1FF074D80030BEF1 /* Extensions & Helpers */,
 				47EEA3721FF02F750030BEF1 /* Resources */,
@@ -281,7 +287,6 @@
 			isa = PBXGroup;
 			children = (
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
-				478F43822037078C003ECCAD /* TabBarController.swift */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 				4752C0842030F20300988A68 /* FullSync */,
 				4770ACF81FF189CD006E755D /* Lists */,
@@ -502,6 +507,7 @@
 			files = (
 				4770ACF51FF111A9006E755D /* UIView.swift in Sources */,
 				47803EA52009674D003D58E2 /* UserManager.swift in Sources */,
+				4727DE61211055AE00444D5D /* AppCoordinator.swift in Sources */,
 				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
 				47DE472B209A53D500770884 /* L10n.swift in Sources */,
 				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,
@@ -511,7 +517,6 @@
 				47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */,
 				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
 				4770ACFE1FF1B108006E755D /* ListDataSource.swift in Sources */,
-				4710EF521FF3FC6A00D3DCA9 /* ListSwipeActionManager.swift in Sources */,
 				4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */,
@@ -524,7 +529,6 @@
 				4710EF561FF4338A00D3DCA9 /* CoreDataFactory.swift in Sources */,
 				4770ACF71FF17AFD006E755D /* Notification.swift in Sources */,
 				4710EF5B1FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld in Sources */,
-				478F43832037078C003ECCAD /* TabBarController.swift in Sources */,
 				47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
 				4770AD031FF1B470006E755D /* ListCell.swift in Sources */,
@@ -591,7 +595,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -612,7 +616,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -749,7 +753,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmollv.llitgi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -770,7 +774,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmollv.llitgi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

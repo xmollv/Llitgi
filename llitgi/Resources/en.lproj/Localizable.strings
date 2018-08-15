@@ -29,13 +29,6 @@
 "Sync.successExplanation" = "All your items have been downloaded and stored locally. Now go and enjoy the app.";
 "Sync.successButton" = "Let's go!";
 
-"EmptyStates.noResults" = "No results";
-"EmptyStates.noResultsSubtitle" = "It seems that nothing on your library matches your search.";
-"EmptyStates.myListTitle" = "Hooray! 🙌🏻";
-"EmptyStates.myListSubtitle" = "You don't have anything else to read. Go out and enjoy the day!";
-"EmptyStates.favoritesSubtitle" = "It seems that you haven't saved anything on your favorites yet.";
-"EmptyStates.archiveSubtitle" = "It seems that you haven't archived anything yet.";
-
 "Actions.delete" = "Delete";
 "Actions.favorite" = "Favorite";
 "Actions.archive" = "Archive";

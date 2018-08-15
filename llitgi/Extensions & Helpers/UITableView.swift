@@ -31,38 +31,4 @@ extension UITableView {
             }
         })
     }
-    
-    func establishEmptyState(title: String, subtitle: String) {
-        let titleLabel = UILabel()
-        titleLabel.text = title
-        titleLabel.textAlignment = .center
-        titleLabel.numberOfLines = 0
-        titleLabel.font = UIFont.systemFont(ofSize: 28, weight: .semibold)
-        titleLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        
-        let subtitleLabel = UILabel()
-        subtitleLabel.text = subtitle
-        subtitleLabel.textAlignment = .center
-        subtitleLabel.numberOfLines = 0
-        subtitleLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        subtitleLabel.textColor = .lightGray
-        
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, subtitleLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.alignment = .center
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        
-        let containerView = UIView()
-        containerView.addSubview(stackView)
-        
-        NSLayoutConstraint.activate([
-            stackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            stackView.leadingAnchor.constraint(greaterThanOrEqualTo: containerView.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(greaterThanOrEqualTo: containerView.trailingAnchor, constant: -20)
-        ])
-        
-        self.backgroundView = containerView
-    }
 }

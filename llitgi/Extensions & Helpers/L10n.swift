@@ -51,19 +51,6 @@ enum L10n {
         static let successButton = NSLocalizedString("Sync.successButton", comment: "")
     }
     
-    enum EmptyStates {
-        static let allTitle = NSLocalizedString("EmptyStates.noResults", comment: "")
-        static let allSubtitle = ""
-        static let myListTitle = NSLocalizedString("EmptyStates.myListTitle", comment: "")
-        static let myListSubtitle = NSLocalizedString("EmptyStates.myListSubtitle", comment: "")
-        static let favoritesTitle = NSLocalizedString("EmptyStates.noResults", comment: "")
-        static let favoritesSubtitle = NSLocalizedString("EmptyStates.favoritesSubtitle", comment: "")
-        static let archiveTitle = NSLocalizedString("EmptyStates.noResults", comment: "")
-        static let archiveSubtitle = NSLocalizedString("EmptyStates.archiveSubtitle", comment: "")
-        static let searchTitle = NSLocalizedString("EmptyStates.noResults", comment: "")
-        static let searchSubtitle = NSLocalizedString("EmptyStates.noResultsSubtitle", comment: "")
-    }
-    
     enum Actions {
         static let favorite = NSLocalizedString("Actions.favorite", comment: "")
         static let unfavorite = NSLocalizedString("Actions.unfavorite", comment: "")
