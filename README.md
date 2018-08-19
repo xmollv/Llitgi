@@ -19,10 +19,10 @@ Llitgi is a simple & lightweight Pocket client for iOS:
 
 ## iPad
 <p>
-  <img src="Screenshots/iPad_12,9_1.png" width="400" />
-  <img src="Screenshots/iPad_12,9_2.png" width="400" /> 
-  <img src="Screenshots/iPad_12,9_3.png" width="400" />
-  <img src="Screenshots/iPad_12,9_4.png" width="400" />
+  <img src="Screenshots/iPad_Pro/1.jpg" width="400" />
+  <img src="Screenshots/iPad_Pro/2.jpg" width="400" /> 
+  <img src="Screenshots/iPad_Pro/3.jpg" width="400" />
+  <img src="Screenshots/iPad_Pro/4.jpg" width="400" />
 </p>
 
 ## Installation
