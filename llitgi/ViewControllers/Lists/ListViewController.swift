@@ -161,20 +161,10 @@ class ListViewController: UITableViewController {
     
     @IBAction private func addButtonTapped(_ sender: UIButton) {
         self.navigationItem.rightBarButtonItem = self.loadingButton
-        guard let pasteboardItem = UIPasteboard.general.string,
-            let url = URL(string: pasteboardItem) else {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
+        guard let url = UIPasteboard.general.url else {
             self.navigationItem.rightBarButtonItem = self.addButton
-
-            let errorTitle = L10n.General.errorTitle
-            let errorMessage = L10n.Add.invalidPasteboard
-
-            let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
-            let dimissTitle = L10n.General.dismiss
-            errorAlert.addAction(UIAlertAction(title: dimissTitle, style: .default) { [weak self] (action) in
-                self?.dismiss(animated: true, completion: nil)
-            })
-            self.present(errorAlert, animated: true, completion: nil)
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
+            self.presentErrorAlert(with: L10n.General.errorTitle, and: L10n.Add.invalidPasteboard)
             return
         }
 
@@ -186,6 +176,8 @@ class ListViewController: UITableViewController {
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
                 strongSelf.pullToRefresh()
             case .isFailure(let error):
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                strongSelf.presentErrorAlert()
                 Logger.log(error.localizedDescription, event: .error)
             }
         }
