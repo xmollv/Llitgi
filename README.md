@@ -11,10 +11,10 @@ Llitgi is a simple & lightweight Pocket client for iOS:
 
 ## iPhone
 <p>
-  <img src="Screenshots/iPhone_X/1.png" width="200" />
-  <img src="Screenshots/iPhone_X/2.png" width="200" /> 
-  <img src="Screenshots/iPhone_X/3.png" width="200" />
-  <img src="Screenshots/iPhone_X/4.png" width="200" />
+  <img src="Screenshots/iPhone_X/1.jpg" width="200" />
+  <img src="Screenshots/iPhone_X/2.jpg" width="200" /> 
+  <img src="Screenshots/iPhone_X/3.jpg" width="200" />
+  <img src="Screenshots/iPhone_X/4.jpg" width="200" />
 </p>
 
 ## iPad
