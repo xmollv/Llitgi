@@ -14,6 +14,7 @@ extension UIViewController {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let dismissAction = UIAlertAction(title: L10n.General.dismiss, style: .default, handler: nil)
         alertController.addAction(dismissAction)
+        alertController.view.tintColor = .black
         self.present(alertController, animated: true, completion: nil)
     }
 }
