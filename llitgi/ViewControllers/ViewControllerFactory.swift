@@ -14,16 +14,18 @@ final class ViewControllerFactory {
     //MARK: Private properties
     private let dataProvider: DataProvider
     private let userManager: UserManager
+    private let themeManager: ThemeManager
     
     //MARK: Lifecycle
-    init(dataProvider: DataProvider, userManager: UserManager) {
+    init(dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager) {
         self.dataProvider = dataProvider
         self.userManager = userManager
+        self.themeManager = themeManager
     }
     
     //MARK: Public methods
     func instantiateAuth() -> AuthorizationViewController {
-        return AuthorizationViewController(dataProvider: self.dataProvider)
+        return AuthorizationViewController(dataProvider: self.dataProvider, themeManager: self.themeManager)
     }
     
     func instantiateLists() -> [ListViewController] {
@@ -43,11 +45,11 @@ final class ViewControllerFactory {
     }
     
     private func instantiateList(for type: TypeOfList) -> ListViewController {
-        return ListViewController(dataProvider: self.dataProvider, userManager: self.userManager, type: type)
+        return ListViewController(dataProvider: self.dataProvider, userManager: self.userManager, themeManager: self.themeManager, type: type)
     }
     
     func instantiateSettings() -> SettingsViewController {
-        return SettingsViewController(userManager: self.userManager, dataProvider: self.dataProvider)
+        return SettingsViewController(userManager: self.userManager, dataProvider: self.dataProvider, themeManager: self.themeManager)
     }
     
     func instantiateFullSync() -> FullSyncViewController {

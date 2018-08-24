@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -24,6 +24,8 @@
                 <outlet property="safariReaderModeExplanationLabel" destination="t3b-CG-KnT" id="6Bz-jV-A3e"/>
                 <outlet property="safariReaderModeLabel" destination="q5T-Yr-cYa" id="eT7-xb-H16"/>
                 <outlet property="safariReaderModeSwitch" destination="kc2-2K-Wfb" id="5SU-tX-Jpk"/>
+                <outlet property="themeLabel" destination="l3e-u6-27p" id="hSl-GC-a2D"/>
+                <outlet property="themeSegmentedControl" destination="LvT-dc-iH3" id="S43-nw-0tf"/>
                 <outlet property="twitterButton" destination="8GM-e0-2o9" id="mWs-Cd-Keu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -37,10 +39,10 @@
                     <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hkm-EY-XLf">
-                            <rect key="frame" x="0.0" y="0.0" width="375.33333333333331" height="450"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375.33333333333331" height="518"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="uNS-na-vvN">
-                                    <rect key="frame" x="18" y="18" width="339.33333333333331" height="254"/>
+                                    <rect key="frame" x="18" y="18" width="339.33333333333331" height="322"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VKH-4H-gvf">
                                             <rect key="frame" x="0.0" y="0.0" width="339.33333333333331" height="58"/>
@@ -129,10 +131,36 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vk0-n5-bx2">
+                                            <rect key="frame" x="0.0" y="294" width="339.33333333333331" height="28"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="QgJ-3R-ve8">
+                                                    <rect key="frame" x="0.0" y="0.0" width="339.33333333333331" height="28"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l3e-u6-27p">
+                                                            <rect key="frame" x="0.0" y="4" width="167.33333333333334" height="20.333333333333332"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LvT-dc-iH3">
+                                                            <rect key="frame" x="172.33333333333334" y="0.0" width="167.00000000000003" height="29"/>
+                                                            <segments>
+                                                                <segment title="First"/>
+                                                                <segment title="Second"/>
+                                                            </segments>
+                                                            <connections>
+                                                                <action selector="themeSelectorChanged:" destination="-1" eventType="valueChanged" id="EXV-En-CQv"/>
+                                                            </connections>
+                                                        </segmentedControl>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geg-cl-9IZ">
-                                    <rect key="frame" x="37.666666666666657" y="312" width="300" height="51"/>
+                                    <rect key="frame" x="37.666666666666657" y="380" width="300" height="51"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="wZp-a3-zqo"/>
@@ -152,7 +180,7 @@
                                     </connections>
                                 </button>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="spg-UY-3vD">
-                                    <rect key="frame" x="38" y="383" width="299.33333333333331" height="47"/>
+                                    <rect key="frame" x="38" y="451" width="299.33333333333331" height="47"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="0jc-Qd-nlT">
                                             <rect key="frame" x="56.333333333333314" y="0.0" width="187" height="25"/>
@@ -231,7 +259,7 @@
                                     </constraints>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="geg-cl-9IZ" firstAttribute="centerX" secondItem="uNS-na-vvN" secondAttribute="centerX" id="35s-W2-oJ8"/>
                                 <constraint firstItem="geg-cl-9IZ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uNS-na-vvN" secondAttribute="trailing" priority="999" constant="20" id="EEE-lb-4nN"/>
