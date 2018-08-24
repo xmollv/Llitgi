@@ -13,24 +13,29 @@ class AuthorizationViewController: UIViewController {
     
     //MARK:- IBOutlets
     @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var offlineImageView: UIImageView!
     @IBOutlet private var offlineTitleLabel: UILabel!
     @IBOutlet private var offlineDescriptionLabel: UILabel!
+    @IBOutlet private var syncImageView: UIImageView!
     @IBOutlet private var syncTitleLabel: UILabel!
     @IBOutlet private var syncDescriptionLabel: UILabel!
+    @IBOutlet private var minimalistImageView: UIImageView!
     @IBOutlet private var minimalistTitleLabel: UILabel!
     @IBOutlet private var minimalistDescriptionLabel: UILabel!
     @IBOutlet private var actionButton: UIButton!
     
     //MARK: Private properties
     private let dataProvider: DataProvider
+    private let themeManager: ThemeManager
     
     //MARK: Public properties
     var loginFinished: (() -> Void)?
     var safariToPresent: ((SFSafariViewController) -> Void)?
     
     //MARK:- Lifecycle
-    init(dataProvider: DataProvider) {
+    init(dataProvider: DataProvider, themeManager: ThemeManager) {
         self.dataProvider = dataProvider
+        self.themeManager = themeManager
         super.init(nibName: String(describing: AuthorizationViewController.self), bundle: nil)
     }
     
@@ -41,6 +46,10 @@ class AuthorizationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.apply(self.themeManager.theme)
+        self.themeManager.themeChanged = { [weak self] theme in
+            self?.apply(theme)
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(self.verifyCodeAndGetToken), name: .OAuthFinished, object: nil)
         self.setupLocalizedStrings()
     }
@@ -86,6 +95,33 @@ class AuthorizationViewController: UIViewController {
     }
     
     //MARK: Private methods
+    private func apply(_ theme: Theme) {
+        self.view.backgroundColor = theme.backgroundColor
+        self.titleLabel.textColor = theme.textTitleColor
+        self.offlineImageView.tintColor = theme.textTitleColor
+        self.offlineTitleLabel.textColor = theme.textTitleColor
+        self.offlineDescriptionLabel.textColor = theme.textSubtitleColor
+        self.syncImageView.tintColor = theme.textTitleColor
+        self.syncTitleLabel.textColor = theme.textTitleColor
+        self.syncDescriptionLabel.textColor = theme.textSubtitleColor
+        self.minimalistImageView.tintColor = theme.textTitleColor
+        self.minimalistTitleLabel.textColor = theme.textTitleColor
+        self.minimalistDescriptionLabel.textColor = theme.textSubtitleColor
+        switch theme {
+        case .light:
+            self.actionButton.backgroundColor = .black
+            self.actionButton.setTitleColor(.white, for: .normal)
+            self.actionButton.borderColor = .clear
+            self.actionButton.borderWidth = 0
+        case .dark:
+            self.actionButton.backgroundColor = .black
+            self.actionButton.setTitleColor(.white, for: .normal)
+            self.actionButton.borderColor = .white
+            self.actionButton.borderWidth = 1
+        }
+        
+    }
+    
     private func setupLocalizedStrings() {
         self.titleLabel.text = L10n.Onboarding.title
         self.offlineTitleLabel.text = L10n.Onboarding.offlineTitle

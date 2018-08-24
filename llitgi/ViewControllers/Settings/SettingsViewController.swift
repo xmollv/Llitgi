@@ -172,12 +172,23 @@ class SettingsViewController: UIViewController {
         self.safariReaderModeExplanationLabel.textColor = theme.textSubtitleColor
         self.safariReaderModeSwitch.onTintColor = theme.textTitleColor
         self.themeLabel.textColor = theme.textTitleColor
-        self.logoutButton.setTitleColor(theme.backgroundColor, for: .normal)
-        self.logoutButton.backgroundColor = theme.tintColor
         self.githubButton.borderColor = theme.tintColor
         self.twitterButton.borderColor = theme.tintColor
         self.emailButton.borderColor = theme.tintColor
         self.buildLabel.textColor = theme.textSubtitleColor
+        
+        switch theme {
+        case .light:
+            self.logoutButton.backgroundColor = .black
+            self.logoutButton.setTitleColor(.white, for: .normal)
+            self.logoutButton.borderColor = .clear
+            self.logoutButton.borderWidth = 0
+        case .dark:
+            self.logoutButton.backgroundColor = .black
+            self.logoutButton.setTitleColor(.white, for: .normal)
+            self.logoutButton.borderColor = .white
+            self.logoutButton.borderWidth = 1
+        }
     }
     
     private func setupLocalizedStrings() {

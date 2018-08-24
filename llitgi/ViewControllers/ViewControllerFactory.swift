@@ -25,7 +25,7 @@ final class ViewControllerFactory {
     
     //MARK: Public methods
     func instantiateAuth() -> AuthorizationViewController {
-        return AuthorizationViewController(dataProvider: self.dataProvider)
+        return AuthorizationViewController(dataProvider: self.dataProvider, themeManager: self.themeManager)
     }
     
     func instantiateLists() -> [ListViewController] {
