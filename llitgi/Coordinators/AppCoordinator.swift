@@ -66,7 +66,8 @@ final class AppCoordinator: NSObject, Coordinator {
         window.tintColor = self.themeManager.theme.tintColor
         self.themeManager.themeChanged = { [weak self, weak window] theme in
             window?.tintColor = theme.tintColor
-            self?.tabBarController.viewControllers?.forEach { $0.navigationController?.navigationBar.barTintColor = theme.backgroundColor }
+            self?.tabBarController.viewControllers?.forEach { ($0 as? UINavigationController)?.navigationBar.barTintColor = theme.backgroundColor }
+            self?.tabBarController.tabBar.barTintColor = theme.backgroundColor
         }
         window.rootViewController = self.splitViewController
     }
