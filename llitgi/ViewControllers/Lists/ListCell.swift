@@ -15,6 +15,9 @@ class ListCell: UITableViewCell, NibLoadableView {
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var urlLabel: UILabel!
     
+    //MARK: Private properties
+    private var theme: Theme?
+    
     //MARK:- Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,18 +36,23 @@ class ListCell: UITableViewCell, NibLoadableView {
     }
     
     private func clearCell() {
+        self.theme = nil
         self.favoriteView.isHidden = true
         self.titleLabel.text = nil
         self.urlLabel.text = nil
     }
     
     //MARK:- Public methods
-    func configure(with item: Item) {
+    func configure(with item: Item, theme: Theme) {
+        self.theme = theme
         if item.isFavorite {
             self.favoriteView.isHidden = false
         }
         self.titleLabel.text = item.title
         self.urlLabel.text = item.url.host
+        self.backgroundColor = theme.backgroundColor
+        self.titleLabel.textColor = theme.textTitleColor
+        self.urlLabel.textColor = theme.textSubtitleColor
     }
     
 }

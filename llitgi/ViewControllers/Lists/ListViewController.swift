@@ -110,6 +110,7 @@ class ListViewController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
         self.tableView.backgroundColor = theme.backgroundColor
+        self.tableView.reloadData()
     }
     
     private func configureNavigationItems() {
@@ -125,6 +126,7 @@ class ListViewController: UITableViewController {
     private func configureTableView() {
         self.dataSource = ListDataSource(tableView: self.tableView,
                                          userPreferences: self.userManager,
+                                         themeManager: self.themeManager,
                                          typeOfList: self.typeOfList,
                                          notifier: self.dataProvider.notifier(for: self.typeOfList))
         self.tableView.register(ListCell.self)

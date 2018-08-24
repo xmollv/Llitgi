@@ -13,6 +13,7 @@ class ListDataSource: NSObject {
     //MARK:- Private properties
     weak private var tableView: UITableView?
     private let userPreferences: UserManager
+    private let themeManager: ThemeManager
     private var notifier: CoreDataNotifier?
     
     //MARK:- Public properties
@@ -20,8 +21,9 @@ class ListDataSource: NSObject {
     var isSearch: Bool = false
     
     //MARK:- Lifecycle
-    init(tableView: UITableView, userPreferences: UserManager, typeOfList: TypeOfList, notifier: CoreDataNotifier) {
+    init(tableView: UITableView, userPreferences: UserManager, themeManager: ThemeManager, typeOfList: TypeOfList, notifier: CoreDataNotifier) {
         self.userPreferences = userPreferences
+        self.themeManager = themeManager
         self.typeOfList = typeOfList
         super.init()
         self.tableView = tableView
@@ -74,7 +76,7 @@ extension ListDataSource: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let item = self.item(at: indexPath) else { return UITableViewCell() }
         let cell: ListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-        cell.configure(with: item)
+        cell.configure(with: item, theme: self.themeManager.theme)
         return cell
     }
 }
