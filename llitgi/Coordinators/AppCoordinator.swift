@@ -22,6 +22,7 @@ final class AppCoordinator: NSObject, Coordinator {
     private let dataProvider: DataProvider
     private let splitViewController: UISplitViewController
     private let tabBarController: UITabBarController
+    private let themeManager: ThemeManager
     weak private var presentedSafari: SFSafariViewController?
     
     private lazy var presentSafariClosure: ((SFSafariViewController) -> Void)? = { [weak self] sfs in
@@ -32,10 +33,11 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     //MARK: Lifecycle
-    init(window: UIWindow, factory: ViewControllerFactory, userManager: UserManager, dataProvider: DataProvider) {
+    init(window: UIWindow, factory: ViewControllerFactory, userManager: UserManager, dataProvider: DataProvider, themeManager: ThemeManager) {
         self.factory = factory
         self.userManager = userManager
         self.dataProvider = dataProvider
+        self.themeManager = themeManager
         self.splitViewController = UISplitViewController()
         self.tabBarController = UITabBarController()
 
@@ -46,22 +48,30 @@ final class AppCoordinator: NSObject, Coordinator {
             vc.settingsButtonTapped = { [weak self] in self?.showSettings() }
             let navController = UINavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
-            navController.navigationBar.barTintColor = .white
+            navController.navigationBar.barTintColor = self.themeManager.theme.backgroundColor
             return navController
         }
 
-        self.tabBarController.tabBar.barTintColor = .white
+        self.tabBarController.tabBar.barTintColor = self.themeManager.theme.backgroundColor
         self.tabBarController.delegate = self
         self.tabBarController.setViewControllers(tabs, animated: false)
         
         self.splitViewController.viewControllers = [self.tabBarController]
         self.splitViewController.preferredDisplayMode = .allVisible
         self.splitViewController.delegate = self
-        self.splitViewController.view.backgroundColor = UIColor.white.withAlphaComponent(0.95)
+        self.splitViewController.view.backgroundColor = self.themeManager.theme.backgroundColor
         
         // Configure the window
         window.makeKeyAndVisible()
-        window.tintColor = .black
+        window.tintColor = self.themeManager.theme.tintColor
+        UIApplication.shared.statusBarStyle = (self.themeManager.theme == .light) ? .default : .lightContent
+        self.themeManager.themeChanged = { [weak self, weak window] theme in
+            window?.tintColor = theme.tintColor
+            self?.tabBarController.viewControllers?.forEach { ($0 as? UINavigationController)?.navigationBar.barTintColor = theme.backgroundColor }
+            self?.tabBarController.tabBar.barTintColor = theme.backgroundColor
+            self?.splitViewController.view.backgroundColor = theme.backgroundColor
+            UIApplication.shared.statusBarStyle = (theme == .light) ? .default : .lightContent
+        }
         window.rootViewController = self.splitViewController
     }
     
@@ -110,7 +120,6 @@ final class AppCoordinator: NSObject, Coordinator {
             })
         }
         let navController = UINavigationController(rootViewController: settingsViewController)
-        navController.navigationBar.barTintColor = .white
         navController.modalPresentationStyle = .formSheet
         self.splitViewController.present(navController, animated: true, completion: nil)
     }

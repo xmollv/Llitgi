@@ -30,6 +30,7 @@ class ListViewController: UITableViewController {
     //MARK: Private properties
     private let dataProvider: DataProvider
     private let userManager: UserManager
+    private let themeManager: ThemeManager
     private let typeOfList: TypeOfList
     private let searchController = UISearchController(searchResultsController: nil)
     private var addButton: UIBarButtonItem? = nil
@@ -53,9 +54,10 @@ class ListViewController: UITableViewController {
     var safariToPresent: ((SFSafariViewController) -> Void)?
     
     //MARK:- Lifecycle
-    required init(dataProvider: DataProvider, userManager: UserManager, type: TypeOfList) {
+    required init(dataProvider: DataProvider, userManager: UserManager,themeManager: ThemeManager, type: TypeOfList) {
         self.dataProvider = dataProvider
         self.userManager = userManager
+        self.themeManager = themeManager
         self.typeOfList = type
         self.typeOfListForSearch = type
         super.init(nibName: String(describing: ListViewController.self), bundle: nil)
@@ -71,6 +73,10 @@ class ListViewController: UITableViewController {
         self.extendedLayoutIncludesOpaqueBars = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: .UIApplicationDidBecomeActive, object: nil)
         self.registerForPreviewing(with: self, sourceView: self.tableView)
+        self.apply(self.themeManager.theme)
+        self.themeManager.themeChanged = { [weak self] theme in
+            self?.apply(theme)
+        }
         self.configureNavigationItems()
         self.configureSearchController()
         self.configureTableView()
@@ -100,6 +106,15 @@ class ListViewController: UITableViewController {
     }
     
     //MARK: Private methods
+    private func apply(_ theme: Theme) {
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
+        self.tableView.backgroundColor = theme.backgroundColor
+        self.tableView.indicatorStyle = (theme == .light) ? .black : .white
+        self.customRefreshControl.tintColor = theme.tintColor
+        self.tableView.reloadData()
+    }
+    
     private func configureNavigationItems() {
         self.addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButtonTapped(_:)))
         let loading = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -113,6 +128,7 @@ class ListViewController: UITableViewController {
     private func configureTableView() {
         self.dataSource = ListDataSource(tableView: self.tableView,
                                          userPreferences: self.userManager,
+                                         themeManager: self.themeManager,
                                          typeOfList: self.typeOfList,
                                          notifier: self.dataProvider.notifier(for: self.typeOfList))
         self.tableView.register(ListCell.self)
@@ -154,8 +170,8 @@ class ListViewController: UITableViewController {
         let cfg = SFSafariViewController.Configuration()
         cfg.entersReaderIfAvailable = self.userManager.openReaderMode
         let sfs = SFSafariViewController(url: url, configuration: cfg)
-        sfs.preferredControlTintColor = .black
-        sfs.preferredBarTintColor = .white
+        sfs.preferredControlTintColor = self.themeManager.theme.tintColor
+        sfs.preferredBarTintColor = self.themeManager.theme.backgroundColor
         return sfs
     }
     
