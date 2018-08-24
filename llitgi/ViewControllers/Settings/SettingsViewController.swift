@@ -23,6 +23,9 @@ class SettingsViewController: UIViewController {
     @IBOutlet private var safariReaderModeExplanationLabel: UILabel!
     @IBOutlet private var safariReaderModeSwitch: UISwitch!
     
+    @IBOutlet private var themeLabel: UILabel!
+    @IBOutlet private var themeSegmentedControl: UISegmentedControl!
+    
     @IBOutlet private var logoutButton: UIButton!
     
     @IBOutlet private var githubButton: UIButton!
@@ -33,15 +36,17 @@ class SettingsViewController: UIViewController {
     //MARK: Private properties
     private let userManager: UserManager
     private let dataProvider: DataProvider
+    private let themeManager: ThemeManager
     
     //MARK: Public properties
     var logoutBlock: (() -> Void)?
     var doneBlock: (() -> Void)?
     
     //MARK:- Lifecycle
-    init(userManager: UserManager, dataProvider: DataProvider) {
+    init(userManager: UserManager, dataProvider: DataProvider, themeManager: ThemeManager) {
         self.userManager = userManager
         self.dataProvider = dataProvider
+        self.themeManager = themeManager
         super.init(nibName: String(describing: SettingsViewController.self), bundle: nil)
     }
     
@@ -57,6 +62,11 @@ class SettingsViewController: UIViewController {
         self.badgeCount(isEnabled: self.userManager.userHasEnabledNotifications)
         self.safariOpenerValue(opener: self.userManager.openLinksWith)
         self.establishReaderMode(readerEnabled: self.userManager.openReaderMode)
+        self.establishSelectedTheme(theme: self.themeManager.theme)
+        self.apply(theme: self.themeManager.theme, animated: false)
+        self.themeManager.themeChanged = { [weak self] theme in
+            self?.apply(theme: theme, animated: true)
+        }
     }
     
     //MARK:- IBActions
@@ -107,6 +117,26 @@ class SettingsViewController: UIViewController {
         self.userManager.openReaderMode = sender.isOn
     }
     
+    private func establishSelectedTheme(theme: Theme) {
+        switch theme {
+        case .light:
+            self.themeSegmentedControl.selectedSegmentIndex = 0
+        case .dark:
+            self.themeSegmentedControl.selectedSegmentIndex = 1
+        }
+    }
+    
+    @IBAction func themeSelectorChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            self.themeManager.theme = .light
+        case 1:
+            self.themeManager.theme = .dark
+        default:
+            assertionFailure("Unhandled segment")
+        }
+    }
+    
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
         self.userManager.displayBadge(with: 0)
         self.logoutBlock?()
@@ -128,6 +158,14 @@ class SettingsViewController: UIViewController {
     }
     
     //MARK:- Private methods
+    private func apply(theme: Theme, animated: Bool) {
+        UIView.animate(withDuration: animated ? 0.25 : 0, animations: { [weak self] in
+            self?.view.backgroundColor = theme.backgroundColor
+            self?.themeLabel.textColor = theme.textTitleColor
+            self?.themeSegmentedControl.tintColor = theme.textTitleColor
+        }, completion: nil)
+    }
+    
     private func setupLocalizedStrings() {
         self.title = L10n.Titles.settings
         self.badgeCountLabel.text = L10n.Settings.badgeCountTitle
@@ -142,6 +180,9 @@ class SettingsViewController: UIViewController {
         self.emailButton.setTitle(L10n.Settings.email, for: .normal)
         let formatString = L10n.Settings.buildVersion
         self.buildLabel.text = String(format: formatString, arguments: [Bundle.main.versionNumber])
+        self.themeLabel.text = L10n.Settings.themeTitle
+        self.themeSegmentedControl.setTitle(L10n.Settings.lightTheme, forSegmentAt: 0)
+        self.themeSegmentedControl.setTitle(L10n.Settings.darkTheme, forSegmentAt: 1)
     }
 
 }

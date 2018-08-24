@@ -14,6 +14,7 @@ final class ViewControllerFactory {
     //MARK: Private properties
     private let dataProvider: DataProvider
     private let userManager: UserManager
+    private let themeManager = ThemeManager()
     
     //MARK: Lifecycle
     init(dataProvider: DataProvider, userManager: UserManager) {
@@ -47,7 +48,7 @@ final class ViewControllerFactory {
     }
     
     func instantiateSettings() -> SettingsViewController {
-        return SettingsViewController(userManager: self.userManager, dataProvider: self.dataProvider)
+        return SettingsViewController(userManager: self.userManager, dataProvider: self.dataProvider, themeManager: self.themeManager)
     }
     
     func instantiateFullSync() -> FullSyncViewController {

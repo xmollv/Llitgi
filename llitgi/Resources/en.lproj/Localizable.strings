@@ -41,6 +41,9 @@
 "Settings.safariOpenerExplanation" = "We'll launch Safari with the item that you've selected instead of using the in-app browser.";
 "Settings.safariReaderTitle" = "Reader View";
 "Settings.safariReaderExplanation" = "We'll open all your items in Reader View. Some websites may not support this feature.";
+"Settings.themeTitle" = "Theme";
+"Settings.lightTheme" = "Light";
+"Settings.darkTheme" = "Dark";
 "Settings.github" = "GitHub";
 "Settings.twitter" = "Twitter";
 "Settings.email" = "Email";

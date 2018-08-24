@@ -21,6 +21,13 @@ enum Theme: String {
         }
     }
     
+    var tintColor: UIColor {
+        switch self {
+        case .light: return .black
+        case .dark: return .white
+        }
+    }
+    
     var backgroundColor: UIColor {
         switch self {
         case .light: return .white
@@ -55,22 +62,5 @@ final class ThemeManager {
     
     init() {
         self.theme = Theme(withName: UserDefaults.standard.string(forKey: "savedTheme") ?? "")
-    }
-}
-
-final class Test: UIViewController {
-    
-    var themeManager: ThemeManager!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.apply(theme: themeManager.theme)
-        themeManager.themeChanged = { [weak self] theme in
-            self?.apply(theme: theme)
-        }
-    }
-    
-    func apply(theme: Theme) {
-        self.view.backgroundColor = theme.backgroundColor
     }
 }
