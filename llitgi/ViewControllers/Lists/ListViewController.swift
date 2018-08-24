@@ -110,6 +110,7 @@ class ListViewController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
         self.tableView.backgroundColor = theme.backgroundColor
+        self.tableView.indicatorStyle = (theme == .light) ? .black : .white
         self.tableView.reloadData()
     }
     
