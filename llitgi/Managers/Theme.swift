@@ -52,8 +52,10 @@ enum Theme: String {
 
 final class ThemeManager {
     
+    typealias ThemeChanged = (_ theme: Theme) -> Void
+    
     //MARK:- Private properties
-    private var themeChangedBlocks: [(_ theme: Theme) -> Void] = []
+    private var themeChangedBlocks: [ThemeChanged] = []
     
     //MARK: Public properties
     var theme: Theme = .light {
@@ -63,9 +65,11 @@ final class ThemeManager {
             //self.themeChanged?(theme)
         }
     }
-    var themeChanged: ((_ theme: Theme) -> Void)? {
+    var themeChanged: ThemeChanged? {
         didSet {
             guard let block = self.themeChanged else { return }
+            //TODO: The array is holding the blocks in a strong way, therefore they are never being deallocated
+            //and can cause the same call more times than extened.
             self.themeChangedBlocks.append(block)
         }
     }
