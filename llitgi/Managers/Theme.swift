@@ -52,13 +52,23 @@ enum Theme: String {
 
 final class ThemeManager {
     
+    //MARK:- Private properties
+    private var themeChangedBlocks: [(_ theme: Theme) -> Void] = []
+    
+    //MARK: Public properties
     var theme: Theme = .light {
         didSet {
             UserDefaults.standard.setValue(theme.rawValue, forKey: "savedTheme")
-            self.themeChanged?(theme)
+            self.themeChangedBlocks.forEach{ $0(theme) }
+            //self.themeChanged?(theme)
         }
     }
-    var themeChanged: ((_ theme: Theme) -> Void)?
+    var themeChanged: ((_ theme: Theme) -> Void)? {
+        didSet {
+            guard let block = self.themeChanged else { return }
+            self.themeChangedBlocks.append(block)
+        }
+    }
     
     init() {
         self.theme = Theme(withName: UserDefaults.standard.string(forKey: "savedTheme") ?? "")
