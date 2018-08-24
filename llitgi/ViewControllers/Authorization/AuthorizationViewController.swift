@@ -82,8 +82,8 @@ class AuthorizationViewController: UIViewController {
                     guard let url = strongSelf.dataProvider.pocketOAuthUrls.web else { return }
                     let sfs = SFSafariViewController(url: url)
                     sfs.modalPresentationStyle = .formSheet
-                    sfs.preferredControlTintColor = .black
-                    sfs.preferredBarTintColor = .white
+                    sfs.preferredControlTintColor = strongSelf.themeManager.theme.tintColor
+                    sfs.preferredBarTintColor = strongSelf.themeManager.theme.backgroundColor
                     strongSelf.safariToPresent?(sfs)
                 }
                 

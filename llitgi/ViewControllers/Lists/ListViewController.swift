@@ -170,8 +170,8 @@ class ListViewController: UITableViewController {
         let cfg = SFSafariViewController.Configuration()
         cfg.entersReaderIfAvailable = self.userManager.openReaderMode
         let sfs = SFSafariViewController(url: url, configuration: cfg)
-        sfs.preferredControlTintColor = .black
-        sfs.preferredBarTintColor = .white
+        sfs.preferredControlTintColor = self.themeManager.theme.tintColor
+        sfs.preferredBarTintColor = self.themeManager.theme.backgroundColor
         return sfs
     }
     
