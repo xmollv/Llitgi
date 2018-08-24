@@ -59,7 +59,7 @@ final class AppCoordinator: NSObject, Coordinator {
         self.splitViewController.viewControllers = [self.tabBarController]
         self.splitViewController.preferredDisplayMode = .allVisible
         self.splitViewController.delegate = self
-        self.splitViewController.view.backgroundColor = UIColor.white.withAlphaComponent(0.95)
+        self.splitViewController.view.backgroundColor = self.themeManager.theme.backgroundColor
         
         // Configure the window
         window.makeKeyAndVisible()
@@ -68,6 +68,7 @@ final class AppCoordinator: NSObject, Coordinator {
             window?.tintColor = theme.tintColor
             self?.tabBarController.viewControllers?.forEach { ($0 as? UINavigationController)?.navigationBar.barTintColor = theme.backgroundColor }
             self?.tabBarController.tabBar.barTintColor = theme.backgroundColor
+            self?.splitViewController.view.backgroundColor = theme.backgroundColor
         }
         window.rootViewController = self.splitViewController
     }
