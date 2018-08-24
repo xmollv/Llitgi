@@ -159,27 +159,25 @@ class SettingsViewController: UIViewController {
     
     //MARK:- Private methods
     private func apply(theme: Theme, animated: Bool) {
-        UIView.animate(withDuration: animated ? 0.25 : 0, animations: { [weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.view.backgroundColor = theme.backgroundColor
-            strongSelf.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
-            strongSelf.badgeCountLabel.textColor = theme.textTitleColor
-            strongSelf.badgeCountExplanationLabel.textColor = theme.textSubtitleColor
-            strongSelf.badgeCountSwitch.onTintColor = theme.textTitleColor
-            strongSelf.safariOpenerLabel.textColor = theme.textTitleColor
-            strongSelf.safariOpenerExplanationLabel.textColor = theme.textSubtitleColor
-            strongSelf.safariOpenerSwitch.onTintColor = theme.textTitleColor
-            strongSelf.safariReaderModeLabel.textColor = theme.textTitleColor
-            strongSelf.safariReaderModeExplanationLabel.textColor = theme.textSubtitleColor
-            strongSelf.safariReaderModeSwitch.onTintColor = theme.textTitleColor
-            strongSelf.themeLabel.textColor = theme.textTitleColor
-            strongSelf.logoutButton.setTitleColor(theme.backgroundColor, for: .normal)
-            strongSelf.logoutButton.backgroundColor = theme.tintColor
-            strongSelf.githubButton.borderColor = theme.tintColor
-            strongSelf.twitterButton.borderColor = theme.tintColor
-            strongSelf.emailButton.borderColor = theme.tintColor
-            strongSelf.buildLabel.textColor = theme.textSubtitleColor
-        }, completion: nil)
+        self.view.backgroundColor = theme.backgroundColor
+        self.navigationController?.navigationBar.barTintColor = theme.backgroundColor
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
+        self.badgeCountLabel.textColor = theme.textTitleColor
+        self.badgeCountExplanationLabel.textColor = theme.textSubtitleColor
+        self.badgeCountSwitch.onTintColor = theme.textTitleColor
+        self.safariOpenerLabel.textColor = theme.textTitleColor
+        self.safariOpenerExplanationLabel.textColor = theme.textSubtitleColor
+        self.safariOpenerSwitch.onTintColor = theme.textTitleColor
+        self.safariReaderModeLabel.textColor = theme.textTitleColor
+        self.safariReaderModeExplanationLabel.textColor = theme.textSubtitleColor
+        self.safariReaderModeSwitch.onTintColor = theme.textTitleColor
+        self.themeLabel.textColor = theme.textTitleColor
+        self.logoutButton.setTitleColor(theme.backgroundColor, for: .normal)
+        self.logoutButton.backgroundColor = theme.tintColor
+        self.githubButton.borderColor = theme.tintColor
+        self.twitterButton.borderColor = theme.tintColor
+        self.emailButton.borderColor = theme.tintColor
+        self.buildLabel.textColor = theme.textSubtitleColor
     }
     
     private func setupLocalizedStrings() {

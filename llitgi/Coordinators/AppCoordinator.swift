@@ -48,11 +48,11 @@ final class AppCoordinator: NSObject, Coordinator {
             vc.settingsButtonTapped = { [weak self] in self?.showSettings() }
             let navController = UINavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
-            navController.navigationBar.barTintColor = .white
+            navController.navigationBar.barTintColor = self.themeManager.theme.backgroundColor
             return navController
         }
 
-        self.tabBarController.tabBar.barTintColor = .white
+        self.tabBarController.tabBar.barTintColor = self.themeManager.theme.backgroundColor
         self.tabBarController.delegate = self
         self.tabBarController.setViewControllers(tabs, animated: false)
         
@@ -64,8 +64,9 @@ final class AppCoordinator: NSObject, Coordinator {
         // Configure the window
         window.makeKeyAndVisible()
         window.tintColor = self.themeManager.theme.tintColor
-        self.themeManager.themeChanged = { [weak window] theme in
+        self.themeManager.themeChanged = { [weak self, weak window] theme in
             window?.tintColor = theme.tintColor
+            self?.tabBarController.viewControllers?.forEach { $0.navigationController?.navigationBar.barTintColor = theme.backgroundColor }
         }
         window.rootViewController = self.splitViewController
     }
@@ -115,7 +116,6 @@ final class AppCoordinator: NSObject, Coordinator {
             })
         }
         let navController = UINavigationController(rootViewController: settingsViewController)
-        navController.navigationBar.barTintColor = .white
         navController.modalPresentationStyle = .formSheet
         self.splitViewController.present(navController, animated: true, completion: nil)
     }
