@@ -22,6 +22,7 @@ final class AppCoordinator: NSObject, Coordinator {
     private let dataProvider: DataProvider
     private let splitViewController: UISplitViewController
     private let tabBarController: UITabBarController
+    private let themeManager: ThemeManager
     weak private var presentedSafari: SFSafariViewController?
     
     private lazy var presentSafariClosure: ((SFSafariViewController) -> Void)? = { [weak self] sfs in
@@ -32,10 +33,11 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     //MARK: Lifecycle
-    init(window: UIWindow, factory: ViewControllerFactory, userManager: UserManager, dataProvider: DataProvider) {
+    init(window: UIWindow, factory: ViewControllerFactory, userManager: UserManager, dataProvider: DataProvider, themeManager: ThemeManager) {
         self.factory = factory
         self.userManager = userManager
         self.dataProvider = dataProvider
+        self.themeManager = themeManager
         self.splitViewController = UISplitViewController()
         self.tabBarController = UITabBarController()
 
@@ -61,7 +63,10 @@ final class AppCoordinator: NSObject, Coordinator {
         
         // Configure the window
         window.makeKeyAndVisible()
-        window.tintColor = .black
+        window.tintColor = self.themeManager.theme.tintColor
+        self.themeManager.themeChanged = { [weak window] theme in
+            window?.tintColor = theme.tintColor
+        }
         window.rootViewController = self.splitViewController
     }
     

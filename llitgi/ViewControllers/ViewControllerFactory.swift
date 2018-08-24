@@ -14,12 +14,13 @@ final class ViewControllerFactory {
     //MARK: Private properties
     private let dataProvider: DataProvider
     private let userManager: UserManager
-    private let themeManager = ThemeManager()
+    private let themeManager: ThemeManager
     
     //MARK: Lifecycle
-    init(dataProvider: DataProvider, userManager: UserManager) {
+    init(dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager) {
         self.dataProvider = dataProvider
         self.userManager = userManager
+        self.themeManager = themeManager
     }
     
     //MARK: Public methods

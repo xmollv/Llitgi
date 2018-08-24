@@ -14,14 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let window = UIWindow(frame: UIScreen.main.bounds)
     private let dataProvider = DataProvider(pocketAPI: PocketAPIManager(), modelFactory: CoreDataFactoryImplementation())
     private let userManager: UserManager = UserPreferencesManager()
+    private let themeManager = ThemeManager()
     private var appCoordinator: Coordinator!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         UIApplication.shared.setMinimumBackgroundFetchInterval(1800)
         
-        let viewControllerFactory = ViewControllerFactory(dataProvider: self.dataProvider, userManager: self.userManager)
-        self.appCoordinator = AppCoordinator(window: self.window, factory: viewControllerFactory, userManager: self.userManager, dataProvider: self.dataProvider)
+        let viewControllerFactory = ViewControllerFactory(dataProvider: self.dataProvider, userManager: self.userManager, themeManager: self.themeManager)
+        self.appCoordinator = AppCoordinator(window: self.window, factory: viewControllerFactory, userManager: self.userManager, dataProvider: self.dataProvider, themeManager: self.themeManager)
         self.appCoordinator.start()
         
         return true

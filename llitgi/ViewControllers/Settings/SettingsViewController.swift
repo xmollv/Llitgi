@@ -162,7 +162,6 @@ class SettingsViewController: UIViewController {
         UIView.animate(withDuration: animated ? 0.25 : 0, animations: { [weak self] in
             self?.view.backgroundColor = theme.backgroundColor
             self?.themeLabel.textColor = theme.textTitleColor
-            self?.themeSegmentedControl.tintColor = theme.textTitleColor
         }, completion: nil)
     }
     
