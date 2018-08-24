@@ -45,7 +45,7 @@ enum Theme: String {
     var textSubtitleColor: UIColor {
         switch self {
         case .light: return .darkGray
-        case .dark: return .darkGray
+        case .dark: return .lightGray
         }
     }
 }
