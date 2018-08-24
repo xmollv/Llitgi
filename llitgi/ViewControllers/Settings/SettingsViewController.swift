@@ -63,9 +63,9 @@ class SettingsViewController: UIViewController {
         self.safariOpenerValue(opener: self.userManager.openLinksWith)
         self.establishReaderMode(readerEnabled: self.userManager.openReaderMode)
         self.establishSelectedTheme(theme: self.themeManager.theme)
-        self.apply(theme: self.themeManager.theme, animated: false)
+        self.apply(self.themeManager.theme)
         self.themeManager.themeChanged = { [weak self] theme in
-            self?.apply(theme: theme, animated: true)
+            self?.apply(theme)
         }
     }
     
@@ -158,7 +158,7 @@ class SettingsViewController: UIViewController {
     }
     
     //MARK:- Private methods
-    private func apply(theme: Theme, animated: Bool) {
+    private func apply(_ theme: Theme) {
         self.view.backgroundColor = theme.backgroundColor
         self.navigationController?.navigationBar.barTintColor = theme.backgroundColor
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]

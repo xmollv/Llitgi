@@ -45,7 +45,7 @@ final class ViewControllerFactory {
     }
     
     private func instantiateList(for type: TypeOfList) -> ListViewController {
-        return ListViewController(dataProvider: self.dataProvider, userManager: self.userManager, type: type)
+        return ListViewController(dataProvider: self.dataProvider, userManager: self.userManager, themeManager: self.themeManager, type: type)
     }
     
     func instantiateSettings() -> SettingsViewController {
