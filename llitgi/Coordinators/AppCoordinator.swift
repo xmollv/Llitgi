@@ -14,13 +14,32 @@ protocol Coordinator {
     func start()
 }
 
+/// This is only used to change the status bar appearance until I find a better way...
+class MySplitViewController: UISplitViewController {
+    let themeManager: ThemeManager
+    
+    init(themeManager: ThemeManager) {
+        self.themeManager = themeManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return (themeManager.theme == .light) ? .default : .lightContent
+    }
+}
+
 final class AppCoordinator: NSObject, Coordinator {
     
     //MARK: Private properties
     private let factory: ViewControllerFactory
     private let userManager: UserManager
     private let dataProvider: DataProvider
-    private let splitViewController: UISplitViewController
+    private let splitViewController: MySplitViewController
     private let tabBarController: UITabBarController
     private let themeManager: ThemeManager
     weak private var presentedSafari: SFSafariViewController?
@@ -38,7 +57,7 @@ final class AppCoordinator: NSObject, Coordinator {
         self.userManager = userManager
         self.dataProvider = dataProvider
         self.themeManager = themeManager
-        self.splitViewController = UISplitViewController()
+        self.splitViewController = MySplitViewController(themeManager: themeManager)
         self.tabBarController = UITabBarController()
 
         super.init()
@@ -69,6 +88,7 @@ final class AppCoordinator: NSObject, Coordinator {
             self?.tabBarController.viewControllers?.forEach { ($0 as? UINavigationController)?.navigationBar.barTintColor = theme.backgroundColor }
             self?.tabBarController.tabBar.barTintColor = theme.backgroundColor
             self?.splitViewController.view.backgroundColor = theme.backgroundColor
+            self?.splitViewController.setNeedsStatusBarAppearanceUpdate()
         }
         window.rootViewController = self.splitViewController
     }
