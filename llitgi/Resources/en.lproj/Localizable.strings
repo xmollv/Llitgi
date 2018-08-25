@@ -44,6 +44,7 @@
 "Settings.themeTitle" = "Theme";
 "Settings.lightTheme" = "Light";
 "Settings.darkTheme" = "Dark";
+"Settings.blackTheme" = "Black";
 "Settings.github" = "GitHub";
 "Settings.twitter" = "Twitter";
 "Settings.email" = "Email";

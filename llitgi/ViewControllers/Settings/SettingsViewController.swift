@@ -123,6 +123,8 @@ class SettingsViewController: UIViewController {
             self.themeSegmentedControl.selectedSegmentIndex = 0
         case .dark:
             self.themeSegmentedControl.selectedSegmentIndex = 1
+        case .black:
+            self.themeSegmentedControl.selectedSegmentIndex = 2
         }
     }
     
@@ -132,6 +134,8 @@ class SettingsViewController: UIViewController {
             self.themeManager.theme = .light
         case 1:
             self.themeManager.theme = .dark
+        case 2:
+            self.themeManager.theme = .black
         default:
             assertionFailure("Unhandled segment")
         }
@@ -164,13 +168,10 @@ class SettingsViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
         self.badgeCountLabel.textColor = theme.textTitleColor
         self.badgeCountExplanationLabel.textColor = theme.textSubtitleColor
-        self.badgeCountSwitch.onTintColor = theme.textTitleColor
         self.safariOpenerLabel.textColor = theme.textTitleColor
         self.safariOpenerExplanationLabel.textColor = theme.textSubtitleColor
-        self.safariOpenerSwitch.onTintColor = theme.textTitleColor
         self.safariReaderModeLabel.textColor = theme.textTitleColor
         self.safariReaderModeExplanationLabel.textColor = theme.textSubtitleColor
-        self.safariReaderModeSwitch.onTintColor = theme.textTitleColor
         self.themeLabel.textColor = theme.textTitleColor
         self.githubButton.borderColor = theme.tintColor
         self.twitterButton.borderColor = theme.tintColor
@@ -181,9 +182,14 @@ class SettingsViewController: UIViewController {
         case .light:
             self.logoutButton.backgroundColor = .black
             self.logoutButton.setTitleColor(.white, for: .normal)
-            self.logoutButton.borderColor = .clear
-            self.logoutButton.borderWidth = 0
+            self.logoutButton.borderColor = .black
+            self.logoutButton.borderWidth = 1
         case .dark:
+            self.logoutButton.backgroundColor = UIColor(red: 30/255, green: 40/255, blue: 52/255, alpha: 1)
+            self.logoutButton.setTitleColor(.white, for: .normal)
+            self.logoutButton.borderColor = .white
+            self.logoutButton.borderWidth = 1
+        case .black:
             self.logoutButton.backgroundColor = .black
             self.logoutButton.setTitleColor(.white, for: .normal)
             self.logoutButton.borderColor = .white
@@ -208,6 +214,7 @@ class SettingsViewController: UIViewController {
         self.themeLabel.text = L10n.Settings.themeTitle
         self.themeSegmentedControl.setTitle(L10n.Settings.lightTheme, forSegmentAt: 0)
         self.themeSegmentedControl.setTitle(L10n.Settings.darkTheme, forSegmentAt: 1)
+        self.themeSegmentedControl.setTitle(L10n.Settings.blackTheme, forSegmentAt: 2)
     }
 
 }

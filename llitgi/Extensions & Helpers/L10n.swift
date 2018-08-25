@@ -69,6 +69,7 @@ enum L10n {
         static let themeTitle = NSLocalizedString("Settings.themeTitle", comment: "")
         static let lightTheme = NSLocalizedString("Settings.lightTheme", comment: "")
         static let darkTheme = NSLocalizedString("Settings.darkTheme", comment: "")
+        static let blackTheme = NSLocalizedString("Settings.blackTheme", comment: "")
         static let github = NSLocalizedString("Settings.github", comment: "")
         static let twitter = NSLocalizedString("Settings.twitter", comment: "")
         static let email = NSLocalizedString("Settings.email", comment: "")

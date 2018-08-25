@@ -12,11 +12,13 @@ import UIKit
 enum Theme: String {
     case light
     case dark
+    case black
     
     init(withName name: String) {
         switch name {
         case "light": self = .light
         case "dark": self = .dark
+        case "black": self = .black
         default: self = .light
         }
     }
@@ -24,28 +26,29 @@ enum Theme: String {
     var tintColor: UIColor {
         switch self {
         case .light: return .black
-        case .dark: return .white
+        case .dark, .black: return .white
         }
     }
     
     var backgroundColor: UIColor {
         switch self {
         case .light: return .white
-        case .dark: return .black
+        case .dark: return UIColor(red: 30/255, green: 40/255, blue: 52/255, alpha: 1)
+        case .black: return .black
         }
     }
     
     var textTitleColor: UIColor {
         switch self {
         case .light: return .black
-        case .dark: return .white
+        case .dark, .black: return .white
         }
     }
     
     var textSubtitleColor: UIColor {
         switch self {
         case .light: return .darkGray
-        case .dark: return .lightGray
+        case .dark, .black: return .lightGray
         }
     }
 }

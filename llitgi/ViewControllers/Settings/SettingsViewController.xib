@@ -58,7 +58,6 @@
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kNn-Sd-pZe">
                                                             <rect key="frame" x="290.33333333333331" y="0.0" width="51" height="31"/>
-                                                            <color key="onTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <connections>
                                                                 <action selector="badgeCountValueChanged:" destination="-1" eventType="valueChanged" id="a83-Ku-E6v"/>
                                                             </connections>
@@ -87,7 +86,6 @@
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yPy-Cf-ZtJ">
                                                             <rect key="frame" x="290.33333333333331" y="0.0" width="51" height="31"/>
-                                                            <color key="onTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <connections>
                                                                 <action selector="safariOpenerValueChanged:" destination="-1" eventType="valueChanged" id="Cvu-Ep-QlI"/>
                                                             </connections>
@@ -116,7 +114,6 @@
                                                         </label>
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kc2-2K-Wfb">
                                                             <rect key="frame" x="290.33333333333331" y="0.0" width="51" height="31"/>
-                                                            <color key="onTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <connections>
                                                                 <action selector="safariReaderModeChanged:" destination="-1" eventType="valueChanged" id="LM6-3z-vju"/>
                                                             </connections>
@@ -148,6 +145,7 @@
                                                             <segments>
                                                                 <segment title="First"/>
                                                                 <segment title="Second"/>
+                                                                <segment title=""/>
                                                             </segments>
                                                             <connections>
                                                                 <action selector="themeSelectorChanged:" destination="-1" eventType="valueChanged" id="EXV-En-CQv"/>
