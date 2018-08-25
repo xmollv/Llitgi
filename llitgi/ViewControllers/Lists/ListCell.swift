@@ -35,6 +35,12 @@ class ListCell: UITableViewCell, NibLoadableView {
         self.favoriteView.backgroundColor = color
     }
     
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        let color = self.favoriteView.backgroundColor
+        super.setHighlighted(highlighted, animated: animated)
+        self.favoriteView.backgroundColor = color
+    }
+    
     private func clearCell() {
         self.theme = nil
         self.favoriteView.isHidden = true
@@ -53,6 +59,9 @@ class ListCell: UITableViewCell, NibLoadableView {
         self.backgroundColor = theme.backgroundColor
         self.titleLabel.textColor = theme.textTitleColor
         self.urlLabel.textColor = theme.textSubtitleColor
+        
+        self.selectedBackgroundView = UIView()
+        self.selectedBackgroundView?.backgroundColor = theme.highlightBackgroundColor
     }
     
 }

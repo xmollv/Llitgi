@@ -112,6 +112,7 @@ class ListViewController: UITableViewController {
         self.tableView.backgroundColor = theme.backgroundColor
         self.tableView.indicatorStyle = (theme == .light) ? .black : .white
         self.customRefreshControl.tintColor = theme.tintColor
+        self.searchController.searchBar.keyboardAppearance = (self.themeManager.theme == .light) ? .light : .dark
         self.tableView.reloadData()
     }
     
