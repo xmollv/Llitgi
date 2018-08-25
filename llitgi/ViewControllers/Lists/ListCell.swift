@@ -53,6 +53,9 @@ class ListCell: UITableViewCell, NibLoadableView {
         self.backgroundColor = theme.backgroundColor
         self.titleLabel.textColor = theme.textTitleColor
         self.urlLabel.textColor = theme.textSubtitleColor
+        
+        self.selectedBackgroundView = UIView()
+        self.selectedBackgroundView?.backgroundColor = theme.highlightBackgroundColor
     }
     
 }

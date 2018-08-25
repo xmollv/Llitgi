@@ -51,6 +51,14 @@ enum Theme: String {
         case .dark, .black: return .lightGray
         }
     }
+    
+    var highlightBackgroundColor: UIColor {
+        switch self {
+        case .light: return UIColor(red: 230/255, green: 228/255, blue: 226/255, alpha: 1)
+        case .dark: return UIColor(red: 55/255, green: 73/255, blue: 94/255, alpha: 1)
+        case .black: return UIColor(red: 110/255, green: 110/255, blue: 110/255, alpha: 1)
+        }
+    }
 }
 
 final class ThemeManager {
