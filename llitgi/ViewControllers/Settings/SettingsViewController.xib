@@ -24,6 +24,7 @@
                 <outlet property="safariReaderModeExplanationLabel" destination="t3b-CG-KnT" id="6Bz-jV-A3e"/>
                 <outlet property="safariReaderModeLabel" destination="q5T-Yr-cYa" id="eT7-xb-H16"/>
                 <outlet property="safariReaderModeSwitch" destination="kc2-2K-Wfb" id="5SU-tX-Jpk"/>
+                <outlet property="scrollView" destination="6UK-5m-Gr8" id="MXY-JW-vle"/>
                 <outlet property="themeLabel" destination="l3e-u6-27p" id="hSl-GC-a2D"/>
                 <outlet property="themeSegmentedControl" destination="LvT-dc-iH3" id="S43-nw-0tf"/>
                 <outlet property="twitterButton" destination="8GM-e0-2o9" id="mWs-Cd-Keu"/>

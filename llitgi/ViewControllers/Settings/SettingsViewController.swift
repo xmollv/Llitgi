@@ -11,6 +11,7 @@ import UIKit
 class SettingsViewController: UIViewController {
 
     //MARK:- IBOutlets
+    @IBOutlet private var scrollView: UIScrollView!
     @IBOutlet private var badgeCountLabel: UILabel!
     @IBOutlet private var badgeCountExplanationLabel: UILabel!
     @IBOutlet private var badgeCountSwitch: UISwitch!
@@ -166,6 +167,7 @@ class SettingsViewController: UIViewController {
         self.view.backgroundColor = theme.backgroundColor
         self.navigationController?.navigationBar.barTintColor = theme.backgroundColor
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
+        self.scrollView.indicatorStyle = (theme == .light) ? .black : .white
         self.badgeCountLabel.textColor = theme.textTitleColor
         self.badgeCountExplanationLabel.textColor = theme.textSubtitleColor
         self.safariOpenerLabel.textColor = theme.textTitleColor
