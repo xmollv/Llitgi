@@ -73,7 +73,6 @@ final class ThemeManager {
         didSet {
             UserDefaults.standard.setValue(theme.rawValue, forKey: "savedTheme")
             self.themeChangedBlocks.forEach{ $0(theme) }
-            //self.themeChanged?(theme)
         }
     }
     var themeChanged: ThemeChanged? {
