@@ -108,12 +108,17 @@ class AuthorizationViewController: UIViewController {
         self.minimalistTitleLabel.textColor = theme.textTitleColor
         self.minimalistDescriptionLabel.textColor = theme.textSubtitleColor
         switch theme {
-        case .light:
+        case .white:
             self.actionButton.backgroundColor = .black
             self.actionButton.setTitleColor(.white, for: .normal)
-            self.actionButton.borderColor = .clear
-            self.actionButton.borderWidth = 0
-        case .dark:
+            self.actionButton.borderColor = .black
+            self.actionButton.borderWidth = 1
+        case .blue:
+            self.actionButton.backgroundColor = UIColor(red: 30/255, green: 40/255, blue: 52/255, alpha: 1)
+            self.actionButton.setTitleColor(.white, for: .normal)
+            self.actionButton.borderColor = .white
+            self.actionButton.borderWidth = 1
+        case .black:
             self.actionButton.backgroundColor = .black
             self.actionButton.setTitleColor(.white, for: .normal)
             self.actionButton.borderColor = .white
