@@ -42,8 +42,8 @@
 "Settings.safariReaderTitle" = "Reader View";
 "Settings.safariReaderExplanation" = "We'll open all your items in Reader View. Some websites may not support this feature.";
 "Settings.themeTitle" = "Theme";
-"Settings.lightTheme" = "Light";
-"Settings.darkTheme" = "Dark";
+"Settings.whiteTheme" = "White";
+"Settings.blueTheme" = "Blue";
 "Settings.blackTheme" = "Black";
 "Settings.github" = "GitHub";
 "Settings.twitter" = "Twitter";

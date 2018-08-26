@@ -110,9 +110,9 @@ class ListViewController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
         self.tableView.backgroundColor = theme.backgroundColor
-        self.tableView.indicatorStyle = (theme == .light) ? .black : .white
+        self.tableView.indicatorStyle = (theme == .white) ? .black : .white
         self.customRefreshControl.tintColor = theme.tintColor
-        self.searchController.searchBar.keyboardAppearance = (self.themeManager.theme == .light) ? .light : .dark
+        self.searchController.searchBar.keyboardAppearance = (self.themeManager.theme == .white) ? .light : .dark
         self.tableView.reloadData()
     }
     
