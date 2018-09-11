@@ -55,6 +55,20 @@ enum Theme: String {
         case .dark: return UIColor(red: 55/255, green: 73/255, blue: 94/255, alpha: 1)
         }
     }
+    
+    var keyboardAppearance: UIKeyboardAppearance {
+        switch self {
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
+    
+    var indicatorStyle: UIScrollViewIndicatorStyle {
+        switch self {
+        case .light: return .black
+        case .dark: return .white
+        }
+    }
 }
 
 final class ThemeManager {
