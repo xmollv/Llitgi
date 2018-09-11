@@ -146,7 +146,6 @@
                                                             <segments>
                                                                 <segment title="First"/>
                                                                 <segment title="Second"/>
-                                                                <segment title=""/>
                                                             </segments>
                                                             <connections>
                                                                 <action selector="themeSelectorChanged:" destination="-1" eventType="valueChanged" id="EXV-En-CQv"/>
