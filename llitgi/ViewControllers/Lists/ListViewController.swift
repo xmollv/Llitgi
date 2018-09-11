@@ -73,13 +73,13 @@ class ListViewController: UITableViewController {
         self.extendedLayoutIncludesOpaqueBars = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: .UIApplicationDidBecomeActive, object: nil)
         self.registerForPreviewing(with: self, sourceView: self.tableView)
+        self.configureNavigationItems()
+        self.configureSearchController()
+        self.configureTableView()
         self.apply(self.themeManager.theme)
         self.themeManager.themeChanged = { [weak self] theme in
             self?.apply(theme)
         }
-        self.configureNavigationItems()
-        self.configureSearchController()
-        self.configureTableView()
         self.pullToRefresh()
     }
     
@@ -109,17 +109,18 @@ class ListViewController: UITableViewController {
     private func apply(_ theme: Theme) {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: theme.tintColor]
+        self.searchController.searchBar.keyboardAppearance = theme.keyboardAppearance
         self.tableView.backgroundColor = theme.backgroundColor
-        self.tableView.indicatorStyle = (theme == .white) ? .black : .white
+        self.tableView.indicatorStyle = theme.indicatorStyle
         self.customRefreshControl.tintColor = theme.tintColor
-        self.searchController.searchBar.keyboardAppearance = (self.themeManager.theme == .white) ? .light : .dark
+        (self.loadingButton?.customView as? UIActivityIndicatorView)?.color = theme.tintColor
         self.tableView.reloadData()
     }
     
     private func configureNavigationItems() {
         self.addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButtonTapped(_:)))
         let loading = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        loading.tintColor = .black
         loading.startAnimating()
         self.loadingButton = UIBarButtonItem(customView: loading)
         self.navigationItem.rightBarButtonItem = self.addButton
