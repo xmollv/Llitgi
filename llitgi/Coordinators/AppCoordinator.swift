@@ -64,13 +64,13 @@ final class AppCoordinator: NSObject, Coordinator {
         // Configure the window
         window.makeKeyAndVisible()
         window.tintColor = self.themeManager.theme.tintColor
-        UIApplication.shared.statusBarStyle = (self.themeManager.theme == .light) ? .default : .lightContent
+        UIApplication.shared.statusBarStyle = self.themeManager.theme.statusBarStyle
         self.themeManager.themeChanged = { [weak self, weak window] theme in
             window?.tintColor = theme.tintColor
             self?.tabBarController.viewControllers?.forEach { ($0 as? UINavigationController)?.navigationBar.barTintColor = theme.backgroundColor }
             self?.tabBarController.tabBar.barTintColor = theme.backgroundColor
             self?.splitViewController.view.backgroundColor = theme.backgroundColor
-            UIApplication.shared.statusBarStyle = (theme == .light) ? .default : .lightContent
+            UIApplication.shared.statusBarStyle = theme.statusBarStyle
         }
         window.rootViewController = self.splitViewController
     }

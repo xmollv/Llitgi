@@ -69,6 +69,13 @@ enum Theme: String {
         case .dark: return .white
         }
     }
+    
+    var statusBarStyle: UIStatusBarStyle {
+        switch self {
+        case .light: return .default
+        case .dark: return .lightContent
+        }
+    }
 }
 
 final class ThemeManager {

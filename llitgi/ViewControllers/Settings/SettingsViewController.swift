@@ -139,7 +139,7 @@ class SettingsViewController: UIViewController {
         self.view.backgroundColor = theme.backgroundColor
         self.navigationController?.navigationBar.barTintColor = theme.backgroundColor
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
-        self.scrollView.indicatorStyle = (theme == .light) ? .black : .white
+        self.scrollView.indicatorStyle = theme.indicatorStyle
         self.badgeCountLabel.textColor = theme.textTitleColor
         self.badgeCountExplanationLabel.textColor = theme.textSubtitleColor
         self.safariOpenerLabel.textColor = theme.textTitleColor
