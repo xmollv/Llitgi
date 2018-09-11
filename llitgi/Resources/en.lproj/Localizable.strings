@@ -44,9 +44,5 @@
 "Settings.themeTitle" = "Theme";
 "Settings.lightTheme" = "Light";
 "Settings.darkTheme" = "Dark";
-"Settings.github" = "GitHub";
-"Settings.twitter" = "Twitter";
-"Settings.email" = "Email";
-"Settings.buildVersion" = "Version: %1$@";
 
 "ShareExtension.saving" = "Saving to Llitgi...";

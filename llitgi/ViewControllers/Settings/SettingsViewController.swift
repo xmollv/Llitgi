@@ -15,24 +15,15 @@ class SettingsViewController: UIViewController {
     @IBOutlet private var badgeCountLabel: UILabel!
     @IBOutlet private var badgeCountExplanationLabel: UILabel!
     @IBOutlet private var badgeCountSwitch: UISwitch!
-    
     @IBOutlet private var safariOpenerLabel: UILabel!
     @IBOutlet private var safariOpenerExplanationLabel: UILabel!
     @IBOutlet private var safariOpenerSwitch: UISwitch!
-    
     @IBOutlet private var safariReaderModeLabel: UILabel!
     @IBOutlet private var safariReaderModeExplanationLabel: UILabel!
     @IBOutlet private var safariReaderModeSwitch: UISwitch!
-    
     @IBOutlet private var themeLabel: UILabel!
     @IBOutlet private var themeSegmentedControl: UISegmentedControl!
-    
     @IBOutlet private var logoutButton: UIButton!
-    
-    @IBOutlet private var githubButton: UIButton!
-    @IBOutlet private var twitterButton: UIButton!
-    @IBOutlet private var emailButton: UIButton!
-    @IBOutlet private var buildLabel: UILabel!
     
     //MARK: Private properties
     private let userManager: UserManager
@@ -143,21 +134,6 @@ class SettingsViewController: UIViewController {
         self.logoutBlock?()
     }
     
-    @IBAction func githubButtonTapped(_ sender: UIButton) {
-        guard let url = URL(string: "https://github.com/xmollv/llitgi") else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
-    @IBAction func twitterButtonTapped(_ sender: UIButton) {
-        guard let url = URL(string: "https://twitter.com/xmollv") else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
-    @IBAction func emailButtonTapped(_ sender: UIButton) {
-        guard let url = URL(string: "mailto:xmollv@gmail.com?subject=[Llitgi]") else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
     //MARK:- Private methods
     private func apply(_ theme: Theme) {
         self.view.backgroundColor = theme.backgroundColor
@@ -171,23 +147,6 @@ class SettingsViewController: UIViewController {
         self.safariReaderModeLabel.textColor = theme.textTitleColor
         self.safariReaderModeExplanationLabel.textColor = theme.textSubtitleColor
         self.themeLabel.textColor = theme.textTitleColor
-        self.githubButton.borderColor = theme.tintColor
-        self.twitterButton.borderColor = theme.tintColor
-        self.emailButton.borderColor = theme.tintColor
-        self.buildLabel.textColor = theme.textSubtitleColor
-        
-        switch theme {
-        case .light:
-            self.logoutButton.backgroundColor = .black
-            self.logoutButton.setTitleColor(.white, for: .normal)
-            self.logoutButton.borderColor = .black
-            self.logoutButton.borderWidth = 1
-        case .dark:
-            self.logoutButton.backgroundColor = UIColor(red: 30/255, green: 40/255, blue: 52/255, alpha: 1)
-            self.logoutButton.setTitleColor(.white, for: .normal)
-            self.logoutButton.borderColor = .white
-            self.logoutButton.borderWidth = 1
-        }
     }
     
     private func setupLocalizedStrings() {
@@ -198,15 +157,10 @@ class SettingsViewController: UIViewController {
         self.safariOpenerExplanationLabel.text = L10n.Settings.safariOpenerDescription
         self.safariReaderModeLabel.text = L10n.Settings.safariReaderTitle
         self.safariReaderModeExplanationLabel.text = L10n.Settings.safariReaderDescription
-        self.logoutButton.setTitle(L10n.General.logout, for: .normal)
-        self.githubButton.setTitle(L10n.Settings.github, for: .normal)
-        self.twitterButton.setTitle(L10n.Settings.twitter, for: .normal)
-        self.emailButton.setTitle(L10n.Settings.email, for: .normal)
-        let formatString = L10n.Settings.buildVersion
-        self.buildLabel.text = String(format: formatString, arguments: [Bundle.main.versionNumber])
         self.themeLabel.text = L10n.Settings.themeTitle
         self.themeSegmentedControl.setTitle(L10n.Settings.lightTheme, forSegmentAt: 0)
         self.themeSegmentedControl.setTitle(L10n.Settings.darkTheme, forSegmentAt: 1)
+        self.logoutButton.setTitle(L10n.General.logout, for: .normal)
     }
 
 }

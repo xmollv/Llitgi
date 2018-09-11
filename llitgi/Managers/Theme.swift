@@ -31,7 +31,7 @@ enum Theme: String {
     var backgroundColor: UIColor {
         switch self {
         case .light: return .white
-        case .dark: return UIColor(red: 30/255, green: 40/255, blue: 52/255, alpha: 1)
+        case .dark: return UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
         }
     }
     
@@ -52,7 +52,7 @@ enum Theme: String {
     var highlightBackgroundColor: UIColor {
         switch self {
         case .light: return UIColor(red: 230/255, green: 228/255, blue: 226/255, alpha: 1)
-        case .dark: return UIColor(red: 55/255, green: 73/255, blue: 94/255, alpha: 1)
+        case .dark: return UIColor(red: 60/255, green: 60/255, blue: 60/255, alpha: 1)
         }
     }
     
