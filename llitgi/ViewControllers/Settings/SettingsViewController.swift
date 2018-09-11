@@ -15,24 +15,15 @@ class SettingsViewController: UIViewController {
     @IBOutlet private var badgeCountLabel: UILabel!
     @IBOutlet private var badgeCountExplanationLabel: UILabel!
     @IBOutlet private var badgeCountSwitch: UISwitch!
-    
     @IBOutlet private var safariOpenerLabel: UILabel!
     @IBOutlet private var safariOpenerExplanationLabel: UILabel!
     @IBOutlet private var safariOpenerSwitch: UISwitch!
-    
     @IBOutlet private var safariReaderModeLabel: UILabel!
     @IBOutlet private var safariReaderModeExplanationLabel: UILabel!
     @IBOutlet private var safariReaderModeSwitch: UISwitch!
-    
     @IBOutlet private var themeLabel: UILabel!
     @IBOutlet private var themeSegmentedControl: UISegmentedControl!
-    
     @IBOutlet private var logoutButton: UIButton!
-    
-    @IBOutlet private var githubButton: UIButton!
-    @IBOutlet private var twitterButton: UIButton!
-    @IBOutlet private var emailButton: UIButton!
-    @IBOutlet private var buildLabel: UILabel!
     
     //MARK: Private properties
     private let userManager: UserManager
@@ -120,23 +111,19 @@ class SettingsViewController: UIViewController {
     
     private func establishSelectedTheme(theme: Theme) {
         switch theme {
-        case .white:
+        case .light:
             self.themeSegmentedControl.selectedSegmentIndex = 0
-        case .blue:
+        case .dark:
             self.themeSegmentedControl.selectedSegmentIndex = 1
-        case .black:
-            self.themeSegmentedControl.selectedSegmentIndex = 2
         }
     }
     
     @IBAction func themeSelectorChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            self.themeManager.theme = .white
+            self.themeManager.theme = .light
         case 1:
-            self.themeManager.theme = .blue
-        case 2:
-            self.themeManager.theme = .black
+            self.themeManager.theme = .dark
         default:
             assertionFailure("Unhandled segment")
         }
@@ -147,27 +134,12 @@ class SettingsViewController: UIViewController {
         self.logoutBlock?()
     }
     
-    @IBAction func githubButtonTapped(_ sender: UIButton) {
-        guard let url = URL(string: "https://github.com/xmollv/llitgi") else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
-    @IBAction func twitterButtonTapped(_ sender: UIButton) {
-        guard let url = URL(string: "https://twitter.com/xmollv") else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
-    @IBAction func emailButtonTapped(_ sender: UIButton) {
-        guard let url = URL(string: "mailto:xmollv@gmail.com?subject=[Llitgi]") else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
     //MARK:- Private methods
     private func apply(_ theme: Theme) {
         self.view.backgroundColor = theme.backgroundColor
         self.navigationController?.navigationBar.barTintColor = theme.backgroundColor
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
-        self.scrollView.indicatorStyle = (theme == .white) ? .black : .white
+        self.scrollView.indicatorStyle = (theme == .light) ? .black : .white
         self.badgeCountLabel.textColor = theme.textTitleColor
         self.badgeCountExplanationLabel.textColor = theme.textSubtitleColor
         self.safariOpenerLabel.textColor = theme.textTitleColor
@@ -175,28 +147,6 @@ class SettingsViewController: UIViewController {
         self.safariReaderModeLabel.textColor = theme.textTitleColor
         self.safariReaderModeExplanationLabel.textColor = theme.textSubtitleColor
         self.themeLabel.textColor = theme.textTitleColor
-        self.githubButton.borderColor = theme.tintColor
-        self.twitterButton.borderColor = theme.tintColor
-        self.emailButton.borderColor = theme.tintColor
-        self.buildLabel.textColor = theme.textSubtitleColor
-        
-        switch theme {
-        case .white:
-            self.logoutButton.backgroundColor = .black
-            self.logoutButton.setTitleColor(.white, for: .normal)
-            self.logoutButton.borderColor = .black
-            self.logoutButton.borderWidth = 1
-        case .blue:
-            self.logoutButton.backgroundColor = UIColor(red: 30/255, green: 40/255, blue: 52/255, alpha: 1)
-            self.logoutButton.setTitleColor(.white, for: .normal)
-            self.logoutButton.borderColor = .white
-            self.logoutButton.borderWidth = 1
-        case .black:
-            self.logoutButton.backgroundColor = .black
-            self.logoutButton.setTitleColor(.white, for: .normal)
-            self.logoutButton.borderColor = .white
-            self.logoutButton.borderWidth = 1
-        }
     }
     
     private func setupLocalizedStrings() {
@@ -207,16 +157,10 @@ class SettingsViewController: UIViewController {
         self.safariOpenerExplanationLabel.text = L10n.Settings.safariOpenerDescription
         self.safariReaderModeLabel.text = L10n.Settings.safariReaderTitle
         self.safariReaderModeExplanationLabel.text = L10n.Settings.safariReaderDescription
-        self.logoutButton.setTitle(L10n.General.logout, for: .normal)
-        self.githubButton.setTitle(L10n.Settings.github, for: .normal)
-        self.twitterButton.setTitle(L10n.Settings.twitter, for: .normal)
-        self.emailButton.setTitle(L10n.Settings.email, for: .normal)
-        let formatString = L10n.Settings.buildVersion
-        self.buildLabel.text = String(format: formatString, arguments: [Bundle.main.versionNumber])
         self.themeLabel.text = L10n.Settings.themeTitle
-        self.themeSegmentedControl.setTitle(L10n.Settings.whiteTheme, forSegmentAt: 0)
-        self.themeSegmentedControl.setTitle(L10n.Settings.blueTheme, forSegmentAt: 1)
-        self.themeSegmentedControl.setTitle(L10n.Settings.blackTheme, forSegmentAt: 2)
+        self.themeSegmentedControl.setTitle(L10n.Settings.lightTheme, forSegmentAt: 0)
+        self.themeSegmentedControl.setTitle(L10n.Settings.darkTheme, forSegmentAt: 1)
+        self.logoutButton.setTitle(L10n.General.logout, for: .normal)
     }
 
 }

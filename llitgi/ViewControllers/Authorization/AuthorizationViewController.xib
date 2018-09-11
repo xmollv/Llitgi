@@ -111,7 +111,6 @@
                                             </subviews>
                                         </stackView>
                                     </subviews>
-                                    <viewLayoutGuide key="safeArea" id="xPj-bn-gYQ"/>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KxN-7O-j6M">
                                     <rect key="frame" x="0.0" y="180" width="280" height="60"/>
@@ -147,7 +146,6 @@
                                             </subviews>
                                         </stackView>
                                     </subviews>
-                                    <viewLayoutGuide key="safeArea" id="ALK-si-h1v"/>
                                 </stackView>
                             </subviews>
                             <variation key="heightClass=compact-widthClass=compact" spacing="10"/>

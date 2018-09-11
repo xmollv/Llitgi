@@ -10,53 +10,63 @@ import Foundation
 import UIKit
 
 enum Theme: String {
-    case white
-    case blue
-    case black
+    case light
+    case dark
     
     init(withName name: String) {
         switch name {
-        case "white": self = .white
-        case "blue": self = .blue
-        case "black": self = .black
-        default: self = .white
+        case "light": self = .light
+        case "dark": self = .dark
+        default: self = .light
         }
     }
     
     var tintColor: UIColor {
         switch self {
-        case .white: return .black
-        case .blue, .black: return .white
+        case .light: return .black
+        case .dark: return .white
         }
     }
     
     var backgroundColor: UIColor {
         switch self {
-        case .white: return .white
-        case .blue: return UIColor(red: 30/255, green: 40/255, blue: 52/255, alpha: 1)
-        case .black: return .black
+        case .light: return .white
+        case .dark: return UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
         }
     }
     
     var textTitleColor: UIColor {
         switch self {
-        case .white: return .black
-        case .blue, .black: return .white
+        case .light: return .black
+        case .dark: return .white
         }
     }
     
     var textSubtitleColor: UIColor {
         switch self {
-        case .white: return .darkGray
-        case .blue, .black: return .lightGray
+        case .light: return .darkGray
+        case .dark: return .lightGray
         }
     }
     
     var highlightBackgroundColor: UIColor {
         switch self {
-        case .white: return UIColor(red: 230/255, green: 228/255, blue: 226/255, alpha: 1)
-        case .blue: return UIColor(red: 55/255, green: 73/255, blue: 94/255, alpha: 1)
-        case .black: return UIColor(red: 110/255, green: 110/255, blue: 110/255, alpha: 1)
+        case .light: return UIColor(red: 230/255, green: 228/255, blue: 226/255, alpha: 1)
+        case .dark: return UIColor(red: 60/255, green: 60/255, blue: 60/255, alpha: 1)
+        }
+    }
+    
+    var keyboardAppearance: UIKeyboardAppearance {
+        switch self {
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
+    
+    var indicatorStyle: UIScrollViewIndicatorStyle {
+        switch self {
+        case .light: return .black
+        case .dark: return .white
         }
     }
 }
@@ -69,7 +79,7 @@ final class ThemeManager {
     private var themeChangedBlocks: [ThemeChanged] = []
     
     //MARK: Public properties
-    var theme: Theme = .white {
+    var theme: Theme = .light {
         didSet {
             UserDefaults.standard.setValue(theme.rawValue, forKey: "savedTheme")
             self.themeChangedBlocks.forEach{ $0(theme) }
