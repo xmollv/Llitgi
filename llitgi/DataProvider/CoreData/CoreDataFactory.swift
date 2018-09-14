@@ -183,7 +183,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     private func delete<T: Managed>(_ object: T?, in context: NSManagedObjectContext) {
         guard let object = object else { return }
-        Logger.log("Maked \(object.id) to be deleted.", event: .warning)
+        Logger.log("Maked \(object.id) to be deleted.")
         context.performAndWait {
             context.delete(object)
         }

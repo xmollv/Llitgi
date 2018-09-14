@@ -12,29 +12,34 @@ final class Logger {
     
     private init() {}
     
-    enum LogEvent {
-        case debug
-        case warning
-        case error
-        
-        fileprivate var emoji: String {
-            switch self {
-            case .debug :
-                return "💬"
-            case .warning:
-                return "⚠️"
-            case .error:
-                return "❌"
-            }
-        }
+    enum LogEvent: String {
+        case debug = "[💬]"
+        case warning = "[⚠️]"
+        case error = "[🔥]"
     }
     
-    class func log(_ message: String, event: LogEvent = .debug, fileName: String = #file, line: Int = #line, funcName: String = #function) {
-        debugPrint("[\(event.emoji)][\(sourceFileName(filePath: fileName))]:\(line) \(funcName): \(message)")
+    static var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        formatter.locale = Locale.current
+        formatter.timeZone = TimeZone.current
+        return formatter
     }
     
-    private class func sourceFileName(filePath: String) -> String {
+    static func log(_ message: String, event: LogEvent = .debug, fileName: String = #file, line: Int = #line, funcName: String = #function) {
+        #if DEBUG
+            print("\(Date().toString()) - \(event.rawValue)[\(sourceFileName(filePath: fileName))]:\(line) \(funcName) -> \(message)")
+        #endif
+    }
+    
+    private static func sourceFileName(filePath: String) -> String {
         let components = filePath.components(separatedBy: "/")
         return components.last ?? ""
+    }
+}
+
+private extension Date {
+    func toString() -> String {
+        return Logger.dateFormatter.string(from: self)
     }
 }
