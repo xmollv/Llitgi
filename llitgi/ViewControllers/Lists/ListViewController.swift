@@ -68,6 +68,11 @@ class ListViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        self.themeManager.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.extendedLayoutIncludesOpaqueBars = true
@@ -77,7 +82,7 @@ class ListViewController: UITableViewController {
         self.configureSearchController()
         self.configureTableView()
         self.apply(self.themeManager.theme)
-        self.themeManager.themeChanged = { [weak self] theme in
+        self.themeManager.addObserver(self) { [weak self] theme in
             self?.apply(theme)
         }
         self.pullToRefresh()
@@ -92,10 +97,6 @@ class ListViewController: UITableViewController {
         if newCollection.horizontalSizeClass == .compact {
             self.tableView.deselectRow(with: coordinator, animated: true)
         }
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: Public methods
