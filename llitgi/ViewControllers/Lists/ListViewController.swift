@@ -107,9 +107,6 @@ class ListViewController: UITableViewController {
     
     //MARK: Private methods
     private func apply(_ theme: Theme) {
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:theme.textTitleColor]
-        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:theme.textTitleColor]
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: theme.tintColor]
         self.searchController.searchBar.keyboardAppearance = theme.keyboardAppearance
         self.tableView.backgroundColor = theme.backgroundColor
         self.tableView.indicatorStyle = theme.indicatorStyle
