@@ -76,6 +76,13 @@ enum Theme: String {
         case .dark: return .lightContent
         }
     }
+    
+    var barStyle: UIBarStyle {
+        switch self {
+        case .light: return .default
+        case .dark: return .black
+        }
+    }
 }
 
 final class ThemeManager {
