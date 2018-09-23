@@ -61,7 +61,7 @@ class ShareViewController: UIViewController {
         self.state = .loading
         self.retryButton.setTitle(L10n.General.retry, for: .normal)
         
-        guard let itemProvider = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments?.first as? NSItemProvider else {
+        guard let itemProvider = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments?.first else {
             Logger.log("The itemProvider can't be found", event: .error)
             self.dismiss()
             return
