@@ -68,16 +68,21 @@ class ListViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        self.themeManager.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.extendedLayoutIncludesOpaqueBars = true
-        NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: UIApplication.didBecomeActiveNotification, object: nil)
         self.registerForPreviewing(with: self, sourceView: self.tableView)
         self.configureNavigationItems()
         self.configureSearchController()
         self.configureTableView()
         self.apply(self.themeManager.theme)
-        self.themeManager.themeChanged = { [weak self] theme in
+        self.themeManager.addObserver(self) { [weak self] theme in
             self?.apply(theme)
         }
         self.pullToRefresh()
@@ -94,10 +99,6 @@ class ListViewController: UITableViewController {
         }
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     //MARK: Public methods
     func scrollToTop() {
         guard let numberOfItems = self.dataSource?.numberOfItems(), numberOfItems > 0 else { return }
@@ -107,9 +108,6 @@ class ListViewController: UITableViewController {
     
     //MARK: Private methods
     private func apply(_ theme: Theme) {
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
-        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
-        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: theme.tintColor]
         self.searchController.searchBar.keyboardAppearance = theme.keyboardAppearance
         self.tableView.backgroundColor = theme.backgroundColor
         self.tableView.indicatorStyle = theme.indicatorStyle
@@ -120,7 +118,7 @@ class ListViewController: UITableViewController {
     
     private func configureNavigationItems() {
         self.addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButtonTapped(_:)))
-        let loading = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let loading = UIActivityIndicatorView(style: .gray)
         loading.startAnimating()
         self.loadingButton = UIBarButtonItem(customView: loading)
         self.navigationItem.rightBarButtonItem = self.addButton
@@ -214,7 +212,7 @@ extension ListViewController {
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let height = self.cellHeights[indexPath] else { return UITableViewAutomaticDimension }
+        guard let height = self.cellHeights[indexPath] else { return UITableView.automaticDimension }
         return height
     }
     

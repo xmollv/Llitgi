@@ -47,6 +47,10 @@ class SettingsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        self.themeManager.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.done(_:)))
@@ -56,7 +60,7 @@ class SettingsViewController: UIViewController {
         self.establishReaderMode(readerEnabled: self.userManager.openReaderMode)
         self.establishSelectedTheme(theme: self.themeManager.theme)
         self.apply(self.themeManager.theme)
-        self.themeManager.themeChanged = { [weak self] theme in
+        self.themeManager.addObserver(self) { [weak self] theme in
             self?.apply(theme)
         }
     }
@@ -138,7 +142,7 @@ class SettingsViewController: UIViewController {
     private func apply(_ theme: Theme) {
         self.view.backgroundColor = theme.backgroundColor
         self.navigationController?.navigationBar.barTintColor = theme.backgroundColor
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:theme.textTitleColor]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.textTitleColor]
         self.scrollView.indicatorStyle = theme.indicatorStyle
         self.badgeCountLabel.textColor = theme.textTitleColor
         self.badgeCountExplanationLabel.textColor = theme.textSubtitleColor

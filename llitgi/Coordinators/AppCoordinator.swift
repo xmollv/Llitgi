@@ -49,6 +49,7 @@ final class AppCoordinator: NSObject, Coordinator {
             let navController = UINavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
             navController.navigationBar.barTintColor = self.themeManager.theme.backgroundColor
+            navController.navigationBar.barStyle = self.themeManager.theme.barStyle
             return navController
         }
 
@@ -65,14 +66,22 @@ final class AppCoordinator: NSObject, Coordinator {
         window.makeKeyAndVisible()
         window.tintColor = self.themeManager.theme.tintColor
         UIApplication.shared.statusBarStyle = self.themeManager.theme.statusBarStyle
-        self.themeManager.themeChanged = { [weak self, weak window] theme in
+        self.themeManager.addObserver(self) { [weak self, weak window] theme in
             window?.tintColor = theme.tintColor
-            self?.tabBarController.viewControllers?.forEach { ($0 as? UINavigationController)?.navigationBar.barTintColor = theme.backgroundColor }
+            self?.tabBarController.viewControllers?.forEach {
+                guard let navBar = ($0 as? UINavigationController)?.navigationBar else { return }
+                navBar.barTintColor = theme.backgroundColor
+                navBar.barStyle = theme.barStyle
+            }
             self?.tabBarController.tabBar.barTintColor = theme.backgroundColor
             self?.splitViewController.view.backgroundColor = theme.backgroundColor
             UIApplication.shared.statusBarStyle = theme.statusBarStyle
         }
         window.rootViewController = self.splitViewController
+    }
+    
+    deinit {
+        self.themeManager.removeObserver(self)
     }
     
     //MARK: Public methods

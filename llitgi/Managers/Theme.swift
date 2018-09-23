@@ -63,7 +63,7 @@ enum Theme: String {
         }
     }
     
-    var indicatorStyle: UIScrollViewIndicatorStyle {
+    var indicatorStyle: UIScrollView.IndicatorStyle {
         switch self {
         case .light: return .black
         case .dark: return .white
@@ -76,29 +76,36 @@ enum Theme: String {
         case .dark: return .lightContent
         }
     }
+    
+    var barStyle: UIBarStyle {
+        switch self {
+        case .light: return .default
+        case .dark: return .black
+        }
+    }
 }
 
 final class ThemeManager {
     
     typealias ThemeChanged = (_ theme: Theme) -> Void
     
-    //MARK:- Private properties
-    private var themeChangedBlocks: [ThemeChanged] = []
+    private var observers: [String: ThemeChanged] = [:]
     
-    //MARK: Public properties
     var theme: Theme = .light {
         didSet {
             UserDefaults.standard.setValue(theme.rawValue, forKey: "savedTheme")
-            self.themeChangedBlocks.forEach{ $0(theme) }
+            self.observers.values.forEach{ $0(theme) }
         }
     }
-    var themeChanged: ThemeChanged? {
-        didSet {
-            guard let block = self.themeChanged else { return }
-            //TODO: The array is holding the blocks in a strong way, therefore they are never being deallocated
-            //and can cause the same call more times than extened.
-            self.themeChangedBlocks.append(block)
-        }
+    
+    func addObserver(_ object: NSObject, then closure: @escaping ThemeChanged) {
+        Logger.log("Added \(object.description) as an observer to the ThemeManager.")
+        self.observers["\(object)"] = closure
+    }
+    
+    func removeObserver(_ object: NSObject) {
+        Logger.log("Removed \(object.description) as an observer from the ThemeManager.")
+        self.observers.removeValue(forKey: "\(object)")
     }
     
     init() {
