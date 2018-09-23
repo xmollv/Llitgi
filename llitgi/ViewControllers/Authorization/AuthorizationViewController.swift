@@ -44,18 +44,19 @@ class AuthorizationViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        self.themeManager.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.apply(self.themeManager.theme)
-        self.themeManager.themeChanged = { [weak self] theme in
+        self.themeManager.addObserver(self) { [weak self] theme in
             self?.apply(theme)
         }
         NotificationCenter.default.addObserver(self, selector: #selector(self.verifyCodeAndGetToken), name: .OAuthFinished, object: nil)
         self.setupLocalizedStrings()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: IBActions

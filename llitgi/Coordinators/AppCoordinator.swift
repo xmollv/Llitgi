@@ -66,7 +66,7 @@ final class AppCoordinator: NSObject, Coordinator {
         window.makeKeyAndVisible()
         window.tintColor = self.themeManager.theme.tintColor
         UIApplication.shared.statusBarStyle = self.themeManager.theme.statusBarStyle
-        self.themeManager.themeChanged = { [weak self, weak window] theme in
+        self.themeManager.addObserver(self) { [weak self, weak window] theme in
             window?.tintColor = theme.tintColor
             self?.tabBarController.viewControllers?.forEach {
                 guard let navBar = ($0 as? UINavigationController)?.navigationBar else { return }
@@ -78,6 +78,10 @@ final class AppCoordinator: NSObject, Coordinator {
             UIApplication.shared.statusBarStyle = theme.statusBarStyle
         }
         window.rootViewController = self.splitViewController
+    }
+    
+    deinit {
+        self.themeManager.removeObserver(self)
     }
     
     //MARK: Public methods
