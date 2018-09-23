@@ -61,7 +61,7 @@ class ShareViewController: UIViewController {
         self.state = .loading
         self.retryButton.setTitle(L10n.General.retry, for: .normal)
         
-        guard let itemProvider = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments?.first as? NSItemProvider else {
+        guard let itemProvider = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments?.first else {
             Logger.log("The itemProvider can't be found", event: .error)
             self.dismiss()
             return
@@ -75,7 +75,7 @@ class ShareViewController: UIViewController {
         
         itemProvider.loadItem(forTypeIdentifier: kUTTypeURL as String, options: nil) { [weak self] (item, error) in
             guard let strongSelf = self else { return }
-            guard error == nil else {
+            if let error = error {
                 Logger.log(error.localizedDescription, event: .error)
                 strongSelf.dismiss()
                 return
