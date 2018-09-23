@@ -63,7 +63,7 @@ enum Theme: String {
         }
     }
     
-    var indicatorStyle: UIScrollViewIndicatorStyle {
+    var indicatorStyle: UIScrollView.IndicatorStyle {
         switch self {
         case .light: return .black
         case .dark: return .white

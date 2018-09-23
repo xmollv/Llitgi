@@ -75,7 +75,7 @@ class ShareViewController: UIViewController {
         
         itemProvider.loadItem(forTypeIdentifier: kUTTypeURL as String, options: nil) { [weak self] (item, error) in
             guard let strongSelf = self else { return }
-            guard error == nil else {
+            if let error = error {
                 Logger.log(error.localizedDescription, event: .error)
                 strongSelf.dismiss()
                 return

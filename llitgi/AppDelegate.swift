@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let themeManager = ThemeManager()
     private var appCoordinator: Coordinator!
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         UIApplication.shared.setMinimumBackgroundFetchInterval(1800)
         
@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         // Handles the callback from the pocket app/website
         if url.scheme == "xmollv-llitgi" && url.host == "pocketAuth" {
             NotificationCenter.default.post(name: .OAuthFinished, object: nil)
