@@ -48,12 +48,11 @@ final class AppCoordinator: NSObject, Coordinator {
             vc.settingsButtonTapped = { [weak self] in self?.showSettings() }
             let navController = UINavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
-            navController.navigationBar.barTintColor = self.themeManager.theme.backgroundColor
             navController.navigationBar.barStyle = self.themeManager.theme.barStyle
             return navController
         }
 
-        self.tabBarController.tabBar.barTintColor = self.themeManager.theme.backgroundColor
+        self.tabBarController.tabBar.barStyle = self.themeManager.theme.barStyle
         self.tabBarController.delegate = self
         self.tabBarController.setViewControllers(tabs, animated: false)
         
@@ -70,10 +69,9 @@ final class AppCoordinator: NSObject, Coordinator {
             window?.tintColor = theme.tintColor
             self?.tabBarController.viewControllers?.forEach {
                 guard let navBar = ($0 as? UINavigationController)?.navigationBar else { return }
-                navBar.barTintColor = theme.backgroundColor
                 navBar.barStyle = theme.barStyle
             }
-            self?.tabBarController.tabBar.barTintColor = theme.backgroundColor
+            self?.tabBarController.tabBar.barStyle = theme.barStyle
             self?.splitViewController.view.backgroundColor = theme.backgroundColor
             UIApplication.shared.statusBarStyle = theme.statusBarStyle
         }
