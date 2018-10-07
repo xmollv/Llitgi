@@ -141,7 +141,7 @@ class SettingsViewController: UIViewController {
     //MARK:- Private methods
     private func apply(_ theme: Theme) {
         self.view.backgroundColor = theme.backgroundColor
-        self.navigationController?.navigationBar.barTintColor = theme.backgroundColor
+        self.navigationController?.navigationBar.barStyle = theme.barStyle
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.textTitleColor]
         self.scrollView.indicatorStyle = theme.indicatorStyle
         self.badgeCountLabel.textColor = theme.textTitleColor
