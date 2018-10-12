@@ -115,7 +115,7 @@ class AuthorizationViewController: UIViewController {
             self.actionButton.borderColor = .black
             self.actionButton.borderWidth = 1
         case .dark:
-            self.actionButton.backgroundColor = UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
+            self.actionButton.backgroundColor = UIColor(displayP3Red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
             self.actionButton.setTitleColor(.white, for: .normal)
             self.actionButton.borderColor = .white
             self.actionButton.borderWidth = 1

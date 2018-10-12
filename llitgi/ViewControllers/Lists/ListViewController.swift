@@ -110,8 +110,9 @@ class ListViewController: UITableViewController {
     private func apply(_ theme: Theme) {
         self.searchController.searchBar.keyboardAppearance = theme.keyboardAppearance
         self.tableView.backgroundColor = theme.backgroundColor
+        self.tableView.separatorColor = theme.tintColor.withAlphaComponent(0.25)
         self.tableView.indicatorStyle = theme.indicatorStyle
-        self.customRefreshControl.tintColor = theme.tintColor
+        self.customRefreshControl.tintColor = theme.pullToRefreshColor
         (self.loadingButton?.customView as? UIActivityIndicatorView)?.color = theme.tintColor
         self.tableView.reloadData()
     }
@@ -244,7 +245,7 @@ extension ListViewController {
             success(true)
         }
         favoriteAction.title = item.isFavorite ? L10n.Actions.unfavorite : L10n.Actions.favorite
-        favoriteAction.backgroundColor = UIColor(red: 242/255, green: 181/255, blue: 0/255, alpha: 1)
+        favoriteAction.backgroundColor = UIColor(displayP3Red: 194/255, green: 147/255, blue: 61/255, alpha: 1)
         
         return UISwipeActionsConfiguration(actions: [favoriteAction])
     }
