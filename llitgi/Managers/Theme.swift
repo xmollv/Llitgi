@@ -17,21 +17,21 @@ enum Theme: String {
         switch name {
         case "light": self = .light
         case "dark": self = .dark
-        default: self = .light
+        default: self = .dark
         }
     }
     
     var tintColor: UIColor {
         switch self {
         case .light: return .black
-        case .dark: return .white
+        case .dark: return UIColor(displayP3Red: 194/255, green: 147/255, blue: 61/255, alpha: 1)
         }
     }
     
     var backgroundColor: UIColor {
         switch self {
         case .light: return .white
-        case .dark: return UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
+        case .dark: return UIColor(displayP3Red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
         }
     }
     
@@ -51,8 +51,15 @@ enum Theme: String {
     
     var highlightBackgroundColor: UIColor {
         switch self {
-        case .light: return UIColor(red: 230/255, green: 228/255, blue: 226/255, alpha: 1)
-        case .dark: return UIColor(red: 60/255, green: 60/255, blue: 60/255, alpha: 1)
+        case .light: return UIColor(displayP3Red: 230/255, green: 228/255, blue: 226/255, alpha: 1)
+        case .dark: return UIColor(displayP3Red: 60/255, green: 60/255, blue: 60/255, alpha: 1)
+        }
+    }
+    
+    var pullToRefreshColor : UIColor {
+        switch self {
+        case .light: return .black
+        case .dark: return .white
         }
     }
     
@@ -91,7 +98,7 @@ final class ThemeManager {
     
     private var observers: [String: ThemeChanged] = [:]
     
-    var theme: Theme = .light {
+    var theme: Theme = .dark {
         didSet {
             UserDefaults.standard.setValue(theme.rawValue, forKey: "savedTheme")
             self.observers.values.forEach{ $0(theme) }
