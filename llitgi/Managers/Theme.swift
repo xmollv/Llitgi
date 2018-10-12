@@ -17,7 +17,7 @@ enum Theme: String {
         switch name {
         case "light": self = .light
         case "dark": self = .dark
-        default: self = .light
+        default: self = .dark
         }
     }
     
@@ -98,7 +98,7 @@ final class ThemeManager {
     
     private var observers: [String: ThemeChanged] = [:]
     
-    var theme: Theme = .light {
+    var theme: Theme = .dark {
         didSet {
             UserDefaults.standard.setValue(theme.rawValue, forKey: "savedTheme")
             self.observers.values.forEach{ $0(theme) }
