@@ -20,7 +20,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="Nrg-9m-HyM">
                         <rect key="frame" x="8" y="16" width="2" height="56.5"/>
-                        <color key="backgroundColor" red="0.94901960784313721" green="0.70980392156862748" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.76078431372549016" green="0.57647058823529407" blue="0.23921568627450979" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="2" id="VYp-wo-vaw"/>
                         </constraints>
