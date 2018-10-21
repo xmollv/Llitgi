@@ -77,6 +77,13 @@ enum Theme: String {
         }
     }
     
+    var separatorColor: UIColor {
+        switch self {
+        case .light: return UIColor.black.withAlphaComponent(0.15)
+        case .dark: return UIColor.white.withAlphaComponent(0.15)
+        }
+    }
+    
     var statusBarStyle: UIStatusBarStyle {
         switch self {
         case .light: return .default

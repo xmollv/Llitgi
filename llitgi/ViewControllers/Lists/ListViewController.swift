@@ -110,7 +110,7 @@ class ListViewController: UITableViewController {
     private func apply(_ theme: Theme) {
         self.searchController.searchBar.keyboardAppearance = theme.keyboardAppearance
         self.tableView.backgroundColor = theme.backgroundColor
-        self.tableView.separatorColor = theme.tintColor.withAlphaComponent(0.25)
+        self.tableView.separatorColor = theme.separatorColor
         self.tableView.indicatorStyle = theme.indicatorStyle
         self.customRefreshControl.tintColor = theme.pullToRefreshColor
         (self.loadingButton?.customView as? UIActivityIndicatorView)?.color = theme.tintColor
