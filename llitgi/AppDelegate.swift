@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        UIApplication.shared.setMinimumBackgroundFetchInterval(1800)
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
         
         let viewControllerFactory = ViewControllerFactory(dataProvider: self.dataProvider, userManager: self.userManager, themeManager: self.themeManager)
         self.appCoordinator = AppCoordinator(window: self.window, factory: viewControllerFactory, userManager: self.userManager, dataProvider: self.dataProvider, themeManager: self.themeManager)
