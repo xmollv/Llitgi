@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D102" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="CoreDataItem" representedClassName="CoreDataItem" syncable="YES">
         <attribute name="id_" attributeType="String" syncable="YES"/>
         <attribute name="isFavorite_" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="status_" attributeType="String" syncable="YES"/>
+        <attribute name="tags_" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="timeAdded_" attributeType="String" syncable="YES"/>
         <attribute name="timeUpdated_" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title_" attributeType="String" syncable="YES"/>
         <attribute name="url_" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CoreDataItem" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="CoreDataItem" positionX="-63" positionY="-18" width="128" height="165"/>
     </elements>
 </model>

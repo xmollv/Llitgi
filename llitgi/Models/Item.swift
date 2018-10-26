@@ -17,6 +17,7 @@ protocol Item {
     var timeUpdated: String { get }
     var isFavorite: Bool { get }
     var status: String { get }
+    var tags: [String] { get }
     
     mutating func switchFavoriteStatus()
     mutating func changeStatus(to: String)
@@ -33,6 +34,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     @NSManaged private var timeUpdated_: String
     @NSManaged private var isFavorite_: Bool
     @NSManaged private var status_: String
+    @NSManaged private var tags_: [String]
     
     //MARK: Public properties
     var id: String {
@@ -48,6 +50,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     var timeUpdated: String { return self.read(key: "timeUpdated_")! }
     var isFavorite: Bool { return self.read(key: "isFavorite_")! }
     var status: String { return self.read(key: "status_")! }
+    var tags: [String] { return self.read(key: "tags_")! }
     
     //MARK: Public methods
     func switchFavoriteStatus() {
@@ -107,6 +110,11 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
             self.timeAdded_ = timeAdded
             self.timeUpdated_ = (json["time_updated"] as? String) ?? timeAdded
             self.isFavorite_ = (isFavoriteString == "0") ? false : true
+            if let tagsDict = json["tags"] as? JSONDictionary {
+                self.tags_ = tagsDict.map { $0.key }
+            } else {
+                self.tags_ = []
+            }
         }
         
         return self as? T
