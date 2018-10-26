@@ -12,7 +12,6 @@ import CoreData
 protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
     func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier
-    func hasItem(identifiedBy id: String) -> CoreDataItem?
     func deleteAllModels()
     func numberOfItems(on: TypeOfList) -> Int
 }
@@ -99,20 +98,6 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
         return CoreDataNotifier(fetchResultController: frc)
-    }
-    
-    func hasItem(identifiedBy id: String) -> CoreDataItem?  {
-        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        request.predicate = NSPredicate(format: "id_ == %@ ", id)
-        var result: CoreDataItem?
-        self.backgroundContext.performAndWait {
-            do {
-                result = try self.backgroundContext.fetch(request).first
-            } catch {
-                Logger.log(error.localizedDescription, event: .error)
-            }
-        }
-        return result
     }
     
     func deleteAllModels() {
