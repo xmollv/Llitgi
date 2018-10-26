@@ -110,8 +110,9 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
             self.timeAdded_ = timeAdded
             self.timeUpdated_ = (json["time_updated"] as? String) ?? timeAdded
             self.isFavorite_ = (isFavoriteString == "0") ? false : true
+            #warning("The order in the JSON is not kept in the dictionary")
             if let tagsDict = json["tags"] as? JSONDictionary {
-                self.tags_ = tagsDict.map { $0.key }
+                self.tags_ = tagsDict.map { $0.key }.sorted()
             } else {
                 self.tags_ = []
             }
