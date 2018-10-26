@@ -55,6 +55,7 @@
 		47DE472C209A5C6E00770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47EBC0042183476200343AF7 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EBC0022183476200343AF7 /* TagCell.swift */; };
 		47EBC0052183476200343AF7 /* TagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47EBC0032183476200343AF7 /* TagCell.xib */; };
+		47EBC007218367A700343AF7 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EBC006218367A700343AF7 /* Tag.swift */; };
 		47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */; };
 		47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */; };
 		47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */; };
@@ -133,6 +134,7 @@
 		47E6128B203085DB00D26472 /* ShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareExtension.entitlements; sourceTree = "<group>"; };
 		47EBC0022183476200343AF7 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		47EBC0032183476200343AF7 /* TagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagCell.xib; sourceTree = "<group>"; };
+		47EBC006218367A700343AF7 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		47EEA35B1FF02DDD0030BEF1 /* llitgi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = llitgi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47EEA36A1FF02DDD0030BEF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				4710EF591FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld */,
 				4710EF601FF51D8500D3DCA9 /* Managed.swift */,
 				47376DE61FF0831600B8E70C /* Item.swift */,
+				47EBC006218367A700343AF7 /* Tag.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */,
 				4732BE4D213011BC0070D83A /* Theme.swift in Sources */,
 				4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */,
+				47EBC007218367A700343AF7 /* Tag.swift in Sources */,
 				47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
 				47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */,
 				4710EF5F1FF50F6A00D3DCA9 /* NSManagedObject.swift in Sources */,

@@ -17,7 +17,7 @@ protocol Item {
     var timeUpdated: String { get }
     var isFavorite: Bool { get }
     var status: String { get }
-    var tags: [String] { get }
+    var tags: [Tag] { get }
     
     mutating func switchFavoriteStatus()
     mutating func changeStatus(to: String)
@@ -34,7 +34,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     @NSManaged private var timeUpdated_: String
     @NSManaged private var isFavorite_: Bool
     @NSManaged private var status_: String
-    @NSManaged private var tags_: [String]
+    @NSManaged private var tags_: NSSet
     
     //MARK: Public properties
     var id: String {
@@ -50,7 +50,13 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     var timeUpdated: String { return self.read(key: "timeUpdated_")! }
     var isFavorite: Bool { return self.read(key: "isFavorite_")! }
     var status: String { return self.read(key: "status_")! }
-    var tags: [String] { return self.read(key: "tags_")! }
+    var tags: [Tag] {
+        if let nssetTags: NSSet = self.read(key: "tags_") {
+            return (nssetTags.allObjects as? [CoreDataTag])?.sorted{ $0.name < $1.name } ?? []
+        } else {
+            return []
+        }
+    }
     
     //MARK: Public methods
     func switchFavoriteStatus() {
@@ -110,11 +116,9 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
             self.timeAdded_ = timeAdded
             self.timeUpdated_ = (json["time_updated"] as? String) ?? timeAdded
             self.isFavorite_ = (isFavoriteString == "0") ? false : true
-            #warning("The order in the JSON is not kept in the dictionary")
             if let tagsDict = json["tags"] as? JSONDictionary {
-                self.tags_ = tagsDict.map { $0.key }.sorted()
-            } else {
-                self.tags_ = []
+                let tags = tagsDict.compactMap { CoreDataTag.create(with: $0.key, in: context) }
+                self.tags_ = NSSet(array: tags)
             }
         }
         

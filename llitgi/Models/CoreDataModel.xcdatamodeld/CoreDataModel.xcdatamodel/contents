@@ -4,13 +4,18 @@
         <attribute name="id_" attributeType="String" syncable="YES"/>
         <attribute name="isFavorite_" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="status_" attributeType="String" syncable="YES"/>
-        <attribute name="tags_" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="timeAdded_" attributeType="String" syncable="YES"/>
         <attribute name="timeUpdated_" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title_" attributeType="String" syncable="YES"/>
         <attribute name="url_" attributeType="String" syncable="YES"/>
+        <relationship name="tags_" toMany="YES" deletionRule="Nullify" destinationEntity="CoreDataTag" inverseName="item_" inverseEntity="CoreDataTag" syncable="YES"/>
+    </entity>
+    <entity name="CoreDataTag" representedClassName="CoreDataTag" syncable="YES">
+        <attribute name="name_" attributeType="String" syncable="YES"/>
+        <relationship name="item_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CoreDataItem" inverseName="tags_" inverseEntity="CoreDataItem" syncable="YES"/>
     </entity>
     <elements>
         <element name="CoreDataItem" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="CoreDataTag" positionX="-63" positionY="45" width="128" height="75"/>
     </elements>
 </model>

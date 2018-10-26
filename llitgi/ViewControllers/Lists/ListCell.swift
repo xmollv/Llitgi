@@ -93,7 +93,7 @@ extension ListCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: TagCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
         if let tag = self.item?.tags[indexPath.row] {
-            cell.configure(with: tag, theme: self.theme)
+            cell.configure(with: tag.name, theme: self.theme)
         } else {
             Logger.log("Unable to find the tag, this is a fatalError.", event: .error)
         }
