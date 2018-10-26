@@ -62,7 +62,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         
         if let query = query {
             // We use this for the search. Otherwise, the FRC returns every item matching the type
-            let searchPredicate = NSPredicate(format: "(title_ CONTAINS[c] %@ OR url_ CONTAINS[c] %@) AND status_ != '2'", query, query)
+            let searchPredicate = NSPredicate(format: "(title_ CONTAINS[cd] %@ OR url_ CONTAINS[cd] %@ OR) AND status_ != '2'", query, query)
             predicates.append(searchPredicate)
         }
         
