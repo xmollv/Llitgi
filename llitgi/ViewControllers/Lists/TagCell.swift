@@ -56,9 +56,9 @@ class TagCell: UICollectionViewCell, NibLoadableView {
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         super.preferredLayoutAttributesFitting(layoutAttributes)
 
-        let labelWidth = systemLayoutSizeFitting(self.label.frame.size).width
+        let contentViewWidth = systemLayoutSizeFitting(self.contentView.frame.size).width
 
-        let targetSize = CGSize(width: labelWidth, height: 25)
+        let targetSize = CGSize(width: contentViewWidth, height: 25)
 
         let autoLayoutSize = contentView.systemLayoutSizeFitting(targetSize,
                                                                  withHorizontalFittingPriority: UILayoutPriority.defaultLow,
