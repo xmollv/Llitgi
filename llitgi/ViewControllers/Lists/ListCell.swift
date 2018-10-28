@@ -20,6 +20,9 @@ class ListCell: UITableViewCell, NibLoadableView {
     private var item: Item?
     private var theme: Theme?
     
+    //MARK: Public properties
+    var selectedTag: ((Tag) -> Void)? = nil
+    
     //MARK:- Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,6 +53,7 @@ class ListCell: UITableViewCell, NibLoadableView {
     private func clearCell() {
         self.item = nil
         self.theme = nil
+        self.selectedTag = nil
         self.tagsCollectionView.delegate = nil
         self.tagsCollectionView.dataSource = nil
         self.favoriteView.isHidden = true
@@ -106,5 +110,7 @@ extension ListCell: UICollectionViewDelegate, UICollectionViewDataSource {
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
             cell.transform = .identity
         })
+        guard let tag = self.item?.tags[indexPath.row] else { return }
+        self.selectedTag?(tag)
     }
 }
