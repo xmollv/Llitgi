@@ -99,4 +99,12 @@ extension ListCell: UICollectionViewDelegate, UICollectionViewDataSource {
         }
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+            cell.transform = .identity
+        })
+    }
 }
