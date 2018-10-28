@@ -27,7 +27,7 @@ final class CoreDataTag: Managed, Tag {
     }
     var items: [Item] {
         if let nssetItems: NSSet = self.read(key: "items_") {
-            return (nssetItems.allObjects as? [CoreDataItem])?.sorted { $0.timeAdded < $1.timeAdded } ?? []
+            return (nssetItems.allObjects as? [CoreDataItem])?.sorted { $0.timeAdded > $1.timeAdded } ?? []
         } else {
             return []
         }
