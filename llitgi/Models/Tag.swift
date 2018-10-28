@@ -27,22 +27,43 @@ final class CoreDataTag: NSManagedObject, Tag {
     }
     var items: [Item] {
         if let nssetItems: NSSet = self.read(key: "items_") {
-            return (nssetItems.allObjects as? [CoreDataItem])?.sorted { $0.timeUpdated < $1.timeUpdated } ?? []
+            return (nssetItems.allObjects as? [CoreDataItem])?.sorted { $0.timeAdded < $1.timeAdded } ?? []
         } else {
             return []
         }
     }
     
     static func create(with name: String, in context: NSManagedObjectContext) -> CoreDataTag? {
-        guard let entity = NSEntityDescription.entity(forEntityName: String(describing: CoreDataTag.self), in: context) else {
-            Logger.log("Invalid Core Data configuration", event: .error)
-            return nil
+        if let fetchedObject = self.fetch(with: name, in: context) {
+            print("Fetched: \(name)")
+            return fetchedObject
+        } else {
+            print("Created: \(name)")
+            guard let entity = NSEntityDescription.entity(forEntityName: String(describing: CoreDataTag.self), in: context) else {
+                Logger.log("Invalid Core Data configuration", event: .error)
+                return nil
+            }
+            var object: CoreDataTag?
+            context.performAndWait {
+                object = CoreDataTag.init(entity: entity, insertInto: context)
+                object?.name = name
+            }
+            return object
         }
-        var object: CoreDataTag?
+    }
+    
+    fileprivate static func fetch(with id: String, in context: NSManagedObjectContext) -> CoreDataTag? {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: CoreDataTag.self))
+        request.predicate = NSPredicate(format: "name_ == %@", argumentArray: [id])
+        var fetchedElement: CoreDataTag?
         context.performAndWait {
-            object = CoreDataTag.init(entity: entity, insertInto: context)
-            object?.name = name
+            do {
+                let fetchedElements = try context.fetch(request) as? [CoreDataTag]
+                fetchedElement = fetchedElements?.first
+            } catch {
+                Logger.log(error.localizedDescription, event: .error)
+            }
         }
-        return object
+        return fetchedElement
     }
 }
