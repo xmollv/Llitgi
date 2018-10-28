@@ -24,7 +24,7 @@ protocol Item {
 }
 
 @objc(CoreDataItem)
-final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
+final class CoreDataItem: Managed, Item {
     
     //MARK: Private properties
     @NSManaged private var id_: String
@@ -91,8 +91,24 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
             Logger.log(error.localizedDescription, event: .error)
         }
     }
+}
+
+extension CoreDataItem {
+    static func fetchOrCreate<T: Managed>(with json: JSONDictionary, on context: NSManagedObjectContext) -> T? {
+        guard let id = json["item_id"] as? String else {
+            Logger.log("Unable to find the id in the following item: \(json.description)", event: .error)
+            return nil
+        }
+        var objectToReturn: CoreDataItem?
+        if let fetchedObject: CoreDataItem = CoreDataItem.fetch(with: id, format: "id_ == %@", in: context) {
+            objectToReturn = fetchedObject
+        } else {
+            objectToReturn = CoreDataItem.create(in: context)
+        }
+        objectToReturn?.id = id
+        return objectToReturn as? T
+    }
     
-    //MARK:- CoreDataManaged conformance
     func update<T: Managed>(with json: JSONDictionary, on context: NSManagedObjectContext) -> T? {
         guard let urlAsString = (json["resolved_url"] as? String) ?? (json["given_url"] as? String),
             let _ = URL(string: urlAsString),
@@ -117,7 +133,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
             self.timeUpdated_ = (json["time_updated"] as? String) ?? timeAdded
             self.isFavorite_ = (isFavoriteString == "0") ? false : true
             if let tagsDict = json["tags"] as? JSONDictionary {
-                let tags = tagsDict.compactMap { CoreDataTag.create(with: $0.key, in: context) }
+                let tags: [CoreDataTag] = tagsDict.compactMap { CoreDataTag.fetchOrCreate(with: [$0.key:""], on: context) }
                 self.tags_ = NSSet(array: tags)
             }
         }

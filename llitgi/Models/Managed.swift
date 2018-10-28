@@ -12,6 +12,6 @@ import CoreData
 typealias Managed = NSManagedObject & CoreDataManaged
 
 protocol CoreDataManaged: class {
-    var id: String { get set }
+    static func fetchOrCreate<T: Managed>(with: JSONDictionary, on: NSManagedObjectContext) -> T?
     func update<T: Managed>(with: JSONDictionary, on: NSManagedObjectContext) -> T?
 }
