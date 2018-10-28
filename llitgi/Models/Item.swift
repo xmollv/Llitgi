@@ -135,6 +135,8 @@ extension CoreDataItem {
             if let tagsDict = json["tags"] as? JSONDictionary {
                 let tags: [CoreDataTag] = tagsDict.compactMap { CoreDataTag.fetchOrCreate(with: [$0.key:""], on: context) }
                 self.tags_ = NSSet(array: tags)
+            } else {
+                self.tags_ = NSSet()
             }
         }
         
