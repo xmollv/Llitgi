@@ -8,7 +8,7 @@
         <attribute name="timeUpdated_" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title_" attributeType="String" syncable="YES"/>
         <attribute name="url_" attributeType="String" syncable="YES"/>
-        <relationship name="tags_" toMany="YES" deletionRule="Nullify" destinationEntity="CoreDataTag" inverseName="item_" inverseEntity="CoreDataTag" syncable="YES"/>
+        <relationship name="tags_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CoreDataTag" inverseName="item_" inverseEntity="CoreDataTag" syncable="YES"/>
     </entity>
     <entity name="CoreDataTag" representedClassName="CoreDataTag" syncable="YES">
         <attribute name="name_" attributeType="String" syncable="YES"/>

@@ -34,7 +34,7 @@ final class CoreDataItem: NSManagedObject, Item, CoreDataManaged {
     @NSManaged private var timeUpdated_: String
     @NSManaged private var isFavorite_: Bool
     @NSManaged private var status_: String
-    @NSManaged private var tags_: NSSet
+    @NSManaged private var tags_: NSSet?
     
     //MARK: Public properties
     var id: String {
