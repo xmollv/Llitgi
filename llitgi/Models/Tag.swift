@@ -11,6 +11,7 @@ import CoreData
 
 protocol Tag {
     var name: String { get }
+    var items: [Item] { get }
 }
 
 @objc(CoreDataTag)
@@ -18,11 +19,18 @@ final class CoreDataTag: NSManagedObject, Tag {
     
     //MARK: Private properties
     @NSManaged private var name_: String
-    @NSManaged private var item_: [CoreDataItem]
+    @NSManaged private var items_: [CoreDataItem]
     
     var name: String {
         get { return self.read(key: "name_")! }
         set { self.update(key: "name_", with: newValue) }
+    }
+    var items: [Item] {
+        if let nssetItems: NSSet = self.read(key: "items_") {
+            return (nssetItems.allObjects as? [CoreDataItem])?.sorted { $0.timeUpdated < $1.timeUpdated } ?? []
+        } else {
+            return []
+        }
     }
     
     static func create(with name: String, in context: NSManagedObjectContext) -> CoreDataTag? {
