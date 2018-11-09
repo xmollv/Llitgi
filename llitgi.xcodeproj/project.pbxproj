@@ -27,6 +27,7 @@
 		4752C0832030BCA800988A68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4752C0822030BCA800988A68 /* Assets.xcassets */; };
 		4752C0872030F22300988A68 /* FullSyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4752C0852030F22300988A68 /* FullSyncViewController.swift */; };
 		4752C0882030F22300988A68 /* FullSyncViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4752C0862030F22300988A68 /* FullSyncViewController.xib */; };
+		475AAD19219597F1003B4AF5 /* SFSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475AAD18219597F1003B4AF5 /* SFSafariViewController.swift */; };
 		475E177020262CAD007033F1 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475E176F20262CAD007033F1 /* ShareViewController.swift */; };
 		475E177320262CAD007033F1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 475E177120262CAD007033F1 /* MainInterface.storyboard */; };
 		475E177720262CAD007033F1 /* ShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 475E176D20262CAD007033F1 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -115,6 +116,7 @@
 		4752C0822030BCA800988A68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4752C0852030F22300988A68 /* FullSyncViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSyncViewController.swift; sourceTree = "<group>"; };
 		4752C0862030F22300988A68 /* FullSyncViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FullSyncViewController.xib; sourceTree = "<group>"; };
+		475AAD18219597F1003B4AF5 /* SFSafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSafariViewController.swift; sourceTree = "<group>"; };
 		475E176D20262CAD007033F1 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		475E176F20262CAD007033F1 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		475E177420262CAD007033F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				478F43842038B24E003ECCAD /* UITableView.swift */,
 				47A493A6203F6E6B004051A6 /* Bundle.swift */,
 				471FE2E820B5EFED0059AEA7 /* UIViewController.swift */,
+				475AAD18219597F1003B4AF5 /* SFSafariViewController.swift */,
 			);
 			path = "Extensions & Helpers";
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				475AAD19219597F1003B4AF5 /* SFSafariViewController.swift in Sources */,
 				4770ACF51FF111A9006E755D /* UIView.swift in Sources */,
 				47803EA52009674D003D58E2 /* UserManager.swift in Sources */,
 				4727DE61211055AE00444D5D /* AppCoordinator.swift in Sources */,
