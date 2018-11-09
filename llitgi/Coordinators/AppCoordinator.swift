@@ -46,6 +46,7 @@ final class AppCoordinator: NSObject, Coordinator {
         let tabs = self.factory.instantiateLists().map { (vc) -> UINavigationController in
             vc.safariToPresent = self.presentSafariClosure
             vc.settingsButtonTapped = { [weak self] in self?.showSettings() }
+            vc.selectedTag = { [weak self] tag in self?.show(tag: tag) }
             let navController = UINavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
             navController.navigationBar.barStyle = self.themeManager.theme.barStyle
@@ -129,6 +130,15 @@ final class AppCoordinator: NSObject, Coordinator {
         let navController = UINavigationController(rootViewController: settingsViewController)
         navController.modalPresentationStyle = .formSheet
         self.splitViewController.present(navController, animated: true, completion: nil)
+    }
+    
+    private func show(tag: Tag) {
+        let tagViewController = self.factory.instantiateTagViewController(with: tag)
+        tagViewController.hidesBottomBarWhenPushed = true
+        tagViewController.selectedTag = { [weak self] tag in self?.show(tag: tag) }
+        tagViewController.safariToPresent = self.presentSafariClosure
+        #warning("This hack will bit back")
+        ((self.splitViewController.viewControllers.first as? UITabBarController)?.selectedViewController as? UINavigationController)?.pushViewController(tagViewController, animated: true)
     }
     
     private func showFullSync() {

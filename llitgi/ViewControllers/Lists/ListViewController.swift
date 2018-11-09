@@ -51,10 +51,11 @@ class ListViewController: UITableViewController {
     
     //MARK: Public properties
     var settingsButtonTapped: (() -> Void)?
+    var selectedTag: ((Tag) -> Void)?
     var safariToPresent: ((SFSafariViewController) -> Void)?
     
     //MARK:- Lifecycle
-    required init(dataProvider: DataProvider, userManager: UserManager,themeManager: ThemeManager, type: TypeOfList) {
+    required init(dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager, type: TypeOfList) {
         self.dataProvider = dataProvider
         self.userManager = userManager
         self.themeManager = themeManager
@@ -110,7 +111,7 @@ class ListViewController: UITableViewController {
     private func apply(_ theme: Theme) {
         self.searchController.searchBar.keyboardAppearance = theme.keyboardAppearance
         self.tableView.backgroundColor = theme.backgroundColor
-        self.tableView.separatorColor = theme.tintColor.withAlphaComponent(0.25)
+        self.tableView.separatorColor = theme.separatorColor
         self.tableView.indicatorStyle = theme.indicatorStyle
         self.customRefreshControl.tintColor = theme.pullToRefreshColor
         (self.loadingButton?.customView as? UIActivityIndicatorView)?.color = theme.tintColor
@@ -209,6 +210,9 @@ class ListViewController: UITableViewController {
 //MARK:- UITableViewDelegate
 extension ListViewController {
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let listCell = cell as? ListCell {
+            listCell.selectedTag = self.selectedTag
+        }
         self.cellHeights[indexPath] = cell.frame.size.height
     }
     

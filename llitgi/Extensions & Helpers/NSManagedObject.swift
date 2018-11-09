@@ -10,19 +10,10 @@ import Foundation
 import CoreData
 
 extension NSManagedObject {
-
-    static func fetchOrCreate<T: Managed>(with json: JSONDictionary, in context: NSManagedObjectContext) -> T? {
-        guard let id = json["item_id"] as? String else { return nil }
-        if let fetchedElement: T = T.fetch(with: id, in: context) {
-            return fetchedElement
-        } else {
-            return T.create(with: id, in: context)
-        }
-    }
     
-    fileprivate static func fetch<T: Managed>(with id: String, in context: NSManagedObjectContext) -> T? {
+    static func fetch<T: Managed>(with identifier: String, format: String, in context: NSManagedObjectContext) -> T? {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: T.self))
-        request.predicate = NSPredicate(format: "id_ == %@", argumentArray: [id])
+        request.predicate = NSPredicate(format: format, argumentArray: [identifier])
         var fetchedElement: T?
         context.performAndWait {
             do {
@@ -35,7 +26,7 @@ extension NSManagedObject {
         return fetchedElement
     }
     
-    fileprivate static func create<T: Managed>(with id: String, in context: NSManagedObjectContext) -> T? {
+    static func create<T: Managed>(in context: NSManagedObjectContext) -> T? {
         guard let entity = NSEntityDescription.entity(forEntityName: String(describing: T.self), in: context) else {
             Logger.log("Invalid Core Data configuration", event: .error)
             return nil
@@ -43,7 +34,6 @@ extension NSManagedObject {
         var object: T?
         context.performAndWait {
             object = T.init(entity: entity, insertInto: context)
-            object?.id = id
         }
         return object
     }

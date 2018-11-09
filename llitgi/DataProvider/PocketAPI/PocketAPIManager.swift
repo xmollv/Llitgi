@@ -116,7 +116,7 @@ final class PocketAPIManager {
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
             payload["sort"] = "newest"
-            payload["detailType"] = "simple"
+            payload["detailType"] = "complete"
             payload["state"] = "all"
             if let lastSync = lastSync {
                 // If we don't pass the since timestamp we get the full library

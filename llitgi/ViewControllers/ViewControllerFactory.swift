@@ -55,4 +55,8 @@ final class ViewControllerFactory {
     func instantiateFullSync() -> FullSyncViewController {
         return FullSyncViewController(dataProvider: self.dataProvider)
     }
+    
+    func instantiateTagViewController(with tag: Tag) -> TagViewController {
+        return TagViewController(tag: tag, themeManager: self.themeManager, userManager: self.userManager)
+    }
 }
