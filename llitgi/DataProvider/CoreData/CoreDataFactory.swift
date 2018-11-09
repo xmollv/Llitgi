@@ -12,7 +12,6 @@ import CoreData
 protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
     func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier
-    func hasItem(identifiedBy id: String) -> CoreDataItem?
     func deleteAllModels()
     func numberOfItems(on: TypeOfList) -> Int
 }
@@ -63,7 +62,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         
         if let query = query {
             // We use this for the search. Otherwise, the FRC returns every item matching the type
-            let searchPredicate = NSPredicate(format: "(title_ CONTAINS[c] %@ OR url_ CONTAINS[c] %@) AND status_ != '2'", query, query)
+            let searchPredicate = NSPredicate(format: "(title_ CONTAINS[cd] %@ OR url_ CONTAINS[cd] %@) AND status_ != '2'", query, query)
             predicates.append(searchPredicate)
         }
         
@@ -99,20 +98,6 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
                                              sectionNameKeyPath: nil,
                                              cacheName: nil)
         return CoreDataNotifier(fetchResultController: frc)
-    }
-    
-    func hasItem(identifiedBy id: String) -> CoreDataItem?  {
-        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        request.predicate = NSPredicate(format: "id_ == %@ ", id)
-        var result: CoreDataItem?
-        self.backgroundContext.performAndWait {
-            do {
-                result = try self.backgroundContext.fetch(request).first
-            } catch {
-                Logger.log(error.localizedDescription, event: .error)
-            }
-        }
-        return result
     }
     
     func deleteAllModels() {
@@ -168,7 +153,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     }
     
     private func build<T: Managed>(json: JSONDictionary, in context: NSManagedObjectContext) -> T? {
-        let object: T? = T.fetchOrCreate(with: json, in: context)
+        let object: T? = T.fetchOrCreate(with: json, on: context)
         guard let updatedObject: T = object?.update(with: json, on: context) else {
             self.delete(object, in: context)
             return nil
@@ -183,7 +168,6 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     private func delete<T: Managed>(_ object: T?, in context: NSManagedObjectContext) {
         guard let object = object else { return }
-        Logger.log("Maked \(object.id) to be deleted.")
         context.performAndWait {
             context.delete(object)
         }

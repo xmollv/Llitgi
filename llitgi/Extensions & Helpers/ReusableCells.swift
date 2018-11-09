@@ -52,3 +52,18 @@ extension UITableView {
         return cell
     }
 }
+
+extension UICollectionViewCell: ReusableView { }
+
+extension UICollectionView {
+    func register<T: UICollectionViewCell>(_: T.Type) where T: NibLoadableView {
+        self.register(T.nib, forCellWithReuseIdentifier: T.defaultReuseIdentifier)
+    }
+    
+    func dequeueReusableCell<T: UICollectionViewCell>(forIndexPath indexPath: IndexPath) -> T {
+        guard let cell = self.dequeueReusableCell(withReuseIdentifier: T.defaultReuseIdentifier, for: indexPath) as? T else {
+            fatalError("Could not dequeue reusable cell with identifier: \(T.defaultReuseIdentifier)")
+        }
+        return cell
+    }
+}
