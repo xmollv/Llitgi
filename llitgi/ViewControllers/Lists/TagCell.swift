@@ -54,17 +54,10 @@ class TagCell: UICollectionViewCell, NibLoadableView {
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        super.preferredLayoutAttributesFitting(layoutAttributes)
-
-        let contentViewWidth = systemLayoutSizeFitting(self.contentView.frame.size).width
-
-        let targetSize = CGSize(width: contentViewWidth, height: 25)
-
-        let autoLayoutSize = contentView.systemLayoutSizeFitting(targetSize,
-                                                                 withHorizontalFittingPriority: UILayoutPriority.defaultLow,
-                                                                 verticalFittingPriority: UILayoutPriority.required)
-
-        layoutAttributes.frame = CGRect(origin: layoutAttributes.frame.origin, size: autoLayoutSize)
+        let size = contentView.systemLayoutSizeFitting(layoutAttributes.size)
+        var frame = layoutAttributes.frame
+        frame.size.width = size.width.rounded(.up)
+        layoutAttributes.frame = frame
         return layoutAttributes
     }
     
