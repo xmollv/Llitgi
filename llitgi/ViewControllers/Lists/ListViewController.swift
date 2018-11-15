@@ -78,7 +78,6 @@ class ListViewController: UITableViewController {
         super.viewDidLoad()
         self.extendedLayoutIncludesOpaqueBars = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: UIApplication.didBecomeActiveNotification, object: nil)
-        self.registerForPreviewing(with: self, sourceView: self.tableView)
         self.configureNavigationItems()
         self.configureSearchController()
         self.configureTableView()
@@ -282,20 +281,6 @@ extension ListViewController {
         }
         
         return UISwipeActionsConfiguration(actions: [archiveAction, deleteAction])
-    }
-}
-
-//MARK:- UIViewControllerPreviewingDelegate
-extension ListViewController: UIViewControllerPreviewingDelegate {
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = self.tableView.indexPathForRow(at: location) else { return nil }
-        previewingContext.sourceRect = self.tableView.rectForRow(at: indexPath)
-        let sfs = self.safariViewController(at: indexPath)
-        return sfs
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        self.present(viewControllerToCommit, animated: true, completion: nil)
     }
 }
 
