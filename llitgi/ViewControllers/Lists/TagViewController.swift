@@ -9,12 +9,33 @@
 import UIKit
 import SafariServices
 
+enum TagsSection {
+    case myList
+    case archived
+    
+    init(section: Int) {
+        switch section {
+        case 0: self = .myList
+        case 1: self = .archived
+        default: fatalError("Usupported section")
+        }
+    }
+    
+    var sectionTitle: String {
+        switch self {
+        case .myList: return L10n.Titles.myList
+        case .archived: return L10n.Titles.archive
+        }
+    }
+}
+
 class TagViewController: UITableViewController {
     
     //MARK:- Private properties
     private let tag: Tag
     private let themeManager: ThemeManager
     private let userManager: UserManager
+    private let items: (myListItems: [Item], archivedItems: [Item])
     
     //MARK:- Public properties
     var safariToPresent: ((SFSafariViewController) -> Void)?
@@ -25,6 +46,9 @@ class TagViewController: UITableViewController {
         self.tag = tag
         self.themeManager = themeManager
         self.userManager = userManager
+        let myListItems = tag.items.filter{ $0.status == "0" }
+        let archivedItems = tag.items.filter{ $0.status == "1" }
+        self.items = (myListItems, archivedItems)
         super.init(nibName: String(describing: TagViewController.self), bundle: .main)
     }
     
@@ -37,7 +61,6 @@ class TagViewController: UITableViewController {
         super.viewDidLoad()
         self.title = tag.name.capitalized
         self.extendedLayoutIncludesOpaqueBars = true
-        self.registerForPreviewing(with: self, sourceView: self.tableView)
         self.configureTableView()
         self.apply(self.themeManager.theme)
     }
@@ -66,51 +89,67 @@ class TagViewController: UITableViewController {
         self.tableView.separatorColor = theme.separatorColor
         self.tableView.indicatorStyle = theme.indicatorStyle
     }
-    
-    private func safariViewController(at indexPath: IndexPath) -> SFSafariViewController? {
-        let url = self.tag.items[indexPath.row].url
-        let cfg = SFSafariViewController.Configuration()
-        cfg.entersReaderIfAvailable = self.userManager.openReaderMode
-        let sfs = SFSafariViewController(url: url, configuration: cfg)
-        sfs.preferredControlTintColor = self.themeManager.theme.tintColor
-        sfs.preferredBarTintColor = self.themeManager.theme.backgroundColor
-        return sfs
-    }
 }
 
 extension TagViewController {
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tag.items.count
+        switch TagsSection(section: section) {
+        case .myList: return self.items.myListItems.count
+        case .archived: return self.items.archivedItems.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-        cell.configure(with: self.tag.items[indexPath.row], theme: self.themeManager.theme)
+        
+        switch TagsSection(section: indexPath.section) {
+        case .myList:
+            cell.configure(with: self.items.myListItems[indexPath.row], theme: self.themeManager.theme)
+        case .archived:
+            cell.configure(with: self.items.archivedItems[indexPath.row], theme: self.themeManager.theme)
+        }
+        
         cell.selectedTag = self.selectedTag
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item: Item
+        
+        switch TagsSection(section: indexPath.section) {
+        case .myList:
+            item = self.items.myListItems[indexPath.row]
+        case .archived:
+            item = self.items.archivedItems[indexPath.row]
+        }
+        
         switch self.userManager.openLinksWith {
         case .safariViewController:
-            guard let sfs = self.safariViewController(at: indexPath) else { return }
+            let url = item.url
+            let cfg = SFSafariViewController.Configuration()
+            cfg.entersReaderIfAvailable = self.userManager.openReaderMode
+            let sfs = SFSafariViewController(url: url, configuration: cfg)
+            sfs.preferredControlTintColor = self.themeManager.theme.tintColor
+            sfs.preferredBarTintColor = self.themeManager.theme.backgroundColor
             self.safariToPresent?(sfs)
         case .safari:
-            let url = self.tag.items[indexPath.row].url
+            let url = item.url
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
-}
-//MARK:- UIViewControllerPreviewingDelegate
-extension TagViewController: UIViewControllerPreviewingDelegate {
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = self.tableView.indexPathForRow(at: location) else { return nil }
-        previewingContext.sourceRect = self.tableView.rectForRow(at: indexPath)
-        let sfs = self.safariViewController(at: indexPath)
-        return sfs
-    }
     
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        self.present(viewControllerToCommit, animated: true, completion: nil)
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let tagSection = TagsSection(section: section)
+        switch tagSection {
+        case .myList where self.items.myListItems.count > 0:
+            return tagSection.sectionTitle
+        case .archived where self.items.archivedItems.count > 0:
+            return tagSection.sectionTitle
+        default: return nil
+        }
     }
 }
