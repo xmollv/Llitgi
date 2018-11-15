@@ -158,8 +158,8 @@ extension TagViewController {
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         view.addSubview(label)
         
-        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20).isActive = true
+        label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 20).isActive = true
         label.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
         label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true
         
