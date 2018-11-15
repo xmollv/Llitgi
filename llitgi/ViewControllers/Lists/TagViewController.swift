@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-enum TagsSection {
+enum TagsSection: CaseIterable {
     case myList
     case archived
     
@@ -93,7 +93,7 @@ class TagViewController: UITableViewController {
 
 extension TagViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return TagsSection.allCases.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
