@@ -68,6 +68,12 @@ class TagViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.deselectRow(with: self.transitionCoordinator, animated: animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -142,14 +148,40 @@ extension TagViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = self.themeManager.theme.sectionHeaderBackground
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = self.themeManager.theme.textTitleColor
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        view.addSubview(label)
+        
+        label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20).isActive = true
+        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
+        label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true
+        
         let tagSection = TagsSection(section: section)
         switch tagSection {
         case .myList where self.items.myListItems.count > 0:
-            return tagSection.sectionTitle
+            label.text = tagSection.sectionTitle
+            return view
         case .archived where self.items.archivedItems.count > 0:
-            return tagSection.sectionTitle
-        default: return nil
+            label.text = tagSection.sectionTitle
+            return view
+        default:
+            return nil
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch TagsSection(section: section) {
+        case .myList:
+            return self.items.myListItems.count > 0 ? UITableView.automaticDimension : 0
+        case .archived:
+            return self.items.archivedItems.count > 0 ? UITableView.automaticDimension : 0
         }
     }
 }
