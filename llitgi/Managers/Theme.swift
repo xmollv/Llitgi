@@ -97,6 +97,13 @@ enum Theme: String {
         case .dark: return .black
         }
     }
+    
+    var sectionHeaderBackground: UIColor {
+        switch self {
+        case .light: return UIColor(displayP3Red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
+        case .dark: return UIColor(displayP3Red: 45/255, green: 45/255, blue: 45/255, alpha: 1)
+        }
+    }
 }
 
 final class ThemeManager {
