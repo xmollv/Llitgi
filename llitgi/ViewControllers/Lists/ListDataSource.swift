@@ -8,13 +8,15 @@
 
 import UIKit
 
-class ListDataSource: NSObject {
+class ListDataSource: NSObject, TableViewCoreDataNotifier {
     
     //MARK:- Private properties
-    weak private var tableView: UITableView?
     private let userPreferences: UserManager
     private let themeManager: ThemeManager
-    private var notifier: CoreDataNotifier?
+    
+    //MARK: Public properties
+    weak var tableView: UITableView?
+    var notifier: CoreDataNotifier?
     
     //MARK:- Public properties
     var typeOfList: TypeOfList
@@ -42,24 +44,9 @@ class ListDataSource: NSObject {
     
     func establishNotifier(notifier: CoreDataNotifier, isSearch: Bool) {
         self.isSearch = isSearch
-        self.notifier = nil
-        self.notifier = notifier.onBeginChanging({ [weak self] in
-            self?.tableView?.beginUpdates()
-        }).onObjectChanged({ [weak self] (change) in
-            guard let strongSelf = self else { return }
-            switch change {
-            case .insert(let indexPath):
-                strongSelf.tableView?.insertRows(at: [indexPath], with: .automatic)
-            case .delete(let indexPath):
-                strongSelf.tableView?.deleteRows(at: [indexPath], with: .automatic)
-            case .update(let indexPath):
-                strongSelf.tableView?.reloadRows(at: [indexPath], with: .automatic)
-            case .move(let from, let to):
-                strongSelf.tableView?.moveRow(at: from, to: to)
-            }
-        }).onFinishChanging({ [weak self] in
-            self?.tableView?.endUpdates()
-        }).startNotifying()
+        self.notifier = notifier
+        self.notifier?.delegate = self
+        self.notifier?.startNotifying()
     }
 }
 

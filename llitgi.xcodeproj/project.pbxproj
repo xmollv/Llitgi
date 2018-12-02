@@ -52,6 +52,7 @@
 		479E18E520724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		479E18E620724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A493A6203F6E6B004051A6 /* Bundle.swift */; };
+		47BFBFA921B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */; };
 		47DB058020B009BE001485DF /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DB057E20B009BE001485DF /* ListViewController.xib */; };
 		47DB058220B067DB001485DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47DB058120B067DB001485DF /* Assets.xcassets */; };
 		47DE472B209A53D500770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
@@ -133,6 +134,7 @@
 		478F43A12038E77B003ECCAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		479E18E420724652002E3BB1 /* PocketConsumerKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PocketConsumerKey; sourceTree = "<group>"; };
 		47A493A6203F6E6B004051A6 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCoreDataNotifier.swift; sourceTree = "<group>"; };
 		47DB057E20B009BE001485DF /* ListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
 		47DB058120B067DB001485DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47DE472A209A53D500770884 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			children = (
 				4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */,
 				4710EF571FF44E5100D3DCA9 /* CoreDataNotifier.swift */,
+				47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
 				4770AD031FF1B470006E755D /* ListCell.swift in Sources */,
+				47BFBFA921B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift in Sources */,
 				47EBC0042183476200343AF7 /* TagCell.swift in Sources */,
 				47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */,
 				474B44202001A52D009897D2 /* SettingsViewController.swift in Sources */,
