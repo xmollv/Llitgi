@@ -42,7 +42,6 @@
 		4770ACF51FF111A9006E755D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF41FF111A9006E755D /* UIView.swift */; };
 		4770ACF71FF17AFD006E755D /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF61FF17AFD006E755D /* Notification.swift */; };
 		4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF91FF18AF7006E755D /* ListViewController.swift */; };
-		4770ACFE1FF1B108006E755D /* ListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFD1FF1B108006E755D /* ListDataSource.swift */; };
 		4770AD001FF1B3B8006E755D /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
 		4770AD031FF1B470006E755D /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770AD011FF1B470006E755D /* ListCell.swift */; };
 		4770AD041FF1B470006E755D /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770AD021FF1B470006E755D /* ListCell.xib */; };
@@ -126,7 +125,6 @@
 		4770ACF41FF111A9006E755D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		4770ACF61FF17AFD006E755D /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		4770ACF91FF18AF7006E755D /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
-		4770ACFD1FF1B108006E755D /* ListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDataSource.swift; sourceTree = "<group>"; };
 		4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCells.swift; sourceTree = "<group>"; };
 		4770AD011FF1B470006E755D /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		4770AD021FF1B470006E755D /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
@@ -243,7 +241,6 @@
 				4723ED6721B4246F002E25E3 /* TypeOfList.swift */,
 				4770ACF91FF18AF7006E755D /* ListViewController.swift */,
 				47DB057E20B009BE001485DF /* ListViewController.xib */,
-				4770ACFD1FF1B108006E755D /* ListDataSource.swift */,
 				4770AD011FF1B470006E755D /* ListCell.swift */,
 				4770AD021FF1B470006E755D /* ListCell.xib */,
 				47EBC0022183476200343AF7 /* TagCell.swift */,
@@ -531,7 +528,6 @@
 				4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */,
 				47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */,
 				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
-				4770ACFE1FF1B108006E755D /* ListDataSource.swift in Sources */,
 				4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */,

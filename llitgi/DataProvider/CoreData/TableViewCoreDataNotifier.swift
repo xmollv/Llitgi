@@ -11,33 +11,34 @@ import UIKit
 import CoreData
 
 protocol TableViewCoreDataNotifier: CoreDataNotifierDelegate {
-    var tableView: UITableView? { get }
-    var notifier: CoreDataNotifier? { get }
+    //The ! is due to how UITableViewController declares it's own UITableView :facepalm:
+    var tableView: UITableView! { get set }
+    var notifier: CoreDataNotifier { get }
 }
 
 extension TableViewCoreDataNotifier {
     func willChangeContent() {
-        self.tableView?.beginUpdates()
+        self.tableView.beginUpdates()
     }
     
     func didChangeContent(_ change: CoreDataNotifierChange) {
         switch change {
         case .insert(let indexPath):
-            self.tableView?.insertRows(at: [indexPath], with: .automatic)
+            self.tableView.insertRows(at: [indexPath], with: .automatic)
         case .delete(let indexPath):
-            self.tableView?.deleteRows(at: [indexPath], with: .automatic)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
         case .update(let indexPath):
-            self.tableView?.reloadRows(at: [indexPath], with: .automatic)
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
         case .move(let from, let to):
-            self.tableView?.moveRow(at: from, to: to)
+            self.tableView.moveRow(at: from, to: to)
         }
     }
     
     func endChangingContent() {
-        self.tableView?.endUpdates()
+        self.tableView.endUpdates()
     }
     
     func startNotifyingFailed(with error: Error) {
-        self.notifier?.startNotifying()
+        self.notifier.startNotifying()
     }
 }

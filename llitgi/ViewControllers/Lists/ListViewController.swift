@@ -9,19 +9,14 @@
 import UIKit
 import SafariServices
 
-class ListViewController: UITableViewController {
+class ListViewController: UITableViewController, TableViewCoreDataNotifier {
     
     //MARK: Private properties
     private let dataProvider: DataProvider
     private let userManager: UserManager
     private let themeManager: ThemeManager
     private let typeOfList: TypeOfList
-    private var dataSource: ListDataSource? = nil
-    private var typeOfListForSearch: TypeOfList {
-        didSet {
-            self.dataSource?.typeOfList = self.typeOfListForSearch
-        }
-    }
+    private let _notifier: CoreDataNotifier
     private lazy var searchController: UISearchController = {
         let sc = UISearchController(searchResultsController: nil)
         sc.searchResultsUpdater = self
@@ -47,6 +42,7 @@ class ListViewController: UITableViewController {
     }()
     
     //MARK: Public properties
+    var notifier: CoreDataNotifier
     var settingsButtonTapped: (() -> Void)?
     var selectedTag: ((Tag) -> Void)?
     var safariToPresent: ((SFSafariViewController) -> Void)?
@@ -57,8 +53,11 @@ class ListViewController: UITableViewController {
         self.userManager = userManager
         self.themeManager = themeManager
         self.typeOfList = type
-        self.typeOfListForSearch = type
+        //self.typeOfListForSearch = type
+        self._notifier = dataProvider.notifier(for: type)
+        self.notifier = dataProvider.notifier(for: type)
         super.init(nibName: String(describing: ListViewController.self), bundle: nil)
+        self.replaceCurrentNotifier(for: self._notifier)
     }
     
     @available(*, unavailable)
@@ -104,7 +103,7 @@ class ListViewController: UITableViewController {
     
     //MARK: Public methods
     func scrollToTop() {
-        guard let numberOfItems = self.dataSource?.numberOfItems(), numberOfItems > 0 else { return }
+        guard self.notifier.numberOfObjects(on: 0) > 0 else { return }
         let firstIndexPath = IndexPath(row: 0, section: 0)
         self.tableView.scrollToRow(at: firstIndexPath, at: .top, animated: true)
     }
@@ -121,14 +120,7 @@ class ListViewController: UITableViewController {
     }
     
     private func configureTableView() {
-        self.dataSource = ListDataSource(tableView: self.tableView,
-                                         userPreferences: self.userManager,
-                                         themeManager: self.themeManager,
-                                         typeOfList: self.typeOfList,
-                                         notifier: self.dataProvider.notifier(for: self.typeOfList))
         self.tableView.register(ListCell.self)
-        self.tableView.delegate = self
-        self.tableView.dataSource = self.dataSource
         self.tableView.tableFooterView = UIView()
         self.refreshControl = self.customRefreshControl
         if self.typeOfList == .myList {
@@ -136,7 +128,14 @@ class ListViewController: UITableViewController {
         }
     }
     
-    @objc private func pullToRefresh() {
+    func replaceCurrentNotifier(for notifier: CoreDataNotifier) {
+        self.notifier = notifier
+        self.notifier.delegate = self
+        self.notifier.startNotifying()
+    }
+    
+    @objc
+    private func pullToRefresh() {
         guard self.userManager.isLoggedIn else { return }
         self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
             switch result {
@@ -178,6 +177,25 @@ class ListViewController: UITableViewController {
 
 }
 
+//MARK:- UITableViewDataSource
+extension ListViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let numberOfElements = self.notifier.numberOfObjects(on: section)
+        #warning("Now the badge doesn't update. FIX THIS.")
+//        if self.typeOfList == .myList && !isSearch {
+//            self.userPreferences.displayBadge(with: numberOfElements)
+//        }
+        return numberOfElements
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let item: Item = self.notifier.object(at: indexPath) else { return UITableViewCell() }
+        let cell: ListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+        cell.configure(with: item, theme: self.themeManager.theme)
+        return cell
+    }
+}
+
 //MARK:- UITableViewDelegate
 extension ListViewController {
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -187,29 +205,25 @@ extension ListViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let item: Item = self.notifier.object(at: indexPath) else {
+            assertionFailure("The Item is nil")
+            return
+        }
         switch self.userManager.openLinksWith {
         case .safariViewController:
-            guard let url = self.dataSource?.item(at: indexPath)?.url else {
-                assertionFailure("The URL is nil")
-                return
-            }
             let cfg = SFSafariViewController.Configuration()
             cfg.entersReaderIfAvailable = self.userManager.openReaderMode
-            let sfs = SFSafariViewController(url: url, configuration: cfg)
+            let sfs = SFSafariViewController(url: item.url, configuration: cfg)
             sfs.preferredControlTintColor = self.themeManager.theme.tintColor
             sfs.preferredBarTintColor = self.themeManager.theme.backgroundColor
             self.safariToPresent?(sfs)
         case .safari:
-            guard let url = self.dataSource?.item(at: indexPath)?.url else {
-                assertionFailure("The URL is nil")
-                return
-            }
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            UIApplication.shared.open(item.url, options: [:], completionHandler: nil)
         }
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard var item = self.dataSource?.item(at: indexPath) else { return nil }
+        guard var item: Item = self.notifier.object(at: indexPath) else { return nil }
         let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
             
@@ -231,7 +245,7 @@ extension ListViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard var item = self.dataSource?.item(at: indexPath) else { return nil }
+        guard var item: Item = self.notifier.object(at: indexPath) else { return nil }
         
         let archiveAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
@@ -273,14 +287,12 @@ extension ListViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        //Reset to the default state
         self.searchController.searchBar.selectedScopeButtonIndex = self.typeOfList.position
-        self.typeOfListForSearch = self.typeOfList
+        self.replaceCurrentNotifier(for: self._notifier)
         self.tabBarController?.tabBar.isHidden = false
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        self.typeOfListForSearch = TypeOfList(selectedScope: selectedScope)
         self.updateSearchResults(for: self.searchController)
     }
 }
@@ -288,12 +300,11 @@ extension ListViewController: UISearchBarDelegate {
 extension ListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces) ?? ""
+        let typeOfListForSearch = TypeOfList(selectedScope: searchController.searchBar.selectedScopeButtonIndex)
         if searchText.isEmpty {
-            let notifier = self.dataProvider.notifier(for: self.typeOfListForSearch)
-            self.dataSource?.establishNotifier(notifier: notifier, isSearch: false)
+            self.replaceCurrentNotifier(for: self._notifier)
         } else {
-            let notifier = self.dataProvider.notifier(for: self.typeOfListForSearch, filteredBy: searchText)
-            self.dataSource?.establishNotifier(notifier: notifier, isSearch: true)
+            self.replaceCurrentNotifier(for: self.dataProvider.notifier(for: typeOfListForSearch, filteredBy: searchText))
         }
         self.tableView.reloadData()
     }
