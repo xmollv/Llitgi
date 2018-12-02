@@ -16,6 +16,7 @@
 		471689EA2185B656004C98E4 /* TagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 471689E92185B656004C98E4 /* TagViewController.xib */; };
 		471689EC2185B66D004C98E4 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471689EB2185B66D004C98E4 /* TagViewController.swift */; };
 		471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FE2E820B5EFED0059AEA7 /* UIViewController.swift */; };
+		4723ED6821B4246F002E25E3 /* TypeOfList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4723ED6721B4246F002E25E3 /* TypeOfList.swift */; };
 		4727DE61211055AE00444D5D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4727DE60211055AE00444D5D /* AppCoordinator.swift */; };
 		4732BE4D213011BC0070D83A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BE4C213011BC0070D83A /* Theme.swift */; };
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
@@ -107,6 +108,7 @@
 		471689E92185B656004C98E4 /* TagViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagViewController.xib; sourceTree = "<group>"; };
 		471689EB2185B66D004C98E4 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		471FE2E820B5EFED0059AEA7 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		4723ED6721B4246F002E25E3 /* TypeOfList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeOfList.swift; sourceTree = "<group>"; };
 		4727DE60211055AE00444D5D /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		4732BE4C213011BC0070D83A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 		4770ACF81FF189CD006E755D /* Lists */ = {
 			isa = PBXGroup;
 			children = (
+				4723ED6721B4246F002E25E3 /* TypeOfList.swift */,
 				4770ACF91FF18AF7006E755D /* ListViewController.swift */,
 				47DB057E20B009BE001485DF /* ListViewController.xib */,
 				4770ACFD1FF1B108006E755D /* ListDataSource.swift */,
@@ -515,6 +518,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4723ED6821B4246F002E25E3 /* TypeOfList.swift in Sources */,
 				475AAD19219597F1003B4AF5 /* SFSafariViewController.swift in Sources */,
 				4770ACF51FF111A9006E755D /* UIView.swift in Sources */,
 				47803EA52009674D003D58E2 /* UserManager.swift in Sources */,
