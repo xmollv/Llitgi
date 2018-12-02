@@ -9,19 +9,24 @@
 import UIKit
 import SafariServices
 
-enum TypeOfList {
-    case all
-    case myList
-    case favorites
-    case archive
+enum TypeOfList: Int {
+    case all = 0
+    case myList = 1
+    case favorites = 2
+    case archive = 3
+    
+    init(selectedScope: Int) {
+        switch selectedScope {
+        case 0: self = .all
+        case 1: self = .myList
+        case 2: self = .favorites
+        case 3: self = .archive
+        default: fatalError("You've fucked up.")
+        }
+    }
     
     var position: Int {
-        switch self {
-        case .all: return 0
-        case .myList: return 1
-        case .favorites: return 2
-        case .archive: return 3
-        }
+        return self.rawValue
     }
 }
 
@@ -32,21 +37,34 @@ class ListViewController: UITableViewController {
     private let userManager: UserManager
     private let themeManager: ThemeManager
     private let typeOfList: TypeOfList
-    private let searchController = UISearchController(searchResultsController: nil)
-    private var addButton: UIBarButtonItem? = nil
-    private var loadingButton: UIBarButtonItem? = nil
     private var dataSource: ListDataSource? = nil
-    private var cellHeights: [IndexPath : CGFloat] = [:]
     private var typeOfListForSearch: TypeOfList {
         didSet {
             self.dataSource?.typeOfList = self.typeOfListForSearch
         }
     }
-    
+    private lazy var searchController: UISearchController = {
+        let sc = UISearchController(searchResultsController: nil)
+        sc.searchResultsUpdater = self
+        sc.obscuresBackgroundDuringPresentation = false
+        sc.searchBar.placeholder = L10n.General.search
+        sc.searchBar.scopeButtonTitles = [L10n.Titles.all, L10n.Titles.myList, L10n.Titles.favorites, L10n.Titles.archive]
+        sc.searchBar.selectedScopeButtonIndex = self.typeOfList.position
+        sc.searchBar.delegate = self
+        return sc
+    }()
     private lazy var customRefreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
         return refreshControl
+    }()
+    private lazy var addButton: UIBarButtonItem = {
+        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButtonTapped(_:)))
+    }()
+    private lazy var loadingButton: UIBarButtonItem = {
+        let loading = UIActivityIndicatorView(style: .gray)
+        loading.startAnimating()
+        return UIBarButtonItem(customView: loading)
     }()
     
     //MARK: Public properties
@@ -77,9 +95,15 @@ class ListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.extendedLayoutIncludesOpaqueBars = true
+        self.definesPresentationContext = true
+        
+        self.navigationItem.searchController = self.searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        self.navigationItem.rightBarButtonItem = self.addButton
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), landscapeImagePhone: #imageLiteral(resourceName: "settings_landscape"), style: .plain, target: self, action: #selector(self.displaySettings(_:)))
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: UIApplication.didBecomeActiveNotification, object: nil)
-        self.configureNavigationItems()
-        self.configureSearchController()
+        
         self.configureTableView()
         self.apply(self.themeManager.theme)
         self.themeManager.addObserver(self) { [weak self] theme in
@@ -113,17 +137,8 @@ class ListViewController: UITableViewController {
         self.tableView.separatorColor = theme.separatorColor
         self.tableView.indicatorStyle = theme.indicatorStyle
         self.customRefreshControl.tintColor = theme.pullToRefreshColor
-        (self.loadingButton?.customView as? UIActivityIndicatorView)?.color = theme.tintColor
+        (self.loadingButton.customView as? UIActivityIndicatorView)?.color = theme.tintColor
         self.tableView.reloadData()
-    }
-    
-    private func configureNavigationItems() {
-        self.addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButtonTapped(_:)))
-        let loading = UIActivityIndicatorView(style: .gray)
-        loading.startAnimating()
-        self.loadingButton = UIBarButtonItem(customView: loading)
-        self.navigationItem.rightBarButtonItem = self.addButton
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), landscapeImagePhone: #imageLiteral(resourceName: "settings_landscape"), style: .plain, target: self, action: #selector(self.displaySettings(_:)))
     }
     
     private func configureTableView() {
@@ -142,18 +157,6 @@ class ListViewController: UITableViewController {
         }
     }
     
-    private func configureSearchController() {
-        self.searchController.searchResultsUpdater = self
-        self.searchController.obscuresBackgroundDuringPresentation = false
-        self.searchController.searchBar.placeholder = L10n.General.search
-        self.searchController.searchBar.scopeButtonTitles = [L10n.Titles.all, L10n.Titles.myList, L10n.Titles.favorites, L10n.Titles.archive]
-        self.searchController.searchBar.selectedScopeButtonIndex = self.typeOfList.position
-        self.searchController.searchBar.delegate = self
-        self.definesPresentationContext = true
-        self.navigationItem.searchController = self.searchController
-        self.navigationItem.hidesSearchBarWhenScrolling = false
-    }
-    
     @objc private func pullToRefresh() {
         guard self.userManager.isLoggedIn else { return }
         self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
@@ -162,18 +165,8 @@ class ListViewController: UITableViewController {
             case .isFailure(let error):
                 Logger.log(error.localizedDescription, event: .error)
             }
-            self?.refreshControl?.endRefreshing()
+            self?.customRefreshControl.endRefreshing()
         }
-    }
-    
-    private func safariViewController(at indexPath: IndexPath) -> SFSafariViewController? {
-        guard let url = self.dataSource?.item(at: indexPath)?.url else { return nil }
-        let cfg = SFSafariViewController.Configuration()
-        cfg.entersReaderIfAvailable = self.userManager.openReaderMode
-        let sfs = SFSafariViewController(url: url, configuration: cfg)
-        sfs.preferredControlTintColor = self.themeManager.theme.tintColor
-        sfs.preferredBarTintColor = self.themeManager.theme.backgroundColor
-        return sfs
     }
     
     @IBAction private func addButtonTapped(_ sender: UIButton) {
@@ -212,21 +205,26 @@ extension ListViewController {
         if let listCell = cell as? ListCell {
             listCell.selectedTag = self.selectedTag
         }
-        self.cellHeights[indexPath] = cell.frame.size.height
-    }
-    
-    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let height = self.cellHeights[indexPath] else { return UITableView.automaticDimension }
-        return height
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch self.userManager.openLinksWith {
         case .safariViewController:
-            guard let sfs = self.safariViewController(at: indexPath) else { return }
+            guard let url = self.dataSource?.item(at: indexPath)?.url else {
+                assertionFailure("The URL is nil")
+                return
+            }
+            let cfg = SFSafariViewController.Configuration()
+            cfg.entersReaderIfAvailable = self.userManager.openReaderMode
+            let sfs = SFSafariViewController(url: url, configuration: cfg)
+            sfs.preferredControlTintColor = self.themeManager.theme.tintColor
+            sfs.preferredBarTintColor = self.themeManager.theme.backgroundColor
             self.safariToPresent?(sfs)
         case .safari:
-            guard let url = self.dataSource?.item(at: indexPath)?.url else { return }
+            guard let url = self.dataSource?.item(at: indexPath)?.url else {
+                assertionFailure("The URL is nil")
+                return
+            }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
@@ -303,18 +301,7 @@ extension ListViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        switch selectedScope {
-        case 0:
-            self.typeOfListForSearch = .all
-        case 1:
-            self.typeOfListForSearch = .myList
-        case 2:
-            self.typeOfListForSearch = .favorites
-        case 3:
-            self.typeOfListForSearch = .archive
-        default:
-            fatalError("This segmented control is not supported")
-        }
+        self.typeOfListForSearch = TypeOfList(selectedScope: selectedScope)
         self.updateSearchResults(for: self.searchController)
     }
 }
