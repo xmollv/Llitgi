@@ -76,17 +76,15 @@ class AuthorizationViewController: UIViewController {
                 strongSelf.dataProvider.updatePocket(code: code)
                 
                 // Step 2. Open Safari to perform the Oauth
-                if UIApplication.shared.canOpenURL(URL(string: "pocket-oauth-v1://")!) {
-                    guard let url = strongSelf.dataProvider.pocketOAuthUrls.app else { return }
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                } else {
-                    guard let url = strongSelf.dataProvider.pocketOAuthUrls.web else { return }
-                    let sfs = SFSafariViewController(url: url)
-                    sfs.modalPresentationStyle = .formSheet
-                    sfs.preferredControlTintColor = strongSelf.themeManager.theme.tintColor
-                    sfs.preferredBarTintColor = strongSelf.themeManager.theme.backgroundColor
-                    strongSelf.safariToPresent?(sfs)
+                guard let url = strongSelf.dataProvider.pocketOAuthUrl else {
+                    assertionFailure("The url for the login was nil.")
+                    return
                 }
+                let sfs = SFSafariViewController(url: url)
+                sfs.modalPresentationStyle = .formSheet
+                sfs.preferredControlTintColor = strongSelf.themeManager.theme.tintColor
+                sfs.preferredBarTintColor = strongSelf.themeManager.theme.backgroundColor
+                strongSelf.safariToPresent?(sfs)
                 
             case .isFailure(let error):
                 strongSelf.presentErrorAlert()

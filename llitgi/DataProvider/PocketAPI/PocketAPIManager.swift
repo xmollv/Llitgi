@@ -19,12 +19,10 @@ final class PocketAPIManager {
     private let apiConfig = PocketAPIConfiguration()
     
     //MARK:- Public properties
-    var OAuthURLApp: URL? {
-        return self.url(for: .app)
-    }
-    
     var OAuthURLWebsite: URL? {
-        return self.url(for: .web)
+        guard let requestToken = self.apiConfig.authCode else { return nil }
+        let redirectURI = self.apiConfig.redirectUri
+        return URL(string: "https://getpocket.com/auth/authorize?request_token=\(requestToken)&redirect_uri=\(redirectURI)&force=login")
     }
     
     //MARK:- Lifecycle
@@ -132,18 +130,5 @@ final class PocketAPIManager {
             payload["url"] = url.absoluteString
         }
         return payload
-    }
-    
-    private func url(for type: TypeOfOAuthUrl) -> URL? {
-        guard let requestToken = self.apiConfig.authCode else { return nil }
-        let redirectURI = self.apiConfig.redirectUri
-        let url: URL?
-        switch type {
-        case .app:
-            url =  URL(string: "pocket-oauth-v1:///authorize?request_token=\(requestToken)&redirect_uri=\(redirectURI)")
-        case .web:
-            url =  URL(string: "https://getpocket.com/auth/authorize?request_token=\(requestToken)&redirect_uri=\(redirectURI)&force=login")
-        }
-        return url
     }
 }
