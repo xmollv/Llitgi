@@ -86,16 +86,28 @@ extension CoreDataNotifier: NSFetchedResultsControllerDelegate {
         
         switch type {
         case .update:
-            guard let indexPath = indexPath else { return }
+            guard let indexPath = indexPath else {
+                assertionFailure()
+                return
+            }
             change = .update(indexPath: indexPath)
         case .insert:
-            guard let newIndexPath = newIndexPath else { return }
+            guard let newIndexPath = newIndexPath else {
+                assertionFailure()
+                return
+            }
             change = .insert(indexPath: newIndexPath)
         case .move:
-            guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return }
+            guard let indexPath = indexPath, let newIndexPath = newIndexPath else {
+                assertionFailure()
+                return
+            }
             change = .move(from: indexPath, to: newIndexPath)
         case .delete:
-            guard let indexPath = indexPath else { return }
+            guard let indexPath = indexPath else {
+                assertionFailure()
+                return
+            }
             change = .delete(indexPath: indexPath)
         }
         

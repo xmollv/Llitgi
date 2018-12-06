@@ -80,7 +80,9 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
         self.navigationItem.rightBarButtonItem = self.addButton
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), landscapeImagePhone: #imageLiteral(resourceName: "settings_landscape"), style: .plain, target: self, action: #selector(self.displaySettings(_:)))
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: UIApplication.didBecomeActiveNotification, object: nil)
+        if self.typeOfList == .myList {
+            NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: UIApplication.didBecomeActiveNotification, object: nil)
+        }
         
         self.configureTableView()
         self.apply(self.themeManager.theme)
