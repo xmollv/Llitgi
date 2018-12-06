@@ -17,6 +17,7 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
     private let themeManager: ThemeManager
     private let typeOfList: TypeOfList
     private let _notifier: CoreDataNotifier
+    private(set) var notifier: CoreDataNotifier
     private lazy var searchController: UISearchController = {
         let sc = UISearchController(searchResultsController: nil)
         sc.searchResultsUpdater = self
@@ -42,7 +43,6 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
     }()
     
     //MARK: Public properties
-    var notifier: CoreDataNotifier
     var settingsButtonTapped: (() -> Void)?
     var selectedTag: ((Tag) -> Void)?
     var safariToPresent: ((SFSafariViewController) -> Void)?
@@ -53,11 +53,9 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
         self.userManager = userManager
         self.themeManager = themeManager
         self.typeOfList = type
-        //self.typeOfListForSearch = type
         self._notifier = dataProvider.notifier(for: type)
         self.notifier = dataProvider.notifier(for: type)
         super.init(nibName: String(describing: ListViewController.self), bundle: nil)
-        self.replaceCurrentNotifier(for: self._notifier)
     }
     
     @available(*, unavailable)
@@ -72,6 +70,8 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.replaceCurrentNotifier(for: self._notifier)
+        
         self.extendedLayoutIncludesOpaqueBars = true
         self.definesPresentationContext = true
         
