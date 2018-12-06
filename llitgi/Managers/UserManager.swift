@@ -15,19 +15,13 @@ enum SafariOpener: String {
     case safari
 }
 
-protocol BadgeDelegate: class {
-    func displayBadgeEnabled()
-}
-
 protocol UserManager: class {
     var isLoggedIn: Bool { get }
     var openLinksWith: SafariOpener { get set }
     var openReaderMode: Bool { get set }
-    var badgeDelegate: BadgeDelegate? { get set }
     var userHasEnabledNotifications: Bool { get }
     
     func enableBadge(shouldEnable: Bool, then: @escaping (Bool)->())
-    func displayBadge(with: Int)
 }
 
 class UserPreferencesManager: UserManager {
@@ -41,16 +35,9 @@ class UserPreferencesManager: UserManager {
         }
     }
     
-    weak var badgeDelegate: BadgeDelegate? = nil
-    
     var userHasEnabledNotifications: Bool {
         get { return LlitgiUserDefaults.shared.bool(forKey: kEnabledNotifications) }
-        set {
-            LlitgiUserDefaults.shared.set(newValue, forKey: kEnabledNotifications)
-            if newValue == true {
-                self.badgeDelegate?.displayBadgeEnabled()
-            }
-        }
+        set { LlitgiUserDefaults.shared.set(newValue, forKey: kEnabledNotifications) }
     }
     
     var openLinksWith: SafariOpener {
@@ -62,10 +49,7 @@ class UserPreferencesManager: UserManager {
     }
     
     var openReaderMode: Bool {
-        get {
-            let savedValue = LlitgiUserDefaults.shared.bool(forKey: kReaderMode)
-            return savedValue
-        }
+        get { return LlitgiUserDefaults.shared.bool(forKey: kReaderMode) }
         set { LlitgiUserDefaults.shared.set(newValue, forKey: kReaderMode) }
     }
     
@@ -79,17 +63,9 @@ class UserPreferencesManager: UserManager {
             })
         } else {
             DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.displayBadge(with: 0)
-                strongSelf.userHasEnabledNotifications = false
+                self?.userHasEnabledNotifications = false
                 then(false)
             }
         }
     }
-    
-    func displayBadge(with numberOfElements: Int) {
-        guard self.userHasEnabledNotifications else { return }
-        UIApplication.shared.applicationIconBadgeNumber = numberOfElements
-    }
-    
 }

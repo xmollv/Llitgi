@@ -31,6 +31,10 @@ final class DataProvider {
     }
     
     //MARK: Public methods
+    func badgeNotifier() -> CoreDataNotifier {
+        return self.modelFactory.badgeNotifier()
+    }
+    
     func notifier(for type: TypeOfList, filteredBy query: String? = nil) -> CoreDataNotifier {
         return self.modelFactory.notifier(for: type, matching: query)
     }

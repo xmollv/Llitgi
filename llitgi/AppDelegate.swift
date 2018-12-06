@@ -43,12 +43,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         
-        self.dataProvider.syncLibrary { [weak self] (result) in
-            guard let strongSelf = self else { return }
+        self.dataProvider.syncLibrary { (result) in
             switch result {
             case .isSuccess(let items):
+                #warning("here we should update the badge")
                 // Because this is a sync operation, we just need to care if we get data or not
-                strongSelf.userManager.displayBadge(with: strongSelf.dataProvider.numberOfItems(on: .myList))
                 items.isEmpty ? completionHandler(.noData) : completionHandler(.newData)
             case .isFailure(let error):
                 Logger.log(error.localizedDescription, event: .error)

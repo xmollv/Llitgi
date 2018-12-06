@@ -123,9 +123,6 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
         self.tableView.register(ListCell.self)
         self.tableView.tableFooterView = UIView()
         self.refreshControl = self.customRefreshControl
-        if self.typeOfList == .myList {
-            self.userManager.badgeDelegate = self
-        }
     }
     
     func replaceCurrentNotifier(for notifier: CoreDataNotifier) {
@@ -180,12 +177,7 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
 //MARK:- UITableViewDataSource
 extension ListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let numberOfElements = self.notifier.numberOfObjects(on: section)
-        #warning("Now the badge doesn't update. FIX THIS.")
-//        if self.typeOfList == .myList && !isSearch {
-//            self.userPreferences.displayBadge(with: numberOfElements)
-//        }
-        return numberOfElements
+        return self.notifier.numberOfObjects(on: section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -272,12 +264,6 @@ extension ListViewController {
         }
         
         return UISwipeActionsConfiguration(actions: [archiveAction, deleteAction])
-    }
-}
-
-extension ListViewController: BadgeDelegate {
-    func displayBadgeEnabled() {
-        self.tableView.reloadData()
     }
 }
 

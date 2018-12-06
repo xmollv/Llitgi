@@ -11,6 +11,7 @@ import CoreData
 
 protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
+    func badgeNotifier() -> CoreDataNotifier
     func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier
     func deleteAllModels()
     func numberOfItems(on: TypeOfList) -> Int
@@ -52,6 +53,17 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         let objects: [T] = jsonArray.compactMap { self.build(json: $0, in: self.backgroundContext) }
         self.saveBackgroundContext()
         return objects
+    }
+    
+    func badgeNotifier() -> CoreDataNotifier {
+        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        request.predicate = NSPredicate(format: "status_ == '0'")
+        request.sortDescriptors = [NSSortDescriptor(key: "timeAdded_", ascending: false)]
+        let frc = NSFetchedResultsController(fetchRequest: request,
+                                             managedObjectContext: self.mainThreadContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        return CoreDataNotifier(fetchResultController: frc)
     }
     
     func notifier(for type: TypeOfList, matching query: String?) -> CoreDataNotifier {

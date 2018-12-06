@@ -18,7 +18,8 @@
 		471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FE2E820B5EFED0059AEA7 /* UIViewController.swift */; };
 		4723ED6821B4246F002E25E3 /* TypeOfList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4723ED6721B4246F002E25E3 /* TypeOfList.swift */; };
 		4727DE61211055AE00444D5D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4727DE60211055AE00444D5D /* AppCoordinator.swift */; };
-		4732BE4D213011BC0070D83A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BE4C213011BC0070D83A /* Theme.swift */; };
+		4732BE4D213011BC0070D83A /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BE4C213011BC0070D83A /* ThemeManager.swift */; };
+		4733B6F421B9466D009AFB9B /* BadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733B6F321B9466D009AFB9B /* BadgeManager.swift */; };
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		47376DE71FF0831600B8E70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Item.swift */; };
 		47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47392347202667E3005526C5 /* LitgiUserDefaults.swift */; };
@@ -109,7 +110,8 @@
 		471FE2E820B5EFED0059AEA7 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		4723ED6721B4246F002E25E3 /* TypeOfList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeOfList.swift; sourceTree = "<group>"; };
 		4727DE60211055AE00444D5D /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		4732BE4C213011BC0070D83A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		4732BE4C213011BC0070D83A /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		4733B6F321B9466D009AFB9B /* BadgeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeManager.swift; sourceTree = "<group>"; };
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47376DE61FF0831600B8E70C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		47392347202667E3005526C5 /* LitgiUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LitgiUserDefaults.swift; sourceTree = "<group>"; };
@@ -255,7 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				47803EA42009674D003D58E2 /* UserManager.swift */,
-				4732BE4C213011BC0070D83A /* Theme.swift */,
+				4732BE4C213011BC0070D83A /* ThemeManager.swift */,
+				4733B6F321B9466D009AFB9B /* BadgeManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -531,7 +534,7 @@
 				4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */,
-				4732BE4D213011BC0070D83A /* Theme.swift in Sources */,
+				4732BE4D213011BC0070D83A /* ThemeManager.swift in Sources */,
 				4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */,
 				47EBC007218367A700343AF7 /* Tag.swift in Sources */,
 				47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
@@ -541,6 +544,7 @@
 				47376DE71FF0831600B8E70C /* Item.swift in Sources */,
 				4710EF561FF4338A00D3DCA9 /* CoreDataFactory.swift in Sources */,
 				4770ACF71FF17AFD006E755D /* Notification.swift in Sources */,
+				4733B6F421B9466D009AFB9B /* BadgeManager.swift in Sources */,
 				4710EF5B1FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld in Sources */,
 				47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
