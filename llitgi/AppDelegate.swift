@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // The user is not logged in, there's no point in trying to sync anything
-        guard !self.userManager.isLoggedIn else {
+        guard self.userManager.isLoggedIn else {
             completionHandler(.noData)
             return
         }
