@@ -60,8 +60,7 @@ class CoreDataNotifier: NSObject {
         }
     }
     
-    //MARK:- Public helper methods
-    func numberOfObjects(on section: Int) -> Int {
+    func numberOfElements(inSection section: Int) -> Int {
         assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
         let numberOfSections = self.fetchResultController.sections?.count ?? 0
         guard section < numberOfSections else {

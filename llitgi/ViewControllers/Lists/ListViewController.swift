@@ -105,7 +105,7 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
     
     //MARK: Public methods
     func scrollToTop() {
-        guard self.notifier.numberOfObjects(on: 0) > 0 else { return }
+        guard self.notifier.numberOfElements(inSection: 0) > 0 else { return }
         let firstIndexPath = IndexPath(row: 0, section: 0)
         self.tableView.scrollToRow(at: firstIndexPath, at: .top, animated: true)
     }
@@ -179,7 +179,7 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
 //MARK:- UITableViewDataSource
 extension ListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.notifier.numberOfObjects(on: section)
+        return self.notifier.numberOfElements(inSection: section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

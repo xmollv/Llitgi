@@ -31,7 +31,7 @@ final class BadgeManager: NSObject {
     @objc
     private func updateBadgeCount() {
         if self.userManager.userHasEnabledNotifications {
-            let amount = self.notifier.numberOfObjects(on: 0)
+            let amount = self.notifier.numberOfElements(inSection: 0)
             UIApplication.shared.applicationIconBadgeNumber = amount
             Logger.log("Update badge to: \(amount)")
         } else {
