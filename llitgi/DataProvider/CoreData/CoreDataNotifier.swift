@@ -23,6 +23,15 @@ enum CoreDataNotifierChange {
     case insert(indexPath: IndexPath)
     case delete(indexPath: IndexPath)
     case move(from: IndexPath, to: IndexPath)
+    
+    var description: String {
+        switch self {
+        case .update(let indexPath): return "Update \(indexPath)"
+        case .insert(let indexPath): return "Insert \(indexPath)"
+        case .delete(let indexPath): return "Delete \(indexPath)"
+        case .move(let from, let to): return "Move \(from) \(to)"
+        }
+    }
 }
 
 class CoreDataNotifier: NSObject {
@@ -46,7 +55,7 @@ class CoreDataNotifier: NSObject {
         do {
             try self.fetchResultController.performFetch()
         } catch {
-            Logger.log(error.localizedDescription, event: .error)
+            assertionFailure(error.localizedDescription)
             self.delegate?.startNotifyingFailed(with: error)
         }
     }
@@ -56,11 +65,11 @@ class CoreDataNotifier: NSObject {
         assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
         let numberOfSections = self.fetchResultController.sections?.count ?? 0
         guard section < numberOfSections else {
-            Logger.log("Section is smaller than the number of sectionsof the FRC", event: .error)
+            assertionFailure("Section is lower than the number of sectionsof the FRC")
             return 0
         }
         guard let section = self.fetchResultController.sections?[section] else {
-            Logger.log("Unable to grab the section from the FRC sections", event: .error)
+            assertionFailure("Unable to grab the section from the FRC sections")
             return 0
         }
         return section.objects?.count ?? 0
