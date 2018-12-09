@@ -14,7 +14,6 @@ protocol CoreDataFactory: class {
     func badgeNotifier() -> CoreDataNotifier
     func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier
     func deleteAllModels()
-    func numberOfItems(on: TypeOfList) -> Int
 }
 
 final class CoreDataFactoryImplementation: CoreDataFactory {
@@ -123,34 +122,6 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             }.forEach { self.deleteResults(of: $0) }
         
         self.saveBackgroundContext()
-    }
-    
-    func numberOfItems(on list: TypeOfList) -> Int {
-        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        
-        var predicate: NSPredicate?
-        switch list {
-        case .all:
-            predicate = NSPredicate(format: "status_ != '2'")
-        case .myList:
-            predicate = NSPredicate(format: "status_ == '0'")
-        case .favorites:
-            predicate = NSPredicate(format: "isFavorite_ == true")
-        case .archive:
-            predicate = NSPredicate(format: "status_ == '1'")
-        }
-        request.predicate = predicate
-        
-        var count: Int = 0
-        self.backgroundContext.performAndWait {
-            do {
-                count = try self.backgroundContext.count(for: request)
-            } catch {
-                Logger.log(error.localizedDescription, event: .error)
-            }
-        }
-        
-        return count
     }
     
     //MARK: Private methods

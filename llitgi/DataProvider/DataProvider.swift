@@ -133,8 +133,4 @@ final class DataProvider {
     func updatePocket(token: String) {
         self.pocketAPI.updatePocket(token: token)
     }
-    
-    func numberOfItems(on list: TypeOfList) -> Int {
-        return self.modelFactory.numberOfItems(on: list)
-    }
 }
