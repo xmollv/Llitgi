@@ -11,9 +11,10 @@ import UIKit
 import CoreData
 
 protocol TableViewCoreDataNotifier: CoreDataNotifierDelegate {
+    associatedtype T: NSManagedObject
     //The ! is due to how UITableViewController declares it's own UITableView
     var tableView: UITableView! { get set }
-    var notifier: CoreDataNotifier { get }
+    var notifier: CoreDataNotifier<T> { get }
 }
 
 extension TableViewCoreDataNotifier {

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 import UIKit
 import CoreData
 
@@ -15,7 +14,7 @@ protocol CoreDataNotifierDelegate: class {
     func willChangeContent()
     func didChangeContent(_ change: CoreDataNotifierChange)
     func endChangingContent()
-    func startNotifyingFailed(with error: Error)
+    func startNotifyingFailed(with: Error)
 }
 
 enum CoreDataNotifierChange {
@@ -34,16 +33,16 @@ enum CoreDataNotifierChange {
     }
 }
 
-class CoreDataNotifier: NSObject {
+class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsControllerDelegate {
     
     //MARK:- Private properties
-    private let fetchResultController: NSFetchedResultsController<CoreDataItem>
+    private let fetchResultController: NSFetchedResultsController<T>
     
     //MARK: Public properties
-    var delegate: CoreDataNotifierDelegate? = nil
+    weak var delegate: CoreDataNotifierDelegate? = nil
     
     //MARK:- Lifecycle
-    init(fetchResultController: NSFetchedResultsController<CoreDataItem>) {
+    init(fetchResultController: NSFetchedResultsController<T>) {
         self.fetchResultController = fetchResultController
         super.init()
         self.fetchResultController.delegate = self
@@ -74,14 +73,12 @@ class CoreDataNotifier: NSObject {
         return section.objects?.count ?? 0
     }
     
-    func object<T>(at indexPath: IndexPath) -> T? {
+    func element(at indexPath: IndexPath) -> T {
         assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
-        return self.fetchResultController.object(at: indexPath) as? T
+        return self.fetchResultController.object(at: indexPath)
     }
-}
-
-//MARK:- NSFetchedResultsControllerDelegate
-extension CoreDataNotifier: NSFetchedResultsControllerDelegate {
+    
+    //MARK:- NSFetchedResultsControllerDelegate
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
         self.delegate?.willChangeContent()

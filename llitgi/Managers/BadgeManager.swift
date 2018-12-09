@@ -15,10 +15,10 @@ extension NSNotification.Name {
 
 final class BadgeManager: NSObject {
     
-    private let notifier: CoreDataNotifier
+    private let notifier: CoreDataNotifier<CoreDataItem>
     private let userManager: UserManager
     
-    init(notifier: CoreDataNotifier, userManager: UserManager) {
+    init(notifier: CoreDataNotifier<CoreDataItem>, userManager: UserManager) {
         self.userManager = userManager
         self.notifier = notifier
         super.init()

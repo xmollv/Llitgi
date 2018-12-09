@@ -16,8 +16,8 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
     private let userManager: UserManager
     private let themeManager: ThemeManager
     private let typeOfList: TypeOfList
-    private let _notifier: CoreDataNotifier
-    private(set) var notifier: CoreDataNotifier
+    private let _notifier: CoreDataNotifier<CoreDataItem>
+    private(set) var notifier: CoreDataNotifier<CoreDataItem>
     private lazy var searchController: UISearchController = {
         let sc = UISearchController(searchResultsController: nil)
         sc.searchResultsUpdater = self
@@ -127,7 +127,7 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
         self.refreshControl = self.customRefreshControl
     }
     
-    func replaceCurrentNotifier(for notifier: CoreDataNotifier) {
+    func replaceCurrentNotifier(for notifier: CoreDataNotifier<CoreDataItem>) {
         self.notifier = notifier
         self.notifier.delegate = self
         self.notifier.startNotifying()
@@ -183,7 +183,7 @@ extension ListViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let item: Item = self.notifier.object(at: indexPath) else { return UITableViewCell() }
+        let item: Item = self.notifier.element(at: indexPath)
         let cell: ListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
         cell.configure(with: item, theme: self.themeManager.theme)
         return cell
@@ -199,10 +199,7 @@ extension ListViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let item: Item = self.notifier.object(at: indexPath) else {
-            assertionFailure("The Item is nil")
-            return
-        }
+        let item: Item = self.notifier.element(at: indexPath)
         switch self.userManager.openLinksWith {
         case .safariViewController:
             let cfg = SFSafariViewController.Configuration()
@@ -217,7 +214,7 @@ extension ListViewController {
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard var item: Item = self.notifier.object(at: indexPath) else { return nil }
+        var item: Item = self.notifier.element(at: indexPath)
         let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
             
@@ -239,7 +236,7 @@ extension ListViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard var item: Item = self.notifier.object(at: indexPath) else { return nil }
+        var item: Item = self.notifier.element(at: indexPath)
         
         let archiveAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }

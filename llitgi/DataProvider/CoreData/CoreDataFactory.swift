@@ -11,8 +11,8 @@ import CoreData
 
 protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
-    func badgeNotifier() -> CoreDataNotifier
-    func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier
+    func badgeNotifier() -> CoreDataNotifier<CoreDataItem>
+    func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier<CoreDataItem>
     func deleteAllModels()
 }
 
@@ -54,7 +54,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         return objects
     }
     
-    func badgeNotifier() -> CoreDataNotifier {
+    func badgeNotifier() -> CoreDataNotifier<CoreDataItem> {
         let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
         request.predicate = NSPredicate(format: "status_ == '0'")
         request.sortDescriptors = [NSSortDescriptor(key: "id_", ascending: false)]
@@ -65,7 +65,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         return CoreDataNotifier(fetchResultController: frc)
     }
     
-    func notifier(for type: TypeOfList, matching query: String?) -> CoreDataNotifier {
+    func notifier(for type: TypeOfList, matching query: String?) -> CoreDataNotifier<CoreDataItem> {
         let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
         request.sortDescriptors = [NSSortDescriptor(key: "id_", ascending: false)]
         
