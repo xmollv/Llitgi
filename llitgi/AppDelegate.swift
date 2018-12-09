@@ -46,7 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.dataProvider.syncLibrary { (result) in
             switch result {
             case .isSuccess(let items):
-                #warning("here we should update the badge")
                 // Because this is a sync operation, we just need to care if we get data or not
                 items.isEmpty ? completionHandler(.noData) : completionHandler(.newData)
             case .isFailure(let error):
