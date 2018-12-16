@@ -34,6 +34,9 @@ final class TagsView: UIView {
     var selectedTag: ((Tag) -> Void)? = nil
     var tagsBackgroundColor: UIColor = .black
     var tagsTextColor: UIColor = .white
+    var tagsViews: [UIButton] {
+        return self.buttonTags.keys.map { $0 }
+    }
     
     //MARK: Lifecycle
     override init(frame: CGRect) {

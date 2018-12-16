@@ -38,12 +38,14 @@ class ListCell: UITableViewCell, NibLoadableView {
         let color = self.favoriteView.backgroundColor
         super.setSelected(selected, animated: animated)
         self.favoriteView.backgroundColor = color
+        self.tagsView.tagsViews.forEach({ $0.backgroundColor = self.tagsView.tagsBackgroundColor })
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         let color = self.favoriteView.backgroundColor
         super.setHighlighted(highlighted, animated: animated)
         self.favoriteView.backgroundColor = color
+        self.tagsView.tagsViews.forEach({ $0.backgroundColor = self.tagsView.tagsBackgroundColor })
     }
     
     private func clearCell() {
