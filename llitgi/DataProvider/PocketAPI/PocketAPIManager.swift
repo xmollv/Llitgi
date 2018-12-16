@@ -49,6 +49,10 @@ final class PocketAPIManager {
             return
         }
         
+        #if DEBUG
+        print(request.cURL)
+        #endif
+        
         self.session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
                 completion(Result.isFailure(PocketAPIError.unknown(error: error)))
