@@ -49,7 +49,10 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     //MARK: Public methods
     func build<T: Managed>(jsonArray: JSONArray) -> [T] {
-        let objects: [T] = jsonArray.compactMap { self.build(json: $0, in: self.backgroundContext) }
+        var objects: [T] = []
+        self.backgroundContext.performAndWait {
+            objects = jsonArray.compactMap { self.build(json: $0, in: self.backgroundContext) }
+        }
         self.saveBackgroundContext()
         return objects
     }

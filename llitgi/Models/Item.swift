@@ -121,23 +121,24 @@ extension CoreDataItem {
                 return nil
         }
         
-        context.performAndWait {
-            if let pocketTitle = (json["resolved_title"] as? String) ?? (json["given_title"] as? String), pocketTitle != "" {
-                self.title_ = pocketTitle
-            } else {
-                self.title_ = urlAsString
-            }
-            self.url_ = urlAsString
-            self.status_ = status
+        if let pocketTitle = (json["resolved_title"] as? String) ?? (json["given_title"] as? String), pocketTitle != "" {
+            self.title_ = pocketTitle
+        } else {
+            self.title_ = urlAsString
+        }
+        self.url_ = urlAsString
+        self.status_ = status
+        if self.timeAdded_ == "" {
+            // We only update the timeAdded once, otherwise the FRC freaks out
             self.timeAdded_ = timeAdded
-            self.timeUpdated_ = (json["time_updated"] as? String) ?? timeAdded
-            self.isFavorite_ = (isFavoriteString == "0") ? false : true
-            if let tagsDict = json["tags"] as? JSONDictionary {
-                let tags: [CoreDataTag] = tagsDict.compactMap { CoreDataTag.fetchOrCreate(with: [$0.key:""], on: context) }
-                self.tags_ = NSSet(array: tags)
-            } else {
-                self.tags_ = NSSet()
-            }
+        }
+        self.timeUpdated_ = (json["time_updated"] as? String) ?? timeAdded
+        self.isFavorite_ = (isFavoriteString == "0") ? false : true
+        if let tagsDict = json["tags"] as? JSONDictionary {
+            let tags: [CoreDataTag] = tagsDict.compactMap { CoreDataTag.fetchOrCreate(with: [$0.key:""], on: context) }
+            self.tags_ = NSSet(array: tags)
+        } else {
+            self.tags_ = NSSet()
         }
         
         return self as? T
