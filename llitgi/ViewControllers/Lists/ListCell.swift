@@ -87,4 +87,12 @@ class ListCell: UITableViewCell, NibLoadableView {
             self.tagsView.add(tags: item.tags)
         }
     }
+    
+    override func tintColorDidChange() {
+        super.tintColorDidChange()
+        switch self.tintAdjustmentMode {
+        case .automatic, .normal: self.favoriteView.backgroundColor = self.theme?.tintColor
+        case .dimmed: self.favoriteView.backgroundColor = self.theme?.tintColor.desaturated
+        }
+    }
 }
