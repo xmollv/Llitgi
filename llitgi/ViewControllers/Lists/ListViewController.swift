@@ -287,7 +287,7 @@ extension ListViewController: UISearchResultsUpdating {
         let searchText = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces) ?? ""
         let typeOfListForSearch = TypeOfList(selectedScope: searchController.searchBar.selectedScopeButtonIndex)
         if searchText.isEmpty {
-            self.replaceCurrentNotifier(for: self._notifier)
+            self.replaceCurrentNotifier(for: self.dataProvider.notifier(for: typeOfListForSearch))
         } else {
             self.replaceCurrentNotifier(for: self.dataProvider.notifier(for: typeOfListForSearch, filteredBy: searchText))
         }
