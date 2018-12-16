@@ -242,23 +242,23 @@ extension ListViewController {
             guard let strongSelf = self else { return }
             
             let modification: ItemModification
-            if item.status == "0" {
+            if item.status == .normal {
                 modification = ItemModification(action: .archive, id: item.id)
-                item.changeStatus(to: "1")
+                item.changeStatus(to: .archived)
             } else {
                 modification = ItemModification(action: .readd, id: item.id)
-                item.changeStatus(to: "0")
+                item.changeStatus(to: .normal)
             }
             strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
             success(true)
         }
-        archiveAction.title = item.status == "0" ? L10n.Actions.archive : L10n.Actions.unarchive
+        archiveAction.title = item.status == .normal ? L10n.Actions.archive : L10n.Actions.unarchive
         
         let deleteAction = UIContextualAction(style: .destructive, title: L10n.Actions.delete) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
             let modification = ItemModification(action: .delete, id: item.id)
             strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
-            item.changeStatus(to: "2")
+            item.changeStatus(to: .deleted)
             success(true)
         }
         

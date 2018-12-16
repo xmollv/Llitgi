@@ -9,18 +9,25 @@
 import Foundation
 import CoreData
 
+enum ItemStatus: String {
+    case normal = "0"
+    case archived = "1"
+    case deleted = "2"
+}
+
 protocol Item {
+    
     var id: String { get }
     var title: String { get }
     var url: URL { get }
     var timeAdded: String { get }
     var timeUpdated: String { get }
     var isFavorite: Bool { get }
-    var status: String { get }
+    var status: ItemStatus { get }
     var tags: [Tag] { get }
     
     mutating func switchFavoriteStatus()
-    mutating func changeStatus(to: String)
+    mutating func changeStatus(to: ItemStatus)
 }
 
 @objc(CoreDataItem)
@@ -49,7 +56,7 @@ final class CoreDataItem: Managed, Item {
     var timeAdded: String { return self.read(key: "timeAdded_")! }
     var timeUpdated: String { return self.read(key: "timeUpdated_")! }
     var isFavorite: Bool { return self.read(key: "isFavorite_")! }
-    var status: String { return self.read(key: "status_")! }
+    var status: ItemStatus { return ItemStatus(rawValue: self.read(key: "status_")!)! }
     var tags: [Tag] {
         if let nssetTags: NSSet = self.read(key: "tags_") {
             return (nssetTags.allObjects as? [CoreDataTag])?.sorted{ $0.name < $1.name } ?? []
@@ -68,11 +75,11 @@ final class CoreDataItem: Managed, Item {
         }
     }
     
-    func changeStatus(to newStatus: String) {
+    func changeStatus(to newStatus: ItemStatus) {
         guard let context = self.managedObjectContext else { return }
         context.performAndWait {
             self.overrideLastTimeUpdated()
-            self.status_ = newStatus
+            self.status_ = newStatus.rawValue
             self.save(context)
         }
     }
