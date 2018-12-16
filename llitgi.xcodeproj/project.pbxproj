@@ -246,11 +246,18 @@
 				47DB057E20B009BE001485DF /* ListViewController.xib */,
 				4770AD011FF1B470006E755D /* ListCell.swift */,
 				4770AD021FF1B470006E755D /* ListCell.xib */,
-				477B510F21C69374000E7633 /* TagsView.swift */,
 				471689EB2185B66D004C98E4 /* TagViewController.swift */,
 				471689E92185B656004C98E4 /* TagViewController.xib */,
 			);
 			path = Lists;
+			sourceTree = "<group>";
+		};
+		477B511121C69C46000E7633 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				477B510F21C69374000E7633 /* TagsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		47803EA320096727003D58E2 /* Managers */ = {
@@ -288,6 +295,7 @@
 				47EEA3801FF037B30030BEF1 /* DataProvider */,
 				47803EA320096727003D58E2 /* Managers */,
 				47376DE51FF082F800B8E70C /* Models */,
+				477B511121C69C46000E7633 /* Views */,
 				4727DE5F2110559C00444D5D /* Coordinators */,
 				47EEA3781FF034E80030BEF1 /* ViewControllers */,
 				47EEA38E1FF074D80030BEF1 /* Extensions & Helpers */,
