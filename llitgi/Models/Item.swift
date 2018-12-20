@@ -46,7 +46,6 @@ final class CoreDataItem: Managed, Item {
     //MARK: Public properties
     var id: String {
         get { return self.read(key: "id_")! }
-        set { self.update(key: "id_", with: newValue) }
     }
     var title: String { return self.read(key: "title_")! }
     var url: URL {
@@ -112,7 +111,7 @@ extension CoreDataItem {
         } else {
             objectToReturn = CoreDataItem.create(in: context)
         }
-        objectToReturn?.id = id
+        objectToReturn?.id_ = id
         return objectToReturn as? T
     }
     
