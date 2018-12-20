@@ -31,7 +31,8 @@ extension TableViewCoreDataNotifier {
         case .delete(let indexPath):
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         case .move(let from, let to):
-            self.tableView.moveRow(at: from, to: to)
+            self.tableView.deleteRows(at: [from], with: .automatic)
+            self.tableView.insertRows(at: [to], with: .automatic)
         }
     }
     
