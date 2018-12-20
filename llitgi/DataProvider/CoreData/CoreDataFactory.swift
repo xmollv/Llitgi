@@ -70,7 +70,6 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     func notifier(for type: TypeOfList, matching query: String?) -> CoreDataNotifier<CoreDataItem> {
         let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        request.sortDescriptors = [NSSortDescriptor(key: "timeAdded_", ascending: false)]
         
         // Store the predicates to be able to create an NSCompoundPredicate at the end
         var predicates: [NSPredicate] = []
@@ -85,12 +84,24 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         switch type {
         case .all:
             typePredicate = NSPredicate(format: "status_ != '2'")
+            let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
+            let id = NSSortDescriptor(key: "id_", ascending: false)
+            request.sortDescriptors = [addedTime, id]
         case .myList:
             typePredicate = NSPredicate(format: "status_ == '0'")
+            let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
+            let id = NSSortDescriptor(key: "id_", ascending: false)
+            request.sortDescriptors = [addedTime, id]
         case .favorites:
             typePredicate = NSPredicate(format: "isFavorite_ == true")
+            let timeUpdated = NSSortDescriptor(key: "timeUpdated_", ascending: false)
+            let id = NSSortDescriptor(key: "id_", ascending: false)
+            request.sortDescriptors = [timeUpdated, id]
         case .archive:
             typePredicate = NSPredicate(format: "status_ == '1'")
+            let timeUpdated = NSSortDescriptor(key: "timeUpdated_", ascending: false)
+            let id = NSSortDescriptor(key: "id_", ascending: false)
+            request.sortDescriptors = [timeUpdated, id]
         }
         
         predicates.append(typePredicate)
