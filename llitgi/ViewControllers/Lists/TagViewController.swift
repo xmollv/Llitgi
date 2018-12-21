@@ -46,8 +46,8 @@ class TagViewController: UITableViewController {
         self.tag = tag
         self.themeManager = themeManager
         self.userManager = userManager
-        let myListItems = tag.items.filter{ $0.status == "0" }
-        let archivedItems = tag.items.filter{ $0.status == "1" }
+        let myListItems = tag.items.filter{ $0.status == .normal }
+        let archivedItems = tag.items.filter{ $0.status == .archived }
         self.items = (myListItems, archivedItems)
         super.init(nibName: String(describing: TagViewController.self), bundle: .main)
     }

@@ -23,6 +23,7 @@ final class AppCoordinator: NSObject, Coordinator {
     private let splitViewController: UISplitViewController
     private let tabBarController: UITabBarController
     private let themeManager: ThemeManager
+    private let badgeManager: BadgeManager
     weak private var presentedSafari: SFSafariViewController?
     
     private lazy var presentSafariClosure: ((SFSafariViewController) -> Void)? = { [weak self] sfs in
@@ -40,6 +41,7 @@ final class AppCoordinator: NSObject, Coordinator {
         self.themeManager = themeManager
         self.splitViewController = UISplitViewController()
         self.tabBarController = UITabBarController()
+        self.badgeManager = BadgeManager(notifier: dataProvider.badgeNotifier(), userManager: userManager)
 
         super.init()
         

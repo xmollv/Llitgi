@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -56,19 +56,13 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Isa-5M-7T6">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eta-55-psw" customClass="TagsView" customModule="llitgi" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="103.5" width="280" height="25"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" priority="999" constant="25" id="VWC-rH-72y"/>
+                                    <constraint firstAttribute="height" priority="999" constant="25" id="d9T-ZH-5qe"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="311-hN-O3Q">
-                                    <size key="itemSize" width="0.0" height="0.0"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                            </collectionView>
+                            </view>
                         </subviews>
                     </stackView>
                 </subviews>
@@ -80,14 +74,14 @@
                     <constraint firstItem="GT9-zZ-PwG" firstAttribute="leading" secondItem="OvY-ry-F4W" secondAttribute="trailing" id="R5t-mQ-ffd"/>
                     <constraint firstItem="OvY-ry-F4W" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="RgV-B5-Q8s"/>
                     <constraint firstItem="OvY-ry-F4W" firstAttribute="bottom" secondItem="GT9-zZ-PwG" secondAttribute="bottom" id="fdo-lv-fgJ"/>
-                    <constraint firstAttribute="bottom" secondItem="GT9-zZ-PwG" secondAttribute="bottom" constant="20" symbolic="YES" id="niK-P3-CD5"/>
+                    <constraint firstAttribute="bottom" secondItem="GT9-zZ-PwG" secondAttribute="bottom" priority="999" constant="20" symbolic="YES" id="niK-P3-CD5"/>
                     <constraint firstAttribute="trailing" secondItem="GT9-zZ-PwG" secondAttribute="trailing" constant="20" symbolic="YES" id="uix-Ef-pcV"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="favoriteView" destination="Nrg-9m-HyM" id="GHE-Ou-2s3"/>
-                <outlet property="tagsCollectionView" destination="Isa-5M-7T6" id="Tnl-4X-Hq5"/>
+                <outlet property="tagsView" destination="Eta-55-psw" id="vcV-HU-5dj"/>
                 <outlet property="titleLabel" destination="gIt-EI-gO9" id="3ju-ib-1AS"/>
                 <outlet property="urlLabel" destination="hKb-tb-2xT" id="dGd-CA-0ns"/>
             </connections>

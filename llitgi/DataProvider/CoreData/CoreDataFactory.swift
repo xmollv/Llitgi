@@ -11,9 +11,9 @@ import CoreData
 
 protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
-    func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier
+    func badgeNotifier() -> CoreDataNotifier<CoreDataItem>
+    func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier<CoreDataItem>
     func deleteAllModels()
-    func numberOfItems(on: TypeOfList) -> Int
 }
 
 final class CoreDataFactoryImplementation: CoreDataFactory {
@@ -49,12 +49,26 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     //MARK: Public methods
     func build<T: Managed>(jsonArray: JSONArray) -> [T] {
-        let objects: [T] = jsonArray.compactMap { self.build(json: $0, in: self.backgroundContext) }
+        var objects: [T] = []
+        self.backgroundContext.performAndWait {
+            objects = jsonArray.compactMap { self.build(json: $0, in: self.backgroundContext) }
+        }
         self.saveBackgroundContext()
         return objects
     }
     
-    func notifier(for type: TypeOfList, matching query: String?) -> CoreDataNotifier {
+    func badgeNotifier() -> CoreDataNotifier<CoreDataItem> {
+        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        request.predicate = NSPredicate(format: "status_ == '0'")
+        request.sortDescriptors = [NSSortDescriptor(key: "id_", ascending: false)]
+        let frc = NSFetchedResultsController(fetchRequest: request,
+                                             managedObjectContext: self.mainThreadContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        return CoreDataNotifier(fetchResultController: frc)
+    }
+    
+    func notifier(for type: TypeOfList, matching query: String?) -> CoreDataNotifier<CoreDataItem> {
         let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
         
         // Store the predicates to be able to create an NSCompoundPredicate at the end
@@ -81,14 +95,15 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         case .favorites:
             typePredicate = NSPredicate(format: "isFavorite_ == true")
             let timeUpdated = NSSortDescriptor(key: "timeUpdated_", ascending: false)
-            let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
-            request.sortDescriptors = [timeUpdated, addedTime]
+            let id = NSSortDescriptor(key: "id_", ascending: false)
+            request.sortDescriptors = [timeUpdated, id]
         case .archive:
             typePredicate = NSPredicate(format: "status_ == '1'")
             let timeUpdated = NSSortDescriptor(key: "timeUpdated_", ascending: false)
-            let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
-            request.sortDescriptors = [timeUpdated, addedTime]
+            let id = NSSortDescriptor(key: "id_", ascending: false)
+            request.sortDescriptors = [timeUpdated, id]
         }
+        
         predicates.append(typePredicate)
         
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates.compactMap { $0 })
@@ -113,34 +128,6 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         self.saveBackgroundContext()
     }
     
-    func numberOfItems(on list: TypeOfList) -> Int {
-        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        
-        var predicate: NSPredicate?
-        switch list {
-        case .all:
-            predicate = NSPredicate(format: "status_ != '2'")
-        case .myList:
-            predicate = NSPredicate(format: "status_ == '0'")
-        case .favorites:
-            predicate = NSPredicate(format: "isFavorite_ == true")
-        case .archive:
-            predicate = NSPredicate(format: "status_ == '1'")
-        }
-        request.predicate = predicate
-        
-        var count: Int = 0
-        self.backgroundContext.performAndWait {
-            do {
-                count = try self.backgroundContext.count(for: request)
-            } catch {
-                Logger.log(error.localizedDescription, event: .error)
-            }
-        }
-        
-        return count
-    }
-    
     //MARK: Private methods
     private func saveBackgroundContext() {
         self.backgroundContext.performAndWait {
@@ -158,7 +145,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             self.delete(object, in: context)
             return nil
         }
-        if let item = updatedObject as? Item, item.status == "2" {
+        if let item = updatedObject as? Item, item.status == .deleted {
             self.delete(updatedObject, in: context)
             return nil
         }
