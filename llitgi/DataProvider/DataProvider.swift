@@ -20,8 +20,8 @@ final class DataProvider {
     }
     
     //MARK: Public properties
-     var pocketOAuthUrls: (app: URL?, web: URL?) {
-        return (self.pocketAPI.OAuthURLApp, self.pocketAPI.OAuthURLWebsite)
+     var pocketOAuthUrl: URL? {
+        return self.pocketAPI.OAuthURLWebsite
     }
     
     //MARK: Lifecycle
@@ -31,7 +31,11 @@ final class DataProvider {
     }
     
     //MARK: Public methods
-    func notifier(for type: TypeOfList, filteredBy query: String? = nil) -> CoreDataNotifier {
+    func badgeNotifier() -> CoreDataNotifier<CoreDataItem> {
+        return self.modelFactory.badgeNotifier()
+    }
+    
+    func notifier(for type: TypeOfList, filteredBy query: String? = nil) -> CoreDataNotifier<CoreDataItem> {
         return self.modelFactory.notifier(for: type, matching: query)
     }
     
@@ -128,9 +132,5 @@ final class DataProvider {
     
     func updatePocket(token: String) {
         self.pocketAPI.updatePocket(token: token)
-    }
-    
-    func numberOfItems(on list: TypeOfList) -> Int {
-        return self.modelFactory.numberOfItems(on: list)
     }
 }

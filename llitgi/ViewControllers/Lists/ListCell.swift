@@ -14,7 +14,7 @@ class ListCell: UITableViewCell, NibLoadableView {
     @IBOutlet private var favoriteView: UIView!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var urlLabel: UILabel!
-    @IBOutlet private var tagsCollectionView: UICollectionView!
+    @IBOutlet private var tagsView: TagsView!
     
     //MARK: Private properties
     private var item: Item?
@@ -26,10 +26,6 @@ class ListCell: UITableViewCell, NibLoadableView {
     //MARK:- Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.tagsCollectionView.register(TagCell.self)
-        if let flowLayout = self.tagsCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: 80, height: 25)
-        }
         self.clearCell()
     }
     
@@ -42,36 +38,32 @@ class ListCell: UITableViewCell, NibLoadableView {
         let color = self.favoriteView.backgroundColor
         super.setSelected(selected, animated: animated)
         self.favoriteView.backgroundColor = color
+        self.tagsView.tagsViews.forEach({ $0.backgroundColor = self.tagsView.tagsBackgroundColor })
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         let color = self.favoriteView.backgroundColor
         super.setHighlighted(highlighted, animated: animated)
         self.favoriteView.backgroundColor = color
+        self.tagsView.tagsViews.forEach({ $0.backgroundColor = self.tagsView.tagsBackgroundColor })
     }
     
     private func clearCell() {
         self.item = nil
         self.theme = nil
         self.selectedTag = nil
-        self.tagsCollectionView.delegate = nil
-        self.tagsCollectionView.dataSource = nil
         self.favoriteView.isHidden = true
         self.titleLabel.text = nil
         self.urlLabel.text = nil
-        self.tagsCollectionView.isHidden = true
+        self.tagsView.clearTags()
+        self.tagsView.isHidden = true
     }
     
     //MARK:- Public methods
     func configure(with item: Item, theme: Theme) {
         self.item = item
         self.theme = theme
-        self.tagsCollectionView.delegate = self
-        self.tagsCollectionView.dataSource = self
         
-        if item.isFavorite {
-            self.favoriteView.isHidden = false
-        }
         self.titleLabel.text = item.title
         self.urlLabel.text = item.url.host
         self.backgroundColor = theme.backgroundColor
@@ -81,36 +73,26 @@ class ListCell: UITableViewCell, NibLoadableView {
         self.selectedBackgroundView = UIView()
         self.selectedBackgroundView?.backgroundColor = theme.highlightBackgroundColor
         
-        if item.tags.isEmpty {
-            self.tagsCollectionView.isHidden = true
-        } else {
-            self.tagsCollectionView.isHidden = false
+        if item.isFavorite {
+            self.favoriteView.isHidden = false
+        }
+        
+        if !item.tags.isEmpty {
+            self.tagsView.isHidden = false
+            self.tagsView.tagsBackgroundColor = theme.separatorColor
+            self.tagsView.tagsTextColor = theme.textSubtitleColor
+            self.tagsView.selectedTag = { [weak self] tag in
+                self?.selectedTag?(tag)
+            }
+            self.tagsView.add(tags: item.tags)
         }
     }
-}
-
-extension ListCell: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.item?.tags.count ?? 0
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: TagCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
-        if let tag = self.item?.tags[indexPath.row] {
-            cell.configure(with: tag.name, theme: self.theme)
-        } else {
-            Logger.log("Unable to find the tag, this is a fatalError.", event: .error)
+    override func tintColorDidChange() {
+        super.tintColorDidChange()
+        switch self.tintAdjustmentMode {
+        case .automatic, .normal: self.favoriteView.backgroundColor = self.theme?.tintColor
+        case .dimmed: self.favoriteView.backgroundColor = self.theme?.tintColor.desaturated
         }
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
-            cell.transform = .identity
-        })
-        guard let tag = self.item?.tags[indexPath.row] else { return }
-        self.selectedTag?(tag)
     }
 }

@@ -9,18 +9,25 @@
 import Foundation
 import CoreData
 
+enum ItemStatus: String {
+    case normal = "0"
+    case archived = "1"
+    case deleted = "2"
+}
+
 protocol Item {
+    
     var id: String { get }
     var title: String { get }
     var url: URL { get }
     var timeAdded: String { get }
     var timeUpdated: String { get }
     var isFavorite: Bool { get }
-    var status: String { get }
+    var status: ItemStatus { get }
     var tags: [Tag] { get }
     
     mutating func switchFavoriteStatus()
-    mutating func changeStatus(to: String)
+    mutating func changeStatus(to: ItemStatus)
 }
 
 @objc(CoreDataItem)
@@ -39,7 +46,6 @@ final class CoreDataItem: Managed, Item {
     //MARK: Public properties
     var id: String {
         get { return self.read(key: "id_")! }
-        set { self.update(key: "id_", with: newValue) }
     }
     var title: String { return self.read(key: "title_")! }
     var url: URL {
@@ -49,7 +55,7 @@ final class CoreDataItem: Managed, Item {
     var timeAdded: String { return self.read(key: "timeAdded_")! }
     var timeUpdated: String { return self.read(key: "timeUpdated_")! }
     var isFavorite: Bool { return self.read(key: "isFavorite_")! }
-    var status: String { return self.read(key: "status_")! }
+    var status: ItemStatus { return ItemStatus(rawValue: self.read(key: "status_")!)! }
     var tags: [Tag] {
         if let nssetTags: NSSet = self.read(key: "tags_") {
             return (nssetTags.allObjects as? [CoreDataTag])?.sorted{ $0.name < $1.name } ?? []
@@ -68,11 +74,11 @@ final class CoreDataItem: Managed, Item {
         }
     }
     
-    func changeStatus(to newStatus: String) {
+    func changeStatus(to newStatus: ItemStatus) {
         guard let context = self.managedObjectContext else { return }
         context.performAndWait {
             self.overrideLastTimeUpdated()
-            self.status_ = newStatus
+            self.status_ = newStatus.rawValue
             self.save(context)
         }
     }
@@ -105,7 +111,7 @@ extension CoreDataItem {
         } else {
             objectToReturn = CoreDataItem.create(in: context)
         }
-        objectToReturn?.id = id
+        objectToReturn?.id_ = id
         return objectToReturn as? T
     }
     
@@ -121,23 +127,24 @@ extension CoreDataItem {
                 return nil
         }
         
-        context.performAndWait {
-            if let pocketTitle = (json["resolved_title"] as? String) ?? (json["given_title"] as? String), pocketTitle != "" {
-                self.title_ = pocketTitle
-            } else {
-                self.title_ = urlAsString
-            }
-            self.url_ = urlAsString
-            self.status_ = status
+        if let pocketTitle = (json["resolved_title"] as? String) ?? (json["given_title"] as? String), pocketTitle != "" {
+            self.title_ = pocketTitle
+        } else {
+            self.title_ = urlAsString
+        }
+        self.url_ = urlAsString
+        self.status_ = status
+        if self.timeAdded_ == "" {
+            // We only update the timeAdded once, otherwise the FRC freaks out
             self.timeAdded_ = timeAdded
-            self.timeUpdated_ = (json["time_updated"] as? String) ?? timeAdded
-            self.isFavorite_ = (isFavoriteString == "0") ? false : true
-            if let tagsDict = json["tags"] as? JSONDictionary {
-                let tags: [CoreDataTag] = tagsDict.compactMap { CoreDataTag.fetchOrCreate(with: [$0.key:""], on: context) }
-                self.tags_ = NSSet(array: tags)
-            } else {
-                self.tags_ = NSSet()
-            }
+        }
+        self.timeUpdated_ = (json["time_updated"] as? String) ?? timeAdded
+        self.isFavorite_ = (isFavoriteString == "0") ? false : true
+        if let tagsDict = json["tags"] as? JSONDictionary {
+            let tags: [CoreDataTag] = tagsDict.compactMap { CoreDataTag.fetchOrCreate(with: [$0.key:""], on: context) }
+            self.tags_ = NSSet(array: tags)
+        } else {
+            self.tags_ = NSSet()
         }
         
         return self as? T

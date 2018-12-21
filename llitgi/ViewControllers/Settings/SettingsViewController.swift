@@ -84,6 +84,7 @@ class SettingsViewController: UIViewController {
             if !success {
                 sender.setOn(false, animated: true)
             }
+            NotificationCenter.default.post(name: .badgeChanged, object: nil)
         }
     }
     
@@ -134,7 +135,6 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction private func logoutButtonTapped(_ sender: UIButton) {
-        self.userManager.displayBadge(with: 0)
         self.logoutBlock?()
     }
     

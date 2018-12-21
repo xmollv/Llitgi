@@ -23,7 +23,6 @@ final class CoreDataTag: Managed, Tag {
     
     var name: String {
         get { return self.read(key: "name_")! }
-        set { self.update(key: "name_", with: newValue) }
     }
     var items: [Item] {
         if let nssetItems: NSSet = self.read(key: "items_") {
@@ -46,7 +45,7 @@ extension CoreDataTag {
         } else {
             objectToReturn = CoreDataTag.create(in: context)
         }
-        objectToReturn?.name = id
+        objectToReturn?.name_ = id
         return objectToReturn as? T
     }
     

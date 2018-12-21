@@ -38,17 +38,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // The user is not logged in, there's no point in trying to sync anything
-        guard !self.userManager.isLoggedIn else {
+        guard self.userManager.isLoggedIn else {
             completionHandler(.noData)
             return
         }
         
-        self.dataProvider.syncLibrary { [weak self] (result) in
-            guard let strongSelf = self else { return }
+        self.dataProvider.syncLibrary { (result) in
             switch result {
             case .isSuccess(let items):
                 // Because this is a sync operation, we just need to care if we get data or not
-                strongSelf.userManager.displayBadge(with: strongSelf.dataProvider.numberOfItems(on: .myList))
                 items.isEmpty ? completionHandler(.noData) : completionHandler(.newData)
             case .isFailure(let error):
                 Logger.log(error.localizedDescription, event: .error)
