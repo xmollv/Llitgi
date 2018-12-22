@@ -57,6 +57,7 @@ enum L10n {
         static let archive = NSLocalizedString("Actions.archive", comment: "")
         static let unarchive = NSLocalizedString("Actions.unarchive", comment: "")
         static let delete = NSLocalizedString("Actions.delete", comment: "")
+        static let tags = NSLocalizedString("Actions.tags", comment: "")
     }
     
     enum Settings {

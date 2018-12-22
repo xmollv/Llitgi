@@ -49,6 +49,7 @@ final class AppCoordinator: NSObject, Coordinator {
             vc.safariToPresent = self.presentSafariClosure
             vc.settingsButtonTapped = { [weak self] in self?.showSettings() }
             vc.selectedTag = { [weak self] tag in self?.show(tag: tag) }
+            vc.tagsModification = { [weak self] item in self?.showTagsPicker(for: item) }
             let navController = UINavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
             navController.navigationBar.barStyle = self.themeManager.theme.barStyle
@@ -141,6 +142,10 @@ final class AppCoordinator: NSObject, Coordinator {
         tagViewController.safariToPresent = self.presentSafariClosure
         #warning("This hack will bit back")
         ((self.splitViewController.viewControllers.first as? UITabBarController)?.selectedViewController as? UINavigationController)?.pushViewController(tagViewController, animated: true)
+    }
+    
+    private func showTagsPicker(for item: Item) {
+        
     }
     
     private func showFullSync() {
