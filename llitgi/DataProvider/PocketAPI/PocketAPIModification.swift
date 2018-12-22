@@ -26,3 +26,14 @@ struct ItemModification {
                 "item_id" : self.id]
     }
 }
+
+struct TagModification {
+    let id: String
+    let tags: [String]
+    
+    var wrappedAsDict: [String: String] {
+        return ["action" : "tags_replace",
+                "item_id" : self.id,
+                "tags": self.tags.joined(separator: ",")]
+    }
+}
