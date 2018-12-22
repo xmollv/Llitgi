@@ -60,7 +60,9 @@ class ManageTagsViewController: UIViewController {
         self.themeManager = themeManager
         self.completed = completed
         self.currentTags = item.tags
-        self.availableTags = dataProvider.tags
+        self.availableTags = dataProvider.tags.filter { tag in
+            return !item.tags.contains(where: { $0.name == tag.name} )
+        }
         super.init(nibName: String(describing: ManageTagsViewController.self), bundle: Bundle(for: ManageTagsViewController.self))
         self.title = item.title
     }
@@ -119,8 +121,17 @@ class ManageTagsViewController: UIViewController {
 //MARK:- UITableViewDelegate
 extension ManageTagsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
+        switch Section(section: indexPath.section) {
+        case .currentTags:
+            let tag = self.currentTags.remove(at: indexPath.row)
+            self.availableTags.append(tag)
+            self.availableTags.sort { $0.name < $1.name }
+        case .availableTags:
+            let tag = self.availableTags.remove(at: indexPath.row)
+            self.currentTags.append(tag)
+            self.currentTags.sort { $0.name < $1.name }
+        }
+        self.tableView.reloadData()
     }
 }
 
