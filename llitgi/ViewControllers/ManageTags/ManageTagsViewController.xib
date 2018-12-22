@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ManageTagsViewController" customModule="llitgi" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sn0-HT-SGs">
+                    <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aip-NH-Jzs">
+                    <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                    <items>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Ck1-BH-oWE"/>
+                        <barButtonItem title="New Tag" id="Pw1-hm-gNu"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="ent-Tq-riH"/>
+                    </items>
+                </toolbar>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sn0-HT-SGs" secondAttribute="trailing" id="41Z-jk-SSx"/>
+                <constraint firstItem="aip-NH-Jzs" firstAttribute="top" secondItem="sn0-HT-SGs" secondAttribute="bottom" id="Gwf-na-rrp"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aip-NH-Jzs" secondAttribute="trailing" id="HsW-Yi-e7T"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="aip-NH-Jzs" secondAttribute="bottom" id="UEC-m4-LrE"/>
+                <constraint firstItem="sn0-HT-SGs" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="bZd-Gu-0ZO"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="leading" secondItem="aip-NH-Jzs" secondAttribute="leading" id="h2g-dQ-Yn8"/>
+                <constraint firstItem="sn0-HT-SGs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="oaf-zd-Jdl"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+        </view>
+    </objects>
+</document>

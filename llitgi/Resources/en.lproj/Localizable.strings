@@ -47,3 +47,6 @@
 "Settings.darkTheme" = "Dark";
 
 "ShareExtension.saving" = "Saving to Llitgi...";
+
+"Tags.current" = "Current Tags";
+"Tags.available" = "Available Tags";

@@ -75,4 +75,9 @@ enum L10n {
     enum ShareExtension {
         static let saving = NSLocalizedString("ShareExtension.saving", comment: "")
     }
+    
+    enum Tags {
+        static let current = NSLocalizedString("Tags.current", comment: "")
+        static let available = NSLocalizedString("Tags.available", comment: "")
+    }
 }
