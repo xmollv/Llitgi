@@ -5,6 +5,8 @@
 "General.errorPocket" = "Something went wrong communicating with Pocket. Could you please try again?";
 "General.errorTitle" = "Oops!";
 "General.errorDescription" = "Something went wrong.";
+"General.cancel" = "Cancel";
+"General.add" = "Add";
 
 "Onboarding.title" = "Welcome to Llitgi.";
 "Onboarding.offlineTitle" = "Offline first";
@@ -50,3 +52,4 @@
 
 "Tags.current" = "Current Tags";
 "Tags.available" = "Available Tags";
+"Tags.newTagTitle" = "New Tag";

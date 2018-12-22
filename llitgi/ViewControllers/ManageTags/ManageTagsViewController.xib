@@ -30,7 +30,11 @@
                     <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                     <items>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Ck1-BH-oWE"/>
-                        <barButtonItem title="New Tag" id="Pw1-hm-gNu"/>
+                        <barButtonItem title="New Tag" id="Pw1-hm-gNu">
+                            <connections>
+                                <action selector="newTagTapped:" destination="-1" id="O3S-qb-jmB"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="ent-Tq-riH"/>
                     </items>
                 </toolbar>

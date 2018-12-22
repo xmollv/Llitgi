@@ -129,6 +129,34 @@ class ManageTagsViewController: UIViewController {
         }
     }
     
+    @IBAction func newTagTapped(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: L10n.Tags.newTagTitle,
+                                                message: nil,
+                                                preferredStyle: .alert)
+        
+        alertController.addTextField { [weak self] (textField) in
+            guard let strongSelf = self else { return }
+            textField.keyboardAppearance = strongSelf.themeManager.theme.keyboardAppearance
+        }
+        let cancel = UIAlertAction(title: L10n.General.cancel, style: .cancel, handler: nil)
+        let add = UIAlertAction(title: L10n.General.add, style: .default) { [weak self, weak alertController] (action) in
+            guard let strongSelf = self else { return }
+            guard let text = alertController?.textFields?.first?.text, text != "" else { return }
+            if let index = strongSelf.availableTags.firstIndex(where: { $0.name == text }) {
+                let tag = strongSelf.availableTags.remove(at: index)
+                strongSelf.currentTags.append(tag)
+                strongSelf.currentTags.sort { $0.name < $1.name }
+            } else if strongSelf.currentTags.firstIndex(where: { $0.name == text }) == nil {
+                strongSelf.currentTags.append(InMemoryTag(name: text))
+                strongSelf.currentTags.sort { $0.name < $1.name }
+            }
+            strongSelf.tableView.reloadData()
+        }
+        alertController.addAction(cancel)
+        alertController.addAction(add)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     private func apply(_ theme: Theme) {
         self.view.backgroundColor = theme.backgroundColor
         self.navigationController?.navigationBar.barStyle = theme.barStyle
@@ -220,4 +248,9 @@ extension ManageTagsViewController: UITableViewDataSource {
             return self.availableTags.count > 0 ? UITableView.automaticDimension : 0
         }
     }
+}
+
+private struct InMemoryTag: Tag {
+    let name: String
+    let items: [Item] = []
 }
