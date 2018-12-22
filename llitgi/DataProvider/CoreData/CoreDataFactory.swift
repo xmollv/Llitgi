@@ -28,6 +28,7 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     
     var tags: [Tag] {
         let request = NSFetchRequest<CoreDataTag>(entityName: String(describing: CoreDataTag.self))
+        request.sortDescriptors = [NSSortDescriptor(key: "name_", ascending: true)]
         var results: [Tag] = []
         self.backgroundContext.performAndWait {
             results = (try? self.backgroundContext.fetch(request)) ?? []

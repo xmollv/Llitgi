@@ -143,7 +143,9 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func showTagsPicker(for item: Item) {
-        let tagPicker = self.factory.instantiateManageTagsViewController(item: item)
+        let tagPicker = self.factory.instantiateManageTagsViewController(item: item) { [weak self] in
+            self?.splitViewController.dismiss(animated: true, completion: nil)
+        }
         let navController = NavigationController(rootViewController: tagPicker)
         navController.modalPresentationStyle = .formSheet
         self.splitViewController.present(navController, animated: true, completion: nil)

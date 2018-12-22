@@ -34,22 +34,35 @@ class ManageTagsViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var toolBar: UIToolbar!
     @IBOutlet private var newTagBarButtonItem: UIBarButtonItem!
+    private lazy var cancelBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelTapped(_:)))
+        return barButtonItem
+    }()
+    
+    private lazy var saveBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTapped(_:)))
+        return barButtonItem
+    }()
     
     //MARK:- Class properties
     let item: Item
     let dataProvider: DataProvider
     let themeManager: ThemeManager
+    let completed: () -> Void
     private(set) var currentTags: [Tag] = []
     private(set) var availableTags: [Tag] = []
     
+    
     //MARK:- Lifecycle
-    init(item: Item, dataProvider: DataProvider, themeManager: ThemeManager) {
+    init(item: Item, dataProvider: DataProvider, themeManager: ThemeManager, completed: @escaping () -> Void) {
         self.item = item
         self.dataProvider = dataProvider
         self.themeManager = themeManager
+        self.completed = completed
         self.currentTags = item.tags
         self.availableTags = dataProvider.tags
         super.init(nibName: String(describing: ManageTagsViewController.self), bundle: Bundle(for: ManageTagsViewController.self))
+        self.title = item.title
     }
     
     @available(*, unavailable)
@@ -63,10 +76,42 @@ class ManageTagsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.leftBarButtonItem = self.cancelBarButtonItem
+        self.navigationItem.rightBarButtonItem = self.saveBarButtonItem
+        self.apply(self.themeManager.theme)
+        self.themeManager.addObserver(self) { [weak self] theme in
+            self?.apply(theme)
+        }
         self.tableView.register(TagPickerCell.self)
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.tableView.tableFooterView = UIView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.flashScrollIndicators()
+    }
+    
+    @objc
+    private func cancelTapped(_ sender: UIBarButtonItem) {
+        self.completed()
+    }
+    
+    @objc
+    private func saveTapped(_ sender: UIBarButtonItem) {
+        
+    }
+    
+    private func apply(_ theme: Theme) {
+        self.view.backgroundColor = theme.backgroundColor
+        self.navigationController?.navigationBar.barStyle = theme.barStyle
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.textTitleColor]
+        self.toolBar.barStyle = theme.barStyle
+        self.tableView.backgroundColor = theme.backgroundColor
+        self.tableView.separatorColor = theme.separatorColor
+        self.tableView.indicatorStyle = theme.indicatorStyle
+        self.tableView.reloadData()
     }
 
 }
@@ -103,7 +148,40 @@ extension ManageTagsViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Section(section: section).title
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = self.themeManager.theme.sectionHeaderBackground
+        
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = self.themeManager.theme.textTitleColor
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        view.addSubview(label)
+        
+        label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 20).isActive = true
+        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
+        label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true
+        
+        let tagSection = Section(section: section)
+        switch tagSection {
+        case .currentTags where self.currentTags.count > 0:
+            label.text = tagSection.title
+            return view
+        case .availableTags where self.availableTags.count > 0:
+            label.text = tagSection.title
+            return view
+        default:
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch Section(section: section) {
+        case .currentTags:
+            return self.currentTags.count > 0 ? UITableView.automaticDimension : 0
+        case .availableTags:
+            return self.availableTags.count > 0 ? UITableView.automaticDimension : 0
+        }
     }
 }

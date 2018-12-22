@@ -60,7 +60,7 @@ final class ViewControllerFactory {
         return TagViewController(tag: tag, themeManager: self.themeManager, userManager: self.userManager)
     }
     
-    func instantiateManageTagsViewController(item: Item) -> ManageTagsViewController {
-        return ManageTagsViewController(item: item, dataProvider: self.dataProvider, themeManager: self.themeManager)
+    func instantiateManageTagsViewController(item: Item, completed: @escaping () -> Void) -> ManageTagsViewController {
+        return ManageTagsViewController(item: item, dataProvider: self.dataProvider, themeManager: self.themeManager, completed: completed)
     }
 }
