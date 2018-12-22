@@ -78,6 +78,7 @@
 		47F5845221CEA9EF00C7D17D /* ManageTagsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47F5845021CEA9EF00C7D17D /* ManageTagsViewController.xib */; };
 		47F5845521CEB1F800C7D17D /* TagPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5845321CEB1F800C7D17D /* TagPickerCell.swift */; };
 		47F5845621CEB1F800C7D17D /* TagPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47F5845421CEB1F800C7D17D /* TagPickerCell.xib */; };
+		47F5845821CEB54300C7D17D /* SplitTabNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5845721CEB54300C7D17D /* SplitTabNav.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +170,7 @@
 		47F5845021CEA9EF00C7D17D /* ManageTagsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageTagsViewController.xib; sourceTree = "<group>"; };
 		47F5845321CEB1F800C7D17D /* TagPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerCell.swift; sourceTree = "<group>"; };
 		47F5845421CEB1F800C7D17D /* TagPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagPickerCell.xib; sourceTree = "<group>"; };
+		47F5845721CEB54300C7D17D /* SplitTabNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitTabNav.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +333,7 @@
 			isa = PBXGroup;
 			children = (
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
+				47F5845721CEB54300C7D17D /* SplitTabNav.swift */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 				4752C0842030F20300988A68 /* FullSync */,
 				4770ACF81FF189CD006E755D /* Lists */,
@@ -585,6 +588,7 @@
 				47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */,
 				477B511321C6A829000E7633 /* UIColor.swift in Sources */,
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
+				47F5845821CEB54300C7D17D /* SplitTabNav.swift in Sources */,
 				4770AD031FF1B470006E755D /* ListCell.swift in Sources */,
 				47BFBFA921B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift in Sources */,
 				47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */,

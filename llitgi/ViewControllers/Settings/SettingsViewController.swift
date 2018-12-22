@@ -51,6 +51,10 @@ class SettingsViewController: UIViewController {
         self.themeManager.removeObserver(self)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.themeManager.theme.statusBarStyle
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.done(_:)))

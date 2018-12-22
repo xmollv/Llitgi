@@ -49,6 +49,10 @@ class AuthorizationViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.themeManager.theme.statusBarStyle
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.apply(self.themeManager.theme)
