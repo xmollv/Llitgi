@@ -145,7 +145,10 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func showTagsPicker(for item: Item) {
-        
+        let tagPicker = self.factory.instantiateManageTagsViewController(item: item)
+        let navController = UINavigationController(rootViewController: tagPicker)
+        navController.modalPresentationStyle = .formSheet
+        self.splitViewController.present(navController, animated: true, completion: nil)
     }
     
     private func showFullSync() {

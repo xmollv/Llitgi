@@ -76,6 +76,8 @@
 		47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */; };
 		47F5845121CEA9EF00C7D17D /* ManageTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5844F21CEA9EF00C7D17D /* ManageTagsViewController.swift */; };
 		47F5845221CEA9EF00C7D17D /* ManageTagsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47F5845021CEA9EF00C7D17D /* ManageTagsViewController.xib */; };
+		47F5845521CEB1F800C7D17D /* TagPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5845321CEB1F800C7D17D /* TagPickerCell.swift */; };
+		47F5845621CEB1F800C7D17D /* TagPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47F5845421CEB1F800C7D17D /* TagPickerCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,6 +167,8 @@
 		47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIError.swift; sourceTree = "<group>"; };
 		47F5844F21CEA9EF00C7D17D /* ManageTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTagsViewController.swift; sourceTree = "<group>"; };
 		47F5845021CEA9EF00C7D17D /* ManageTagsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageTagsViewController.xib; sourceTree = "<group>"; };
+		47F5845321CEB1F800C7D17D /* TagPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerCell.swift; sourceTree = "<group>"; };
+		47F5845421CEB1F800C7D17D /* TagPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagPickerCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +397,8 @@
 			children = (
 				47F5844F21CEA9EF00C7D17D /* ManageTagsViewController.swift */,
 				47F5845021CEA9EF00C7D17D /* ManageTagsViewController.xib */,
+				47F5845321CEB1F800C7D17D /* TagPickerCell.swift */,
+				47F5845421CEB1F800C7D17D /* TagPickerCell.xib */,
 			);
 			path = ManageTags;
 			sourceTree = "<group>";
@@ -506,6 +512,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47F5845621CEB1F800C7D17D /* TagPickerCell.xib in Resources */,
 				47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */,
 				47DB058020B009BE001485DF /* ListViewController.xib in Resources */,
 				474B44212001A52D009897D2 /* SettingsViewController.xib in Resources */,
@@ -556,6 +563,7 @@
 				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,
 				47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */,
 				4752C0872030F22300988A68 /* FullSyncViewController.swift in Sources */,
+				47F5845521CEB1F800C7D17D /* TagPickerCell.swift in Sources */,
 				4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */,
 				47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */,
 				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
