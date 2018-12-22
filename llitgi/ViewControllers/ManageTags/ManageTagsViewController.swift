@@ -38,10 +38,14 @@ class ManageTagsViewController: UIViewController {
         let barButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelTapped(_:)))
         return barButtonItem
     }()
-    
     private lazy var saveBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTapped(_:)))
         return barButtonItem
+    }()
+    private lazy var loadingButton: UIBarButtonItem = {
+        let loading = UIActivityIndicatorView(style: .gray)
+        loading.startAnimating()
+        return UIBarButtonItem(customView: loading)
     }()
     
     //MARK:- Class properties
@@ -102,13 +106,34 @@ class ManageTagsViewController: UIViewController {
     
     @objc
     private func saveTapped(_ sender: UIBarButtonItem) {
-        
+        self.navigationItem.rightBarButtonItem = self.loadingButton
+        self.newTagBarButtonItem.isEnabled = false
+        self.tableView.isUserInteractionEnabled = false
+
+        let itemModification = ItemModification.init(action: .replaceTags(with: self.currentTags.map{ $0.name }), id: self.item.id)
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(itemModification)) { [weak self] result in
+            guard let strongSelf = self else { return }
+            switch result {
+            case .isSuccess:
+                strongSelf.dataProvider.syncLibrary { _ in
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+                    strongSelf.completed()
+                }
+            case .isFailure:
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                strongSelf.navigationItem.rightBarButtonItem = strongSelf.saveBarButtonItem
+                strongSelf.newTagBarButtonItem.isEnabled = true
+                strongSelf.tableView.isUserInteractionEnabled = true
+                strongSelf.presentErrorAlert()
+            }
+        }
     }
     
     private func apply(_ theme: Theme) {
         self.view.backgroundColor = theme.backgroundColor
         self.navigationController?.navigationBar.barStyle = theme.barStyle
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: theme.textTitleColor]
+        (self.loadingButton.customView as? UIActivityIndicatorView)?.color = theme.tintColor
         self.toolBar.barStyle = theme.barStyle
         self.tableView.backgroundColor = theme.backgroundColor
         self.tableView.separatorColor = theme.separatorColor
