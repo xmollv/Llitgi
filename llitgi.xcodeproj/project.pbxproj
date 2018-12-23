@@ -79,6 +79,7 @@
 		47F5845521CEB1F800C7D17D /* TagPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5845321CEB1F800C7D17D /* TagPickerCell.swift */; };
 		47F5845621CEB1F800C7D17D /* TagPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47F5845421CEB1F800C7D17D /* TagPickerCell.xib */; };
 		47F5845821CEB54300C7D17D /* SplitTabNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5845721CEB54300C7D17D /* SplitTabNav.swift */; };
+		47F5845E21D02B6D00C7D17D /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5845D21D02B6D00C7D17D /* SectionHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +172,7 @@
 		47F5845321CEB1F800C7D17D /* TagPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerCell.swift; sourceTree = "<group>"; };
 		47F5845421CEB1F800C7D17D /* TagPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagPickerCell.xib; sourceTree = "<group>"; };
 		47F5845721CEB54300C7D17D /* SplitTabNav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitTabNav.swift; sourceTree = "<group>"; };
+		47F5845D21D02B6D00C7D17D /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				477B510F21C69374000E7633 /* TagsView.swift */,
+				47F5845D21D02B6D00C7D17D /* SectionHeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */,
 				47EBC007218367A700343AF7 /* Tag.swift in Sources */,
 				47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
+				47F5845E21D02B6D00C7D17D /* SectionHeaderView.swift in Sources */,
 				47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */,
 				4710EF5F1FF50F6A00D3DCA9 /* NSManagedObject.swift in Sources */,
 				4710EF461FF2C5B000D3DCA9 /* PocketAPIModification.swift in Sources */,

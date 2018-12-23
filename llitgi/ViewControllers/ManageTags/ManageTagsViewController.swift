@@ -285,28 +285,16 @@ extension ManageTagsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = self.themeManager.theme.sectionHeaderBackground
-        
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = self.themeManager.theme.textTitleColor
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
-        view.addSubview(label)
-        
-        label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 20).isActive = true
-        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
-        label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true
+        let sectionHeaderView = SectionHeaderView(theme: self.themeManager.theme)
         
         let tagSection = Section(section: section)
         switch tagSection {
         case .currentTags where self.currentTags.count > 0:
-            label.text = tagSection.title
-            return view
+            sectionHeaderView.text = tagSection.title
+            return sectionHeaderView
         case .availableTags where self.availableTags.count > 0:
-            label.text = tagSection.title
-            return view
+            sectionHeaderView.text = tagSection.title
+            return sectionHeaderView
         default:
             return nil
         }
