@@ -30,6 +30,8 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     var tags: [Tag] {
         let request = NSFetchRequest<CoreDataTag>(entityName: String(describing: CoreDataTag.self))
         request.sortDescriptors = [NSSortDescriptor(key: "name_", ascending: true)]
+        #warning("This is a hack to avoid seeing tags with no items. Find a solution to remove them from Core Data instead of relying on this.")
+        request.predicate = NSPredicate(format: "items_.@count > 0")
         var results: [Tag] = []
         self.backgroundContext.performAndWait {
             results = (try? self.backgroundContext.fetch(request)) ?? []
