@@ -106,9 +106,7 @@ class ManageTagsViewController: UIViewController {
     
     @objc
     private func saveTapped(_ sender: UIBarButtonItem) {
-        self.navigationItem.rightBarButtonItem = self.loadingButton
-        self.newTagBarButtonItem.isEnabled = false
-        self.tableView.isUserInteractionEnabled = false
+        self.blockUserInterfaceForNetwork(true)
 
         let itemModification = ItemModification.init(action: .replaceTags(with: self.currentTags.map{ $0.name }), id: self.item.id)
         self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([itemModification])) { [weak self] result in
@@ -121,9 +119,7 @@ class ManageTagsViewController: UIViewController {
                 }
             case .isFailure:
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
-                strongSelf.navigationItem.rightBarButtonItem = strongSelf.saveBarButtonItem
-                strongSelf.newTagBarButtonItem.isEnabled = true
-                strongSelf.tableView.isUserInteractionEnabled = true
+                strongSelf.blockUserInterfaceForNetwork(false)
                 strongSelf.presentErrorAlert()
             }
         }
@@ -168,6 +164,24 @@ class ManageTagsViewController: UIViewController {
         self.tableView.indicatorStyle = theme.indicatorStyle
         self.tableView.reloadData()
     }
+    
+    private func blockUserInterfaceForNetwork(_ block: Bool) {
+        if block {
+            self.navigationItem.rightBarButtonItem = self.loadingButton
+            self.newTagBarButtonItem.isEnabled = false
+            self.tableView.isUserInteractionEnabled = false
+        } else {
+            self.navigationItem.rightBarButtonItem = self.saveBarButtonItem
+            self.newTagBarButtonItem.isEnabled = true
+            self.tableView.isUserInteractionEnabled = true
+        }
+    }
+    
+    private func delete(items: [Item], then: @escaping (Bool) -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            then(true)
+        }
+    }
 
 }
 
@@ -197,8 +211,8 @@ extension ManageTagsViewController: UITableViewDelegate {
             case .currentTags: tag = strongSelf.currentTags[indexPath.row]
             case .availableTags: tag = strongSelf.availableTags[indexPath.row]
             }
-            let affectedTagsCount = strongSelf.dataProvider.items(with: tag)
-            let message = String(format: L10n.Tags.removeWarning, arguments: [tag.name, affectedTagsCount])
+            let affectedItems = strongSelf.dataProvider.items(with: tag)
+            let message = String(format: L10n.Tags.removeWarning, arguments: [tag.name, affectedItems.count])
             let alertController = UIAlertController(title: L10n.Tags.remove,
                                                     message: message,
                                                     preferredStyle: .alert)
@@ -206,7 +220,21 @@ extension ManageTagsViewController: UITableViewDelegate {
                 success(false)
             }
             let remove = UIAlertAction(title: L10n.Tags.remove, style: .destructive) { action in
-                success(true)
+                strongSelf.blockUserInterfaceForNetwork(true)
+                strongSelf.delete(items: affectedItems) { completed in
+                    if completed {
+                        success(true)
+                        switch Section(section: indexPath.row) {
+                        case .currentTags: strongSelf.currentTags.removeAll(where: { $0.name == tag.name })
+                        case .availableTags: strongSelf.availableTags.removeAll(where: { $0.name == tag.name })
+                        }
+                        strongSelf.tableView.reloadData()
+                    } else {
+                        strongSelf.presentErrorAlert()
+                        success(false)
+                    }
+                    strongSelf.blockUserInterfaceForNetwork(false)
+                }
             }
             alertController.addAction(cancel)
             alertController.addAction(remove)
