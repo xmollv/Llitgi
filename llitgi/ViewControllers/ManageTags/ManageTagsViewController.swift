@@ -197,9 +197,10 @@ extension ManageTagsViewController: UITableViewDelegate {
             case .currentTags: tag = strongSelf.currentTags[indexPath.row]
             case .availableTags: tag = strongSelf.availableTags[indexPath.row]
             }
-            
+            let affectedTagsCount = strongSelf.dataProvider.items(with: tag)
+            let message = String(format: L10n.Tags.removeWarning, arguments: [tag.name, affectedTagsCount])
             let alertController = UIAlertController(title: L10n.Tags.remove,
-                                                    message: String(format: L10n.Tags.removeWarning, arguments: [tag.name]),
+                                                    message: message,
                                                     preferredStyle: .alert)
             let cancel = UIAlertAction(title: L10n.General.cancel, style: .cancel) { action in
                 success(false)

@@ -11,6 +11,7 @@ import CoreData
 
 protocol CoreDataFactory: class {
     var tags: [Tag] { get }
+    func items(with: Tag) -> Int
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
     func badgeNotifier() -> CoreDataNotifier<CoreDataItem>
     func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier<CoreDataItem>
@@ -59,6 +60,16 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     }
     
     //MARK: Public methods
+    func items(with tag: Tag) -> Int {
+        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        request.predicate = NSPredicate(format: "tags_.name_ CONTAINS[cd] %@", tag.name)
+        var result = 0
+        self.backgroundContext.performAndWait {
+            result = (try? self.backgroundContext.count(for: request)) ?? 0
+        }
+        return result
+    }
+    
     func build<T: Managed>(jsonArray: JSONArray) -> [T] {
         var objects: [T] = []
         self.backgroundContext.performAndWait {
