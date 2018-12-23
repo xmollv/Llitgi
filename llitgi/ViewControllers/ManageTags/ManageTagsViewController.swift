@@ -111,7 +111,7 @@ class ManageTagsViewController: UIViewController {
         self.tableView.isUserInteractionEnabled = false
 
         let itemModification = ItemModification.init(action: .replaceTags(with: self.currentTags.map{ $0.name }), id: self.item.id)
-        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(itemModification)) { [weak self] result in
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([itemModification])) { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:
