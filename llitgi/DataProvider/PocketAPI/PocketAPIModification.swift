@@ -16,7 +16,8 @@ struct ItemModification {
         case favorite
         case unfavorite
         case delete
-        case replaceTags(with: [String])
+        case replaceTags([String])
+        case removeTags([String])
         
         var stringValue: String {
             switch self {
@@ -27,6 +28,7 @@ struct ItemModification {
             case .unfavorite: return "unfavorite"
             case .delete: return "delete"
             case .replaceTags: return "tags_replace"
+            case .removeTags: return "tags_remove"
             }
         }
     }
@@ -38,7 +40,7 @@ struct ItemModification {
         var dict = ["action" : self.action.stringValue,
                     "item_id" : self.id]
         switch self.action {
-        case .replaceTags(let tags):
+        case .replaceTags(let tags), .removeTags(let tags):
             dict["tags"] = tags.joined(separator: ",")
         default: break
         }

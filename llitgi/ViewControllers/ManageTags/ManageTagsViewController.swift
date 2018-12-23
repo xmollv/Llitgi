@@ -108,7 +108,7 @@ class ManageTagsViewController: UIViewController {
     private func saveTapped(_ sender: UIBarButtonItem) {
         self.blockUserInterfaceForNetwork(true)
 
-        let itemModification = ItemModification.init(action: .replaceTags(with: self.currentTags.map{ $0.name }), id: self.item.id)
+        let itemModification = ItemModification.init(action: .replaceTags(self.currentTags.map{ $0.name }), id: self.item.id)
         self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([itemModification])) { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
@@ -177,9 +177,22 @@ class ManageTagsViewController: UIViewController {
         }
     }
     
-    private func delete(items: [Item], then: @escaping (Bool) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            then(true)
+    private func remove(tag: Tag, from items: [Item], then: @escaping (Bool) -> Void) {
+        let modifications = items.map { ItemModification(action: .removeTags([tag.name]), id: $0.id) }
+        
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modifications)) { [weak self] result in
+            guard let strongSelf = self else { return }
+            switch result {
+            case .isSuccess:
+                strongSelf.dataProvider.syncLibrary { _ in
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+                    then(true)
+                }
+            case .isFailure:
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                strongSelf.presentErrorAlert()
+                then(false)
+            }
         }
     }
 
@@ -221,10 +234,10 @@ extension ManageTagsViewController: UITableViewDelegate {
             }
             let remove = UIAlertAction(title: L10n.Tags.remove, style: .destructive) { action in
                 strongSelf.blockUserInterfaceForNetwork(true)
-                strongSelf.delete(items: affectedItems) { completed in
+                strongSelf.remove(tag: tag, from: affectedItems) { completed in
                     if completed {
                         success(true)
-                        switch Section(section: indexPath.row) {
+                        switch Section(section: indexPath.section) {
                         case .currentTags: strongSelf.currentTags.removeAll(where: { $0.name == tag.name })
                         case .availableTags: strongSelf.availableTags.removeAll(where: { $0.name == tag.name })
                         }
