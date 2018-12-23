@@ -205,7 +205,7 @@ extension ManageTagsViewController: UITableViewDelegate {
             let cancel = UIAlertAction(title: L10n.General.cancel, style: .cancel) { action in
                 success(false)
             }
-            let remove = UIAlertAction(title: L10n.Tags.remove, style: .default) { action in
+            let remove = UIAlertAction(title: L10n.Tags.remove, style: .destructive) { action in
                 success(true)
             }
             alertController.addAction(cancel)
