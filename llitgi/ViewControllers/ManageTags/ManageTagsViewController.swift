@@ -186,6 +186,36 @@ extension ManageTagsViewController: UITableViewDelegate {
         }
         self.tableView.reloadData()
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: L10n.Actions.delete) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            
+            let tag: Tag
+            switch Section(section: indexPath.section) {
+            case .currentTags: tag = strongSelf.currentTags[indexPath.row]
+            case .availableTags: tag = strongSelf.availableTags[indexPath.row]
+            }
+            
+            let alertController = UIAlertController(title: L10n.Tags.remove,
+                                                    message: String(format: L10n.Tags.removeWarning, arguments: [tag.name]),
+                                                    preferredStyle: .alert)
+            let cancel = UIAlertAction(title: L10n.General.cancel, style: .cancel) { action in
+                success(false)
+            }
+            let remove = UIAlertAction(title: L10n.Tags.remove, style: .default) { action in
+                success(true)
+            }
+            alertController.addAction(cancel)
+            alertController.addAction(remove)
+            strongSelf.present(alertController, animated: true)
+        }
+        
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
+        swipeConfiguration.performsFirstActionWithFullSwipe = false
+        return swipeConfiguration
+    }
 }
 
 //MARK:- UITableViewDataSource
