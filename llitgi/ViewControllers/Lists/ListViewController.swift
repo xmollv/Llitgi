@@ -44,6 +44,7 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
     
     //MARK: Public properties
     var settingsButtonTapped: (() -> Void)?
+    var tagsModification: ((Item) -> Void)?
     var selectedTag: ((Tag) -> Void)?
     var safariToPresent: ((SFSafariViewController) -> Void)?
     
@@ -66,6 +67,10 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
     deinit {
         self.themeManager.removeObserver(self)
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.themeManager.theme.statusBarStyle
     }
     
     override func viewDidLoad() {
@@ -215,6 +220,7 @@ extension ListViewController {
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         var item: Item = self.notifier.element(at: indexPath)
+        
         let favoriteAction = UIContextualAction(style: .normal, title: nil) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
             
@@ -232,7 +238,13 @@ extension ListViewController {
         favoriteAction.title = item.isFavorite ? L10n.Actions.unfavorite : L10n.Actions.favorite
         favoriteAction.backgroundColor = UIColor(displayP3Red: 194/255, green: 147/255, blue: 61/255, alpha: 1)
         
-        return UISwipeActionsConfiguration(actions: [favoriteAction])
+        let tagsModificationAction = UIContextualAction(style: .normal, title: L10n.Actions.tags) { [weak self] (action, view, success) in
+            self?.tagsModification?(item)
+            success(true)
+        }
+        tagsModificationAction.backgroundColor = UIColor(displayP3Red: 0/255, green: 122/255, blue: 255/255, alpha: 1)
+        
+        return UISwipeActionsConfiguration(actions: [favoriteAction, tagsModificationAction])
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

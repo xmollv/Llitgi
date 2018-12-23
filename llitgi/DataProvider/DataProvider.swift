@@ -20,8 +20,12 @@ final class DataProvider {
     }
     
     //MARK: Public properties
-     var pocketOAuthUrl: URL? {
+    var pocketOAuthUrl: URL? {
         return self.pocketAPI.OAuthURLWebsite
+    }
+    
+    var tags: [Tag] {
+        return self.modelFactory.tags
     }
     
     //MARK: Lifecycle

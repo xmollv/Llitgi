@@ -39,8 +39,8 @@ final class AppCoordinator: NSObject, Coordinator {
         self.userManager = userManager
         self.dataProvider = dataProvider
         self.themeManager = themeManager
-        self.splitViewController = UISplitViewController()
-        self.tabBarController = UITabBarController()
+        self.splitViewController = SplitViewController()
+        self.tabBarController = TabBarController()
         self.badgeManager = BadgeManager(notifier: dataProvider.badgeNotifier(), userManager: userManager)
 
         super.init()
@@ -49,7 +49,8 @@ final class AppCoordinator: NSObject, Coordinator {
             vc.safariToPresent = self.presentSafariClosure
             vc.settingsButtonTapped = { [weak self] in self?.showSettings() }
             vc.selectedTag = { [weak self] tag in self?.show(tag: tag) }
-            let navController = UINavigationController(rootViewController: vc)
+            vc.tagsModification = { [weak self] item in self?.showTagsPicker(for: item) }
+            let navController = NavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
             navController.navigationBar.barStyle = self.themeManager.theme.barStyle
             return navController
@@ -67,7 +68,6 @@ final class AppCoordinator: NSObject, Coordinator {
         // Configure the window
         window.makeKeyAndVisible()
         window.tintColor = self.themeManager.theme.tintColor
-        UIApplication.shared.statusBarStyle = self.themeManager.theme.statusBarStyle
         self.themeManager.addObserver(self) { [weak self, weak window] theme in
             window?.tintColor = theme.tintColor
             self?.tabBarController.viewControllers?.forEach {
@@ -76,7 +76,6 @@ final class AppCoordinator: NSObject, Coordinator {
             }
             self?.tabBarController.tabBar.barStyle = theme.barStyle
             self?.splitViewController.view.backgroundColor = theme.backgroundColor
-            UIApplication.shared.statusBarStyle = theme.statusBarStyle
         }
         window.rootViewController = self.splitViewController
     }
@@ -129,7 +128,7 @@ final class AppCoordinator: NSObject, Coordinator {
                 self?.dataProvider.clearLocalStorage()
             })
         }
-        let navController = UINavigationController(rootViewController: settingsViewController)
+        let navController = NavigationController(rootViewController: settingsViewController)
         navController.modalPresentationStyle = .formSheet
         self.splitViewController.present(navController, animated: true, completion: nil)
     }
@@ -141,6 +140,15 @@ final class AppCoordinator: NSObject, Coordinator {
         tagViewController.safariToPresent = self.presentSafariClosure
         #warning("This hack will bit back")
         ((self.splitViewController.viewControllers.first as? UITabBarController)?.selectedViewController as? UINavigationController)?.pushViewController(tagViewController, animated: true)
+    }
+    
+    private func showTagsPicker(for item: Item) {
+        let tagPicker = self.factory.instantiateManageTagsViewController(item: item) { [weak self] in
+            self?.splitViewController.dismiss(animated: true, completion: nil)
+        }
+        let navController = NavigationController(rootViewController: tagPicker)
+        navController.modalPresentationStyle = .formSheet
+        self.splitViewController.present(navController, animated: true, completion: nil)
     }
     
     private func showFullSync() {

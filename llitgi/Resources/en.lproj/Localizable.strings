@@ -5,6 +5,8 @@
 "General.errorPocket" = "Something went wrong communicating with Pocket. Could you please try again?";
 "General.errorTitle" = "Oops!";
 "General.errorDescription" = "Something went wrong.";
+"General.cancel" = "Cancel";
+"General.add" = "Add";
 
 "Onboarding.title" = "Welcome to Llitgi.";
 "Onboarding.offlineTitle" = "Offline first";
@@ -34,6 +36,7 @@
 "Actions.archive" = "Archive";
 "Actions.unarchive" = "Unarchive";
 "Actions.unfavorite" = "Unfavorite";
+"Actions.tags" = "Manage\nTags";
 
 "Settings.badgecount" = "Show app badge count";
 "Settings.badgeExplanation" = "We'll show you a badge on the app icon indicating how many items are on your list.";
@@ -46,3 +49,7 @@
 "Settings.darkTheme" = "Dark";
 
 "ShareExtension.saving" = "Saving to Llitgi...";
+
+"Tags.current" = "Current Tags";
+"Tags.available" = "Available Tags";
+"Tags.newTagTitle" = "New Tag";
