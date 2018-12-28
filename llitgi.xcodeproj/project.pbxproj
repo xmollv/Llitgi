@@ -22,6 +22,8 @@
 		47376DE71FF0831600B8E70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Item.swift */; };
 		47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47392347202667E3005526C5 /* LitgiUserDefaults.swift */; };
 		47392349202667E3005526C5 /* LitgiUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47392347202667E3005526C5 /* LitgiUserDefaults.swift */; };
+		474166A521D6D26800071B8F /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474166A421D6D26800071B8F /* ItemsViewController.swift */; };
+		474166A721D6D6E600071B8F /* TaggedItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474166A621D6D6E600071B8F /* TaggedItemsViewController.swift */; };
 		474B44202001A52D009897D2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474B441E2001A52C009897D2 /* SettingsViewController.swift */; };
 		474B44212001A52D009897D2 /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 474B441F2001A52C009897D2 /* SettingsViewController.xib */; };
 		4752C0832030BCA800988A68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4752C0822030BCA800988A68 /* Assets.xcassets */; };
@@ -118,6 +120,8 @@
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47376DE61FF0831600B8E70C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		47392347202667E3005526C5 /* LitgiUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LitgiUserDefaults.swift; sourceTree = "<group>"; };
+		474166A421D6D26800071B8F /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
+		474166A621D6D6E600071B8F /* TaggedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaggedItemsViewController.swift; sourceTree = "<group>"; };
 		474B441E2001A52C009897D2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		474B441F2001A52C009897D2 /* SettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		4752C0822030BCA800988A68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -251,6 +255,8 @@
 			children = (
 				4723ED6721B4246F002E25E3 /* TypeOfList.swift */,
 				4770ACF91FF18AF7006E755D /* BaseListViewController.swift */,
+				474166A421D6D26800071B8F /* ItemsViewController.swift */,
+				474166A621D6D6E600071B8F /* TaggedItemsViewController.swift */,
 				4770AD011FF1B470006E755D /* ListCell.swift */,
 				4770AD021FF1B470006E755D /* ListCell.xib */,
 			);
@@ -587,6 +593,8 @@
 				47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */,
 				474B44202001A52D009897D2 /* SettingsViewController.swift in Sources */,
 				477B511021C69374000E7633 /* TagsView.swift in Sources */,
+				474166A521D6D26800071B8F /* ItemsViewController.swift in Sources */,
+				474166A721D6D6E600071B8F /* TaggedItemsViewController.swift in Sources */,
 				478F43852038B24E003ECCAD /* UITableView.swift in Sources */,
 				4770AD001FF1B3B8006E755D /* ReusableCells.swift in Sources */,
 				47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */,

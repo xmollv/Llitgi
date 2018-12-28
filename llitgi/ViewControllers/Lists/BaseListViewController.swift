@@ -12,48 +12,22 @@ import SafariServices
 class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
     
     //MARK: Private properties
-    private let dataProvider: DataProvider
-    private let userManager: UserManager
-    private let themeManager: ThemeManager
-    private let typeOfList: TypeOfList
-    private let _notifier: CoreDataNotifier<CoreDataItem>
+    let dataProvider: DataProvider
+    let userManager: UserManager
+    let themeManager: ThemeManager
+    let _notifier: CoreDataNotifier<CoreDataItem>
     private(set) var notifier: CoreDataNotifier<CoreDataItem>
-    private lazy var searchController: UISearchController = {
-        let sc = UISearchController(searchResultsController: nil)
-        sc.searchResultsUpdater = self
-        sc.obscuresBackgroundDuringPresentation = false
-        sc.searchBar.placeholder = L10n.General.search
-        sc.searchBar.scopeButtonTitles = [L10n.Titles.all, L10n.Titles.myList, L10n.Titles.favorites, L10n.Titles.archive]
-        sc.searchBar.selectedScopeButtonIndex = self.typeOfList.position
-        sc.searchBar.delegate = self
-        return sc
-    }()
-    private lazy var customRefreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
-        return refreshControl
-    }()
-    private lazy var addButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButtonTapped(_:)))
-    }()
-    private lazy var loadingButton: UIBarButtonItem = {
-        let loading = UIActivityIndicatorView(style: .gray)
-        loading.startAnimating()
-        return UIBarButtonItem(customView: loading)
-    }()
     
     //MARK: Public properties
-    var settingsButtonTapped: (() -> Void)?
     var tagsModification: ((Item) -> Void)?
     var selectedTag: ((Tag) -> Void)?
     var safariToPresent: ((SFSafariViewController) -> Void)?
     
     //MARK:- Lifecycle
-    required init(notifier: CoreDataNotifier<CoreDataItem>, dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager, type: TypeOfList) {
+    init(notifier: CoreDataNotifier<CoreDataItem>, dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager) {
         self.dataProvider = dataProvider
         self.userManager = userManager
         self.themeManager = themeManager
-        self.typeOfList = type
         self._notifier = notifier
         self.notifier = notifier
         super.init(style: .plain)
@@ -76,25 +50,11 @@ class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.replaceCurrentNotifier(for: self._notifier)
-        
-        self.extendedLayoutIncludesOpaqueBars = true
-        self.definesPresentationContext = true
-        
-        self.navigationItem.searchController = self.searchController
-        self.navigationItem.hidesSearchBarWhenScrolling = false
-        self.navigationItem.rightBarButtonItem = self.addButton
-        //self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), landscapeImagePhone: #imageLiteral(resourceName: "settings_landscape"), style: .plain, target: self, action: #selector(self.displaySettings(_:)))
-        
-        if self.typeOfList == .myList {
-            NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: UIApplication.didBecomeActiveNotification, object: nil)
-        }
-        
         self.configureTableView()
         self.apply(self.themeManager.theme)
         self.themeManager.addObserver(self) { [weak self] theme in
             self?.apply(theme)
         }
-        self.pullToRefresh()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,22 +75,11 @@ class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
         self.tableView.scrollToRow(at: firstIndexPath, at: .top, animated: true)
     }
     
-    //MARK: Private methods
-    private func apply(_ theme: Theme) {
-        self.searchController.searchBar.keyboardAppearance = theme.keyboardAppearance
+    func apply(_ theme: Theme) {
         self.tableView.backgroundColor = theme.backgroundColor
         self.tableView.separatorColor = theme.separatorColor
         self.tableView.indicatorStyle = theme.indicatorStyle
-        self.customRefreshControl.tintColor = theme.pullToRefreshColor
-        (self.loadingButton.customView as? UIActivityIndicatorView)?.color = theme.tintColor
         self.tableView.reloadData()
-    }
-    
-    private func configureTableView() {
-        self.tableView.register(ListCell.self)
-        self.tableView.tableFooterView = UIView()
-        self.refreshControl = self.customRefreshControl
-        self.tableView.separatorInset = .zero
     }
     
     func replaceCurrentNotifier(for notifier: CoreDataNotifier<CoreDataItem>) {
@@ -139,47 +88,12 @@ class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
         self.notifier.startNotifying()
     }
     
-    @objc
-    private func pullToRefresh() {
-        guard self.userManager.isLoggedIn else { return }
-        self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
-            switch result {
-            case .isSuccess: break
-            case .isFailure(let error):
-                Logger.log(error.localizedDescription, event: .error)
-            }
-            self?.customRefreshControl.endRefreshing()
-        }
+    //MARK: Private methods
+    private func configureTableView() {
+        self.tableView.register(ListCell.self)
+        self.tableView.tableFooterView = UIView()
+        self.tableView.separatorInset = .zero
     }
-    
-    @IBAction private func addButtonTapped(_ sender: UIButton) {
-        self.navigationItem.rightBarButtonItem = self.loadingButton
-        guard let url = UIPasteboard.general.url else {
-            self.navigationItem.rightBarButtonItem = self.addButton
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            self.presentErrorAlert(with: L10n.General.errorTitle, and: L10n.Add.invalidPasteboard)
-            return
-        }
-
-        self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] (result: EmptyResult) in
-            guard let strongSelf = self else { return }
-            strongSelf.navigationItem.rightBarButtonItem = strongSelf.addButton
-            switch result {
-            case .isSuccess:
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
-                strongSelf.pullToRefresh()
-            case .isFailure(let error):
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-                strongSelf.presentErrorAlert()
-                Logger.log(error.localizedDescription, event: .error)
-            }
-        }
-    }
-    
-    @IBAction private func displaySettings(_ sender: UIBarButtonItem) {
-        self.settingsButtonTapped?()
-    }
-
 }
 
 //MARK:- UITableViewDataSource
@@ -196,10 +110,6 @@ extension BaseListViewController {
         let cell: ListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
         cell.configure(with: item, theme: self.themeManager.theme)
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Section: \(section)"
     }
 }
 
@@ -283,34 +193,5 @@ extension BaseListViewController {
         }
         
         return UISwipeActionsConfiguration(actions: [archiveAction, deleteAction])
-    }
-}
-
-extension BaseListViewController: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.tabBarController?.tabBar.isHidden = true
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.searchController.searchBar.selectedScopeButtonIndex = self.typeOfList.position
-        self.replaceCurrentNotifier(for: self._notifier)
-        self.tabBarController?.tabBar.isHidden = false
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        self.updateSearchResults(for: self.searchController)
-    }
-}
-
-extension BaseListViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchText = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces) ?? ""
-        let typeOfListForSearch = TypeOfList(selectedScope: searchController.searchBar.selectedScopeButtonIndex)
-        if searchText.isEmpty {
-            self.replaceCurrentNotifier(for: self.dataProvider.notifier(for: typeOfListForSearch))
-        } else {
-            self.replaceCurrentNotifier(for: self.dataProvider.notifier(for: typeOfListForSearch, filteredBy: searchText))
-        }
-        self.tableView.reloadData()
     }
 }

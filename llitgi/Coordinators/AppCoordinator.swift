@@ -176,7 +176,7 @@ extension AppCoordinator: UITabBarControllerDelegate {
         guard let newViewController = (viewController as? UINavigationController)?.topViewController else { return true }
         guard let currentViewController = (tabBarController.selectedViewController as? UINavigationController)?.topViewController else { return true }
 
-        if let list = newViewController as? BaseListViewController {
+        if let list = newViewController as? ItemsViewController {
             guard list.isEqual(currentViewController) else { return true }
             list.scrollToTop()
         }
