@@ -50,6 +50,7 @@ class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.extendedLayoutIncludesOpaqueBars = true
+        self.registerForPreviewing(with: self, sourceView: self.tableView)
         self.replaceCurrentNotifier(for: self._notifier)
         self.configureTableView()
         self.apply(self.themeManager.theme)
@@ -89,6 +90,16 @@ class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
         self.tableView.tableFooterView = UIView()
         self.tableView.separatorInset = .zero
     }
+    
+    private func safariViewController(at indexPath: IndexPath) -> SFSafariViewController {
+        let item = self.notifier.element(at: indexPath)
+        let cfg = SFSafariViewController.Configuration()
+        cfg.entersReaderIfAvailable = self.userManager.openReaderMode
+        let sfs = SFSafariViewController(url: item.url, configuration: cfg)
+        sfs.preferredControlTintColor = self.themeManager.theme.tintColor
+        sfs.preferredBarTintColor = self.themeManager.theme.backgroundColor
+        return sfs
+    }
 }
 
 //MARK:- UITableViewDataSource
@@ -115,11 +126,7 @@ extension BaseListViewController {
         let item: Item = self.notifier.element(at: indexPath)
         switch self.userManager.openLinksWith {
         case .safariViewController:
-            let cfg = SFSafariViewController.Configuration()
-            cfg.entersReaderIfAvailable = self.userManager.openReaderMode
-            let sfs = SFSafariViewController(url: item.url, configuration: cfg)
-            sfs.preferredControlTintColor = self.themeManager.theme.tintColor
-            sfs.preferredBarTintColor = self.themeManager.theme.backgroundColor
+            let sfs = self.safariViewController(at: indexPath)
             self.safariToPresent?(sfs)
         case .safari:
             UIApplication.shared.open(item.url, options: [:], completionHandler: nil)
@@ -183,5 +190,19 @@ extension BaseListViewController {
         }
         
         return UISwipeActionsConfiguration(actions: [archiveAction, deleteAction])
+    }
+}
+
+//MARK:- UIViewControllerPreviewingDelegate
+extension BaseListViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = self.tableView.indexPathForRow(at: location) else { return nil }
+        previewingContext.sourceRect = self.tableView.rectForRow(at: indexPath)
+        let sfs = self.safariViewController(at: indexPath)
+        return sfs
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.present(viewControllerToCommit, animated: true, completion: nil)
     }
 }
