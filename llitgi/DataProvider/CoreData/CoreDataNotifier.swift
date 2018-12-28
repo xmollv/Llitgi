@@ -53,9 +53,6 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
     
     //MARK: Public properties
     weak var delegate: CoreDataNotifierDelegate? = nil
-    var numberOfSections: Int {
-        return self.fetchResultController.sections?.count ?? 0
-    }
     
     //MARK:- Lifecycle
     init(fetchResultController: NSFetchedResultsController<T>) {
@@ -66,32 +63,31 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
     
     //MARK:- Public methods
     func startNotifying() {
-        assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
         do {
             try self.fetchResultController.performFetch()
         } catch {
-            assertionFailure(error.localizedDescription)
             self.delegate?.startNotifyingFailed(with: error)
         }
     }
     
-    func numberOfElements(inSection section: Int) -> Int {
-        assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
-        let numberOfSections = self.fetchResultController.sections?.count ?? 0
-        guard section < numberOfSections else {
-            assertionFailure("Section is lower than the number of sectionsof the FRC")
-            return 0
-        }
-        guard let section = self.fetchResultController.sections?[section] else {
-            assertionFailure("Unable to grab the section from the FRC sections")
-            return 0
-        }
-        return section.objects?.count ?? 0
+    func element(at indexPath: IndexPath) -> T {
+        return self.fetchResultController.object(at: indexPath)
     }
     
-    func element(at indexPath: IndexPath) -> T {
-        assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
-        return self.fetchResultController.object(at: indexPath)
+    func numberOfSections() -> Int {
+        guard let numberOfSections = self.fetchResultController.sections?.count else {
+            assertionFailure("Unable to count the number of sections")
+            return 0
+        }
+        return numberOfSections
+    }
+    
+    func numberOfElements(inSection section: Int) -> Int {
+        guard let numberOfElements = self.fetchResultController.sections?[section].objects?.count else {
+            assertionFailure("Unable to count the elements at section \(section)")
+            return 0
+        }
+        return numberOfElements
     }
     
     //MARK:- NSFetchedResultsControllerDelegate

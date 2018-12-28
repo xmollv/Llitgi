@@ -184,7 +184,7 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
 //MARK:- UITableViewDataSource
 extension ListViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return self.notifier.numberOfSections
+        return self.notifier.numberOfSections()
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.notifier.numberOfElements(inSection: section)
