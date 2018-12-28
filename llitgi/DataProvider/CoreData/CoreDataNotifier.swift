@@ -81,11 +81,10 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
     }
     
     func numberOfElements(inSection section: Int) -> Int {
-        guard let numberOfElements = self.fetchResultController.sections?[section].objects?.count else {
-            assertionFailure("Unable to count the elements at section \(section)")
-            return 0
-        }
-        return numberOfElements
+        let numberOfSections = self.fetchResultController.sections?.count ?? 0
+        guard section < numberOfSections else { return 0 }
+        guard let section = self.fetchResultController.sections?[section] else { return 0 }
+        return section.objects?.count ?? 0
     }
     
     //MARK:- NSFetchedResultsControllerDelegate
