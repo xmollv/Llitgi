@@ -109,18 +109,13 @@ extension BaseListViewController {
         let item: Item = self.notifier.element(at: indexPath)
         let cell: ListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
         cell.configure(with: item, theme: self.themeManager.theme)
+        cell.selectedTag = self.selectedTag
         return cell
     }
 }
 
 //MARK:- UITableViewDelegate
 extension BaseListViewController {
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let listCell = cell as? ListCell {
-            listCell.selectedTag = self.selectedTag
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item: Item = self.notifier.element(at: indexPath)
         switch self.userManager.openLinksWith {

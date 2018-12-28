@@ -11,8 +11,10 @@ import Foundation
 
 final class TaggedItemsViewController: BaseListViewController {
     
+    //MARK:- Private properties
     private let tag: Tag
     
+    //MARK:- Lifecycle
     init(notifier: CoreDataNotifier<CoreDataItem>, dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager, tag: Tag) {
         self.tag = tag
         super.init(notifier: notifier, dataProvider: dataProvider, userManager: userManager, themeManager: themeManager)
@@ -21,6 +23,7 @@ final class TaggedItemsViewController: BaseListViewController {
     
 }
 
+//MARK:- UITableViewDelegate
 extension TaggedItemsViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return (self.notifier.numberOfSections() > 1) ? UITableView.automaticDimension : 0.0
@@ -37,6 +40,7 @@ extension TaggedItemsViewController {
             sectionHeaderView.text = L10n.Titles.archive
             return sectionHeaderView
         default:
+            assertionFailure("Unhandled case")
             return nil
         }
     }

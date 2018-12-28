@@ -9,6 +9,27 @@
 import UIKit
 import Foundation
 
+enum TypeOfList: Int {
+    case all = 0
+    case myList = 1
+    case favorites = 2
+    case archive = 3
+    
+    init(selectedScope: Int) {
+        switch selectedScope {
+        case 0: self = .all
+        case 1: self = .myList
+        case 2: self = .favorites
+        case 3: self = .archive
+        default: fatalError("You've fucked up.")
+        }
+    }
+    
+    var position: Int {
+        return self.rawValue
+    }
+}
+
 final class ItemsViewController: BaseListViewController {
     
     //MARK:- Private Properties
@@ -65,6 +86,7 @@ final class ItemsViewController: BaseListViewController {
         self.pullToRefresh()
     }
     
+    //MARK: Public methods
     override func apply(_ theme: Theme) {
         self.searchController.searchBar.keyboardAppearance = theme.keyboardAppearance
         self.customRefreshControl.tintColor = theme.pullToRefreshColor
@@ -102,8 +124,7 @@ final class ItemsViewController: BaseListViewController {
     }
     
     //MARK:- Private methods
-    @objc
-    private func pullToRefresh() {
+    @objc private func pullToRefresh() {
         guard self.userManager.isLoggedIn else { return }
         self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
             switch result {
@@ -113,12 +134,6 @@ final class ItemsViewController: BaseListViewController {
             }
             self?.customRefreshControl.endRefreshing()
         }
-    }
-}
-
-extension ItemsViewController {
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
     }
 }
 
