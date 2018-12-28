@@ -26,6 +26,7 @@ final class TaggedItemsViewController: BaseListViewController {
 //MARK:- UITableViewDelegate
 extension TaggedItemsViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard self.notifier.numberOfSections() > 1 else { return 0.0 }
         return (self.notifier.numberOfElements(inSection: section) > 0) ? UITableView.automaticDimension : 0.0
     }
     
