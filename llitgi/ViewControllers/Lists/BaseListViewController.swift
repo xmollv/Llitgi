@@ -70,12 +70,6 @@ class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
     }
     
     //MARK: Public methods
-    func scrollToTop() {
-        guard self.notifier.numberOfElements(inSection: 0) > 0 else { return }
-        let firstIndexPath = IndexPath(row: 0, section: 0)
-        self.tableView.scrollToRow(at: firstIndexPath, at: .top, animated: true)
-    }
-    
     func apply(_ theme: Theme) {
         self.tableView.backgroundColor = theme.backgroundColor
         self.tableView.separatorColor = theme.separatorColor

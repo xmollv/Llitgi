@@ -85,6 +85,12 @@ final class ItemsViewController: BaseListViewController {
     }
     
     //MARK: Public methods
+    func scrollToTop() {
+        guard self.notifier.numberOfElements(inSection: 0) > 0 else { return }
+        let firstIndexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at: firstIndexPath, at: .top, animated: true)
+    }
+    
     override func apply(_ theme: Theme) {
         self.searchController.searchBar.keyboardAppearance = theme.keyboardAppearance
         self.customRefreshControl.tintColor = theme.pullToRefreshColor
