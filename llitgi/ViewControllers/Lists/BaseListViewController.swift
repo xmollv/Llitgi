@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class ListViewController: UITableViewController, TableViewCoreDataNotifier {
+class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
     
     //MARK: Private properties
     private let dataProvider: DataProvider
@@ -56,7 +56,7 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
         self.typeOfList = type
         self._notifier = notifier
         self.notifier = notifier
-        super.init(nibName: String(describing: ListViewController.self), bundle: nil)
+        super.init(style: .plain)
     }
     
     @available(*, unavailable)
@@ -130,6 +130,7 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
         self.tableView.register(ListCell.self)
         self.tableView.tableFooterView = UIView()
         self.refreshControl = self.customRefreshControl
+        self.tableView.separatorInset = .zero
     }
     
     func replaceCurrentNotifier(for notifier: CoreDataNotifier<CoreDataItem>) {
@@ -182,7 +183,7 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
 }
 
 //MARK:- UITableViewDataSource
-extension ListViewController {
+extension BaseListViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return self.notifier.numberOfSections()
     }
@@ -203,7 +204,7 @@ extension ListViewController {
 }
 
 //MARK:- UITableViewDelegate
-extension ListViewController {
+extension BaseListViewController {
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let listCell = cell as? ListCell {
             listCell.selectedTag = self.selectedTag
@@ -285,7 +286,7 @@ extension ListViewController {
     }
 }
 
-extension ListViewController: UISearchBarDelegate {
+extension BaseListViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.tabBarController?.tabBar.isHidden = true
     }
@@ -301,7 +302,7 @@ extension ListViewController: UISearchBarDelegate {
     }
 }
 
-extension ListViewController: UISearchResultsUpdating {
+extension BaseListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = searchController.searchBar.text?.trimmingCharacters(in: .whitespaces) ?? ""
         let typeOfListForSearch = TypeOfList(selectedScope: searchController.searchBar.selectedScopeButtonIndex)

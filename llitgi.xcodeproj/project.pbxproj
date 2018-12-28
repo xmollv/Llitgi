@@ -40,7 +40,7 @@
 		475E1784202633F9007033F1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		4770ACF51FF111A9006E755D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF41FF111A9006E755D /* UIView.swift */; };
 		4770ACF71FF17AFD006E755D /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF61FF17AFD006E755D /* Notification.swift */; };
-		4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF91FF18AF7006E755D /* ListViewController.swift */; };
+		4770ACFB1FF18AF7006E755D /* BaseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF91FF18AF7006E755D /* BaseListViewController.swift */; };
 		4770AD001FF1B3B8006E755D /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
 		4770AD031FF1B470006E755D /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770AD011FF1B470006E755D /* ListCell.swift */; };
 		4770AD041FF1B470006E755D /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4770AD021FF1B470006E755D /* ListCell.xib */; };
@@ -56,7 +56,6 @@
 		479E18E620724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A493A6203F6E6B004051A6 /* Bundle.swift */; };
 		47BFBFA921B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */; };
-		47DB058020B009BE001485DF /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47DB057E20B009BE001485DF /* ListViewController.xib */; };
 		47DB058220B067DB001485DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47DB058120B067DB001485DF /* Assets.xcassets */; };
 		47DE472B209A53D500770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47DE472C209A5C6E00770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
@@ -130,7 +129,7 @@
 		475E177420262CAD007033F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4770ACF41FF111A9006E755D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		4770ACF61FF17AFD006E755D /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
-		4770ACF91FF18AF7006E755D /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		4770ACF91FF18AF7006E755D /* BaseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseListViewController.swift; sourceTree = "<group>"; };
 		4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCells.swift; sourceTree = "<group>"; };
 		4770AD011FF1B470006E755D /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		4770AD021FF1B470006E755D /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
@@ -144,7 +143,6 @@
 		479E18E420724652002E3BB1 /* PocketConsumerKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PocketConsumerKey; sourceTree = "<group>"; };
 		47A493A6203F6E6B004051A6 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCoreDataNotifier.swift; sourceTree = "<group>"; };
-		47DB057E20B009BE001485DF /* ListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
 		47DB058120B067DB001485DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47DE472A209A53D500770884 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		47E6128A203085BA00D26472 /* llitgi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = llitgi.entitlements; sourceTree = "<group>"; };
@@ -252,8 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				4723ED6721B4246F002E25E3 /* TypeOfList.swift */,
-				4770ACF91FF18AF7006E755D /* ListViewController.swift */,
-				47DB057E20B009BE001485DF /* ListViewController.xib */,
+				4770ACF91FF18AF7006E755D /* BaseListViewController.swift */,
 				4770AD011FF1B470006E755D /* ListCell.swift */,
 				4770AD021FF1B470006E755D /* ListCell.xib */,
 			);
@@ -514,7 +511,6 @@
 			files = (
 				47F5845621CEB1F800C7D17D /* TagPickerCell.xib in Resources */,
 				47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */,
-				47DB058020B009BE001485DF /* ListViewController.xib in Resources */,
 				474B44212001A52D009897D2 /* SettingsViewController.xib in Resources */,
 				47F5845221CEA9EF00C7D17D /* ManageTagsViewController.xib in Resources */,
 				4752C0882030F22300988A68 /* FullSyncViewController.xib in Resources */,
@@ -570,7 +566,7 @@
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */,
 				4732BE4D213011BC0070D83A /* ThemeManager.swift in Sources */,
-				4770ACFB1FF18AF7006E755D /* ListViewController.swift in Sources */,
+				4770ACFB1FF18AF7006E755D /* BaseListViewController.swift in Sources */,
 				47EBC007218367A700343AF7 /* Tag.swift in Sources */,
 				47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
 				47F5845E21D02B6D00C7D17D /* SectionHeaderView.swift in Sources */,
