@@ -40,7 +40,7 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
     
     //MARK: Public properties
     weak var delegate: CoreDataNotifierDelegate? = nil
-    var sections: Int {
+    var numberOfSections: Int {
         return self.fetchResultController.sections?.count ?? 0
     }
     
