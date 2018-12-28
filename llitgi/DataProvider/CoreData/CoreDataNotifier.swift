@@ -12,9 +12,22 @@ import CoreData
 
 protocol CoreDataNotifierDelegate: class {
     func willChangeContent()
-    func didChangeContent(_ change: CoreDataNotifierChange)
+    func didChangeSection(_ change: CoreDataNotifierSectionChange)
+    func didChangeObject(_ change: CoreDataNotifierChange)
     func endChangingContent()
     func startNotifyingFailed(with: Error)
+}
+
+enum CoreDataNotifierSectionChange {
+    case insert(sectionIndex: Int)
+    case delete(sectionIndex: Int)
+    
+    var description: String {
+        switch self {
+        case .insert(let section): return "Insert section \(section)"
+        case .delete(let section): return "Delete section \(section)"
+        }
+    }
 }
 
 enum CoreDataNotifierChange {
@@ -87,6 +100,19 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
         self.delegate?.willChangeContent()
     }
     
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
+        
+        switch type {
+        case .insert:
+            self.delegate?.didChangeSection(.insert(sectionIndex: sectionIndex))
+        case .delete:
+            self.delegate?.didChangeSection(.delete(sectionIndex: sectionIndex))
+        default:
+            assertionFailure("This should never happen based on the docs")
+        }
+    }
+    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
         
@@ -119,7 +145,7 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
             change = .delete(indexPath: indexPath)
         }
         
-        self.delegate?.didChangeContent(change)
+        self.delegate?.didChangeObject(change)
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
