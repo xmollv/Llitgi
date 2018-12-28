@@ -134,7 +134,7 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func show(tag: Tag) {
-        let tagViewController = self.factory.instantiateTagViewController(with: tag)
+        let tagViewController = self.factory.instantiateList(for: tag)
         tagViewController.hidesBottomBarWhenPushed = true
         tagViewController.selectedTag = { [weak self] tag in self?.show(tag: tag) }
         tagViewController.safariToPresent = self.presentSafariClosure

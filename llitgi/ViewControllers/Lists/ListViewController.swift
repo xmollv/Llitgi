@@ -49,13 +49,13 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
     var safariToPresent: ((SFSafariViewController) -> Void)?
     
     //MARK:- Lifecycle
-    required init(dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager, type: TypeOfList) {
+    required init(notifier: CoreDataNotifier<CoreDataItem>, dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager, type: TypeOfList) {
         self.dataProvider = dataProvider
         self.userManager = userManager
         self.themeManager = themeManager
         self.typeOfList = type
-        self._notifier = dataProvider.notifier(for: type)
-        self.notifier = dataProvider.notifier(for: type)
+        self._notifier = notifier
+        self.notifier = notifier
         super.init(nibName: String(describing: ListViewController.self), bundle: nil)
     }
     
@@ -83,7 +83,7 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
         self.navigationItem.searchController = self.searchController
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.rightBarButtonItem = self.addButton
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), landscapeImagePhone: #imageLiteral(resourceName: "settings_landscape"), style: .plain, target: self, action: #selector(self.displaySettings(_:)))
+        //self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), landscapeImagePhone: #imageLiteral(resourceName: "settings_landscape"), style: .plain, target: self, action: #selector(self.displaySettings(_:)))
         
         if self.typeOfList == .myList {
             NotificationCenter.default.addObserver(self, selector: #selector(self.pullToRefresh), name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -183,6 +183,9 @@ class ListViewController: UITableViewController, TableViewCoreDataNotifier {
 
 //MARK:- UITableViewDataSource
 extension ListViewController {
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return self.notifier.sections
+    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.notifier.numberOfElements(inSection: section)
     }
@@ -192,6 +195,10 @@ extension ListViewController {
         let cell: ListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
         cell.configure(with: item, theme: self.themeManager.theme)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Section: \(section)"
     }
 }
 

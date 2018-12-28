@@ -15,6 +15,7 @@ protocol CoreDataFactory: class {
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
     func badgeNotifier() -> CoreDataNotifier<CoreDataItem>
     func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier<CoreDataItem>
+    func notifier(for: Tag) -> CoreDataNotifier<CoreDataItem>
     func deleteAllModels()
 }
 
@@ -135,6 +136,20 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         let frc = NSFetchedResultsController(fetchRequest: request,
                                              managedObjectContext: self.mainThreadContext,
                                              sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        return CoreDataNotifier(fetchResultController: frc)
+    }
+    
+    func notifier(for tag: Tag) -> CoreDataNotifier<CoreDataItem> {
+        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        request.predicate = NSPredicate(format: "status_ != '2' AND tags_.name_ CONTAINS[cd] %@", tag.name)
+        let status = NSSortDescriptor(key: "status_", ascending: true)
+        let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
+        let id = NSSortDescriptor(key: "id_", ascending: false)
+        request.sortDescriptors = [status, addedTime, id]
+        let frc = NSFetchedResultsController(fetchRequest: request,
+                                             managedObjectContext: self.mainThreadContext,
+                                             sectionNameKeyPath: "status_",
                                              cacheName: nil)
         return CoreDataNotifier(fetchResultController: frc)
     }

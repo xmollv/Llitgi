@@ -45,7 +45,11 @@ final class ViewControllerFactory {
     }
     
     private func instantiateList(for type: TypeOfList) -> ListViewController {
-        return ListViewController(dataProvider: self.dataProvider, userManager: self.userManager, themeManager: self.themeManager, type: type)
+        return ListViewController(notifier: self.dataProvider.notifier(for: type), dataProvider: self.dataProvider, userManager: self.userManager, themeManager: self.themeManager, type: type)
+    }
+    
+    func instantiateList(for tag: Tag) -> ListViewController {
+        return ListViewController(notifier: self.dataProvider.notifier(for: tag), dataProvider: self.dataProvider, userManager: self.userManager, themeManager: self.themeManager, type: .myList)
     }
     
     func instantiateSettings() -> SettingsViewController {
@@ -54,10 +58,6 @@ final class ViewControllerFactory {
     
     func instantiateFullSync() -> FullSyncViewController {
         return FullSyncViewController(dataProvider: self.dataProvider)
-    }
-    
-    func instantiateTagViewController(with tag: Tag) -> TagViewController {
-        return TagViewController(tag: tag, themeManager: self.themeManager, userManager: self.userManager)
     }
     
     func instantiateManageTagsViewController(item: Item, completed: @escaping () -> Void) -> ManageTagsViewController {
