@@ -69,9 +69,7 @@ final class ItemsViewController: BaseListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.extendedLayoutIncludesOpaqueBars = true
         self.definesPresentationContext = true
-        
         self.navigationItem.searchController = self.searchController
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.rightBarButtonItem = self.addButton

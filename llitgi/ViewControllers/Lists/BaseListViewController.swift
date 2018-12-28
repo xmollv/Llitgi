@@ -49,6 +49,7 @@ class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.extendedLayoutIncludesOpaqueBars = true
         self.replaceCurrentNotifier(for: self._notifier)
         self.configureTableView()
         self.apply(self.themeManager.theme)
