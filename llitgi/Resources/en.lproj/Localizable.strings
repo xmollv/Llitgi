@@ -53,3 +53,5 @@
 "Tags.current" = "Current Tags";
 "Tags.available" = "Available Tags";
 "Tags.newTagTitle" = "New Tag";
+"Tags.remove" = "Remove";
+"Tags.removeWarning" = "Are you sure that you want to remove \"%1$@\"? %2$d items will be affected by this change.";

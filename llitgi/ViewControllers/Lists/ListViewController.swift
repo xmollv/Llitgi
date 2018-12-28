@@ -231,7 +231,7 @@ extension ListViewController {
                 modification = ItemModification(action: .favorite, id: item.id)
             }
             
-            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
+            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([modification]))
             item.switchFavoriteStatus()
             success(true)
         }
@@ -261,7 +261,7 @@ extension ListViewController {
                 modification = ItemModification(action: .readd, id: item.id)
                 item.changeStatus(to: .normal)
             }
-            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
+            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([modification]))
             success(true)
         }
         archiveAction.title = item.status == .normal ? L10n.Actions.archive : L10n.Actions.unarchive
@@ -269,7 +269,7 @@ extension ListViewController {
         let deleteAction = UIContextualAction(style: .destructive, title: L10n.Actions.delete) { [weak self] (action, view, success) in
             guard let strongSelf = self else { return }
             let modification = ItemModification(action: .delete, id: item.id)
-            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modification))
+            strongSelf.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([modification]))
             item.changeStatus(to: .deleted)
             success(true)
         }

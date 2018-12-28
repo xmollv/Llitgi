@@ -82,5 +82,7 @@ enum L10n {
         static let current = NSLocalizedString("Tags.current", comment: "")
         static let available = NSLocalizedString("Tags.available", comment: "")
         static let newTagTitle = NSLocalizedString("Tags.newTagTitle", comment: "")
+        static let remove = NSLocalizedString("Tags.remove", comment: "")
+        static let removeWarning = NSLocalizedString("Tags.removeWarning", comment: "")
     }
 }

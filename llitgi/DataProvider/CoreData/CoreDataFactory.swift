@@ -11,6 +11,7 @@ import CoreData
 
 protocol CoreDataFactory: class {
     var tags: [Tag] { get }
+    func items(with: Tag) -> [Item]
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
     func badgeNotifier() -> CoreDataNotifier<CoreDataItem>
     func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier<CoreDataItem>
@@ -29,6 +30,8 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     var tags: [Tag] {
         let request = NSFetchRequest<CoreDataTag>(entityName: String(describing: CoreDataTag.self))
         request.sortDescriptors = [NSSortDescriptor(key: "name_", ascending: true)]
+        #warning("This is a hack to avoid seeing tags with no items. Find a solution to remove them from Core Data instead of relying on this.")
+        request.predicate = NSPredicate(format: "items_.@count > 0")
         var results: [Tag] = []
         self.backgroundContext.performAndWait {
             results = (try? self.backgroundContext.fetch(request)) ?? []
@@ -59,6 +62,16 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     }
     
     //MARK: Public methods
+    func items(with tag: Tag) -> [Item] {
+        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        request.predicate = NSPredicate(format: "tags_.name_ CONTAINS[cd] %@", tag.name)
+        var result: [CoreDataItem] = []
+        self.backgroundContext.performAndWait {
+            result = (try? self.backgroundContext.fetch(request)) ?? []
+        }
+        return result
+    }
+    
     func build<T: Managed>(jsonArray: JSONArray) -> [T] {
         var objects: [T] = []
         self.backgroundContext.performAndWait {

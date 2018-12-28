@@ -106,12 +106,10 @@ class ManageTagsViewController: UIViewController {
     
     @objc
     private func saveTapped(_ sender: UIBarButtonItem) {
-        self.navigationItem.rightBarButtonItem = self.loadingButton
-        self.newTagBarButtonItem.isEnabled = false
-        self.tableView.isUserInteractionEnabled = false
+        self.blockUserInterfaceForNetwork(true)
 
-        let itemModification = ItemModification.init(action: .replaceTags(with: self.currentTags.map{ $0.name }), id: self.item.id)
-        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(itemModification)) { [weak self] result in
+        let itemModification = ItemModification.init(action: .replaceTags(self.currentTags.map{ $0.name }), id: self.item.id)
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([itemModification])) { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
             case .isSuccess:
@@ -121,9 +119,7 @@ class ManageTagsViewController: UIViewController {
                 }
             case .isFailure:
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
-                strongSelf.navigationItem.rightBarButtonItem = strongSelf.saveBarButtonItem
-                strongSelf.newTagBarButtonItem.isEnabled = true
-                strongSelf.tableView.isUserInteractionEnabled = true
+                strongSelf.blockUserInterfaceForNetwork(false)
                 strongSelf.presentErrorAlert()
             }
         }
@@ -168,6 +164,37 @@ class ManageTagsViewController: UIViewController {
         self.tableView.indicatorStyle = theme.indicatorStyle
         self.tableView.reloadData()
     }
+    
+    private func blockUserInterfaceForNetwork(_ block: Bool) {
+        if block {
+            self.navigationItem.rightBarButtonItem = self.loadingButton
+            self.newTagBarButtonItem.isEnabled = false
+            self.tableView.isUserInteractionEnabled = false
+        } else {
+            self.navigationItem.rightBarButtonItem = self.saveBarButtonItem
+            self.newTagBarButtonItem.isEnabled = true
+            self.tableView.isUserInteractionEnabled = true
+        }
+    }
+    
+    private func remove(tag: Tag, from items: [Item], then: @escaping (Bool) -> Void) {
+        let modifications = items.map { ItemModification(action: .removeTags([tag.name]), id: $0.id) }
+        
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modifications)) { [weak self] result in
+            guard let strongSelf = self else { return }
+            switch result {
+            case .isSuccess:
+                strongSelf.dataProvider.syncLibrary { _ in
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+                    then(true)
+                }
+            case .isFailure:
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                strongSelf.presentErrorAlert()
+                then(false)
+            }
+        }
+    }
 
 }
 
@@ -185,6 +212,51 @@ extension ManageTagsViewController: UITableViewDelegate {
             self.currentTags.sort { $0.name < $1.name }
         }
         self.tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: L10n.Actions.delete) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            
+            let tag: Tag
+            switch Section(section: indexPath.section) {
+            case .currentTags: tag = strongSelf.currentTags[indexPath.row]
+            case .availableTags: tag = strongSelf.availableTags[indexPath.row]
+            }
+            let affectedItems = strongSelf.dataProvider.items(with: tag)
+            let message = String(format: L10n.Tags.removeWarning, arguments: [tag.name, affectedItems.count])
+            let alertController = UIAlertController(title: L10n.Tags.remove,
+                                                    message: message,
+                                                    preferredStyle: .alert)
+            let cancel = UIAlertAction(title: L10n.General.cancel, style: .cancel) { action in
+                success(false)
+            }
+            let remove = UIAlertAction(title: L10n.Tags.remove, style: .destructive) { action in
+                strongSelf.blockUserInterfaceForNetwork(true)
+                strongSelf.remove(tag: tag, from: affectedItems) { completed in
+                    if completed {
+                        success(true)
+                        switch Section(section: indexPath.section) {
+                        case .currentTags: strongSelf.currentTags.removeAll(where: { $0.name == tag.name })
+                        case .availableTags: strongSelf.availableTags.removeAll(where: { $0.name == tag.name })
+                        }
+                        strongSelf.tableView.reloadData()
+                    } else {
+                        strongSelf.presentErrorAlert()
+                        success(false)
+                    }
+                    strongSelf.blockUserInterfaceForNetwork(false)
+                }
+            }
+            alertController.addAction(cancel)
+            alertController.addAction(remove)
+            strongSelf.present(alertController, animated: true)
+        }
+        
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
+        swipeConfiguration.performsFirstActionWithFullSwipe = false
+        return swipeConfiguration
     }
 }
 
@@ -213,28 +285,16 @@ extension ManageTagsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        view.backgroundColor = self.themeManager.theme.sectionHeaderBackground
-        
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = self.themeManager.theme.textTitleColor
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
-        view.addSubview(label)
-        
-        label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 20).isActive = true
-        label.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
-        label.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -5).isActive = true
+        let sectionHeaderView = SectionHeaderView(theme: self.themeManager.theme)
         
         let tagSection = Section(section: section)
         switch tagSection {
         case .currentTags where self.currentTags.count > 0:
-            label.text = tagSection.title
-            return view
+            sectionHeaderView.text = tagSection.title
+            return sectionHeaderView
         case .availableTags where self.availableTags.count > 0:
-            label.text = tagSection.title
-            return view
+            sectionHeaderView.text = tagSection.title
+            return sectionHeaderView
         default:
             return nil
         }

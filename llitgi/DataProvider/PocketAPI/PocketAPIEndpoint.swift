@@ -15,7 +15,7 @@ enum PocketAPIEndpoint {
     
     // Already authorized endpoints
     case sync(last: TimeInterval?)
-    case modify(ItemModification)
+    case modify([ItemModification])
     case add(URL)
     
     /// Returns the full URL to perform the request
