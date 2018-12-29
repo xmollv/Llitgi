@@ -42,7 +42,6 @@ final class TagsViewController: UITableViewController, TableViewCoreDataNotifier
     override func viewDidLoad() {
         super.viewDidLoad()
         self.extendedLayoutIncludesOpaqueBars = true
-//        self.registerForPreviewing(with: self, sourceView: self.tableView)
         self.configureTableView()
         self.notifier.delegate = self
         self.notifier.startNotifying()
@@ -159,18 +158,3 @@ extension TagsViewController {
         return swipeConfiguration
     }
 }
-
-//extension TagsViewController: UIViewControllerPreviewingDelegate {
-//    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-//        guard let indexPath = self.tableView.indexPathForRow(at: location) else { return nil }
-//        previewingContext.sourceRect = self.tableView.rectForRow(at: indexPath)
-////        let sfs = self.safariViewController(at: indexPath)
-////        return sfs
-//        #warning("we need the next vc here")
-//        return nil
-//    }
-//
-//    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-//        self.present(viewControllerToCommit, animated: true, completion: nil)
-//    }
-//}
