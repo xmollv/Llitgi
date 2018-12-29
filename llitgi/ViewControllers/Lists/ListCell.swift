@@ -17,7 +17,6 @@ class ListCell: UITableViewCell, NibLoadableView {
     @IBOutlet private var tagsView: TagsView!
     
     //MARK: Private properties
-    private var item: Item?
     private var theme: Theme?
     
     //MARK: Public properties
@@ -49,7 +48,6 @@ class ListCell: UITableViewCell, NibLoadableView {
     }
     
     private func clearCell() {
-        self.item = nil
         self.theme = nil
         self.selectedTag = nil
         self.favoriteView.isHidden = true
@@ -61,7 +59,6 @@ class ListCell: UITableViewCell, NibLoadableView {
     
     //MARK:- Public methods
     func configure(with item: Item, theme: Theme) {
-        self.item = item
         self.theme = theme
         
         self.titleLabel.text = item.title
