@@ -38,6 +38,7 @@
 "Actions.unarchive" = "Unarchive";
 "Actions.unfavorite" = "Unfavorite";
 "Actions.tags" = "Manage\nTags";
+"Actions.modify" = "Rename";
 
 "Settings.badgecount" = "Show app badge count";
 "Settings.badgeExplanation" = "We'll show you a badge on the app icon indicating how many items are on your list.";
@@ -56,3 +57,5 @@
 "Tags.newTagTitle" = "New Tag";
 "Tags.remove" = "Remove";
 "Tags.removeWarning" = "Are you sure that you want to remove \"%1$@\"? %2$d items will be affected by this change.";
+"Tags.modify" = "Rename";
+"Tags.modifyWarning" = "Are you sure that you want to rename \"%1$@\"? %2$d items will be affected by this change.";

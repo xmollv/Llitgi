@@ -18,6 +18,7 @@ struct ItemModification {
         case delete
         case replaceTags([String])
         case removeTags([String])
+        case renameTag(_ oldTag: String, _ newTag: String)
         
         var stringValue: String {
             switch self {
@@ -29,19 +30,25 @@ struct ItemModification {
             case .delete: return "delete"
             case .replaceTags: return "tags_replace"
             case .removeTags: return "tags_remove"
+            case .renameTag: return "tag_rename"
             }
         }
     }
     
     let action: TypeOfAction
-    let id: String
+    let id: String?
     
     var wrappedAsDict: [String : String] {
-        var dict = ["action" : self.action.stringValue,
-                    "item_id" : self.id]
+        var dict = ["action" : self.action.stringValue]
+        if let id = self.id {
+            dict["item_id"] = id
+        }
         switch self.action {
         case .replaceTags(let tags), .removeTags(let tags):
             dict["tags"] = tags.joined(separator: ",")
+        case .renameTag(let oldTag, let newTag):
+            dict["old_tag"] = oldTag
+            dict["new_tag"] = newTag
         default: break
         }
         return dict

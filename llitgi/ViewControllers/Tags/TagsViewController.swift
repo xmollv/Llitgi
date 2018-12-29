@@ -111,6 +111,24 @@ final class TagsViewController: UITableViewController, TableViewCoreDataNotifier
         }
     }
     
+    private func modify(tag: Tag, newName: String, then: @escaping (Bool) -> Void) {
+        let rename = ItemModification(action: .renameTag(tag.name, newName), id: nil)
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([rename])) { [weak self] result in
+            guard let strongSelf = self else { return }
+            switch result {
+            case .isSuccess:
+                strongSelf.dataProvider.syncLibrary { _ in
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
+                    then(true)
+                }
+            case .isFailure:
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                strongSelf.presentErrorAlert()
+                then(false)
+            }
+        }
+    }
+    
 }
 
 extension TagsViewController {
@@ -133,6 +151,50 @@ extension TagsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tag = self.notifier.element(at: indexPath)
         self.selectedTag?(tag)
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let modifyAction = UIContextualAction(style: .normal, title: L10n.Actions.modify) { [weak self] (action, view, success) in
+            guard let strongSelf = self else { return }
+            
+            let tag = strongSelf.notifier.element(at: indexPath)
+            let affectedItems = strongSelf.dataProvider.items(with: tag)
+            let message = String(format: L10n.Tags.modifyWarning, arguments: [tag.name, affectedItems.count])
+            let alertController = UIAlertController(title: L10n.Tags.modify,
+                                                    message: message,
+                                                    preferredStyle: .alert)
+            alertController.addTextField { [weak self] (textField) in
+                guard let strongSelf = self else { return }
+                textField.keyboardAppearance = strongSelf.themeManager.theme.keyboardAppearance
+            }
+            let cancel = UIAlertAction(title: L10n.General.cancel, style: .cancel) { action in
+                success(false)
+            }
+            let modify = UIAlertAction(title: L10n.Tags.modify, style: .default) { [weak alertController] action in
+                guard let text = alertController?.textFields?.first?.text, text != "" else {
+                    success(false)
+                    return
+                }
+                strongSelf.blockUserInterfaceForNetwork(true)
+                strongSelf.modify(tag: tag, newName: text) { completed in
+                    if completed {
+                        success(true)
+                    } else {
+                        strongSelf.presentErrorAlert()
+                        success(false)
+                    }
+                    strongSelf.blockUserInterfaceForNetwork(false)
+                }
+            }
+            alertController.addAction(cancel)
+            alertController.addAction(modify)
+            strongSelf.present(alertController, animated: true)
+        }
+        modifyAction.backgroundColor = UIColor(displayP3Red: 0/255, green: 122/255, blue: 255/255, alpha: 1)
+        
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [modifyAction])
+        swipeConfiguration.performsFirstActionWithFullSwipe = false
+        return swipeConfiguration
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
