@@ -23,6 +23,7 @@ final class TagsViewController: UITableViewController, TableViewCoreDataNotifier
     let notifier: CoreDataNotifier<CoreDataTag>
     
     var settingsButtonTapped: (() -> Void)?
+    var selectedTag: ((Tag) -> Void)?
     
     init(notifier: CoreDataNotifier<CoreDataTag>, dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager) {
         self.dataProvider = dataProvider
@@ -129,6 +130,11 @@ extension TagsViewController {
 }
 
 extension TagsViewController {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tag = self.notifier.element(at: indexPath)
+        self.selectedTag?(tag)
+    }
+    
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: L10n.Actions.delete) { [weak self] (action, view, success) in
