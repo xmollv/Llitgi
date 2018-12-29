@@ -61,7 +61,8 @@ final class AppCoordinator: NSObject, Coordinator {
         }
         
         if !dataProvider.tags.isEmpty {
-            let tags: UIViewController = self.factory.instantiateTagsList()
+            let tags = self.factory.instantiateTagsList()
+            tags.settingsButtonTapped = { [weak self] in self?.showSettings() }
             let tagsNavController = NavigationController(rootViewController: tags)
             tagsNavController.navigationBar.prefersLargeTitles = true
             tagsNavController.navigationBar.barStyle = self.themeManager.theme.barStyle

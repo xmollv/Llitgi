@@ -22,6 +22,8 @@ final class TagsViewController: UITableViewController, TableViewCoreDataNotifier
     let themeManager: ThemeManager
     let notifier: CoreDataNotifier<CoreDataTag>
     
+    var settingsButtonTapped: (() -> Void)?
+    
     init(notifier: CoreDataNotifier<CoreDataTag>, dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager) {
         self.dataProvider = dataProvider
         self.userManager = userManager
@@ -42,6 +44,7 @@ final class TagsViewController: UITableViewController, TableViewCoreDataNotifier
     override func viewDidLoad() {
         super.viewDidLoad()
         self.extendedLayoutIncludesOpaqueBars = true
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), landscapeImagePhone: #imageLiteral(resourceName: "settings_landscape"), style: .plain, target: self, action: #selector(self.displaySettings(_:)))
         self.configureTableView()
         self.notifier.delegate = self
         self.notifier.startNotifying()
@@ -59,7 +62,12 @@ final class TagsViewController: UITableViewController, TableViewCoreDataNotifier
         }
     }
     
-    func apply(_ theme: Theme) {
+    //MARK: Private methods
+    @IBAction private func displaySettings(_ sender: UIBarButtonItem) {
+        self.settingsButtonTapped?()
+    }
+    
+    private func apply(_ theme: Theme) {
         self.tableView.backgroundColor = theme.backgroundColor
         self.tableView.separatorColor = theme.separatorColor
         self.tableView.indicatorStyle = theme.indicatorStyle
@@ -67,7 +75,6 @@ final class TagsViewController: UITableViewController, TableViewCoreDataNotifier
         self.tableView.reloadData()
     }
     
-    //MARK: Private methods
     private func configureTableView() {
         self.tableView.register(TagPickerCell.self)
         self.tableView.tableFooterView = UIView()
