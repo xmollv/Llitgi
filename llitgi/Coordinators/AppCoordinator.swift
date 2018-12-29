@@ -165,23 +165,20 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func addTagTabIfNeeded() {
-        if !dataProvider.tags.isEmpty {
-            let tags = self.factory.instantiateTagsList()
-            tags.settingsButtonTapped = { [weak self] in self?.showSettings() }
-            tags.selectedTag = { [weak self] tag in self?.show(tag: tag) }
-            let tagsNavController = NavigationController(rootViewController: tags)
-            tagsNavController.navigationBar.prefersLargeTitles = true
-            tagsNavController.navigationBar.barStyle = self.themeManager.theme.barStyle
-            if var currentTabs = self.tabBarController.viewControllers, currentTabs.count == 3 {
-                currentTabs.append(tagsNavController)
-                self.tabBarController.setViewControllers(currentTabs, animated: true)
-            }
-        }
+        guard !dataProvider.tags.isEmpty, var currentTabs = self.tabBarController.viewControllers, currentTabs.count == 3 else { return }
+        let tags = self.factory.instantiateTagsList()
+        tags.settingsButtonTapped = { [weak self] in self?.showSettings() }
+        tags.selectedTag = { [weak self] tag in self?.show(tag: tag) }
+        let tagsNavController = NavigationController(rootViewController: tags)
+        tagsNavController.navigationBar.prefersLargeTitles = true
+        tagsNavController.navigationBar.barStyle = self.themeManager.theme.barStyle
+        currentTabs.append(tagsNavController)
+        self.tabBarController.setViewControllers(currentTabs, animated: false)
     }
     
     private func removeTagTab() {
         guard let currentTabs = self.tabBarController.viewControllers, currentTabs.count == 4 else { return }
-        self.tabBarController.setViewControllers(Array(currentTabs.dropLast()), animated: true)
+        self.tabBarController.setViewControllers(Array(currentTabs.dropLast()), animated: false)
     }
 }
 
