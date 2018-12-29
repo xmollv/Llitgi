@@ -6,15 +6,26 @@
 //  Copyright © 2017 xmollv. All rights reserved.
 //
 
-import Foundation
-import UIKit
 import CoreData
 
 protocol CoreDataNotifierDelegate: class {
     func willChangeContent()
-    func didChangeContent(_ change: CoreDataNotifierChange)
+    func didChangeSection(_ change: CoreDataNotifierSectionChange)
+    func didChangeObject(_ change: CoreDataNotifierChange)
     func endChangingContent()
     func startNotifyingFailed(with: Error)
+}
+
+enum CoreDataNotifierSectionChange {
+    case insert(sectionIndex: Int)
+    case delete(sectionIndex: Int)
+    
+    var description: String {
+        switch self {
+        case .insert(let section): return "Insert section \(section)"
+        case .delete(let section): return "Delete section \(section)"
+        }
+    }
 }
 
 enum CoreDataNotifierChange {
@@ -50,38 +61,49 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
     
     //MARK:- Public methods
     func startNotifying() {
-        assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
         do {
             try self.fetchResultController.performFetch()
         } catch {
-            assertionFailure(error.localizedDescription)
             self.delegate?.startNotifyingFailed(with: error)
         }
     }
     
-    func numberOfElements(inSection section: Int) -> Int {
-        assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
-        let numberOfSections = self.fetchResultController.sections?.count ?? 0
-        guard section < numberOfSections else {
-            assertionFailure("Section is lower than the number of sectionsof the FRC")
-            return 0
-        }
-        guard let section = self.fetchResultController.sections?[section] else {
-            assertionFailure("Unable to grab the section from the FRC sections")
-            return 0
-        }
-        return section.objects?.count ?? 0
+    func element(at indexPath: IndexPath) -> T {
+        return self.fetchResultController.object(at: indexPath)
     }
     
-    func element(at indexPath: IndexPath) -> T {
-        assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
-        return self.fetchResultController.object(at: indexPath)
+    func numberOfSections() -> Int {
+        guard let numberOfSections = self.fetchResultController.sections?.count else {
+            assertionFailure("Unable to count the number of sections")
+            return 0
+        }
+        return numberOfSections
+    }
+    
+    func numberOfElements(inSection section: Int) -> Int {
+        let numberOfSections = self.fetchResultController.sections?.count ?? 0
+        guard section < numberOfSections else { return 0 }
+        guard let section = self.fetchResultController.sections?[section] else { return 0 }
+        return section.objects?.count ?? 0
     }
     
     //MARK:- NSFetchedResultsControllerDelegate
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
         self.delegate?.willChangeContent()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
+        
+        switch type {
+        case .insert:
+            self.delegate?.didChangeSection(.insert(sectionIndex: sectionIndex))
+        case .delete:
+            self.delegate?.didChangeSection(.delete(sectionIndex: sectionIndex))
+        default:
+            assertionFailure("This should never happen based on the docs")
+        }
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
@@ -116,7 +138,7 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
             change = .delete(indexPath: indexPath)
         }
         
-        self.delegate?.didChangeContent(change)
+        self.delegate?.didChangeObject(change)
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

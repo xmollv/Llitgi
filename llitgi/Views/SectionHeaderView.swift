@@ -31,7 +31,9 @@ final class SectionHeaderView: UIView {
         label.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         label.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 20).isActive = true
         label.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
-        label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
+        let bottomConstraint = label.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5)
+        bottomConstraint.priority = UILayoutPriority.init(999)
+        bottomConstraint.isActive = true
     }
     
     @available(*, unavailable)

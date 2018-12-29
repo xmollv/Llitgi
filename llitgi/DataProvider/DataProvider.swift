@@ -43,6 +43,10 @@ final class DataProvider {
         return self.modelFactory.notifier(for: type, matching: query)
     }
     
+    func notifier(for tag: Tag) -> CoreDataNotifier<CoreDataItem> {
+        return self.modelFactory.notifier(for: tag)
+    }
+    
     /// Performs a network request based on the endpoint, and builds the objects that the API returned
     func perform<T: Managed>(endpoint: PocketAPIEndpoint,
                              on resultQueue: DispatchQueue = DispatchQueue.main,

@@ -22,7 +22,16 @@ extension TableViewCoreDataNotifier {
         self.tableView.beginUpdates()
     }
     
-    func didChangeContent(_ change: CoreDataNotifierChange) {
+    func didChangeSection(_ change: CoreDataNotifierSectionChange) {
+        switch change {
+        case .insert(let sectionIndex):
+            self.tableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic)
+        case .delete(let sectionIndex):
+            self.tableView.deleteSections(IndexSet(integer: sectionIndex), with: .automatic)
+        }
+    }
+    
+    func didChangeObject(_ change: CoreDataNotifierChange) {
         switch change {
         case .update(let indexPath):
             self.tableView.reloadRows(at: [indexPath], with: .automatic)

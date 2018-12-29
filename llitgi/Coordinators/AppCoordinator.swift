@@ -134,10 +134,10 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func show(tag: Tag) {
-        let tagViewController = self.factory.instantiateTagViewController(with: tag)
-        tagViewController.hidesBottomBarWhenPushed = true
+        let tagViewController = self.factory.instantiateList(for: tag)
         tagViewController.selectedTag = { [weak self] tag in self?.show(tag: tag) }
         tagViewController.safariToPresent = self.presentSafariClosure
+        tagViewController.tagsModification = { [weak self] item in self?.showTagsPicker(for: item) }
         #warning("This hack will bit back")
         ((self.splitViewController.viewControllers.first as? UITabBarController)?.selectedViewController as? UINavigationController)?.pushViewController(tagViewController, animated: true)
     }
@@ -176,7 +176,7 @@ extension AppCoordinator: UITabBarControllerDelegate {
         guard let newViewController = (viewController as? UINavigationController)?.topViewController else { return true }
         guard let currentViewController = (tabBarController.selectedViewController as? UINavigationController)?.topViewController else { return true }
 
-        if let list = newViewController as? ListViewController {
+        if let list = newViewController as? ItemsViewController {
             guard list.isEqual(currentViewController) else { return true }
             list.scrollToTop()
         }
