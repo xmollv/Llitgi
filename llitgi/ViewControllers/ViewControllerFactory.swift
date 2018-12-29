@@ -63,4 +63,11 @@ final class ViewControllerFactory {
     func instantiateManageTagsViewController(item: Item, completed: @escaping () -> Void) -> ManageTagsViewController {
         return ManageTagsViewController(item: item, dataProvider: self.dataProvider, themeManager: self.themeManager, completed: completed)
     }
+    
+    func instantiateTagsList() -> TagsViewController {
+        let tags = TagsViewController(notifier: self.dataProvider.tagsNotifier, dataProvider: self.dataProvider, userManager: self.userManager, themeManager: self.themeManager)
+        tags.title = L10n.Titles.tags
+        tags.tabBarItem = UITabBarItem(title: L10n.Titles.tags, image: #imageLiteral(resourceName: "list"), tag: 4)
+        return tags
+    }
 }

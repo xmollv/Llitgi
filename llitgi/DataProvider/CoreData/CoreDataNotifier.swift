@@ -73,10 +73,7 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
     }
     
     func numberOfSections() -> Int {
-        guard let numberOfSections = self.fetchResultController.sections?.count else {
-            assertionFailure("Unable to count the number of sections")
-            return 0
-        }
+        guard let numberOfSections = self.fetchResultController.sections?.count else { return 0 }
         return numberOfSections
     }
     

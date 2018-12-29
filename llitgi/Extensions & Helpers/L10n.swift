@@ -31,6 +31,7 @@ enum L10n {
         static let myList = NSLocalizedString("Titles.myList", comment: "")
         static let favorites = NSLocalizedString("Titles.favorites", comment: "")
         static let archive = NSLocalizedString("Titles.archive", comment: "")
+        static let tags = NSLocalizedString("Titles.tags", comment: "")
         static let settings = NSLocalizedString("Titles.settings", comment: "")
     }
     

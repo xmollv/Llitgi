@@ -45,20 +45,30 @@ final class AppCoordinator: NSObject, Coordinator {
 
         super.init()
         
-        let tabs = self.factory.instantiateLists().map { (vc) -> UINavigationController in
+        let tabs = self.factory.instantiateLists().map { (vc) -> UIViewController in
             vc.safariToPresent = self.presentSafariClosure
             vc.settingsButtonTapped = { [weak self] in self?.showSettings() }
             vc.selectedTag = { [weak self] tag in self?.show(tag: tag) }
             vc.tagsModification = { [weak self] item in self?.showTagsPicker(for: item) }
+            return vc
+        }
+        
+        let tags: UIViewController = self.factory.instantiateTagsList()
+        let tagsNavController = NavigationController(rootViewController: tags)
+        tagsNavController.navigationBar.prefersLargeTitles = true
+        tagsNavController.navigationBar.barStyle = self.themeManager.theme.barStyle
+        
+        var navControllers = tabs.map { (vc) -> UINavigationController in
             let navController = NavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
             navController.navigationBar.barStyle = self.themeManager.theme.barStyle
             return navController
         }
+        navControllers.append(tagsNavController)
 
         self.tabBarController.tabBar.barStyle = self.themeManager.theme.barStyle
         self.tabBarController.delegate = self
-        self.tabBarController.setViewControllers(tabs, animated: false)
+        self.tabBarController.setViewControllers(navControllers, animated: false)
         
         self.splitViewController.viewControllers = [self.tabBarController]
         self.splitViewController.preferredDisplayMode = .allVisible

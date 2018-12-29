@@ -28,6 +28,10 @@ final class DataProvider {
         return self.modelFactory.tags
     }
     
+    var tagsNotifier: CoreDataNotifier<CoreDataTag> {
+        return self.modelFactory.tagsNotifier
+    }
+    
     //MARK: Lifecycle
     init(pocketAPI: PocketAPIManager, modelFactory: CoreDataFactory) {
         self.pocketAPI = pocketAPI

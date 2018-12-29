@@ -23,6 +23,7 @@
 "Titles.myList" = "My List";
 "Titles.favorites" = "Favorites";
 "Titles.archive" = "Archive";
+"Titles.tags" = "Tags";
 "Titles.settings" = "Settings";
 
 "Sync.success" = "Success! 🎉";
