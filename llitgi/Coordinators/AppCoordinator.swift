@@ -126,6 +126,7 @@ final class AppCoordinator: NSObject, Coordinator {
             
             strongSelf.splitViewController.dismiss(animated: true, completion: { [weak self] in
                 self?.showLogin()
+                self?.removeTagTab()
                 self?.dataProvider.clearLocalStorage()
             })
         }
@@ -173,9 +174,14 @@ final class AppCoordinator: NSObject, Coordinator {
             tagsNavController.navigationBar.barStyle = self.themeManager.theme.barStyle
             if var currentTabs = self.tabBarController.viewControllers, currentTabs.count == 3 {
                 currentTabs.append(tagsNavController)
-                self.tabBarController.setViewControllers(currentTabs, animated: false)
+                self.tabBarController.setViewControllers(currentTabs, animated: true)
             }
         }
+    }
+    
+    private func removeTagTab() {
+        guard let currentTabs = self.tabBarController.viewControllers, currentTabs.count == 4 else { return }
+        self.tabBarController.setViewControllers(Array(currentTabs.dropLast()), animated: true)
     }
 }
 
