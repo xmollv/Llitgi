@@ -45,34 +45,21 @@ final class AppCoordinator: NSObject, Coordinator {
 
         super.init()
         
-        let tabs = self.factory.instantiateLists().map { (vc) -> UIViewController in
+        let tabs = self.factory.instantiateLists().map { (vc) -> UINavigationController in
             vc.safariToPresent = self.presentSafariClosure
             vc.settingsButtonTapped = { [weak self] in self?.showSettings() }
             vc.selectedTag = { [weak self] tag in self?.show(tag: tag) }
             vc.tagsModification = { [weak self] item in self?.showTagsPicker(for: item) }
-            return vc
-        }
-        
-        var navControllers = tabs.map { (vc) -> UINavigationController in
             let navController = NavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
             navController.navigationBar.barStyle = self.themeManager.theme.barStyle
             return navController
         }
-        
-        if !dataProvider.tags.isEmpty {
-            let tags = self.factory.instantiateTagsList()
-            tags.settingsButtonTapped = { [weak self] in self?.showSettings() }
-            tags.selectedTag = { [weak self] tag in self?.show(tag: tag) }
-            let tagsNavController = NavigationController(rootViewController: tags)
-            tagsNavController.navigationBar.prefersLargeTitles = true
-            tagsNavController.navigationBar.barStyle = self.themeManager.theme.barStyle
-            navControllers.append(tagsNavController)
-        }
 
         self.tabBarController.tabBar.barStyle = self.themeManager.theme.barStyle
         self.tabBarController.delegate = self
-        self.tabBarController.setViewControllers(navControllers, animated: false)
+        self.tabBarController.setViewControllers(tabs, animated: false)
+        self.addTagTabIfNeeded()
         
         self.splitViewController.viewControllers = [self.tabBarController]
         self.splitViewController.preferredDisplayMode = .allVisible
@@ -168,11 +155,27 @@ final class AppCoordinator: NSObject, Coordinator {
     private func showFullSync() {
         let fullSync = self.factory.instantiateFullSync()
         fullSync.finishedSyncing = { [weak self] in
+            self?.addTagTabIfNeeded()
             self?.splitViewController.dismiss(animated: true, completion: nil)
         }
         fullSync.modalPresentationStyle = .overFullScreen
         fullSync.modalTransitionStyle = .crossDissolve
         self.splitViewController.present(fullSync, animated: true, completion: nil)
+    }
+    
+    private func addTagTabIfNeeded() {
+        if !dataProvider.tags.isEmpty {
+            let tags = self.factory.instantiateTagsList()
+            tags.settingsButtonTapped = { [weak self] in self?.showSettings() }
+            tags.selectedTag = { [weak self] tag in self?.show(tag: tag) }
+            let tagsNavController = NavigationController(rootViewController: tags)
+            tagsNavController.navigationBar.prefersLargeTitles = true
+            tagsNavController.navigationBar.barStyle = self.themeManager.theme.barStyle
+            if var currentTabs = self.tabBarController.viewControllers, currentTabs.count == 3 {
+                currentTabs.append(tagsNavController)
+                self.tabBarController.setViewControllers(currentTabs, animated: false)
+            }
+        }
     }
 }
 
