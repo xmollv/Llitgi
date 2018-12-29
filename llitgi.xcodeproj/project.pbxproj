@@ -19,6 +19,7 @@
 		4733B6F421B9466D009AFB9B /* BadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733B6F321B9466D009AFB9B /* BadgeManager.swift */; };
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		47376DE71FF0831600B8E70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Item.swift */; };
+		4738F07B21D7FCFE00B00A9B /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4738F07A21D7FCFE00B00A9B /* TagsViewController.swift */; };
 		47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47392347202667E3005526C5 /* LitgiUserDefaults.swift */; };
 		47392349202667E3005526C5 /* LitgiUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47392347202667E3005526C5 /* LitgiUserDefaults.swift */; };
 		474166A521D6D26800071B8F /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 474166A421D6D26800071B8F /* ItemsViewController.swift */; };
@@ -117,6 +118,7 @@
 		4733B6F321B9466D009AFB9B /* BadgeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeManager.swift; sourceTree = "<group>"; };
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47376DE61FF0831600B8E70C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		4738F07A21D7FCFE00B00A9B /* TagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
 		47392347202667E3005526C5 /* LitgiUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LitgiUserDefaults.swift; sourceTree = "<group>"; };
 		474166A421D6D26800071B8F /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		474166A621D6D6E600071B8F /* TaggedItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaggedItemsViewController.swift; sourceTree = "<group>"; };
@@ -218,6 +220,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		4738F07921D7FCEB00B00A9B /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				4738F07A21D7FCFE00B00A9B /* TagsViewController.swift */,
+			);
+			path = Tags;
+			sourceTree = "<group>";
+		};
 		474B441D2001A517009897D2 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,7 +258,7 @@
 			path = ShareExtension;
 			sourceTree = "<group>";
 		};
-		4770ACF81FF189CD006E755D /* Lists */ = {
+		4770ACF81FF189CD006E755D /* ItemList */ = {
 			isa = PBXGroup;
 			children = (
 				4770ACF91FF18AF7006E755D /* BaseListViewController.swift */,
@@ -256,8 +266,9 @@
 				4770AD021FF1B470006E755D /* ListCell.xib */,
 				474166A421D6D26800071B8F /* ItemsViewController.swift */,
 				474166A621D6D6E600071B8F /* TaggedItemsViewController.swift */,
+				47F5844E21CEA9C400C7D17D /* ManageTags */,
 			);
-			path = Lists;
+			path = ItemList;
 			sourceTree = "<group>";
 		};
 		477B511121C69C46000E7633 /* Views */ = {
@@ -333,8 +344,8 @@
 				47F5845721CEB54300C7D17D /* SplitTabNav.swift */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 				4752C0842030F20300988A68 /* FullSync */,
-				4770ACF81FF189CD006E755D /* Lists */,
-				47F5844E21CEA9C400C7D17D /* ManageTags */,
+				4770ACF81FF189CD006E755D /* ItemList */,
+				4738F07921D7FCEB00B00A9B /* Tags */,
 				474B441D2001A517009897D2 /* Settings */,
 			);
 			path = ViewControllers;
@@ -579,6 +590,7 @@
 				4710EF561FF4338A00D3DCA9 /* CoreDataFactory.swift in Sources */,
 				4770ACF71FF17AFD006E755D /* Notification.swift in Sources */,
 				4733B6F421B9466D009AFB9B /* BadgeManager.swift in Sources */,
+				4738F07B21D7FCFE00B00A9B /* TagsViewController.swift in Sources */,
 				4710EF5B1FF451C500D3DCA9 /* CoreDataModel.xcdatamodeld in Sources */,
 				47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */,
 				477B511321C6A829000E7633 /* UIColor.swift in Sources */,
