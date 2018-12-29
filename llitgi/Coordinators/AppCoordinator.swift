@@ -53,18 +53,20 @@ final class AppCoordinator: NSObject, Coordinator {
             return vc
         }
         
-        let tags: UIViewController = self.factory.instantiateTagsList()
-        let tagsNavController = NavigationController(rootViewController: tags)
-        tagsNavController.navigationBar.prefersLargeTitles = true
-        tagsNavController.navigationBar.barStyle = self.themeManager.theme.barStyle
-        
         var navControllers = tabs.map { (vc) -> UINavigationController in
             let navController = NavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
             navController.navigationBar.barStyle = self.themeManager.theme.barStyle
             return navController
         }
-        navControllers.append(tagsNavController)
+        
+        if !dataProvider.tags.isEmpty {
+            let tags: UIViewController = self.factory.instantiateTagsList()
+            let tagsNavController = NavigationController(rootViewController: tags)
+            tagsNavController.navigationBar.prefersLargeTitles = true
+            tagsNavController.navigationBar.barStyle = self.themeManager.theme.barStyle
+            navControllers.append(tagsNavController)
+        }
 
         self.tabBarController.tabBar.barStyle = self.themeManager.theme.barStyle
         self.tabBarController.delegate = self
