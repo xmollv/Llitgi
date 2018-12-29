@@ -29,7 +29,7 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="sA1-2n-tmh" secondAttribute="trailing" constant="20" symbolic="YES" id="GFd-UA-MJu"/>
                     <constraint firstItem="sA1-2n-tmh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" symbolic="YES" id="Mm2-vc-pO0"/>
-                    <constraint firstAttribute="bottom" secondItem="sA1-2n-tmh" secondAttribute="bottom" constant="20" symbolic="YES" id="SSj-gg-LQd"/>
+                    <constraint firstAttribute="bottom" secondItem="sA1-2n-tmh" secondAttribute="bottom" priority="999" constant="20" symbolic="YES" id="SSj-gg-LQd"/>
                     <constraint firstItem="sA1-2n-tmh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="jBw-fH-8xW"/>
                 </constraints>
             </tableViewCellContentView>

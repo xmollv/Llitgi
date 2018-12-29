@@ -176,25 +176,6 @@ class ManageTagsViewController: UIViewController {
             self.tableView.isUserInteractionEnabled = true
         }
     }
-    
-    private func remove(tag: Tag, from items: [Item], then: @escaping (Bool) -> Void) {
-        let modifications = items.map { ItemModification(action: .removeTags([tag.name]), id: $0.id) }
-        
-        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modifications)) { [weak self] result in
-            guard let strongSelf = self else { return }
-            switch result {
-            case .isSuccess:
-                strongSelf.dataProvider.syncLibrary { _ in
-                    UINotificationFeedbackGenerator().notificationOccurred(.success)
-                    then(true)
-                }
-            case .isFailure:
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-                strongSelf.presentErrorAlert()
-                then(false)
-            }
-        }
-    }
 
 }
 
@@ -212,51 +193,6 @@ extension ManageTagsViewController: UITableViewDelegate {
             self.currentTags.sort { $0.name < $1.name }
         }
         self.tableView.reloadData()
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let deleteAction = UIContextualAction(style: .destructive, title: L10n.Actions.delete) { [weak self] (action, view, success) in
-            guard let strongSelf = self else { return }
-            
-            let tag: Tag
-            switch Section(section: indexPath.section) {
-            case .currentTags: tag = strongSelf.currentTags[indexPath.row]
-            case .availableTags: tag = strongSelf.availableTags[indexPath.row]
-            }
-            let affectedItems = strongSelf.dataProvider.items(with: tag)
-            let message = String(format: L10n.Tags.removeWarning, arguments: [tag.name, affectedItems.count])
-            let alertController = UIAlertController(title: L10n.Tags.remove,
-                                                    message: message,
-                                                    preferredStyle: .alert)
-            let cancel = UIAlertAction(title: L10n.General.cancel, style: .cancel) { action in
-                success(false)
-            }
-            let remove = UIAlertAction(title: L10n.Tags.remove, style: .destructive) { action in
-                strongSelf.blockUserInterfaceForNetwork(true)
-                strongSelf.remove(tag: tag, from: affectedItems) { completed in
-                    if completed {
-                        success(true)
-                        switch Section(section: indexPath.section) {
-                        case .currentTags: strongSelf.currentTags.removeAll(where: { $0.name == tag.name })
-                        case .availableTags: strongSelf.availableTags.removeAll(where: { $0.name == tag.name })
-                        }
-                        strongSelf.tableView.reloadData()
-                    } else {
-                        strongSelf.presentErrorAlert()
-                        success(false)
-                    }
-                    strongSelf.blockUserInterfaceForNetwork(false)
-                }
-            }
-            alertController.addAction(cancel)
-            alertController.addAction(remove)
-            strongSelf.present(alertController, animated: true)
-        }
-        
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
-        swipeConfiguration.performsFirstActionWithFullSwipe = false
-        return swipeConfiguration
     }
 }
 
