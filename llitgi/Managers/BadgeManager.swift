@@ -49,7 +49,7 @@ extension BadgeManager: CoreDataNotifierDelegate {
     
     func didChangeObject(_ change: CoreDataNotifierObjectChange) {}
     
-    func endChangingContent() {
+    func didChangeContent() {
         self.updateBadgeCount()
     }
     

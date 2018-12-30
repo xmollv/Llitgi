@@ -12,7 +12,7 @@ protocol CoreDataNotifierDelegate: class {
     func willChangeContent()
     func didChangeSection(_ change: CoreDataNotifierSectionChange)
     func didChangeObject(_ change: CoreDataNotifierObjectChange)
-    func endChangingContent()
+    func didChangeContent()
     func startNotifyingFailed(with: Error)
 }
 
@@ -124,6 +124,6 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
-        self.delegate?.endChangingContent()
+        self.delegate?.didChangeContent()
     }
 }

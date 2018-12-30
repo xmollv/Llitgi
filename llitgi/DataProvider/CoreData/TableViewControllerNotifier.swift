@@ -43,7 +43,7 @@ extension TableViewControllerNotifier {
         }
     }
     
-    func endChangingContent() {
+    func didChangeContent() {
         self.tableView.endUpdates()
     }
     
