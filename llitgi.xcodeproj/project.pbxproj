@@ -15,7 +15,7 @@
 		4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF601FF51D8500D3DCA9 /* Managed.swift */; };
 		471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FE2E820B5EFED0059AEA7 /* UIViewController.swift */; };
 		4727DE61211055AE00444D5D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4727DE60211055AE00444D5D /* AppCoordinator.swift */; };
-		4732BE4D213011BC0070D83A /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BE4C213011BC0070D83A /* ThemeManager.swift */; };
+		4732BE4D213011BC0070D83A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BE4C213011BC0070D83A /* Theme.swift */; };
 		4733B6F421B9466D009AFB9B /* BadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733B6F321B9466D009AFB9B /* BadgeManager.swift */; };
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		47376DE71FF0831600B8E70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Item.swift */; };
@@ -60,6 +60,7 @@
 		47BFBFA921B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */; };
 		47CF670521D8DAC2005ADDED /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
 		47CF670721D8DB4C005ADDED /* SplitTabNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5845721CEB54300C7D17D /* SplitTabNav.swift */; };
+		47CF670821D8E200005ADDED /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BE4C213011BC0070D83A /* Theme.swift */; };
 		47DB058220B067DB001485DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47DB058120B067DB001485DF /* Assets.xcassets */; };
 		47DE472B209A53D500770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47DE472C209A5C6E00770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
@@ -116,7 +117,7 @@
 		4710EF601FF51D8500D3DCA9 /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		471FE2E820B5EFED0059AEA7 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		4727DE60211055AE00444D5D /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		4732BE4C213011BC0070D83A /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		4732BE4C213011BC0070D83A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		4733B6F321B9466D009AFB9B /* BadgeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeManager.swift; sourceTree = "<group>"; };
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47376DE61FF0831600B8E70C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -285,7 +286,6 @@
 			isa = PBXGroup;
 			children = (
 				47803EA42009674D003D58E2 /* UserManager.swift */,
-				4732BE4C213011BC0070D83A /* ThemeManager.swift */,
 				4733B6F321B9466D009AFB9B /* BadgeManager.swift */,
 			);
 			path = Managers;
@@ -305,6 +305,7 @@
 		47CF670421D8DAA7005ADDED /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4732BE4C213011BC0070D83A /* Theme.swift */,
 				47F5845721CEB54300C7D17D /* SplitTabNav.swift */,
 				47392347202667E3005526C5 /* LitgiUserDefaults.swift */,
 				47376DE31FF07F9500B8E70C /* Logger.swift */,
@@ -582,6 +583,7 @@
 				475E1783202633EA007033F1 /* Typealias.swift in Sources */,
 				47392349202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
 				475E1784202633F9007033F1 /* Logger.swift in Sources */,
+				47CF670821D8E200005ADDED /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,7 +608,7 @@
 				4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */,
-				4732BE4D213011BC0070D83A /* ThemeManager.swift in Sources */,
+				4732BE4D213011BC0070D83A /* Theme.swift in Sources */,
 				4770ACFB1FF18AF7006E755D /* BaseListViewController.swift in Sources */,
 				47EBC007218367A700343AF7 /* Tag.swift in Sources */,
 				47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,

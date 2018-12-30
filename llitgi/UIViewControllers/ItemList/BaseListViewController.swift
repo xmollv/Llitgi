@@ -14,7 +14,7 @@ class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
     //MARK: Private properties
     let dataProvider: DataProvider
     let userManager: UserManager
-    let themeManager: ThemeManager
+    let theme: Theme
     let _notifier: CoreDataNotifier<CoreDataItem>
     private(set) var notifier: CoreDataNotifier<CoreDataItem>
     
@@ -24,10 +24,10 @@ class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
     var safariToPresent: ((SFSafariViewController) -> Void)?
     
     //MARK:- Lifecycle
-    init(notifier: CoreDataNotifier<CoreDataItem>, dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager) {
+    init(notifier: CoreDataNotifier<CoreDataItem>, dataProvider: DataProvider, userManager: UserManager, theme: Theme) {
         self.dataProvider = dataProvider
         self.userManager = userManager
-        self.themeManager = themeManager
+        self.theme = theme
         self._notifier = notifier
         self.notifier = notifier
         super.init(style: .plain)
@@ -39,12 +39,11 @@ class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
     }
     
     deinit {
-        self.themeManager.removeObserver(self)
         NotificationCenter.default.removeObserver(self)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return self.themeManager.theme.statusBarStyle
+        return self.theme.statusBarStyle
     }
     
     override func viewDidLoad() {
@@ -53,10 +52,7 @@ class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
         self.registerForPreviewing(with: self, sourceView: self.tableView)
         self.replaceCurrentNotifier(for: self._notifier)
         self.configureTableView()
-        self.apply(self.themeManager.theme)
-        self.themeManager.addObserver(self) { [weak self] theme in
-            self?.apply(theme)
-        }
+        self.apply(self.theme)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,8 +92,8 @@ class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
         let cfg = SFSafariViewController.Configuration()
         cfg.entersReaderIfAvailable = self.userManager.openReaderMode
         let sfs = SFSafariViewController(url: item.url, configuration: cfg)
-        sfs.preferredControlTintColor = self.themeManager.theme.tintColor
-        sfs.preferredBarTintColor = self.themeManager.theme.backgroundColor
+        sfs.preferredControlTintColor = self.theme.tintColor
+        sfs.preferredBarTintColor = self.theme.backgroundColor
         return sfs
     }
 }
@@ -114,7 +110,7 @@ extension BaseListViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item: Item = self.notifier.element(at: indexPath)
         let cell: ListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-        cell.configure(with: item, theme: self.themeManager.theme)
+        cell.configure(with: item, theme: self.theme)
         cell.selectedTag = self.selectedTag
         return cell
     }

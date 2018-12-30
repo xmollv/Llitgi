@@ -22,7 +22,7 @@ final class AppCoordinator: NSObject, Coordinator {
     private let dataProvider: DataProvider
     private let splitViewController: UISplitViewController
     private let tabBarController: UITabBarController
-    private let themeManager: ThemeManager
+    private let theme: Theme
     private let badgeManager: BadgeManager
     weak private var presentedSafari: SFSafariViewController?
     
@@ -34,11 +34,11 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     //MARK: Lifecycle
-    init(window: UIWindow, factory: ViewControllerFactory, userManager: UserManager, dataProvider: DataProvider, themeManager: ThemeManager) {
+    init(window: UIWindow, factory: ViewControllerFactory, userManager: UserManager, dataProvider: DataProvider, theme: Theme) {
         self.factory = factory
         self.userManager = userManager
         self.dataProvider = dataProvider
-        self.themeManager = themeManager
+        self.theme = theme
         self.splitViewController = SplitViewController()
         self.tabBarController = TabBarController()
         self.badgeManager = BadgeManager(notifier: dataProvider.badgeNotifier(), userManager: userManager)
@@ -52,11 +52,11 @@ final class AppCoordinator: NSObject, Coordinator {
             vc.tagsModification = { [weak self] item in self?.showTagsPicker(for: item) }
             let navController = NavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
-            navController.navigationBar.barStyle = self.themeManager.theme.barStyle
+            navController.navigationBar.barStyle = self.theme.barStyle
             return navController
         }
 
-        self.tabBarController.tabBar.barStyle = self.themeManager.theme.barStyle
+        self.tabBarController.tabBar.barStyle = self.theme.barStyle
         self.tabBarController.delegate = self
         self.tabBarController.setViewControllers(tabs, animated: false)
         self.addTagTabIfNeeded()
@@ -64,25 +64,12 @@ final class AppCoordinator: NSObject, Coordinator {
         self.splitViewController.viewControllers = [self.tabBarController]
         self.splitViewController.preferredDisplayMode = .allVisible
         self.splitViewController.delegate = self
-        self.splitViewController.view.backgroundColor = self.themeManager.theme.backgroundColor
+        self.splitViewController.view.backgroundColor = self.theme.backgroundColor
         
         // Configure the window
         window.makeKeyAndVisible()
-        window.tintColor = self.themeManager.theme.tintColor
-        self.themeManager.addObserver(self) { [weak self, weak window] theme in
-            window?.tintColor = theme.tintColor
-            self?.tabBarController.viewControllers?.forEach {
-                guard let navBar = ($0 as? UINavigationController)?.navigationBar else { return }
-                navBar.barStyle = theme.barStyle
-            }
-            self?.tabBarController.tabBar.barStyle = theme.barStyle
-            self?.splitViewController.view.backgroundColor = theme.backgroundColor
-        }
+        window.tintColor = self.theme.tintColor
         window.rootViewController = self.splitViewController
-    }
-    
-    deinit {
-        self.themeManager.removeObserver(self)
     }
     
     //MARK: Public methods
@@ -171,7 +158,7 @@ final class AppCoordinator: NSObject, Coordinator {
         tags.selectedTag = { [weak self] tag in self?.show(tag: tag) }
         let tagsNavController = NavigationController(rootViewController: tags)
         tagsNavController.navigationBar.prefersLargeTitles = true
-        tagsNavController.navigationBar.barStyle = self.themeManager.theme.barStyle
+        tagsNavController.navigationBar.barStyle = self.theme.barStyle
         currentTabs.append(tagsNavController)
         self.tabBarController.setViewControllers(currentTabs, animated: false)
     }

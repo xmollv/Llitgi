@@ -51,17 +51,17 @@ class ManageTagsViewController: UIViewController {
     //MARK:- Class properties
     let item: Item
     let dataProvider: DataProvider
-    let themeManager: ThemeManager
+    let theme: Theme
     let completed: () -> Void
     private(set) var currentTags: [Tag] = []
     private(set) var availableTags: [Tag] = []
     
     
     //MARK:- Lifecycle
-    init(item: Item, dataProvider: DataProvider, themeManager: ThemeManager, completed: @escaping () -> Void) {
+    init(item: Item, dataProvider: DataProvider, theme: Theme, completed: @escaping () -> Void) {
         self.item = item
         self.dataProvider = dataProvider
-        self.themeManager = themeManager
+        self.theme = theme
         self.completed = completed
         self.currentTags = item.tags
         self.availableTags = dataProvider.tags.filter { tag in
@@ -77,17 +77,14 @@ class ManageTagsViewController: UIViewController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return self.themeManager.theme.statusBarStyle
+        return self.theme.statusBarStyle
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.cancelBarButtonItem
         self.navigationItem.rightBarButtonItem = self.saveBarButtonItem
-        self.apply(self.themeManager.theme)
-        self.themeManager.addObserver(self) { [weak self] theme in
-            self?.apply(theme)
-        }
+        self.apply(self.theme)
         self.tableView.register(TagPickerCell.self)
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -132,7 +129,7 @@ class ManageTagsViewController: UIViewController {
         
         alertController.addTextField { [weak self] (textField) in
             guard let strongSelf = self else { return }
-            textField.keyboardAppearance = strongSelf.themeManager.theme.keyboardAppearance
+            textField.keyboardAppearance = strongSelf.theme.keyboardAppearance
         }
         let cancel = UIAlertAction(title: L10n.General.cancel, style: .cancel, handler: nil)
         let add = UIAlertAction(title: L10n.General.add, style: .default) { [weak self, weak alertController] (action) in
@@ -216,12 +213,12 @@ extension ManageTagsViewController: UITableViewDataSource {
         case .currentTags: tag = self.currentTags[indexPath.row]
         case .availableTags: tag = self.availableTags[indexPath.row]
         }
-        cell.configure(with: tag, theme: self.themeManager.theme)
+        cell.configure(with: tag, theme: self.theme)
         return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionHeaderView = SectionHeaderView(theme: self.themeManager.theme)
+        let sectionHeaderView = SectionHeaderView(theme: self.theme)
         
         let tagSection = Section(section: section)
         switch tagSection {

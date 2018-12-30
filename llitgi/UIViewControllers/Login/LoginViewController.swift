@@ -26,16 +26,16 @@ class LoginViewController: UIViewController {
     
     //MARK: Private properties
     private let dataProvider: DataProvider
-    private let themeManager: ThemeManager
+    private let theme: Theme
     
     //MARK: Public properties
     var loginFinished: (() -> Void)?
     var safariToPresent: ((SFSafariViewController) -> Void)?
     
     //MARK:- Lifecycle
-    init(dataProvider: DataProvider, themeManager: ThemeManager) {
+    init(dataProvider: DataProvider, theme: Theme) {
         self.dataProvider = dataProvider
-        self.themeManager = themeManager
+        self.theme = theme
         super.init(nibName: String(describing: LoginViewController.self), bundle: nil)
     }
     
@@ -45,22 +45,18 @@ class LoginViewController: UIViewController {
     }
     
     deinit {
-        self.themeManager.removeObserver(self)
         NotificationCenter.default.removeObserver(self)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return self.themeManager.theme.statusBarStyle
+        return self.theme.statusBarStyle
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.apply(self.themeManager.theme)
-        self.themeManager.addObserver(self) { [weak self] theme in
-            self?.apply(theme)
-        }
         NotificationCenter.default.addObserver(self, selector: #selector(self.verifyCodeAndGetToken), name: .OAuthFinished, object: nil)
         self.setupLocalizedStrings()
+        self.apply(self.theme)
     }
     
     //MARK: IBActions
@@ -86,8 +82,8 @@ class LoginViewController: UIViewController {
                 }
                 let sfs = SFSafariViewController(url: url)
                 sfs.modalPresentationStyle = .formSheet
-                sfs.preferredControlTintColor = strongSelf.themeManager.theme.tintColor
-                sfs.preferredBarTintColor = strongSelf.themeManager.theme.backgroundColor
+                sfs.preferredControlTintColor = strongSelf.theme.tintColor
+                sfs.preferredBarTintColor = strongSelf.theme.backgroundColor
                 strongSelf.safariToPresent?(sfs)
                 
             case .isFailure(let error):

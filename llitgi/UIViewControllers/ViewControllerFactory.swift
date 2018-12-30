@@ -14,14 +14,14 @@ final class ViewControllerFactory {
     //MARK: Private properties
     private let dataProvider: DataProvider
     private let userManager: UserManager
-    private let themeManager: ThemeManager
+    private let theme: Theme
     
     //MARK: Public properties
     var listsViewControllers: [ItemsViewController] {
         let listViewController = ItemsViewController(notifier: self.dataProvider.notifier(for: .myList),
                                                      dataProvider: self.dataProvider,
                                                      userManager: self.userManager,
-                                                     themeManager: self.themeManager,
+                                                     theme: self.theme,
                                                      type: .myList)
         listViewController.title = L10n.Titles.myList
         listViewController.tabBarItem = UITabBarItem(title: L10n.Titles.myList, image: #imageLiteral(resourceName: "list"), tag: 1)
@@ -29,7 +29,7 @@ final class ViewControllerFactory {
         let favoritesViewController = ItemsViewController(notifier: self.dataProvider.notifier(for: .favorites),
                                                           dataProvider: self.dataProvider,
                                                           userManager: self.userManager,
-                                                          themeManager: self.themeManager,
+                                                          theme: self.theme,
                                                           type: .favorites)
         favoritesViewController.title = L10n.Titles.favorites
         favoritesViewController.tabBarItem = UITabBarItem(title: L10n.Titles.favorites, image: #imageLiteral(resourceName: "favorite"), tag: 2)
@@ -37,7 +37,7 @@ final class ViewControllerFactory {
         let archiveViewController = ItemsViewController(notifier: self.dataProvider.notifier(for: .archive),
                                                         dataProvider: self.dataProvider,
                                                         userManager: self.userManager,
-                                                        themeManager: self.themeManager,
+                                                        theme: self.theme,
                                                         type: .archive)
         archiveViewController.title = L10n.Titles.archive
         archiveViewController.tabBarItem = UITabBarItem(title: L10n.Titles.archive, image: #imageLiteral(resourceName: "archive"), tag: 3)
@@ -48,7 +48,7 @@ final class ViewControllerFactory {
     var tagsViewController: TagsViewController {
         let tags = TagsViewController(notifier: self.dataProvider.tagsNotifier,
                                       dataProvider: self.dataProvider,
-                                      themeManager: self.themeManager)
+                                      theme: self.theme)
         tags.title = L10n.Titles.tags
         tags.tabBarItem = UITabBarItem(title: L10n.Titles.tags, image: #imageLiteral(resourceName: "tag"), tag: 4)
         return tags
@@ -56,7 +56,7 @@ final class ViewControllerFactory {
     
     var loginViewController: LoginViewController {
         return LoginViewController(dataProvider: self.dataProvider,
-                                   themeManager: self.themeManager)
+                                   theme: self.theme)
     }
     
     var fullSyncViewController: FullSyncViewController {
@@ -66,14 +66,14 @@ final class ViewControllerFactory {
     var settingsViewController: SettingsViewController {
         return SettingsViewController(userManager: self.userManager,
                                       dataProvider: self.dataProvider,
-                                      themeManager: self.themeManager)
+                                      theme: self.theme)
     }
     
     //MARK: Lifecycle
-    init(dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager) {
+    init(dataProvider: DataProvider, userManager: UserManager, theme: Theme) {
         self.dataProvider = dataProvider
         self.userManager = userManager
-        self.themeManager = themeManager
+        self.theme = theme
     }
     
     //MARK: Public methods
@@ -81,14 +81,14 @@ final class ViewControllerFactory {
         return TaggedItemsViewController(notifier: self.dataProvider.notifier(for: tag),
                                          dataProvider: self.dataProvider,
                                          userManager: self.userManager,
-                                         themeManager: self.themeManager,
+                                         theme: self.theme,
                                          tag: tag)
     }
     
     func manageTagsViewController(for item: Item, completed: @escaping () -> Void) -> ManageTagsViewController {
         return ManageTagsViewController(item: item,
                                         dataProvider: self.dataProvider,
-                                        themeManager: self.themeManager,
+                                        theme: self.theme,
                                         completed: completed)
     }
 }
