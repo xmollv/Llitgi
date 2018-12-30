@@ -119,10 +119,10 @@ final class PocketAPIManager {
                 // If we don't pass the since timestamp we get the full library
                 payload["since"] = lastSync
             }
-        case .modify(let modifictions):
+        case .modify(let actions):
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
-            payload["actions"] = Array(modifictions.map{ $0.wrappedAsDict })
+            payload["actions"] = Array(actions.map{ $0.wrappedAsDict })
         case .add(let url):
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
