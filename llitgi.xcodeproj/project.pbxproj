@@ -57,7 +57,7 @@
 		479E18E520724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		479E18E620724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A493A6203F6E6B004051A6 /* Bundle.swift */; };
-		47BFBFA921B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */; };
+		47BFBFA921B3D4BD00C6E34E /* TableViewControllerNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BFBFA821B3D4BD00C6E34E /* TableViewControllerNotifier.swift */; };
 		47CF670521D8DAC2005ADDED /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
 		47CF670721D8DB4C005ADDED /* SplitTabNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5845721CEB54300C7D17D /* SplitTabNav.swift */; };
 		47CF670821D8E200005ADDED /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BE4C213011BC0070D83A /* Theme.swift */; };
@@ -149,7 +149,7 @@
 		478F43A12038E77B003ECCAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		479E18E420724652002E3BB1 /* PocketConsumerKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PocketConsumerKey; sourceTree = "<group>"; };
 		47A493A6203F6E6B004051A6 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
-		47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCoreDataNotifier.swift; sourceTree = "<group>"; };
+		47BFBFA821B3D4BD00C6E34E /* TableViewControllerNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewControllerNotifier.swift; sourceTree = "<group>"; };
 		47DB058120B067DB001485DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47DE472A209A53D500770884 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		47E6128A203085BA00D26472 /* llitgi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = llitgi.entitlements; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 			children = (
 				4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */,
 				4710EF571FF44E5100D3DCA9 /* CoreDataNotifier.swift */,
-				47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */,
+				47BFBFA821B3D4BD00C6E34E /* TableViewControllerNotifier.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -627,7 +627,7 @@
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
 				47F5845821CEB54300C7D17D /* SplitTabNav.swift in Sources */,
 				4770AD031FF1B470006E755D /* ListCell.swift in Sources */,
-				47BFBFA921B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift in Sources */,
+				47BFBFA921B3D4BD00C6E34E /* TableViewControllerNotifier.swift in Sources */,
 				47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */,
 				474B44202001A52D009897D2 /* SettingsViewController.swift in Sources */,
 				477B511021C69374000E7633 /* TagsView.swift in Sources */,

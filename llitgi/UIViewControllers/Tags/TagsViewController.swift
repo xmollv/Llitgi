@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-final class TagsViewController: UITableViewController, TableViewCoreDataNotifier {
+final class TagsViewController: UITableViewController, TableViewControllerNotifier {
     
     //MARK: IBOutlets
     private lazy var loadingButton: UIBarButtonItem = {

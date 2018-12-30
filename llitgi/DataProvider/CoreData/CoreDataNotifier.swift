@@ -11,7 +11,7 @@ import CoreData
 protocol CoreDataNotifierDelegate: class {
     func willChangeContent()
     func didChangeSection(_ change: CoreDataNotifierSectionChange)
-    func didChangeObject(_ change: CoreDataNotifierChange)
+    func didChangeObject(_ change: CoreDataNotifierObjectChange)
     func endChangingContent()
     func startNotifyingFailed(with: Error)
 }
@@ -19,29 +19,13 @@ protocol CoreDataNotifierDelegate: class {
 enum CoreDataNotifierSectionChange {
     case insert(sectionIndex: Int)
     case delete(sectionIndex: Int)
-    
-    var description: String {
-        switch self {
-        case .insert(let section): return "Insert section \(section)"
-        case .delete(let section): return "Delete section \(section)"
-        }
-    }
 }
 
-enum CoreDataNotifierChange {
+enum CoreDataNotifierObjectChange {
     case update(indexPath: IndexPath)
     case insert(indexPath: IndexPath)
     case delete(indexPath: IndexPath)
     case move(from: IndexPath, to: IndexPath)
-    
-    var description: String {
-        switch self {
-        case .update(let indexPath): return "Update \(indexPath)"
-        case .insert(let indexPath): return "Insert \(indexPath)"
-        case .delete(let indexPath): return "Delete \(indexPath)"
-        case .move(let from, let to): return "Move \(from) \(to)"
-        }
-    }
 }
 
 class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsControllerDelegate {
@@ -106,7 +90,7 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         assert(self.delegate != nil, "The delegate for the CoreDataNotifier is nil.")
         
-        let change: CoreDataNotifierChange
+        let change: CoreDataNotifierObjectChange
         
         switch type {
         case .update:

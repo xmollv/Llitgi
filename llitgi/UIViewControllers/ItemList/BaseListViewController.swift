@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class BaseListViewController: UITableViewController, TableViewCoreDataNotifier {
+class BaseListViewController: UITableViewController, TableViewControllerNotifier {
     
     //MARK: Private properties
     let dataProvider: DataProvider

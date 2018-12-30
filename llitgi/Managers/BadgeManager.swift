@@ -47,7 +47,7 @@ extension BadgeManager: CoreDataNotifierDelegate {
     
     func didChangeSection(_ change: CoreDataNotifierSectionChange) {}
     
-    func didChangeObject(_ change: CoreDataNotifierChange) {}
+    func didChangeObject(_ change: CoreDataNotifierObjectChange) {}
     
     func endChangingContent() {
         self.updateBadgeCount()
