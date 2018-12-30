@@ -11,19 +11,23 @@ import Foundation
 
 final class TagsViewController: UITableViewController, TableViewCoreDataNotifier {
     
+    //MARK: IBOutlets
     private lazy var loadingButton: UIBarButtonItem = {
         let loading = UIActivityIndicatorView(style: .gray)
         loading.startAnimating()
         return UIBarButtonItem(customView: loading)
     }()
     
+    //MARK: Private properties
     let dataProvider: DataProvider
     let themeManager: ThemeManager
     let notifier: CoreDataNotifier<CoreDataTag>
     
+    //MARK: Public properties
     var settingsButtonTapped: (() -> Void)?
     var selectedTag: ((Tag) -> Void)?
     
+    //MARK: Lifecycle
     init(notifier: CoreDataNotifier<CoreDataTag>, dataProvider: DataProvider, themeManager: ThemeManager) {
         self.dataProvider = dataProvider
         self.themeManager = themeManager
@@ -129,6 +133,7 @@ final class TagsViewController: UITableViewController, TableViewCoreDataNotifier
     
 }
 
+//MARK: UITableViewDataSource
 extension TagsViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return self.notifier.numberOfSections()
@@ -145,6 +150,7 @@ extension TagsViewController {
     }
 }
 
+//MARK: UITableViewDelegate
 extension TagsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tag = self.notifier.element(at: indexPath)
