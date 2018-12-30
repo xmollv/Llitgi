@@ -262,8 +262,6 @@
 			isa = PBXGroup;
 			children = (
 				4770ACF91FF18AF7006E755D /* BaseListViewController.swift */,
-				4770AD011FF1B470006E755D /* ListCell.swift */,
-				4770AD021FF1B470006E755D /* ListCell.xib */,
 				474166A421D6D26800071B8F /* ItemsViewController.swift */,
 				474166A621D6D6E600071B8F /* TaggedItemsViewController.swift */,
 				47F5844E21CEA9C400C7D17D /* ManageTags */,
@@ -274,6 +272,7 @@
 		477B511121C69C46000E7633 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4792170021D8D0D000A263C6 /* UITableViewCells */,
 				477B510F21C69374000E7633 /* TagsView.swift */,
 				47F5845D21D02B6D00C7D17D /* SectionHeaderView.swift */,
 			);
@@ -288,6 +287,17 @@
 				4733B6F321B9466D009AFB9B /* BadgeManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		4792170021D8D0D000A263C6 /* UITableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				4770AD011FF1B470006E755D /* ListCell.swift */,
+				4770AD021FF1B470006E755D /* ListCell.xib */,
+				47F5845321CEB1F800C7D17D /* TagPickerCell.swift */,
+				47F5845421CEB1F800C7D17D /* TagPickerCell.xib */,
+			);
+			path = UITableViewCells;
 			sourceTree = "<group>";
 		};
 		47EEA3521FF02DDD0030BEF1 = {
@@ -408,8 +418,6 @@
 			children = (
 				47F5844F21CEA9EF00C7D17D /* ManageTagsViewController.swift */,
 				47F5845021CEA9EF00C7D17D /* ManageTagsViewController.xib */,
-				47F5845321CEB1F800C7D17D /* TagPickerCell.swift */,
-				47F5845421CEB1F800C7D17D /* TagPickerCell.xib */,
 			);
 			path = ManageTags;
 			sourceTree = "<group>";
