@@ -1,5 +1,5 @@
 //
-//  AutomaticCoreDataNotifier.swift
+//  TableViewControllerNotifier.swift
 //  llitgi
 //
 //  Created by Xavi Moll on 02/12/2018.
