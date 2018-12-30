@@ -100,11 +100,6 @@ final class PocketAPIManager {
     }
 
     //MARK:- Private methods
-    private enum TypeOfOAuthUrl {
-        case app
-        case web
-    }
-    
     /// Returns the dict that needs to be transformed into the JSON body for the POST
     private func payload(for endpoint: PocketAPIEndpoint) -> [String: Any] {
         var payload: [String: Any] = ["consumer_key" : self.apiConfig.consumerKey]
