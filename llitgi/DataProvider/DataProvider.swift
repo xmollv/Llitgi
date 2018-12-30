@@ -20,8 +20,20 @@ final class DataProvider {
     }
     
     //MARK: Public properties
-     var pocketOAuthUrl: URL? {
+    var pocketOAuthUrl: URL? {
         return self.pocketAPI.OAuthURLWebsite
+    }
+    
+    var tags: [Tag] {
+        return self.modelFactory.tags
+    }
+    
+    var tagsNotifier: CoreDataNotifier<CoreDataTag> {
+        return self.modelFactory.tagsNotifier
+    }
+    
+    var badgeNotifier: CoreDataNotifier<CoreDataItem> {
+        return self.modelFactory.badgeNotifier
     }
     
     //MARK: Lifecycle
@@ -31,12 +43,12 @@ final class DataProvider {
     }
     
     //MARK: Public methods
-    func badgeNotifier() -> CoreDataNotifier<CoreDataItem> {
-        return self.modelFactory.badgeNotifier()
-    }
-    
     func notifier(for type: TypeOfList, filteredBy query: String? = nil) -> CoreDataNotifier<CoreDataItem> {
         return self.modelFactory.notifier(for: type, matching: query)
+    }
+    
+    func notifier(for tag: Tag) -> CoreDataNotifier<CoreDataItem> {
+        return self.modelFactory.notifier(for: tag)
     }
     
     /// Performs a network request based on the endpoint, and builds the objects that the API returned

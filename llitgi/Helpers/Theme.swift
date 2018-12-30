@@ -106,30 +106,3 @@ enum Theme: String {
     }
 }
 
-final class ThemeManager {
-    
-    typealias ThemeChanged = (_ theme: Theme) -> Void
-    
-    private var observers: [String: ThemeChanged] = [:]
-    
-    var theme: Theme = .dark {
-        didSet {
-            UserDefaults.standard.setValue(theme.rawValue, forKey: "savedTheme")
-            self.observers.values.forEach{ $0(theme) }
-        }
-    }
-    
-    func addObserver(_ object: NSObject, then closure: @escaping ThemeChanged) {
-        Logger.log("Added \(object.description) as an observer to the ThemeManager.")
-        self.observers["\(object)"] = closure
-    }
-    
-    func removeObserver(_ object: NSObject) {
-        Logger.log("Removed \(object.description) as an observer from the ThemeManager.")
-        self.observers.removeValue(forKey: "\(object)")
-    }
-    
-    init() {
-        self.theme = Theme(withName: UserDefaults.standard.string(forKey: "savedTheme") ?? "")
-    }
-}

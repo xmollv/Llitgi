@@ -18,6 +18,8 @@ enum L10n {
         static let errorTitle = NSLocalizedString("General.errorTitle", comment: "")
         static let errorDescription = NSLocalizedString("General.errorDescription", comment: "")
         static let pocketError = NSLocalizedString("General.errorPocket", comment: "")
+        static let cancel = NSLocalizedString("General.cancel", comment: "")
+        static let add = NSLocalizedString("General.add", comment: "")
     }
     
     enum Add {
@@ -29,6 +31,7 @@ enum L10n {
         static let myList = NSLocalizedString("Titles.myList", comment: "")
         static let favorites = NSLocalizedString("Titles.favorites", comment: "")
         static let archive = NSLocalizedString("Titles.archive", comment: "")
+        static let tags = NSLocalizedString("Titles.tags", comment: "")
         static let settings = NSLocalizedString("Titles.settings", comment: "")
     }
     
@@ -57,6 +60,8 @@ enum L10n {
         static let archive = NSLocalizedString("Actions.archive", comment: "")
         static let unarchive = NSLocalizedString("Actions.unarchive", comment: "")
         static let delete = NSLocalizedString("Actions.delete", comment: "")
+        static let modify = NSLocalizedString("Actions.modify", comment: "")
+        static let tags = NSLocalizedString("Actions.tags", comment: "")
     }
     
     enum Settings {
@@ -73,5 +78,15 @@ enum L10n {
     
     enum ShareExtension {
         static let saving = NSLocalizedString("ShareExtension.saving", comment: "")
+    }
+    
+    enum Tags {
+        static let current = NSLocalizedString("Tags.current", comment: "")
+        static let available = NSLocalizedString("Tags.available", comment: "")
+        static let newTagTitle = NSLocalizedString("Tags.newTagTitle", comment: "")
+        static let remove = NSLocalizedString("Tags.remove", comment: "")
+        static let removeWarning = NSLocalizedString("Tags.removeWarning", comment: "")
+        static let modify = NSLocalizedString("Tags.modify", comment: "")
+        static let modifyWarning = NSLocalizedString("Tags.modifyWarning", comment: "")
     }
 }

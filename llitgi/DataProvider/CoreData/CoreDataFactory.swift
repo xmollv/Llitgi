@@ -10,9 +10,12 @@ import Foundation
 import CoreData
 
 protocol CoreDataFactory: class {
+    var tags: [Tag] { get }
+    var tagsNotifier: CoreDataNotifier<CoreDataTag> { get }
+    var badgeNotifier: CoreDataNotifier<CoreDataItem> { get }
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
-    func badgeNotifier() -> CoreDataNotifier<CoreDataItem>
     func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier<CoreDataItem>
+    func notifier(for: Tag) -> CoreDataNotifier<CoreDataItem>
     func deleteAllModels()
 }
 
@@ -24,6 +27,39 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     private let storeContainer: NSPersistentContainer
     private let mainThreadContext: NSManagedObjectContext
     private let backgroundContext: NSManagedObjectContext
+    
+    var tags: [Tag] {
+        let request = NSFetchRequest<CoreDataTag>(entityName: String(describing: CoreDataTag.self))
+        request.sortDescriptors = [NSSortDescriptor(key: "name_", ascending: true)]
+        request.predicate = NSPredicate(format: "items_.@count > 0")
+        var results: [Tag] = []
+        self.backgroundContext.performAndWait {
+            results = (try? self.backgroundContext.fetch(request)) ?? []
+        }
+        return results
+    }
+    
+    var tagsNotifier: CoreDataNotifier<CoreDataTag> {
+        let request = NSFetchRequest<CoreDataTag>(entityName: String(describing: CoreDataTag.self))
+        request.predicate = NSPredicate(format: "items_.@count > 0")
+        request.sortDescriptors = [NSSortDescriptor(key: "name_", ascending: true)]
+        let frc = NSFetchedResultsController(fetchRequest: request,
+                                             managedObjectContext: self.mainThreadContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        return CoreDataNotifier(fetchResultController: frc)
+    }
+    
+    var badgeNotifier: CoreDataNotifier<CoreDataItem> {
+        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        request.predicate = NSPredicate(format: "status_ == '0'")
+        request.sortDescriptors = [NSSortDescriptor(key: "id_", ascending: false)]
+        let frc = NSFetchedResultsController(fetchRequest: request,
+                                             managedObjectContext: self.mainThreadContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        return CoreDataNotifier(fetchResultController: frc)
+    }
     
     //MARK:  Lifecycle
     init(name: String = "CoreDataModel", fileManager: FileManager = FileManager.default) {
@@ -55,17 +91,6 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         }
         self.saveBackgroundContext()
         return objects
-    }
-    
-    func badgeNotifier() -> CoreDataNotifier<CoreDataItem> {
-        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        request.predicate = NSPredicate(format: "status_ == '0'")
-        request.sortDescriptors = [NSSortDescriptor(key: "id_", ascending: false)]
-        let frc = NSFetchedResultsController(fetchRequest: request,
-                                             managedObjectContext: self.mainThreadContext,
-                                             sectionNameKeyPath: nil,
-                                             cacheName: nil)
-        return CoreDataNotifier(fetchResultController: frc)
     }
     
     func notifier(for type: TypeOfList, matching query: String?) -> CoreDataNotifier<CoreDataItem> {
@@ -111,6 +136,20 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         let frc = NSFetchedResultsController(fetchRequest: request,
                                              managedObjectContext: self.mainThreadContext,
                                              sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        return CoreDataNotifier(fetchResultController: frc)
+    }
+    
+    func notifier(for tag: Tag) -> CoreDataNotifier<CoreDataItem> {
+        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        request.predicate = NSPredicate(format: "status_ != '2' AND tags_.name_ CONTAINS[cd] %@", tag.name)
+        let status = NSSortDescriptor(key: "status_", ascending: true)
+        let addedTime = NSSortDescriptor(key: "timeAdded_", ascending: false)
+        let id = NSSortDescriptor(key: "id_", ascending: false)
+        request.sortDescriptors = [status, addedTime, id]
+        let frc = NSFetchedResultsController(fetchRequest: request,
+                                             managedObjectContext: self.mainThreadContext,
+                                             sectionNameKeyPath: "status_",
                                              cacheName: nil)
         return CoreDataNotifier(fetchResultController: frc)
     }

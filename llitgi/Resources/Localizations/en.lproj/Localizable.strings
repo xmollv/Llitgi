@@ -5,6 +5,8 @@
 "General.errorPocket" = "Something went wrong communicating with Pocket. Could you please try again?";
 "General.errorTitle" = "Oops!";
 "General.errorDescription" = "Something went wrong.";
+"General.cancel" = "Cancel";
+"General.add" = "Add";
 
 "Onboarding.title" = "Welcome to Llitgi.";
 "Onboarding.offlineTitle" = "Offline first";
@@ -21,6 +23,7 @@
 "Titles.myList" = "My List";
 "Titles.favorites" = "Favorites";
 "Titles.archive" = "Archive";
+"Titles.tags" = "Tags";
 "Titles.settings" = "Settings";
 
 "Sync.success" = "Success! 🎉";
@@ -34,6 +37,8 @@
 "Actions.archive" = "Archive";
 "Actions.unarchive" = "Unarchive";
 "Actions.unfavorite" = "Unfavorite";
+"Actions.tags" = "Manage\nTags";
+"Actions.modify" = "Rename";
 
 "Settings.badgecount" = "Show app badge count";
 "Settings.badgeExplanation" = "We'll show you a badge on the app icon indicating how many items are on your list.";
@@ -46,3 +51,11 @@
 "Settings.darkTheme" = "Dark";
 
 "ShareExtension.saving" = "Saving to Llitgi...";
+
+"Tags.current" = "Current Tags";
+"Tags.available" = "Available Tags";
+"Tags.newTagTitle" = "New Tag";
+"Tags.remove" = "Remove";
+"Tags.removeWarning" = "Are you sure that you want to remove \"%1$@\"? %2$d items will be affected by this change.";
+"Tags.modify" = "Rename";
+"Tags.modifyWarning" = "Are you sure that you want to rename \"%1$@\"? %2$d items will be affected by this change.";

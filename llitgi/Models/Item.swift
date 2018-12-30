@@ -57,11 +57,13 @@ final class CoreDataItem: Managed, Item {
     var isFavorite: Bool { return self.read(key: "isFavorite_")! }
     var status: ItemStatus { return ItemStatus(rawValue: self.read(key: "status_")!)! }
     var tags: [Tag] {
-        if let nssetTags: NSSet = self.read(key: "tags_") {
-            return (nssetTags.allObjects as? [CoreDataTag])?.sorted{ $0.name < $1.name } ?? []
-        } else {
-            return []
+        var result: [Tag] = []
+        self.managedObjectContext?.performAndWait {
+            if let nssetTags: NSSet = self.read(key: "tags_") {
+                result = (nssetTags.allObjects as? [CoreDataTag])?.sorted{ $0.name < $1.name } ?? []
+            }
         }
+        return result
     }
     
     //MARK: Public methods
