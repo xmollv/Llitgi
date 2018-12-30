@@ -58,6 +58,7 @@
 		479E18E620724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A493A6203F6E6B004051A6 /* Bundle.swift */; };
 		47BFBFA921B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */; };
+		47CF670521D8DAC2005ADDED /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
 		47DB058220B067DB001485DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47DB058120B067DB001485DF /* Assets.xcassets */; };
 		47DE472B209A53D500770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47DE472C209A5C6E00770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
@@ -300,6 +301,26 @@
 			path = UITableViewCells;
 			sourceTree = "<group>";
 		};
+		47CF670421D8DAA7005ADDED /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				47392347202667E3005526C5 /* LitgiUserDefaults.swift */,
+				47376DE31FF07F9500B8E70C /* Logger.swift */,
+				47EEA38C1FF074C70030BEF1 /* Typealias.swift */,
+				4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		47CF670621D8DAFF005ADDED /* Localizations */ = {
+			isa = PBXGroup;
+			children = (
+				478F439C2038E52D003ECCAD /* Localizable.strings */,
+				47DE472A209A53D500770884 /* L10n.swift */,
+			);
+			path = Localizations;
+			sourceTree = "<group>";
+		};
 		47EEA3521FF02DDD0030BEF1 = {
 			isa = PBXGroup;
 			children = (
@@ -328,7 +349,8 @@
 				477B511121C69C46000E7633 /* Views */,
 				4727DE5F2110559C00444D5D /* Coordinators */,
 				47EEA3781FF034E80030BEF1 /* ViewControllers */,
-				47EEA38E1FF074D80030BEF1 /* Extensions & Helpers */,
+				47CF670421D8DAA7005ADDED /* Helpers */,
+				47EEA38E1FF074D80030BEF1 /* UIKit Extensions */,
 				47EEA3721FF02F750030BEF1 /* Resources */,
 			);
 			path = llitgi;
@@ -337,8 +359,8 @@
 		47EEA3721FF02F750030BEF1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				47CF670621D8DAFF005ADDED /* Localizations */,
 				47DB058120B067DB001485DF /* Assets.xcassets */,
-				478F439C2038E52D003ECCAD /* Localizable.strings */,
 				47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */,
 				47EEA36C1FF02DDD0030BEF1 /* Info.plist */,
 				47E6128A203085BA00D26472 /* llitgi.entitlements */,
@@ -392,16 +414,11 @@
 			path = PocketAPI;
 			sourceTree = "<group>";
 		};
-		47EEA38E1FF074D80030BEF1 /* Extensions & Helpers */ = {
+		47EEA38E1FF074D80030BEF1 /* UIKit Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				47392347202667E3005526C5 /* LitgiUserDefaults.swift */,
-				47DE472A209A53D500770884 /* L10n.swift */,
-				47376DE31FF07F9500B8E70C /* Logger.swift */,
-				47EEA38C1FF074C70030BEF1 /* Typealias.swift */,
 				4770ACF41FF111A9006E755D /* UIView.swift */,
 				4770ACF61FF17AFD006E755D /* Notification.swift */,
-				4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */,
 				4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */,
 				478F43842038B24E003ECCAD /* UITableView.swift */,
 				47A493A6203F6E6B004051A6 /* Bundle.swift */,
@@ -410,7 +427,7 @@
 				477B510C21C65DA1000E7633 /* URLRequest.swift */,
 				477B511221C6A829000E7633 /* UIColor.swift */,
 			);
-			path = "Extensions & Helpers";
+			path = "UIKit Extensions";
 			sourceTree = "<group>";
 		};
 		47F5844E21CEA9C400C7D17D /* ManageTags */ = {
@@ -555,6 +572,7 @@
 				475E177020262CAD007033F1 /* ShareViewController.swift in Sources */,
 				475E1781202633A4007033F1 /* PocketAPIModification.swift in Sources */,
 				475E177F202633A4007033F1 /* PocketAPIConfiguration.swift in Sources */,
+				47CF670521D8DAC2005ADDED /* ReusableCells.swift in Sources */,
 				47DE472C209A5C6E00770884 /* L10n.swift in Sources */,
 				475E1780202633A4007033F1 /* PocketAPIEndpoint.swift in Sources */,
 				475E1782202633A4007033F1 /* PocketAPIError.swift in Sources */,
