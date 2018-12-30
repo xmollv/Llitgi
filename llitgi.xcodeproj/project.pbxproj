@@ -59,6 +59,7 @@
 		47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A493A6203F6E6B004051A6 /* Bundle.swift */; };
 		47BFBFA921B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */; };
 		47CF670521D8DAC2005ADDED /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
+		47CF670721D8DB4C005ADDED /* SplitTabNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5845721CEB54300C7D17D /* SplitTabNav.swift */; };
 		47DB058220B067DB001485DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47DB058120B067DB001485DF /* Assets.xcassets */; };
 		47DE472B209A53D500770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47DE472C209A5C6E00770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
@@ -304,6 +305,7 @@
 		47CF670421D8DAA7005ADDED /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				47F5845721CEB54300C7D17D /* SplitTabNav.swift */,
 				47392347202667E3005526C5 /* LitgiUserDefaults.swift */,
 				47376DE31FF07F9500B8E70C /* Logger.swift */,
 				47EEA38C1FF074C70030BEF1 /* Typealias.swift */,
@@ -373,7 +375,6 @@
 			isa = PBXGroup;
 			children = (
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
-				47F5845721CEB54300C7D17D /* SplitTabNav.swift */,
 				47EEA37B1FF035A20030BEF1 /* Authorization */,
 				4752C0842030F20300988A68 /* FullSync */,
 				4770ACF81FF189CD006E755D /* ItemList */,
@@ -576,6 +577,7 @@
 				47DE472C209A5C6E00770884 /* L10n.swift in Sources */,
 				475E1780202633A4007033F1 /* PocketAPIEndpoint.swift in Sources */,
 				475E1782202633A4007033F1 /* PocketAPIError.swift in Sources */,
+				47CF670721D8DB4C005ADDED /* SplitTabNav.swift in Sources */,
 				477B510E21C65DA3000E7633 /* URLRequest.swift in Sources */,
 				475E1783202633EA007033F1 /* Typealias.swift in Sources */,
 				47392349202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
