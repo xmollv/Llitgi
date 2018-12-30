@@ -18,16 +18,14 @@ final class TagsViewController: UITableViewController, TableViewCoreDataNotifier
     }()
     
     let dataProvider: DataProvider
-    let userManager: UserManager
     let themeManager: ThemeManager
     let notifier: CoreDataNotifier<CoreDataTag>
     
     var settingsButtonTapped: (() -> Void)?
     var selectedTag: ((Tag) -> Void)?
     
-    init(notifier: CoreDataNotifier<CoreDataTag>, dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager) {
+    init(notifier: CoreDataNotifier<CoreDataTag>, dataProvider: DataProvider, themeManager: ThemeManager) {
         self.dataProvider = dataProvider
-        self.userManager = userManager
         self.themeManager = themeManager
         self.notifier = notifier
         super.init(style: .plain)
