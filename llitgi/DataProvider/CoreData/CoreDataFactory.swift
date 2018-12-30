@@ -12,9 +12,9 @@ import CoreData
 protocol CoreDataFactory: class {
     var tags: [Tag] { get }
     var tagsNotifier: CoreDataNotifier<CoreDataTag> { get }
+    var badgeNotifier: CoreDataNotifier<CoreDataItem> { get }
     func items(with: Tag) -> [Item]
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
-    func badgeNotifier() -> CoreDataNotifier<CoreDataItem>
     func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier<CoreDataItem>
     func notifier(for: Tag) -> CoreDataNotifier<CoreDataItem>
     func deleteAllModels()
@@ -32,7 +32,6 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     var tags: [Tag] {
         let request = NSFetchRequest<CoreDataTag>(entityName: String(describing: CoreDataTag.self))
         request.sortDescriptors = [NSSortDescriptor(key: "name_", ascending: true)]
-        #warning("This is a hack to avoid seeing tags with no items. Find a solution to remove them from Core Data instead of relying on this.")
         request.predicate = NSPredicate(format: "items_.@count > 0")
         var results: [Tag] = []
         self.backgroundContext.performAndWait {
@@ -45,6 +44,17 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         let request = NSFetchRequest<CoreDataTag>(entityName: String(describing: CoreDataTag.self))
         request.predicate = NSPredicate(format: "items_.@count > 0")
         request.sortDescriptors = [NSSortDescriptor(key: "name_", ascending: true)]
+        let frc = NSFetchedResultsController(fetchRequest: request,
+                                             managedObjectContext: self.mainThreadContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        return CoreDataNotifier(fetchResultController: frc)
+    }
+    
+    var badgeNotifier: CoreDataNotifier<CoreDataItem> {
+        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
+        request.predicate = NSPredicate(format: "status_ == '0'")
+        request.sortDescriptors = [NSSortDescriptor(key: "id_", ascending: false)]
         let frc = NSFetchedResultsController(fetchRequest: request,
                                              managedObjectContext: self.mainThreadContext,
                                              sectionNameKeyPath: nil,
@@ -92,17 +102,6 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         }
         self.saveBackgroundContext()
         return objects
-    }
-    
-    func badgeNotifier() -> CoreDataNotifier<CoreDataItem> {
-        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        request.predicate = NSPredicate(format: "status_ == '0'")
-        request.sortDescriptors = [NSSortDescriptor(key: "id_", ascending: false)]
-        let frc = NSFetchedResultsController(fetchRequest: request,
-                                             managedObjectContext: self.mainThreadContext,
-                                             sectionNameKeyPath: nil,
-                                             cacheName: nil)
-        return CoreDataNotifier(fetchResultController: frc)
     }
     
     func notifier(for type: TypeOfList, matching query: String?) -> CoreDataNotifier<CoreDataItem> {

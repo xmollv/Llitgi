@@ -41,7 +41,7 @@ final class AppCoordinator: NSObject, Coordinator {
         self.theme = theme
         self.splitViewController = SplitViewController()
         self.tabBarController = TabBarController()
-        self.badgeManager = BadgeManager(notifier: dataProvider.badgeNotifier(), userManager: userManager)
+        self.badgeManager = BadgeManager(notifier: dataProvider.badgeNotifier, userManager: userManager)
 
         super.init()
         

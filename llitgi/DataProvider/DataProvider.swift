@@ -32,6 +32,10 @@ final class DataProvider {
         return self.modelFactory.tagsNotifier
     }
     
+    var badgeNotifier: CoreDataNotifier<CoreDataItem> {
+        return self.modelFactory.badgeNotifier
+    }
+    
     //MARK: Lifecycle
     init(pocketAPI: PocketAPIManager, modelFactory: CoreDataFactory) {
         self.pocketAPI = pocketAPI
@@ -39,10 +43,6 @@ final class DataProvider {
     }
     
     //MARK: Public methods
-    func badgeNotifier() -> CoreDataNotifier<CoreDataItem> {
-        return self.modelFactory.badgeNotifier()
-    }
-    
     func notifier(for type: TypeOfList, filteredBy query: String? = nil) -> CoreDataNotifier<CoreDataItem> {
         return self.modelFactory.notifier(for: type, matching: query)
     }
