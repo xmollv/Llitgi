@@ -271,14 +271,14 @@
 			path = ItemList;
 			sourceTree = "<group>";
 		};
-		477B511121C69C46000E7633 /* Views */ = {
+		477B511121C69C46000E7633 /* UIViews */ = {
 			isa = PBXGroup;
 			children = (
 				4792170021D8D0D000A263C6 /* UITableViewCells */,
 				477B510F21C69374000E7633 /* TagsView.swift */,
 				47F5845D21D02B6D00C7D17D /* SectionHeaderView.swift */,
 			);
-			path = Views;
+			path = UIViews;
 			sourceTree = "<group>";
 		};
 		47803EA320096727003D58E2 /* Managers */ = {
@@ -348,9 +348,9 @@
 				47EEA3801FF037B30030BEF1 /* DataProvider */,
 				47803EA320096727003D58E2 /* Managers */,
 				47376DE51FF082F800B8E70C /* Models */,
-				477B511121C69C46000E7633 /* Views */,
+				477B511121C69C46000E7633 /* UIViews */,
 				4727DE5F2110559C00444D5D /* Coordinators */,
-				47EEA3781FF034E80030BEF1 /* ViewControllers */,
+				47EEA3781FF034E80030BEF1 /* UIViewControllers */,
 				47CF670421D8DAA7005ADDED /* Helpers */,
 				47EEA38E1FF074D80030BEF1 /* UIKit Extensions */,
 				47EEA3721FF02F750030BEF1 /* Resources */,
@@ -371,7 +371,7 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		47EEA3781FF034E80030BEF1 /* ViewControllers */ = {
+		47EEA3781FF034E80030BEF1 /* UIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
@@ -381,7 +381,7 @@
 				4738F07921D7FCEB00B00A9B /* Tags */,
 				474B441D2001A517009897D2 /* Settings */,
 			);
-			path = ViewControllers;
+			path = UIViewControllers;
 			sourceTree = "<group>";
 		};
 		47EEA37B1FF035A20030BEF1 /* Authorization */ = {
