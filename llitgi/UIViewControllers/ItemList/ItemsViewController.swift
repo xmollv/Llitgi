@@ -62,9 +62,9 @@ final class ItemsViewController: BaseListViewController {
     var settingsButtonTapped: (() -> Void)?
     
     //MARK:- Lifecycle
-    required init(notifier: CoreDataNotifier<CoreDataItem>, dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager, type: TypeOfList) {
+    required init(notifier: CoreDataNotifier<CoreDataItem>, dataProvider: DataProvider, userManager: UserManager, theme: Theme, type: TypeOfList) {
         self.typeOfList = type
-        super.init(notifier: notifier, dataProvider: dataProvider, userManager: userManager, themeManager: themeManager)
+        super.init(notifier: notifier, dataProvider: dataProvider, userManager: userManager, theme: theme)
     }
     
     override func viewDidLoad() {

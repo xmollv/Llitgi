@@ -22,7 +22,7 @@ final class AppCoordinator: NSObject, Coordinator {
     private let dataProvider: DataProvider
     private let splitViewController: UISplitViewController
     private let tabBarController: UITabBarController
-    private let themeManager: ThemeManager
+    private let theme: Theme
     private let badgeManager: BadgeManager
     weak private var presentedSafari: SFSafariViewController?
     
@@ -34,29 +34,29 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     //MARK: Lifecycle
-    init(window: UIWindow, factory: ViewControllerFactory, userManager: UserManager, dataProvider: DataProvider, themeManager: ThemeManager) {
+    init(window: UIWindow, factory: ViewControllerFactory, userManager: UserManager, dataProvider: DataProvider, theme: Theme) {
         self.factory = factory
         self.userManager = userManager
         self.dataProvider = dataProvider
-        self.themeManager = themeManager
+        self.theme = theme
         self.splitViewController = SplitViewController()
         self.tabBarController = TabBarController()
-        self.badgeManager = BadgeManager(notifier: dataProvider.badgeNotifier(), userManager: userManager)
+        self.badgeManager = BadgeManager(notifier: dataProvider.badgeNotifier, userManager: userManager)
 
         super.init()
         
-        let tabs = self.factory.instantiateLists().map { (vc) -> UINavigationController in
+        let tabs = self.factory.listsViewControllers.map { (vc) -> UINavigationController in
             vc.safariToPresent = self.presentSafariClosure
             vc.settingsButtonTapped = { [weak self] in self?.showSettings() }
             vc.selectedTag = { [weak self] tag in self?.show(tag: tag) }
             vc.tagsModification = { [weak self] item in self?.showTagsPicker(for: item) }
             let navController = NavigationController(rootViewController: vc)
             navController.navigationBar.prefersLargeTitles = true
-            navController.navigationBar.barStyle = self.themeManager.theme.barStyle
+            navController.navigationBar.barStyle = self.theme.barStyle
             return navController
         }
 
-        self.tabBarController.tabBar.barStyle = self.themeManager.theme.barStyle
+        self.tabBarController.tabBar.barStyle = self.theme.barStyle
         self.tabBarController.delegate = self
         self.tabBarController.setViewControllers(tabs, animated: false)
         self.addTagTabIfNeeded()
@@ -64,25 +64,12 @@ final class AppCoordinator: NSObject, Coordinator {
         self.splitViewController.viewControllers = [self.tabBarController]
         self.splitViewController.preferredDisplayMode = .allVisible
         self.splitViewController.delegate = self
-        self.splitViewController.view.backgroundColor = self.themeManager.theme.backgroundColor
+        self.splitViewController.view.backgroundColor = self.theme.backgroundColor
         
         // Configure the window
         window.makeKeyAndVisible()
-        window.tintColor = self.themeManager.theme.tintColor
-        self.themeManager.addObserver(self) { [weak self, weak window] theme in
-            window?.tintColor = theme.tintColor
-            self?.tabBarController.viewControllers?.forEach {
-                guard let navBar = ($0 as? UINavigationController)?.navigationBar else { return }
-                navBar.barStyle = theme.barStyle
-            }
-            self?.tabBarController.tabBar.barStyle = theme.barStyle
-            self?.splitViewController.view.backgroundColor = theme.backgroundColor
-        }
+        window.tintColor = self.theme.tintColor
         window.rootViewController = self.splitViewController
-    }
-    
-    deinit {
-        self.themeManager.removeObserver(self)
     }
     
     //MARK: Public methods
@@ -94,7 +81,7 @@ final class AppCoordinator: NSObject, Coordinator {
     
     //MARK: Private methods
     private func showLogin(animated: Bool = true) {
-        let login = self.factory.instantiateAuth()
+        let login = self.factory.loginViewController
         login.modalPresentationStyle = .formSheet
         
         login.safariToPresent = { [weak login] sfs in
@@ -111,7 +98,7 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func showSettings() {
-        let settingsViewController = self.factory.instantiateSettings()
+        let settingsViewController = self.factory.settingsViewController
         
         settingsViewController.doneBlock = { [weak self] in
             self?.splitViewController.dismiss(animated: true, completion: nil)
@@ -136,7 +123,7 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func show(tag: Tag) {
-        let tagViewController = self.factory.instantiateList(for: tag)
+        let tagViewController = self.factory.itemsViewController(for: tag)
         tagViewController.selectedTag = { [weak self] tag in self?.show(tag: tag) }
         tagViewController.safariToPresent = self.presentSafariClosure
         tagViewController.tagsModification = { [weak self] item in self?.showTagsPicker(for: item) }
@@ -145,7 +132,7 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func showTagsPicker(for item: Item) {
-        let tagPicker = self.factory.instantiateManageTagsViewController(item: item) { [weak self] in
+        let tagPicker = self.factory.manageTagsViewController(for: item) { [weak self] in
             self?.splitViewController.dismiss(animated: true, completion: nil)
         }
         let navController = NavigationController(rootViewController: tagPicker)
@@ -154,7 +141,7 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func showFullSync() {
-        let fullSync = self.factory.instantiateFullSync()
+        let fullSync = self.factory.fullSyncViewController
         fullSync.finishedSyncing = { [weak self] in
             self?.addTagTabIfNeeded()
             self?.splitViewController.dismiss(animated: true, completion: nil)
@@ -166,12 +153,12 @@ final class AppCoordinator: NSObject, Coordinator {
     
     private func addTagTabIfNeeded() {
         guard !dataProvider.tags.isEmpty, var currentTabs = self.tabBarController.viewControllers, currentTabs.count == 3 else { return }
-        let tags = self.factory.instantiateTagsList()
+        let tags = self.factory.tagsViewController
         tags.settingsButtonTapped = { [weak self] in self?.showSettings() }
         tags.selectedTag = { [weak self] tag in self?.show(tag: tag) }
         let tagsNavController = NavigationController(rootViewController: tags)
         tagsNavController.navigationBar.prefersLargeTitles = true
-        tagsNavController.navigationBar.barStyle = self.themeManager.theme.barStyle
+        tagsNavController.navigationBar.barStyle = self.theme.barStyle
         currentTabs.append(tagsNavController)
         self.tabBarController.setViewControllers(currentTabs, animated: false)
     }

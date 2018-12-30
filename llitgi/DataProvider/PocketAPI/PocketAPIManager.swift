@@ -100,11 +100,6 @@ final class PocketAPIManager {
     }
 
     //MARK:- Private methods
-    private enum TypeOfOAuthUrl {
-        case app
-        case web
-    }
-    
     /// Returns the dict that needs to be transformed into the JSON body for the POST
     private func payload(for endpoint: PocketAPIEndpoint) -> [String: Any] {
         var payload: [String: Any] = ["consumer_key" : self.apiConfig.consumerKey]
@@ -124,10 +119,10 @@ final class PocketAPIManager {
                 // If we don't pass the since timestamp we get the full library
                 payload["since"] = lastSync
             }
-        case .modify(let modifictions):
+        case .modify(let actions):
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token
-            payload["actions"] = Array(modifictions.map{ $0.wrappedAsDict })
+            payload["actions"] = Array(actions.map{ $0.wrappedAsDict })
         case .add(let url):
             guard let token = self.apiConfig.accessToken else { break }
             payload["access_token"] = token

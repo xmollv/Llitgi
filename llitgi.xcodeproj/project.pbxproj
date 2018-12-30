@@ -15,7 +15,7 @@
 		4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF601FF51D8500D3DCA9 /* Managed.swift */; };
 		471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FE2E820B5EFED0059AEA7 /* UIViewController.swift */; };
 		4727DE61211055AE00444D5D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4727DE60211055AE00444D5D /* AppCoordinator.swift */; };
-		4732BE4D213011BC0070D83A /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BE4C213011BC0070D83A /* ThemeManager.swift */; };
+		4732BE4D213011BC0070D83A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BE4C213011BC0070D83A /* Theme.swift */; };
 		4733B6F421B9466D009AFB9B /* BadgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733B6F321B9466D009AFB9B /* BadgeManager.swift */; };
 		47376DE41FF07F9500B8E70C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		47376DE71FF0831600B8E70C /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE61FF0831600B8E70C /* Item.swift */; };
@@ -57,15 +57,18 @@
 		479E18E520724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		479E18E620724653002E3BB1 /* PocketConsumerKey in Resources */ = {isa = PBXBuildFile; fileRef = 479E18E420724652002E3BB1 /* PocketConsumerKey */; };
 		47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A493A6203F6E6B004051A6 /* Bundle.swift */; };
-		47BFBFA921B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */; };
+		47BFBFA921B3D4BD00C6E34E /* TableViewControllerNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BFBFA821B3D4BD00C6E34E /* TableViewControllerNotifier.swift */; };
+		47CF670521D8DAC2005ADDED /* ReusableCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */; };
+		47CF670721D8DB4C005ADDED /* SplitTabNav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5845721CEB54300C7D17D /* SplitTabNav.swift */; };
+		47CF670821D8E200005ADDED /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4732BE4C213011BC0070D83A /* Theme.swift */; };
 		47DB058220B067DB001485DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47DB058120B067DB001485DF /* Assets.xcassets */; };
 		47DE472B209A53D500770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47DE472C209A5C6E00770884 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DE472A209A53D500770884 /* L10n.swift */; };
 		47EBC007218367A700343AF7 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EBC006218367A700343AF7 /* Tag.swift */; };
 		47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */; };
 		47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */; };
-		47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */; };
-		47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */; };
+		47EEA37E1FF035C80030BEF1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA37C1FF035C80030BEF1 /* LoginViewController.swift */; };
+		47EEA37F1FF035C80030BEF1 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA37D1FF035C80030BEF1 /* LoginViewController.xib */; };
 		47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3821FF037D40030BEF1 /* DataProvider.swift */; };
 		47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */; };
 		47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */; };
@@ -114,7 +117,7 @@
 		4710EF601FF51D8500D3DCA9 /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		471FE2E820B5EFED0059AEA7 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		4727DE60211055AE00444D5D /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		4732BE4C213011BC0070D83A /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		4732BE4C213011BC0070D83A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		4733B6F321B9466D009AFB9B /* BadgeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeManager.swift; sourceTree = "<group>"; };
 		47376DE31FF07F9500B8E70C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		47376DE61FF0831600B8E70C /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -146,7 +149,7 @@
 		478F43A12038E77B003ECCAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		479E18E420724652002E3BB1 /* PocketConsumerKey */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PocketConsumerKey; sourceTree = "<group>"; };
 		47A493A6203F6E6B004051A6 /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
-		47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCoreDataNotifier.swift; sourceTree = "<group>"; };
+		47BFBFA821B3D4BD00C6E34E /* TableViewControllerNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewControllerNotifier.swift; sourceTree = "<group>"; };
 		47DB058120B067DB001485DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47DE472A209A53D500770884 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		47E6128A203085BA00D26472 /* llitgi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = llitgi.entitlements; sourceTree = "<group>"; };
@@ -156,8 +159,8 @@
 		47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47EEA36A1FF02DDD0030BEF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47EEA36C1FF02DDD0030BEF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
-		47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthorizationViewController.xib; sourceTree = "<group>"; };
+		47EEA37C1FF035C80030BEF1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		47EEA37D1FF035C80030BEF1 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		47EEA3821FF037D40030BEF1 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIManager.swift; sourceTree = "<group>"; };
 		47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
@@ -196,7 +199,7 @@
 			children = (
 				4710EF551FF4338A00D3DCA9 /* CoreDataFactory.swift */,
 				4710EF571FF44E5100D3DCA9 /* CoreDataNotifier.swift */,
-				47BFBFA821B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift */,
+				47BFBFA821B3D4BD00C6E34E /* TableViewControllerNotifier.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -269,21 +272,20 @@
 			path = ItemList;
 			sourceTree = "<group>";
 		};
-		477B511121C69C46000E7633 /* Views */ = {
+		477B511121C69C46000E7633 /* UIViews */ = {
 			isa = PBXGroup;
 			children = (
 				4792170021D8D0D000A263C6 /* UITableViewCells */,
 				477B510F21C69374000E7633 /* TagsView.swift */,
 				47F5845D21D02B6D00C7D17D /* SectionHeaderView.swift */,
 			);
-			path = Views;
+			path = UIViews;
 			sourceTree = "<group>";
 		};
 		47803EA320096727003D58E2 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				47803EA42009674D003D58E2 /* UserManager.swift */,
-				4732BE4C213011BC0070D83A /* ThemeManager.swift */,
 				4733B6F321B9466D009AFB9B /* BadgeManager.swift */,
 			);
 			path = Managers;
@@ -298,6 +300,28 @@
 				47F5845421CEB1F800C7D17D /* TagPickerCell.xib */,
 			);
 			path = UITableViewCells;
+			sourceTree = "<group>";
+		};
+		47CF670421D8DAA7005ADDED /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4732BE4C213011BC0070D83A /* Theme.swift */,
+				47F5845721CEB54300C7D17D /* SplitTabNav.swift */,
+				47392347202667E3005526C5 /* LitgiUserDefaults.swift */,
+				47376DE31FF07F9500B8E70C /* Logger.swift */,
+				47EEA38C1FF074C70030BEF1 /* Typealias.swift */,
+				4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		47CF670621D8DAFF005ADDED /* Localizations */ = {
+			isa = PBXGroup;
+			children = (
+				478F439C2038E52D003ECCAD /* Localizable.strings */,
+				47DE472A209A53D500770884 /* L10n.swift */,
+			);
+			path = Localizations;
 			sourceTree = "<group>";
 		};
 		47EEA3521FF02DDD0030BEF1 = {
@@ -325,10 +349,11 @@
 				47EEA3801FF037B30030BEF1 /* DataProvider */,
 				47803EA320096727003D58E2 /* Managers */,
 				47376DE51FF082F800B8E70C /* Models */,
-				477B511121C69C46000E7633 /* Views */,
+				477B511121C69C46000E7633 /* UIViews */,
 				4727DE5F2110559C00444D5D /* Coordinators */,
-				47EEA3781FF034E80030BEF1 /* ViewControllers */,
-				47EEA38E1FF074D80030BEF1 /* Extensions & Helpers */,
+				47EEA3781FF034E80030BEF1 /* UIViewControllers */,
+				47CF670421D8DAA7005ADDED /* Helpers */,
+				47EEA38E1FF074D80030BEF1 /* UIKit Extensions */,
 				47EEA3721FF02F750030BEF1 /* Resources */,
 			);
 			path = llitgi;
@@ -337,8 +362,8 @@
 		47EEA3721FF02F750030BEF1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				47CF670621D8DAFF005ADDED /* Localizations */,
 				47DB058120B067DB001485DF /* Assets.xcassets */,
-				478F439C2038E52D003ECCAD /* Localizable.strings */,
 				47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */,
 				47EEA36C1FF02DDD0030BEF1 /* Info.plist */,
 				47E6128A203085BA00D26472 /* llitgi.entitlements */,
@@ -347,27 +372,26 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		47EEA3781FF034E80030BEF1 /* ViewControllers */ = {
+		47EEA3781FF034E80030BEF1 /* UIViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
-				47F5845721CEB54300C7D17D /* SplitTabNav.swift */,
-				47EEA37B1FF035A20030BEF1 /* Authorization */,
+				47EEA37B1FF035A20030BEF1 /* Login */,
 				4752C0842030F20300988A68 /* FullSync */,
 				4770ACF81FF189CD006E755D /* ItemList */,
 				4738F07921D7FCEB00B00A9B /* Tags */,
 				474B441D2001A517009897D2 /* Settings */,
 			);
-			path = ViewControllers;
+			path = UIViewControllers;
 			sourceTree = "<group>";
 		};
-		47EEA37B1FF035A20030BEF1 /* Authorization */ = {
+		47EEA37B1FF035A20030BEF1 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */,
-				47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */,
+				47EEA37C1FF035C80030BEF1 /* LoginViewController.swift */,
+				47EEA37D1FF035C80030BEF1 /* LoginViewController.xib */,
 			);
-			path = Authorization;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		47EEA3801FF037B30030BEF1 /* DataProvider */ = {
@@ -392,16 +416,11 @@
 			path = PocketAPI;
 			sourceTree = "<group>";
 		};
-		47EEA38E1FF074D80030BEF1 /* Extensions & Helpers */ = {
+		47EEA38E1FF074D80030BEF1 /* UIKit Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				47392347202667E3005526C5 /* LitgiUserDefaults.swift */,
-				47DE472A209A53D500770884 /* L10n.swift */,
-				47376DE31FF07F9500B8E70C /* Logger.swift */,
-				47EEA38C1FF074C70030BEF1 /* Typealias.swift */,
 				4770ACF41FF111A9006E755D /* UIView.swift */,
 				4770ACF61FF17AFD006E755D /* Notification.swift */,
-				4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */,
 				4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */,
 				478F43842038B24E003ECCAD /* UITableView.swift */,
 				47A493A6203F6E6B004051A6 /* Bundle.swift */,
@@ -410,7 +429,7 @@
 				477B510C21C65DA1000E7633 /* URLRequest.swift */,
 				477B511221C6A829000E7633 /* UIColor.swift */,
 			);
-			path = "Extensions & Helpers";
+			path = "UIKit Extensions";
 			sourceTree = "<group>";
 		};
 		47F5844E21CEA9C400C7D17D /* ManageTags */ = {
@@ -537,7 +556,7 @@
 				47F5845221CEA9EF00C7D17D /* ManageTagsViewController.xib in Resources */,
 				4752C0882030F22300988A68 /* FullSyncViewController.xib in Resources */,
 				478F43992038E52D003ECCAD /* Localizable.strings in Resources */,
-				47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */,
+				47EEA37F1FF035C80030BEF1 /* LoginViewController.xib in Resources */,
 				4770AD041FF1B470006E755D /* ListCell.xib in Resources */,
 				47DB058220B067DB001485DF /* Assets.xcassets in Resources */,
 				479E18E520724653002E3BB1 /* PocketConsumerKey in Resources */,
@@ -555,13 +574,16 @@
 				475E177020262CAD007033F1 /* ShareViewController.swift in Sources */,
 				475E1781202633A4007033F1 /* PocketAPIModification.swift in Sources */,
 				475E177F202633A4007033F1 /* PocketAPIConfiguration.swift in Sources */,
+				47CF670521D8DAC2005ADDED /* ReusableCells.swift in Sources */,
 				47DE472C209A5C6E00770884 /* L10n.swift in Sources */,
 				475E1780202633A4007033F1 /* PocketAPIEndpoint.swift in Sources */,
 				475E1782202633A4007033F1 /* PocketAPIError.swift in Sources */,
+				47CF670721D8DB4C005ADDED /* SplitTabNav.swift in Sources */,
 				477B510E21C65DA3000E7633 /* URLRequest.swift in Sources */,
 				475E1783202633EA007033F1 /* Typealias.swift in Sources */,
 				47392349202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
 				475E1784202633F9007033F1 /* Logger.swift in Sources */,
+				47CF670821D8E200005ADDED /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,7 +596,7 @@
 				47803EA52009674D003D58E2 /* UserManager.swift in Sources */,
 				47F5845121CEA9EF00C7D17D /* ManageTagsViewController.swift in Sources */,
 				4727DE61211055AE00444D5D /* AppCoordinator.swift in Sources */,
-				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
+				47EEA37E1FF035C80030BEF1 /* LoginViewController.swift in Sources */,
 				47DE472B209A53D500770884 /* L10n.swift in Sources */,
 				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,
 				47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */,
@@ -586,7 +608,7 @@
 				4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,
 				471FE2E920B5EFED0059AEA7 /* UIViewController.swift in Sources */,
-				4732BE4D213011BC0070D83A /* ThemeManager.swift in Sources */,
+				4732BE4D213011BC0070D83A /* Theme.swift in Sources */,
 				4770ACFB1FF18AF7006E755D /* BaseListViewController.swift in Sources */,
 				47EBC007218367A700343AF7 /* Tag.swift in Sources */,
 				47392348202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
@@ -605,7 +627,7 @@
 				47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */,
 				47F5845821CEB54300C7D17D /* SplitTabNav.swift in Sources */,
 				4770AD031FF1B470006E755D /* ListCell.swift in Sources */,
-				47BFBFA921B3D4BD00C6E34E /* TableViewCoreDataNotifier.swift in Sources */,
+				47BFBFA921B3D4BD00C6E34E /* TableViewControllerNotifier.swift in Sources */,
 				47A493A7203F6E6B004051A6 /* Bundle.swift in Sources */,
 				474B44202001A52D009897D2 /* SettingsViewController.swift in Sources */,
 				477B511021C69374000E7633 /* TagsView.swift in Sources */,

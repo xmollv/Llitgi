@@ -1,5 +1,5 @@
 //
-//  AutomaticCoreDataNotifier.swift
+//  TableViewControllerNotifier.swift
 //  llitgi
 //
 //  Created by Xavi Moll on 02/12/2018.
@@ -10,14 +10,12 @@ import Foundation
 import UIKit
 import CoreData
 
-protocol TableViewCoreDataNotifier: CoreDataNotifierDelegate {
+protocol TableViewControllerNotifier: CoreDataNotifierDelegate where Self: UITableViewController {
     associatedtype T: NSManagedObject
-    //The ! is due to how UITableViewController declares it's own UITableView
-    var tableView: UITableView! { get set }
     var notifier: CoreDataNotifier<T> { get }
 }
 
-extension TableViewCoreDataNotifier {
+extension TableViewControllerNotifier {
     func willChangeContent() {
         self.tableView.beginUpdates()
     }
@@ -31,7 +29,7 @@ extension TableViewCoreDataNotifier {
         }
     }
     
-    func didChangeObject(_ change: CoreDataNotifierChange) {
+    func didChangeObject(_ change: CoreDataNotifierObjectChange) {
         switch change {
         case .update(let indexPath):
             self.tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -45,7 +43,7 @@ extension TableViewCoreDataNotifier {
         }
     }
     
-    func endChangingContent() {
+    func didChangeContent() {
         self.tableView.endUpdates()
     }
     

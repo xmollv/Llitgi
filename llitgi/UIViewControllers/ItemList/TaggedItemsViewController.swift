@@ -15,9 +15,9 @@ final class TaggedItemsViewController: BaseListViewController {
     private let tag: Tag
     
     //MARK:- Lifecycle
-    init(notifier: CoreDataNotifier<CoreDataItem>, dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager, tag: Tag) {
+    init(notifier: CoreDataNotifier<CoreDataItem>, dataProvider: DataProvider, userManager: UserManager, theme: Theme, tag: Tag) {
         self.tag = tag
-        super.init(notifier: notifier, dataProvider: dataProvider, userManager: userManager, themeManager: themeManager)
+        super.init(notifier: notifier, dataProvider: dataProvider, userManager: userManager, theme: theme)
         self.title = tag.name
     }
     
@@ -31,7 +31,7 @@ extension TaggedItemsViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionHeaderView = SectionHeaderView(theme: self.themeManager.theme)
+        let sectionHeaderView = SectionHeaderView(theme: self.theme)
         switch section {
         case 0:
             sectionHeaderView.text = L10n.Titles.myList

@@ -9,26 +9,28 @@
 import UIKit
 import Foundation
 
-final class TagsViewController: UITableViewController, TableViewCoreDataNotifier {
+final class TagsViewController: UITableViewController, TableViewControllerNotifier {
     
+    //MARK: IBOutlets
     private lazy var loadingButton: UIBarButtonItem = {
         let loading = UIActivityIndicatorView(style: .gray)
         loading.startAnimating()
         return UIBarButtonItem(customView: loading)
     }()
     
+    //MARK: Private properties
     let dataProvider: DataProvider
-    let userManager: UserManager
-    let themeManager: ThemeManager
+    let theme: Theme
     let notifier: CoreDataNotifier<CoreDataTag>
     
+    //MARK: Public properties
     var settingsButtonTapped: (() -> Void)?
     var selectedTag: ((Tag) -> Void)?
     
-    init(notifier: CoreDataNotifier<CoreDataTag>, dataProvider: DataProvider, userManager: UserManager, themeManager: ThemeManager) {
+    //MARK: Lifecycle
+    init(notifier: CoreDataNotifier<CoreDataTag>, dataProvider: DataProvider, theme: Theme) {
         self.dataProvider = dataProvider
-        self.userManager = userManager
-        self.themeManager = themeManager
+        self.theme = theme
         self.notifier = notifier
         super.init(style: .plain)
     }
@@ -39,7 +41,7 @@ final class TagsViewController: UITableViewController, TableViewCoreDataNotifier
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return self.themeManager.theme.statusBarStyle
+        return self.theme.statusBarStyle
     }
     
     override func viewDidLoad() {
@@ -49,7 +51,7 @@ final class TagsViewController: UITableViewController, TableViewCoreDataNotifier
         self.configureTableView()
         self.notifier.delegate = self
         self.notifier.startNotifying()
-        self.apply(self.themeManager.theme)
+        self.apply(self.theme)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -131,6 +133,7 @@ final class TagsViewController: UITableViewController, TableViewCoreDataNotifier
     
 }
 
+//MARK: UITableViewDataSource
 extension TagsViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return self.notifier.numberOfSections()
@@ -142,11 +145,12 @@ extension TagsViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tag: Tag = self.notifier.element(at: indexPath)
         let cell: TagPickerCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-        cell.configure(with: tag, theme: self.themeManager.theme)
+        cell.configure(with: tag, theme: self.theme)
         return cell
     }
 }
 
+//MARK: UITableViewDelegate
 extension TagsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tag = self.notifier.element(at: indexPath)
@@ -158,14 +162,14 @@ extension TagsViewController {
             guard let strongSelf = self else { return }
             
             let tag = strongSelf.notifier.element(at: indexPath)
-            let affectedItems = strongSelf.dataProvider.items(with: tag)
+            let affectedItems = tag.items
             let message = String(format: L10n.Tags.modifyWarning, arguments: [tag.name, affectedItems.count])
             let alertController = UIAlertController(title: L10n.Tags.modify,
                                                     message: message,
                                                     preferredStyle: .alert)
             alertController.addTextField { [weak self] (textField) in
                 guard let strongSelf = self else { return }
-                textField.keyboardAppearance = strongSelf.themeManager.theme.keyboardAppearance
+                textField.keyboardAppearance = strongSelf.theme.keyboardAppearance
             }
             let cancel = UIAlertAction(title: L10n.General.cancel, style: .cancel) { action in
                 success(false)
@@ -203,7 +207,7 @@ extension TagsViewController {
             guard let strongSelf = self else { return }
             
             let tag = strongSelf.notifier.element(at: indexPath)
-            let affectedItems = strongSelf.dataProvider.items(with: tag)
+            let affectedItems = tag.items
             let message = String(format: L10n.Tags.removeWarning, arguments: [tag.name, affectedItems.count])
             let alertController = UIAlertController(title: L10n.Tags.remove,
                                                     message: message,
