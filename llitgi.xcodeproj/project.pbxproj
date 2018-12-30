@@ -66,8 +66,8 @@
 		47EBC007218367A700343AF7 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EBC006218367A700343AF7 /* Tag.swift */; };
 		47EEA35F1FF02DDD0030BEF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */; };
 		47EEA36B1FF02DDD0030BEF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA3691FF02DDD0030BEF1 /* LaunchScreen.storyboard */; };
-		47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */; };
-		47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */; };
+		47EEA37E1FF035C80030BEF1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA37C1FF035C80030BEF1 /* LoginViewController.swift */; };
+		47EEA37F1FF035C80030BEF1 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47EEA37D1FF035C80030BEF1 /* LoginViewController.xib */; };
 		47EEA3831FF037D40030BEF1 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3821FF037D40030BEF1 /* DataProvider.swift */; };
 		47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */; };
 		47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */; };
@@ -158,8 +158,8 @@
 		47EEA35E1FF02DDD0030BEF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47EEA36A1FF02DDD0030BEF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47EEA36C1FF02DDD0030BEF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
-		47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthorizationViewController.xib; sourceTree = "<group>"; };
+		47EEA37C1FF035C80030BEF1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		47EEA37D1FF035C80030BEF1 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		47EEA3821FF037D40030BEF1 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		47EEA3841FF038300030BEF1 /* PocketAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIManager.swift; sourceTree = "<group>"; };
 		47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
@@ -375,7 +375,7 @@
 			isa = PBXGroup;
 			children = (
 				47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */,
-				47EEA37B1FF035A20030BEF1 /* Authorization */,
+				47EEA37B1FF035A20030BEF1 /* Login */,
 				4752C0842030F20300988A68 /* FullSync */,
 				4770ACF81FF189CD006E755D /* ItemList */,
 				4738F07921D7FCEB00B00A9B /* Tags */,
@@ -384,13 +384,13 @@
 			path = UIViewControllers;
 			sourceTree = "<group>";
 		};
-		47EEA37B1FF035A20030BEF1 /* Authorization */ = {
+		47EEA37B1FF035A20030BEF1 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				47EEA37C1FF035C80030BEF1 /* AuthorizationViewController.swift */,
-				47EEA37D1FF035C80030BEF1 /* AuthorizationViewController.xib */,
+				47EEA37C1FF035C80030BEF1 /* LoginViewController.swift */,
+				47EEA37D1FF035C80030BEF1 /* LoginViewController.xib */,
 			);
-			path = Authorization;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		47EEA3801FF037B30030BEF1 /* DataProvider */ = {
@@ -555,7 +555,7 @@
 				47F5845221CEA9EF00C7D17D /* ManageTagsViewController.xib in Resources */,
 				4752C0882030F22300988A68 /* FullSyncViewController.xib in Resources */,
 				478F43992038E52D003ECCAD /* Localizable.strings in Resources */,
-				47EEA37F1FF035C80030BEF1 /* AuthorizationViewController.xib in Resources */,
+				47EEA37F1FF035C80030BEF1 /* LoginViewController.xib in Resources */,
 				4770AD041FF1B470006E755D /* ListCell.xib in Resources */,
 				47DB058220B067DB001485DF /* Assets.xcassets in Resources */,
 				479E18E520724653002E3BB1 /* PocketConsumerKey in Resources */,
@@ -594,7 +594,7 @@
 				47803EA52009674D003D58E2 /* UserManager.swift in Sources */,
 				47F5845121CEA9EF00C7D17D /* ManageTagsViewController.swift in Sources */,
 				4727DE61211055AE00444D5D /* AppCoordinator.swift in Sources */,
-				47EEA37E1FF035C80030BEF1 /* AuthorizationViewController.swift in Sources */,
+				47EEA37E1FF035C80030BEF1 /* LoginViewController.swift in Sources */,
 				47DE472B209A53D500770884 /* L10n.swift in Sources */,
 				47376DE41FF07F9500B8E70C /* Logger.swift in Sources */,
 				47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */,

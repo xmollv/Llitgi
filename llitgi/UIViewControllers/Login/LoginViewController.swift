@@ -1,5 +1,5 @@
 //
-//  AuthorizationViewController.swift
+//  LoginViewController.swift
 //  llitgi
 //
 //  Created by Xavi Moll on 24/12/2017.
@@ -9,7 +9,7 @@
 import UIKit
 import SafariServices
 
-class AuthorizationViewController: UIViewController {
+class LoginViewController: UIViewController {
     
     //MARK:- IBOutlets
     @IBOutlet private var titleLabel: UILabel!
@@ -36,7 +36,7 @@ class AuthorizationViewController: UIViewController {
     init(dataProvider: DataProvider, themeManager: ThemeManager) {
         self.dataProvider = dataProvider
         self.themeManager = themeManager
-        super.init(nibName: String(describing: AuthorizationViewController.self), bundle: nil)
+        super.init(nibName: String(describing: LoginViewController.self), bundle: nil)
     }
     
     @available(*, unavailable)

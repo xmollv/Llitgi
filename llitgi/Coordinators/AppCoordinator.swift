@@ -45,7 +45,7 @@ final class AppCoordinator: NSObject, Coordinator {
 
         super.init()
         
-        let tabs = self.factory.instantiateLists().map { (vc) -> UINavigationController in
+        let tabs = self.factory.listsViewControllers.map { (vc) -> UINavigationController in
             vc.safariToPresent = self.presentSafariClosure
             vc.settingsButtonTapped = { [weak self] in self?.showSettings() }
             vc.selectedTag = { [weak self] tag in self?.show(tag: tag) }
@@ -94,7 +94,7 @@ final class AppCoordinator: NSObject, Coordinator {
     
     //MARK: Private methods
     private func showLogin(animated: Bool = true) {
-        let login = self.factory.instantiateAuth()
+        let login = self.factory.loginViewController
         login.modalPresentationStyle = .formSheet
         
         login.safariToPresent = { [weak login] sfs in
@@ -111,7 +111,7 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func showSettings() {
-        let settingsViewController = self.factory.instantiateSettings()
+        let settingsViewController = self.factory.settingsViewController
         
         settingsViewController.doneBlock = { [weak self] in
             self?.splitViewController.dismiss(animated: true, completion: nil)
@@ -136,7 +136,7 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func show(tag: Tag) {
-        let tagViewController = self.factory.instantiateList(for: tag)
+        let tagViewController = self.factory.itemsViewController(for: tag)
         tagViewController.selectedTag = { [weak self] tag in self?.show(tag: tag) }
         tagViewController.safariToPresent = self.presentSafariClosure
         tagViewController.tagsModification = { [weak self] item in self?.showTagsPicker(for: item) }
@@ -145,7 +145,7 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func showTagsPicker(for item: Item) {
-        let tagPicker = self.factory.instantiateManageTagsViewController(item: item) { [weak self] in
+        let tagPicker = self.factory.manageTagsViewController(for: item) { [weak self] in
             self?.splitViewController.dismiss(animated: true, completion: nil)
         }
         let navController = NavigationController(rootViewController: tagPicker)
@@ -154,7 +154,7 @@ final class AppCoordinator: NSObject, Coordinator {
     }
     
     private func showFullSync() {
-        let fullSync = self.factory.instantiateFullSync()
+        let fullSync = self.factory.fullSyncViewController
         fullSync.finishedSyncing = { [weak self] in
             self?.addTagTabIfNeeded()
             self?.splitViewController.dismiss(animated: true, completion: nil)
@@ -166,7 +166,7 @@ final class AppCoordinator: NSObject, Coordinator {
     
     private func addTagTabIfNeeded() {
         guard !dataProvider.tags.isEmpty, var currentTabs = self.tabBarController.viewControllers, currentTabs.count == 3 else { return }
-        let tags = self.factory.instantiateTagsList()
+        let tags = self.factory.tagsViewController
         tags.settingsButtonTapped = { [weak self] in self?.showSettings() }
         tags.selectedTag = { [weak self] tag in self?.show(tag: tag) }
         let tagsNavController = NavigationController(rootViewController: tags)
