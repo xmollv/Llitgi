@@ -145,8 +145,4 @@ final class DataProvider {
     func updatePocket(token: String) {
         self.pocketAPI.updatePocket(token: token)
     }
-    
-    func items(with tag: Tag) -> [Item] {
-        return self.modelFactory.items(with: tag)
-    }
 }

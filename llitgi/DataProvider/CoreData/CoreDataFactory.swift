@@ -13,7 +13,6 @@ protocol CoreDataFactory: class {
     var tags: [Tag] { get }
     var tagsNotifier: CoreDataNotifier<CoreDataTag> { get }
     var badgeNotifier: CoreDataNotifier<CoreDataItem> { get }
-    func items(with: Tag) -> [Item]
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
     func notifier(for: TypeOfList, matching: String?) -> CoreDataNotifier<CoreDataItem>
     func notifier(for: Tag) -> CoreDataNotifier<CoreDataItem>
@@ -85,16 +84,6 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
     }
     
     //MARK: Public methods
-    func items(with tag: Tag) -> [Item] {
-        let request = NSFetchRequest<CoreDataItem>(entityName: String(describing: CoreDataItem.self))
-        request.predicate = NSPredicate(format: "tags_.name_ CONTAINS[cd] %@", tag.name)
-        var result: [CoreDataItem] = []
-        self.backgroundContext.performAndWait {
-            result = (try? self.backgroundContext.fetch(request)) ?? []
-        }
-        return result
-    }
-    
     func build<T: Managed>(jsonArray: JSONArray) -> [T] {
         var objects: [T] = []
         self.backgroundContext.performAndWait {

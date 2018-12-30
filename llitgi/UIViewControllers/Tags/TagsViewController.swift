@@ -162,7 +162,7 @@ extension TagsViewController {
             guard let strongSelf = self else { return }
             
             let tag = strongSelf.notifier.element(at: indexPath)
-            let affectedItems = strongSelf.dataProvider.items(with: tag)
+            let affectedItems = tag.items
             let message = String(format: L10n.Tags.modifyWarning, arguments: [tag.name, affectedItems.count])
             let alertController = UIAlertController(title: L10n.Tags.modify,
                                                     message: message,
@@ -207,7 +207,7 @@ extension TagsViewController {
             guard let strongSelf = self else { return }
             
             let tag = strongSelf.notifier.element(at: indexPath)
-            let affectedItems = strongSelf.dataProvider.items(with: tag)
+            let affectedItems = tag.items
             let message = String(format: L10n.Tags.removeWarning, arguments: [tag.name, affectedItems.count])
             let alertController = UIAlertController(title: L10n.Tags.remove,
                                                     message: message,
