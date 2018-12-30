@@ -59,6 +59,7 @@ final class AppCoordinator: NSObject, Coordinator {
         self.tabBarController.tabBar.barStyle = self.themeManager.theme.barStyle
         self.tabBarController.delegate = self
         self.tabBarController.setViewControllers(tabs, animated: false)
+        self.addTagTabIfNeeded()
         
         self.splitViewController.viewControllers = [self.tabBarController]
         self.splitViewController.preferredDisplayMode = .allVisible
@@ -125,6 +126,7 @@ final class AppCoordinator: NSObject, Coordinator {
             
             strongSelf.splitViewController.dismiss(animated: true, completion: { [weak self] in
                 self?.showLogin()
+                self?.removeTagTab()
                 self?.dataProvider.clearLocalStorage()
             })
         }
@@ -154,11 +156,29 @@ final class AppCoordinator: NSObject, Coordinator {
     private func showFullSync() {
         let fullSync = self.factory.instantiateFullSync()
         fullSync.finishedSyncing = { [weak self] in
+            self?.addTagTabIfNeeded()
             self?.splitViewController.dismiss(animated: true, completion: nil)
         }
         fullSync.modalPresentationStyle = .overFullScreen
         fullSync.modalTransitionStyle = .crossDissolve
         self.splitViewController.present(fullSync, animated: true, completion: nil)
+    }
+    
+    private func addTagTabIfNeeded() {
+        guard !dataProvider.tags.isEmpty, var currentTabs = self.tabBarController.viewControllers, currentTabs.count == 3 else { return }
+        let tags = self.factory.instantiateTagsList()
+        tags.settingsButtonTapped = { [weak self] in self?.showSettings() }
+        tags.selectedTag = { [weak self] tag in self?.show(tag: tag) }
+        let tagsNavController = NavigationController(rootViewController: tags)
+        tagsNavController.navigationBar.prefersLargeTitles = true
+        tagsNavController.navigationBar.barStyle = self.themeManager.theme.barStyle
+        currentTabs.append(tagsNavController)
+        self.tabBarController.setViewControllers(currentTabs, animated: false)
+    }
+    
+    private func removeTagTab() {
+        guard let currentTabs = self.tabBarController.viewControllers, currentTabs.count == 4 else { return }
+        self.tabBarController.setViewControllers(Array(currentTabs.dropLast()), animated: false)
     }
 }
 

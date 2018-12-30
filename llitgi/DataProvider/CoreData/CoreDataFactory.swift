@@ -11,6 +11,7 @@ import CoreData
 
 protocol CoreDataFactory: class {
     var tags: [Tag] { get }
+    var tagsNotifier: CoreDataNotifier<CoreDataTag> { get }
     func items(with: Tag) -> [Item]
     func build<T: Managed>(jsonArray: JSONArray) -> [T]
     func badgeNotifier() -> CoreDataNotifier<CoreDataItem>
@@ -38,6 +39,17 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
             results = (try? self.backgroundContext.fetch(request)) ?? []
         }
         return results
+    }
+    
+    var tagsNotifier: CoreDataNotifier<CoreDataTag> {
+        let request = NSFetchRequest<CoreDataTag>(entityName: String(describing: CoreDataTag.self))
+        request.predicate = NSPredicate(format: "items_.@count > 0")
+        request.sortDescriptors = [NSSortDescriptor(key: "name_", ascending: true)]
+        let frc = NSFetchedResultsController(fetchRequest: request,
+                                             managedObjectContext: self.mainThreadContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        return CoreDataNotifier(fetchResultController: frc)
     }
     
     //MARK:  Lifecycle
