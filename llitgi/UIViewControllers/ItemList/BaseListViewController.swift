@@ -75,6 +75,7 @@ class BaseListViewController: UITableViewController, TableViewControllerNotifier
     }
     
     func replaceCurrentNotifier(for notifier: CoreDataNotifier<CoreDataItem>) {
+        self.notifier.stopNotifying()
         self.notifier = notifier
         self.notifier.delegate = self
         self.notifier.startNotifying()
