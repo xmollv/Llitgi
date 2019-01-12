@@ -149,7 +149,6 @@ extension ItemsViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchController.searchBar.selectedScopeButtonIndex = self.typeOfList.position
-        self.replaceCurrentNotifier(for: self._notifier)
         self.tabBarController?.tabBar.isHidden = false
     }
     

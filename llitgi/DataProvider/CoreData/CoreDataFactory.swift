@@ -78,9 +78,11 @@ final class CoreDataFactoryImplementation: CoreDataFactory {
         
         self.mainThreadContext = self.storeContainer.viewContext
         self.mainThreadContext.automaticallyMergesChangesFromParent = true
+        self.mainThreadContext.name = "MainThreadContext"
         
         self.backgroundContext = self.storeContainer.newBackgroundContext()
         self.backgroundContext.automaticallyMergesChangesFromParent = true
+        self.backgroundContext.name = "BackgroundContext"
     }
     
     //MARK: Public methods
