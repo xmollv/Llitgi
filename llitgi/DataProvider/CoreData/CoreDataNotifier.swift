@@ -40,16 +40,20 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
     init(fetchResultController: NSFetchedResultsController<T>) {
         self.fetchResultController = fetchResultController
         super.init()
-        self.fetchResultController.delegate = self
     }
     
     //MARK:- Public methods
     func startNotifying() {
+        self.fetchResultController.delegate = self
         do {
             try self.fetchResultController.performFetch()
         } catch {
             self.delegate?.startNotifyingFailed(with: error)
         }
+    }
+    
+    func stopNotifying() {
+        self.fetchResultController.delegate = nil
     }
     
     func element(at indexPath: IndexPath) -> T {
