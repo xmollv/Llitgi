@@ -123,10 +123,19 @@ extension BaseListViewController {
         let item: Item = self.notifier.element(at: indexPath)
         switch self.userManager.openLinksWith {
         case .safariViewController:
-            let sfs = self.safariViewController(at: indexPath)
-            self.safariToPresent?(sfs)
+            // Open universal links instead of SFSafariViewController if possible
+            UIApplication.shared.open(item.url, options: [.universalLinksOnly: true]) { [weak self] success in
+                guard let self = self else { return }
+                guard !success else {
+                    self.tableView.deselectRow(at: indexPath, animated: true)
+                    return
+                }
+                let sfs = self.safariViewController(at: indexPath)
+                self.safariToPresent?(sfs)
+            }
         case .safari:
             UIApplication.shared.open(item.url, options: [:], completionHandler: nil)
+            self.tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
