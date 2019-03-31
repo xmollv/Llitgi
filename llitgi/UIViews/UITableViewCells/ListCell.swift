@@ -90,6 +90,9 @@ class ListCell: UITableViewCell, NibLoadableView {
         switch self.tintAdjustmentMode {
         case .automatic, .normal: self.favoriteView.backgroundColor = self.theme?.tintColor
         case .dimmed: self.favoriteView.backgroundColor = self.theme?.tintColor.desaturated
+        @unknown default:
+            assertionFailure("Unhandled case")
+            return
         }
     }
 }
