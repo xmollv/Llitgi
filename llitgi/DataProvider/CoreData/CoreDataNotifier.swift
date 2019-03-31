@@ -121,6 +121,8 @@ class CoreDataNotifier<T: NSManagedObject>: NSObject, NSFetchedResultsController
                 return
             }
             change = .delete(indexPath: indexPath)
+        @unknown default:
+            fatalError("Unhandled change")
         }
         
         self.delegate?.didChangeObject(change)
