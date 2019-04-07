@@ -32,7 +32,7 @@ final class PocketAPIManager {
     
     //MARK:- Public methods
     /// Calls the given endpoint and runs the closure on completion
-    func perform(endpoint: PocketAPIEndpoint, then completion: @escaping Completion<JSONArray>) {
+    func perform(endpoint: PocketAPIEndpoint, then completion: @escaping (Result<JSONArray>) -> ()) {
         
         var request = URLRequest(url: endpoint.url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10)
         request.httpMethod = "POST" // The Pocket API only accepts POSTs

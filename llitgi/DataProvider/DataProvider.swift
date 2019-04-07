@@ -54,7 +54,7 @@ final class DataProvider {
     /// Performs a network request based on the endpoint, and builds the objects that the API returned
     func perform<T: Managed>(endpoint: PocketAPIEndpoint,
                              on resultQueue: DispatchQueue = DispatchQueue.main,
-                             then: @escaping Completion<[T]>) {
+                             then: @escaping (Result<[T]>) -> ()) {
         self.pocketAPI.perform(endpoint: endpoint) { [weak self] (result: Result<JSONArray>) in
             guard let strongSelf = self else { return }
             switch result {
@@ -74,7 +74,7 @@ final class DataProvider {
     /// Performs a network request based on the endpoint and returns a memory only object.
     func performInMemory<T: JSONInitiable>(endpoint: PocketAPIEndpoint,
                                    on resultQueue: DispatchQueue = DispatchQueue.main,
-                                   then: @escaping Completion<[T]>) {
+                                   then: @escaping (Result<[T]>) -> ()) {
         self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in
             switch result {
             case .isSuccess(let json):
@@ -109,7 +109,7 @@ final class DataProvider {
         }
     }
     
-    func syncLibrary(fullSync: Bool = false, then: @escaping Completion<[Item]>) {
+    func syncLibrary(fullSync: Bool = false, then: @escaping (Result<[Item]>) -> ()) {
         guard !self.isSyncing else { return }
         self.isSyncing = true
         

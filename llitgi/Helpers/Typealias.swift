@@ -8,8 +8,6 @@
 
 import Foundation
 
-/// Closure that recieves a Result<T>
-typealias Completion<T> = (Result<T>) -> ()
 typealias EmptyCompletion = (EmptyResult) -> ()
 
 /// Typealias over Dictionary<String, Any>
