@@ -106,18 +106,17 @@ class ManageTagsViewController: UIViewController {
         self.blockUserInterfaceForNetwork(true)
 
         let itemModification = ItemModification.init(action: .replaceTags(self.currentTags.map{ $0.name }), id: self.item.id)
-        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([itemModification])) { [weak self] result in
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([itemModification])) { [weak self] error in
             guard let strongSelf = self else { return }
-            switch result {
-            case .isSuccess:
+            if let _ = error {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                strongSelf.blockUserInterfaceForNetwork(false)
+                strongSelf.presentErrorAlert()
+            } else {
                 strongSelf.dataProvider.syncLibrary { _ in
                     UINotificationFeedbackGenerator().notificationOccurred(.success)
                     strongSelf.completed()
                 }
-            case .isFailure:
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-                strongSelf.blockUserInterfaceForNetwork(false)
-                strongSelf.presentErrorAlert()
             }
         }
     }

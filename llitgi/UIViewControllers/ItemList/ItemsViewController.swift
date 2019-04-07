@@ -108,17 +108,16 @@ final class ItemsViewController: BaseListViewController {
             return
         }
         
-        self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] (result: EmptyResult) in
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] error in
             guard let strongSelf = self else { return }
             strongSelf.navigationItem.rightBarButtonItem = strongSelf.addButton
-            switch result {
-            case .isSuccess:
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
-                strongSelf.pullToRefresh()
-            case .isFailure(let error):
+            if let error = error {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
                 strongSelf.presentErrorAlert()
                 Logger.log(error.localizedDescription, event: .error)
+            } else {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                strongSelf.pullToRefresh()
             }
         }
     }
@@ -130,10 +129,10 @@ final class ItemsViewController: BaseListViewController {
     //MARK:- Private methods
     @objc private func pullToRefresh() {
         guard self.userManager.isLoggedIn else { return }
-        self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
+        self.dataProvider.syncLibrary { [weak self] (result: Result<[Item], Error>) in
             switch result {
-            case .isSuccess: break
-            case .isFailure(let error):
+            case .success: break
+            case .failure(let error):
                 Logger.log(error.localizedDescription, event: .error)
             }
             self?.customRefreshControl.endRefreshing()

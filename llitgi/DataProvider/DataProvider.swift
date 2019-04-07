@@ -54,18 +54,18 @@ final class DataProvider {
     /// Performs a network request based on the endpoint, and builds the objects that the API returned
     func perform<T: Managed>(endpoint: PocketAPIEndpoint,
                              on resultQueue: DispatchQueue = DispatchQueue.main,
-                             then: @escaping Completion<[T]>) {
-        self.pocketAPI.perform(endpoint: endpoint) { [weak self] (result: Result<JSONArray>) in
+                             then: @escaping (Result<[T], Error>) -> ()) {
+        self.pocketAPI.perform(endpoint: endpoint) { [weak self] (result: Result<JSONArray, Error>) in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess(let json):
+            case .success(let json):
                 let elements: [T] = strongSelf.modelFactory.build(jsonArray: json)
                 resultQueue.async {
-                    then(Result.isSuccess(elements))
+                    then(Result.success(elements))
                 }
-            case .isFailure(let error):
+            case .failure(let error):
                 resultQueue.async {
-                    then(Result.isFailure(error))
+                    then(Result.failure(error))
                 }
             }
         }
@@ -74,17 +74,17 @@ final class DataProvider {
     /// Performs a network request based on the endpoint and returns a memory only object.
     func performInMemory<T: JSONInitiable>(endpoint: PocketAPIEndpoint,
                                    on resultQueue: DispatchQueue = DispatchQueue.main,
-                                   then: @escaping Completion<[T]>) {
-        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in
+                                   then: @escaping (Result<[T], Error>) -> ()) {
+        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray, Error>) in
             switch result {
-            case .isSuccess(let json):
+            case .success(let json):
                 let builtElements = json.compactMap{ T(dict: $0) }
                 resultQueue.async {
-                    then(Result.isSuccess(builtElements))
+                    then(Result.success(builtElements))
                 }
-            case .isFailure(let error):
+            case .failure(let error):
                 resultQueue.async {
-                    then(Result.isFailure(error))
+                    then(Result.failure(error))
                 }
             }
         }
@@ -93,23 +93,23 @@ final class DataProvider {
     /// Used only for API calls that we don't need the response (e.g: toggle favorite)
     func performInMemoryWithoutResultType(endpoint: PocketAPIEndpoint,
                  on resultQueue: DispatchQueue = DispatchQueue.main,
-                 then: EmptyCompletion? = nil) {
-        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in
+                 then: ((Error?) -> ())? = nil) {
+        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray, Error>) in
             guard let completion = then else { return }
             switch result {
-            case .isSuccess:
+            case .success:
                 resultQueue.async {
-                    completion(EmptyResult.isSuccess)
+                    completion(nil)
                 }
-            case .isFailure(let error):
+            case .failure(let error):
                 resultQueue.async {
-                    completion(EmptyResult.isFailure(error))
+                    completion(error)
                 }
             }
         }
     }
     
-    func syncLibrary(fullSync: Bool = false, then: @escaping Completion<[Item]>) {
+    func syncLibrary(fullSync: Bool = false, then: @escaping (Result<[Item], Error>) -> ()) {
         guard !self.isSyncing else { return }
         self.isSyncing = true
         
@@ -120,15 +120,15 @@ final class DataProvider {
             endpoint = .sync(last: self.lastSync)
         }
         
-        self.perform(endpoint: endpoint) { [weak self] (result: Result<[CoreDataItem]>) in
+        self.perform(endpoint: endpoint) { [weak self] (result: Result<[CoreDataItem], Error>) in
             guard let strongSelf = self else { return }
             strongSelf.isSyncing = false
             switch result {
-            case .isSuccess(let items):
+            case .success(let items):
                 strongSelf.lastSync = Date().timeIntervalSince1970
-                then(Result.isSuccess(items))
-            case .isFailure(let error):
-                then(Result.isFailure(error))
+                then(Result.success(items))
+            case .failure(let error):
+                then(Result.failure(error))
             }
         }
     }

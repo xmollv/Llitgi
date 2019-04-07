@@ -135,15 +135,15 @@ class ShareViewController: UIViewController {
             return
         }
         
-        self.APIManager.perform(endpoint: .add(url)) { [weak self] (result: Result<JSONArray>) in
+        self.APIManager.perform(endpoint: .add(url)) { [weak self] (result: Result<JSONArray, Error>) in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess:
+            case .success:
                 DispatchQueue.main.async {
                     UINotificationFeedbackGenerator().notificationOccurred(.success)
                 }
                 strongSelf.dismiss()
-            case .isFailure(let error):
+            case .failure(let error):
                 DispatchQueue.main.async {
                     UINotificationFeedbackGenerator().notificationOccurred(.error)
                 }
