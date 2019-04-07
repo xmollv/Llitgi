@@ -110,7 +110,7 @@ extension BaseListViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item: Item = self.notifier.element(at: indexPath)
-        let cell: ListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+        let cell: ListCell = tableView.dequeueReusableCell(for: indexPath)
         cell.configure(with: item, theme: self.theme)
         cell.selectedTag = self.selectedTag
         return cell

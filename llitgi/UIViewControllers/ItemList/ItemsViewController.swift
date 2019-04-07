@@ -104,7 +104,7 @@ final class ItemsViewController: BaseListViewController {
         guard let url = UIPasteboard.general.url else {
             self.navigationItem.rightBarButtonItem = self.addButton
             UINotificationFeedbackGenerator().notificationOccurred(.error)
-            self.presentErrorAlert(with: L10n.General.errorTitle, and: L10n.Add.invalidPasteboard)
+            self.presentErrorAlert(message: L10n.Add.invalidPasteboard)
             return
         }
         

@@ -306,7 +306,6 @@
 				47F5845721CEB54300C7D17D /* SplitTabNav.swift */,
 				47392347202667E3005526C5 /* LitgiUserDefaults.swift */,
 				47376DE31FF07F9500B8E70C /* Logger.swift */,
-				4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -415,6 +414,7 @@
 		47EEA38E1FF074D80030BEF1 /* UIKit Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */,
 				4770ACF41FF111A9006E755D /* UIView.swift */,
 				4770ACF61FF17AFD006E755D /* Notification.swift */,
 				4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */,
