@@ -8,8 +8,6 @@
 
 import Foundation
 
-typealias EmptyCompletion = (EmptyResult) -> ()
-
 /// Typealias over Dictionary<String, Any>
 typealias JSONDictionary = Dictionary<String, Any>
 
