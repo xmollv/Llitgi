@@ -135,7 +135,7 @@ class ShareViewController: UIViewController {
             return
         }
         
-        self.APIManager.perform(endpoint: .add(url)) { [weak self] (result: Result<JSONArray>) in
+        self.APIManager.perform(endpoint: .add(url)) { [weak self] (result: Result<JSONArray, Error>) in
             guard let strongSelf = self else { return }
             switch result {
             case .success:

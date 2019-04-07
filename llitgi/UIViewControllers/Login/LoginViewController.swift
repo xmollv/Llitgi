@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
     @IBAction private func actionButtonTapped(_ sender: UIButton) {
         sender.isEnabled = false
         // Step 1. Grab the token to initiate the OAuth steps
-        self.dataProvider.performInMemory(endpoint: .requestToken) { [weak self] (result: Result<[RequestTokenResponse]>) in
+        self.dataProvider.performInMemory(endpoint: .requestToken) { [weak self] (result: Result<[RequestTokenResponse], Error>) in
             sender.isEnabled = true
             guard let strongSelf = self else { return }
             switch result {
@@ -135,7 +135,7 @@ class LoginViewController: UIViewController {
     //Step 3. Verify the code against the API once the user has finished the OAuth flow
     @objc private func verifyCodeAndGetToken() {
         self.dismiss(animated: false, completion: nil)
-        self.dataProvider.performInMemory(endpoint: .authorize) { [weak self] (result: Result<[AuthorizeTokenResponse]>) in
+        self.dataProvider.performInMemory(endpoint: .authorize) { [weak self] (result: Result<[AuthorizeTokenResponse], Error>) in
             guard let strongSelf = self else { return }
             switch result {
             case .success(let tokenResponse):

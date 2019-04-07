@@ -130,7 +130,7 @@ final class ItemsViewController: BaseListViewController {
     //MARK:- Private methods
     @objc private func pullToRefresh() {
         guard self.userManager.isLoggedIn else { return }
-        self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
+        self.dataProvider.syncLibrary { [weak self] (result: Result<[Item], Error>) in
             switch result {
             case .success: break
             case .failure(let error):

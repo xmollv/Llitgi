@@ -54,8 +54,8 @@ final class DataProvider {
     /// Performs a network request based on the endpoint, and builds the objects that the API returned
     func perform<T: Managed>(endpoint: PocketAPIEndpoint,
                              on resultQueue: DispatchQueue = DispatchQueue.main,
-                             then: @escaping (Result<[T]>) -> ()) {
-        self.pocketAPI.perform(endpoint: endpoint) { [weak self] (result: Result<JSONArray>) in
+                             then: @escaping (Result<[T], Error>) -> ()) {
+        self.pocketAPI.perform(endpoint: endpoint) { [weak self] (result: Result<JSONArray, Error>) in
             guard let strongSelf = self else { return }
             switch result {
             case .success(let json):
@@ -74,8 +74,8 @@ final class DataProvider {
     /// Performs a network request based on the endpoint and returns a memory only object.
     func performInMemory<T: JSONInitiable>(endpoint: PocketAPIEndpoint,
                                    on resultQueue: DispatchQueue = DispatchQueue.main,
-                                   then: @escaping (Result<[T]>) -> ()) {
-        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in
+                                   then: @escaping (Result<[T], Error>) -> ()) {
+        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray, Error>) in
             switch result {
             case .success(let json):
                 let builtElements = json.compactMap{ T(dict: $0) }
@@ -94,7 +94,7 @@ final class DataProvider {
     func performInMemoryWithoutResultType(endpoint: PocketAPIEndpoint,
                  on resultQueue: DispatchQueue = DispatchQueue.main,
                  then: ((EmptyResult) -> ())? = nil) {
-        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray>) in
+        self.pocketAPI.perform(endpoint: endpoint) { (result: Result<JSONArray, Error>) in
             guard let completion = then else { return }
             switch result {
             case .success:
@@ -109,7 +109,7 @@ final class DataProvider {
         }
     }
     
-    func syncLibrary(fullSync: Bool = false, then: @escaping (Result<[Item]>) -> ()) {
+    func syncLibrary(fullSync: Bool = false, then: @escaping (Result<[Item], Error>) -> ()) {
         guard !self.isSyncing else { return }
         self.isSyncing = true
         
@@ -120,7 +120,7 @@ final class DataProvider {
             endpoint = .sync(last: self.lastSync)
         }
         
-        self.perform(endpoint: endpoint) { [weak self] (result: Result<[CoreDataItem]>) in
+        self.perform(endpoint: endpoint) { [weak self] (result: Result<[CoreDataItem], Error>) in
             guard let strongSelf = self else { return }
             strongSelf.isSyncing = false
             switch result {
