@@ -97,36 +97,34 @@ final class TagsViewController: UITableViewController, TableViewControllerNotifi
     private func remove(tag: Tag, from items: [Item], then: @escaping (Bool) -> Void) {
         let modifications = items.map { ItemModification(action: .removeTags([tag.name]), id: $0.id) }
         
-        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modifications)) { [weak self] result in
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modifications)) { [weak self] error in
             guard let strongSelf = self else { return }
-            switch result {
-            case .success:
+            if let _ = error {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                strongSelf.presentErrorAlert()
+                then(false)
+            } else {
                 strongSelf.dataProvider.syncLibrary { _ in
                     UINotificationFeedbackGenerator().notificationOccurred(.success)
                     then(true)
                 }
-            case .failure:
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-                strongSelf.presentErrorAlert()
-                then(false)
             }
         }
     }
     
     private func modify(tag: Tag, newName: String, then: @escaping (Bool) -> Void) {
         let rename = ItemModification(action: .renameTag(tag.name, newName), id: nil)
-        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([rename])) { [weak self] result in
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([rename])) { [weak self] error in
             guard let strongSelf = self else { return }
-            switch result {
-            case .success:
+            if let _ = error {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                strongSelf.presentErrorAlert()
+                then(false)
+            } else {
                 strongSelf.dataProvider.syncLibrary { _ in
                     UINotificationFeedbackGenerator().notificationOccurred(.success)
                     then(true)
                 }
-            case .failure:
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-                strongSelf.presentErrorAlert()
-                then(false)
             }
         }
     }

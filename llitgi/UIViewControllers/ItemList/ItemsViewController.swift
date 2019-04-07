@@ -108,17 +108,16 @@ final class ItemsViewController: BaseListViewController {
             return
         }
         
-        self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] (result: EmptyResult) in
+        self.dataProvider.performInMemoryWithoutResultType(endpoint: .add(url)) { [weak self] error in
             guard let strongSelf = self else { return }
             strongSelf.navigationItem.rightBarButtonItem = strongSelf.addButton
-            switch result {
-            case .success:
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
-                strongSelf.pullToRefresh()
-            case .failure(let error):
+            if let error = error {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
                 strongSelf.presentErrorAlert()
                 Logger.log(error.localizedDescription, event: .error)
+            } else {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                strongSelf.pullToRefresh()
             }
         }
     }
