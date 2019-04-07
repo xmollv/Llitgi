@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TagPickerCell: UITableViewCell, NibLoadableView {
+class TagPickerCell: UITableViewCell {
 
     @IBOutlet private var tagLabel: UILabel!
     

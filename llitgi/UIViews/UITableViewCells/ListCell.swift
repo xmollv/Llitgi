@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListCell: UITableViewCell, NibLoadableView {
+class ListCell: UITableViewCell {
 
     //MARK:- IBOutlets
     @IBOutlet private var favoriteView: UIView!

@@ -9,60 +9,53 @@
 import Foundation
 import UIKit
 
-public protocol ReusableView: class {
-    static var defaultReuseIdentifier: String { get }
-}
-
-public protocol NibLoadableView: class {
-    static var nibName: String { get }
+/// This protocol only aggregates the needed properties for the extensions to work and avoid duplicated code.
+private protocol Reusable: class {
+    /// Returns `String(describing: self)` to be used as the `reuseIdentifier`.
+    static var reuseIdentifier: String { get }
+    /// Returns the UINib using the `String(describing: self)` as the name of the NIB.
     static var nib: UINib { get }
 }
 
-public extension ReusableView where Self: UIView {
-    static var defaultReuseIdentifier: String {
+private extension Reusable {
+    static var reuseIdentifier: String {
         return String(describing: self)
     }
-}
-
-public extension NibLoadableView where Self: UIView {
-    static var nibName: String {
-        let nibName = String(describing: self)
-        return nibName
-    }
+    
     static var nib: UINib {
-        let bundle = Bundle(for: self)
-        let nib = UINib(nibName: self.nibName, bundle: bundle)
-        return nib
+        return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
     }
 }
 
-extension UITableViewCell: ReusableView { }
-
+extension UITableViewCell: Reusable {}
 extension UITableView {
-    
-    public func register<T: UITableViewCell>(_: T.Type) where T: NibLoadableView {
-        self.register(T.nib, forCellReuseIdentifier: T.defaultReuseIdentifier)
+    /// Registers a `UITableViewCell` using it's own `reuseIdentifier`. The `UITableViewCell` must be created using
+    /// a `.xib` file with the same name, otherwise it will crash.
+    func register<Cell: UITableViewCell>(_: Cell.Type) {
+        self.register(Cell.nib, forCellReuseIdentifier: Cell.reuseIdentifier)
     }
     
-    func dequeueReusableCell<T: UITableViewCell>(forIndexPath indexPath: IndexPath) -> T {
-        guard let cell = self.dequeueReusableCell(withIdentifier: T.defaultReuseIdentifier, for: indexPath) as? T else {
-            fatalError("Could not dequeue cell with identifier: \(T.defaultReuseIdentifier)")
+    /// Dequeues a `UITableViewCell` and casts it to the expected type at the call site.
+    func dequeueReusableCell<Cell: UITableViewCell>(for indexPath: IndexPath) -> Cell {
+        guard let cell = self.dequeueReusableCell(withIdentifier: Cell.reuseIdentifier, for: indexPath) as? Cell else {
+            fatalError("Unable to dequeue a \(String(describing: Cell.self)) cell.")
         }
-        
         return cell
     }
 }
 
-extension UICollectionViewCell: ReusableView { }
-
+extension UICollectionViewCell: Reusable {}
 extension UICollectionView {
-    func register<T: UICollectionViewCell>(_: T.Type) where T: NibLoadableView {
-        self.register(T.nib, forCellWithReuseIdentifier: T.defaultReuseIdentifier)
+    /// Registers a `UICollectionViewCell` using it's own `reuseIdentifier`. The `UICollectionViewCell` must be created using
+    /// a `.xib` file with the same name, otherwise it will crash.
+    func register<Cell: UICollectionViewCell>(_: Cell.Type) {
+        self.register(Cell.nib, forCellWithReuseIdentifier: Cell.reuseIdentifier)
     }
     
-    func dequeueReusableCell<T: UICollectionViewCell>(forIndexPath indexPath: IndexPath) -> T {
-        guard let cell = self.dequeueReusableCell(withReuseIdentifier: T.defaultReuseIdentifier, for: indexPath) as? T else {
-            fatalError("Could not dequeue reusable cell with identifier: \(T.defaultReuseIdentifier)")
+    /// Dequeues a `UICollectionViewCell` and casts it to the expected type at the call site.
+    func dequeueReusableCell<Cell: UICollectionViewCell>(for indexPath: IndexPath) -> Cell {
+        guard let cell = self.dequeueReusableCell(withReuseIdentifier: Cell.reuseIdentifier, for: indexPath) as? Cell else {
+            fatalError("Unable to dequeue a \(String(describing: Cell.self)) cell.")
         }
         return cell
     }

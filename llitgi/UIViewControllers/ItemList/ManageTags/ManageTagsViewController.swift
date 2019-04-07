@@ -206,7 +206,7 @@ extension ManageTagsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: TagPickerCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+        let cell: TagPickerCell = tableView.dequeueReusableCell(for: indexPath)
         let tag: Tag
         switch Section(section: indexPath.section) {
         case .currentTags: tag = self.currentTags[indexPath.row]

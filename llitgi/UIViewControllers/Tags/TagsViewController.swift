@@ -142,7 +142,7 @@ extension TagsViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tag: Tag = self.notifier.element(at: indexPath)
-        let cell: TagPickerCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+        let cell: TagPickerCell = tableView.dequeueReusableCell(for: indexPath)
         cell.configure(with: tag, theme: self.theme)
         return cell
     }
