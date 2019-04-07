@@ -112,10 +112,10 @@ final class ItemsViewController: BaseListViewController {
             guard let strongSelf = self else { return }
             strongSelf.navigationItem.rightBarButtonItem = strongSelf.addButton
             switch result {
-            case .isSuccess:
+            case .success:
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
                 strongSelf.pullToRefresh()
-            case .isFailure(let error):
+            case .failure(let error):
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
                 strongSelf.presentErrorAlert()
                 Logger.log(error.localizedDescription, event: .error)
@@ -132,8 +132,8 @@ final class ItemsViewController: BaseListViewController {
         guard self.userManager.isLoggedIn else { return }
         self.dataProvider.syncLibrary { [weak self] (result: Result<[Item]>) in
             switch result {
-            case .isSuccess: break
-            case .isFailure(let error):
+            case .success: break
+            case .failure(let error):
                 Logger.log(error.localizedDescription, event: .error)
             }
             self?.customRefreshControl.endRefreshing()

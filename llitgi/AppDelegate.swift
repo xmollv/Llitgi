@@ -52,10 +52,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.dataProvider.syncLibrary { (result) in
             switch result {
-            case .isSuccess(let items):
+            case .success(let items):
                 // Because this is a sync operation, we just need to care if we get data or not
                 items.isEmpty ? completionHandler(.noData) : completionHandler(.newData)
-            case .isFailure(let error):
+            case .failure(let error):
                 Logger.log(error.localizedDescription, event: .error)
                 completionHandler(.failed)
             }

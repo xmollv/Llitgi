@@ -100,12 +100,12 @@ final class TagsViewController: UITableViewController, TableViewControllerNotifi
         self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify(modifications)) { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess:
+            case .success:
                 strongSelf.dataProvider.syncLibrary { _ in
                     UINotificationFeedbackGenerator().notificationOccurred(.success)
                     then(true)
                 }
-            case .isFailure:
+            case .failure:
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
                 strongSelf.presentErrorAlert()
                 then(false)
@@ -118,12 +118,12 @@ final class TagsViewController: UITableViewController, TableViewControllerNotifi
         self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([rename])) { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess:
+            case .success:
                 strongSelf.dataProvider.syncLibrary { _ in
                     UINotificationFeedbackGenerator().notificationOccurred(.success)
                     then(true)
                 }
-            case .isFailure:
+            case .failure:
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
                 strongSelf.presentErrorAlert()
                 then(false)

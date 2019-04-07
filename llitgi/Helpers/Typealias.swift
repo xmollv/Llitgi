@@ -17,11 +17,11 @@ typealias JSONArray = Array<JSONDictionary>
 /// Generic Result type that only allows for a success (with the given generic type)
 /// or an Error on the failure
 enum Result<T> {
-    case isSuccess(T)
-    case isFailure(Error)
+    case success(T)
+    case failure(Error)
 }
 
 enum EmptyResult {
-    case isSuccess
-    case isFailure(Error)
+    case success
+    case failure(Error)
 }

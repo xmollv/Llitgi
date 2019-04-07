@@ -67,7 +67,7 @@ class LoginViewController: UIViewController {
             sender.isEnabled = true
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess(let tokenResponse):
+            case .success(let tokenResponse):
                 guard let code = tokenResponse.first?.code else {
                     strongSelf.presentErrorAlert()
                     Logger.log("The tokenResponse was an empty array.", event: .error)
@@ -86,7 +86,7 @@ class LoginViewController: UIViewController {
                 sfs.preferredBarTintColor = strongSelf.theme.backgroundColor
                 strongSelf.safariToPresent?(sfs)
                 
-            case .isFailure(let error):
+            case .failure(let error):
                 strongSelf.presentErrorAlert()
                 Logger.log(error.localizedDescription, event: .error)
             }
@@ -138,7 +138,7 @@ class LoginViewController: UIViewController {
         self.dataProvider.performInMemory(endpoint: .authorize) { [weak self] (result: Result<[AuthorizeTokenResponse]>) in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess(let tokenResponse):
+            case .success(let tokenResponse):
                 guard let token = tokenResponse.first?.accessToken else {
                     strongSelf.presentErrorAlert()
                     Logger.log("The tokenResponse was an empty array.", event: .error)
@@ -146,7 +146,7 @@ class LoginViewController: UIViewController {
                 }
                 strongSelf.dataProvider.updatePocket(token: token)
                 strongSelf.loginFinished?()
-            case .isFailure(let error):
+            case .failure(let error):
                 strongSelf.presentErrorAlert()
                 Logger.log(error.localizedDescription, event: .error)
             }

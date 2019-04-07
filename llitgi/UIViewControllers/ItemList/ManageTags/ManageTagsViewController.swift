@@ -109,12 +109,12 @@ class ManageTagsViewController: UIViewController {
         self.dataProvider.performInMemoryWithoutResultType(endpoint: .modify([itemModification])) { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess:
+            case .success:
                 strongSelf.dataProvider.syncLibrary { _ in
                     UINotificationFeedbackGenerator().notificationOccurred(.success)
                     strongSelf.completed()
                 }
-            case .isFailure:
+            case .failure:
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
                 strongSelf.blockUserInterfaceForNetwork(false)
                 strongSelf.presentErrorAlert()

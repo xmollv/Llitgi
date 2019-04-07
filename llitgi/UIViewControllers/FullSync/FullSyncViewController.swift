@@ -91,9 +91,9 @@ class FullSyncViewController: UIViewController {
         self.dataProvider.syncLibrary(fullSync: true) { [weak self] (result: Result<[Item]>) in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess:
+            case .success:
                 strongSelf.state = .loaded
-            case .isFailure(let error):
+            case .failure(let error):
                 strongSelf.state = .error
                 Logger.log(error.localizedDescription, event: .error)
             }
