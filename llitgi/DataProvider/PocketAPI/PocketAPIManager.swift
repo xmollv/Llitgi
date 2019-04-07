@@ -12,6 +12,9 @@ protocol JSONInitiable {
     init?(dict: JSONDictionary)
 }
 
+typealias JSONDictionary = Dictionary<String, Any>
+typealias JSONArray = Array<Dictionary<String, Any>>
+
 final class PocketAPIManager {
     
     //MARK:- Private properties
