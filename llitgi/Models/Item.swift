@@ -68,7 +68,10 @@ final class CoreDataItem: Managed, Item {
     
     //MARK: Public methods
     func switchFavoriteStatus() {
-        guard let context = self.managedObjectContext else { return }
+        guard let context = self.managedObjectContext else {
+            assertionFailure("Unable to get the NSManagedObjectContext")
+            return
+        }
         context.performAndWait {
             self.overrideLastTimeUpdated()
             self.isFavorite_ = !self.isFavorite_
@@ -77,7 +80,10 @@ final class CoreDataItem: Managed, Item {
     }
     
     func changeStatus(to newStatus: ItemStatus) {
-        guard let context = self.managedObjectContext else { return }
+        guard let context = self.managedObjectContext else {
+            assertionFailure("Unable to get the NSManagedObjectContext")
+            return
+        }
         context.performAndWait {
             self.overrideLastTimeUpdated()
             self.status_ = newStatus.rawValue

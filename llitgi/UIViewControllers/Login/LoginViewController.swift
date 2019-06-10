@@ -63,11 +63,11 @@ class LoginViewController: UIViewController {
     @IBAction private func actionButtonTapped(_ sender: UIButton) {
         sender.isEnabled = false
         // Step 1. Grab the token to initiate the OAuth steps
-        self.dataProvider.performInMemory(endpoint: .requestToken) { [weak self] (result: Result<[RequestTokenResponse]>) in
+        self.dataProvider.performInMemory(endpoint: .requestToken) { [weak self] (result: Result<[RequestTokenResponse], Error>) in
             sender.isEnabled = true
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess(let tokenResponse):
+            case .success(let tokenResponse):
                 guard let code = tokenResponse.first?.code else {
                     strongSelf.presentErrorAlert()
                     Logger.log("The tokenResponse was an empty array.", event: .error)
@@ -86,7 +86,7 @@ class LoginViewController: UIViewController {
                 sfs.preferredBarTintColor = strongSelf.theme.backgroundColor
                 strongSelf.safariToPresent?(sfs)
                 
-            case .isFailure(let error):
+            case .failure(let error):
                 strongSelf.presentErrorAlert()
                 Logger.log(error.localizedDescription, event: .error)
             }
@@ -135,10 +135,10 @@ class LoginViewController: UIViewController {
     //Step 3. Verify the code against the API once the user has finished the OAuth flow
     @objc private func verifyCodeAndGetToken() {
         self.dismiss(animated: false, completion: nil)
-        self.dataProvider.performInMemory(endpoint: .authorize) { [weak self] (result: Result<[AuthorizeTokenResponse]>) in
+        self.dataProvider.performInMemory(endpoint: .authorize) { [weak self] (result: Result<[AuthorizeTokenResponse], Error>) in
             guard let strongSelf = self else { return }
             switch result {
-            case .isSuccess(let tokenResponse):
+            case .success(let tokenResponse):
                 guard let token = tokenResponse.first?.accessToken else {
                     strongSelf.presentErrorAlert()
                     Logger.log("The tokenResponse was an empty array.", event: .error)
@@ -146,7 +146,7 @@ class LoginViewController: UIViewController {
                 }
                 strongSelf.dataProvider.updatePocket(token: token)
                 strongSelf.loginFinished?()
-            case .isFailure(let error):
+            case .failure(let error):
                 strongSelf.presentErrorAlert()
                 Logger.log(error.localizedDescription, event: .error)
             }

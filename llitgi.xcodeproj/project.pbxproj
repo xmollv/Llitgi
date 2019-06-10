@@ -38,7 +38,6 @@
 		475E1780202633A4007033F1 /* PocketAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3881FF03C060030BEF1 /* PocketAPIEndpoint.swift */; };
 		475E1781202633A4007033F1 /* PocketAPIModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4710EF451FF2C5B000D3DCA9 /* PocketAPIModification.swift */; };
 		475E1782202633A4007033F1 /* PocketAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */; };
-		475E1783202633EA007033F1 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38C1FF074C70030BEF1 /* Typealias.swift */; };
 		475E1784202633F9007033F1 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47376DE31FF07F9500B8E70C /* Logger.swift */; };
 		4770ACF51FF111A9006E755D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF41FF111A9006E755D /* UIView.swift */; };
 		4770ACF71FF17AFD006E755D /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4770ACF61FF17AFD006E755D /* Notification.swift */; };
@@ -74,7 +73,6 @@
 		47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */; };
 		47EEA3891FF03C060030BEF1 /* PocketAPIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA3881FF03C060030BEF1 /* PocketAPIEndpoint.swift */; };
 		47EEA38B1FF071FF0030BEF1 /* PocketAPIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */; };
-		47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38C1FF074C70030BEF1 /* Typealias.swift */; };
 		47EEA3901FF076AA0030BEF1 /* PocketAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */; };
 		47F5845121CEA9EF00C7D17D /* ManageTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F5844F21CEA9EF00C7D17D /* ManageTagsViewController.swift */; };
 		47F5845221CEA9EF00C7D17D /* ManageTagsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47F5845021CEA9EF00C7D17D /* ManageTagsViewController.xib */; };
@@ -166,7 +164,6 @@
 		47EEA3861FF038EC0030BEF1 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		47EEA3881FF03C060030BEF1 /* PocketAPIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIEndpoint.swift; sourceTree = "<group>"; };
 		47EEA38A1FF071FF0030BEF1 /* PocketAPIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIConfiguration.swift; sourceTree = "<group>"; };
-		47EEA38C1FF074C70030BEF1 /* Typealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
 		47EEA38F1FF076AA0030BEF1 /* PocketAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketAPIError.swift; sourceTree = "<group>"; };
 		47F5844F21CEA9EF00C7D17D /* ManageTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageTagsViewController.swift; sourceTree = "<group>"; };
 		47F5845021CEA9EF00C7D17D /* ManageTagsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ManageTagsViewController.xib; sourceTree = "<group>"; };
@@ -309,8 +306,6 @@
 				47F5845721CEB54300C7D17D /* SplitTabNav.swift */,
 				47392347202667E3005526C5 /* LitgiUserDefaults.swift */,
 				47376DE31FF07F9500B8E70C /* Logger.swift */,
-				47EEA38C1FF074C70030BEF1 /* Typealias.swift */,
-				4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -419,6 +414,7 @@
 		47EEA38E1FF074D80030BEF1 /* UIKit Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4770ACFF1FF1B3B8006E755D /* ReusableCells.swift */,
 				4770ACF41FF111A9006E755D /* UIView.swift */,
 				4770ACF61FF17AFD006E755D /* Notification.swift */,
 				4710EF5E1FF50F6A00D3DCA9 /* NSManagedObject.swift */,
@@ -580,7 +576,6 @@
 				475E1782202633A4007033F1 /* PocketAPIError.swift in Sources */,
 				47CF670721D8DB4C005ADDED /* SplitTabNav.swift in Sources */,
 				477B510E21C65DA3000E7633 /* URLRequest.swift in Sources */,
-				475E1783202633EA007033F1 /* Typealias.swift in Sources */,
 				47392349202667E3005526C5 /* LitgiUserDefaults.swift in Sources */,
 				475E1784202633F9007033F1 /* Logger.swift in Sources */,
 				47CF670821D8E200005ADDED /* Theme.swift in Sources */,
@@ -603,7 +598,6 @@
 				4752C0872030F22300988A68 /* FullSyncViewController.swift in Sources */,
 				47F5845521CEB1F800C7D17D /* TagPickerCell.swift in Sources */,
 				4710EF611FF51D8500D3DCA9 /* Managed.swift in Sources */,
-				47EEA38D1FF074C70030BEF1 /* Typealias.swift in Sources */,
 				47EEA3871FF038EC0030BEF1 /* ViewControllerFactory.swift in Sources */,
 				4710EF581FF44E5100D3DCA9 /* CoreDataNotifier.swift in Sources */,
 				47EEA3851FF038300030BEF1 /* PocketAPIManager.swift in Sources */,

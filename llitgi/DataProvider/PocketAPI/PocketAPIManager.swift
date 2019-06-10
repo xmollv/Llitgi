@@ -12,6 +12,9 @@ protocol JSONInitiable {
     init?(dict: JSONDictionary)
 }
 
+typealias JSONDictionary = Dictionary<String, Any>
+typealias JSONArray = Array<Dictionary<String, Any>>
+
 final class PocketAPIManager {
     
     //MARK:- Private properties
@@ -32,7 +35,7 @@ final class PocketAPIManager {
     
     //MARK:- Public methods
     /// Calls the given endpoint and runs the closure on completion
-    func perform(endpoint: PocketAPIEndpoint, then completion: @escaping Completion<JSONArray>) {
+    func perform(endpoint: PocketAPIEndpoint, then completion: @escaping (Result<JSONArray, Error>) -> ()) {
         
         var request = URLRequest(url: endpoint.url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10)
         request.httpMethod = "POST" // The Pocket API only accepts POSTs
@@ -45,7 +48,7 @@ final class PocketAPIManager {
             let jsonBody = try JSONSerialization.data(withJSONObject: payload, options: [])
             request.httpBody = jsonBody
         } catch {
-            completion(Result.isFailure(PocketAPIError.unableToCreateHTTPBody(error: error)))
+            completion(Result.failure(PocketAPIError.unableToCreateHTTPBody(error: error)))
             return
         }
         
@@ -55,18 +58,18 @@ final class PocketAPIManager {
         
         self.session.dataTask(with: request) { (data, urlResponse, error) in
             if let error = error {
-                completion(Result.isFailure(PocketAPIError.unknown(error: error)))
+                completion(Result.failure(PocketAPIError.unknown(error: error)))
                 return
             }
             
             guard let response = urlResponse as? HTTPURLResponse else {
-                completion(Result.isFailure(PocketAPIError.unexpectedResponse(response: urlResponse)))
+                completion(Result.failure(PocketAPIError.unexpectedResponse(response: urlResponse)))
                 return
             }
             
             guard let data = data else {
                 Logger.log("The response was sucessful but the data is nil. Returning an empry array on the success")
-                completion(Result.isSuccess([]))
+                completion(Result.success([]))
                 return
             }
             
@@ -75,17 +78,17 @@ final class PocketAPIManager {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
                     guard let jsonParsed = endpoint.parser(json) else {
-                        completion(Result.isFailure(PocketAPIError.unexpectedJSONFormat))
+                        completion(Result.failure(PocketAPIError.unexpectedJSONFormat))
                         return
                     }
-                    completion(Result.isSuccess(jsonParsed))
+                    completion(Result.success(jsonParsed))
                 } catch {
-                    completion(Result.isFailure(PocketAPIError.unknown(error: error)))
+                    completion(Result.failure(PocketAPIError.unknown(error: error)))
                 }
             case 400:
-                completion(Result.isFailure(PocketAPIError.invalidRequest))
+                completion(Result.failure(PocketAPIError.invalidRequest))
             default:
-                completion(Result.isFailure(PocketAPIError.not200Status(statusCode: response.statusCode)))
+                completion(Result.failure(PocketAPIError.not200Status(statusCode: response.statusCode)))
             }
         }.resume()
     }
