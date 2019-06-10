@@ -67,35 +67,76 @@ class ShareViewController: UIViewController {
             return
         }
         
-        guard itemProvider.hasItemConformingToTypeIdentifier(kUTTypeURL as String) else {
-            Logger.log("The itemProvider doesn't have an URL in it", event: .error)
+        if itemProvider.hasItemConformingToTypeIdentifier(kUTTypeURL as String) {
+            itemProvider.loadItem(forTypeIdentifier: kUTTypeURL as String, options: nil) { [weak self] (item, error) in
+                guard let strongSelf = self else { return }
+                if let error = error {
+                    Logger.log(error.localizedDescription, event: .error)
+                    strongSelf.dismiss()
+                    return
+                }
+                
+                guard let item = item else {
+                    Logger.log("The item was nil", event: .error)
+                    strongSelf.dismiss()
+                    return
+                }
+                
+                guard let url = URL(string: String(describing: item)) else {
+                    Logger.log("Unable to create an URL from: \(String(describing: item))", event: .error)
+                    strongSelf.dismiss()
+                    return
+                }
+                
+                strongSelf.url = url
+                strongSelf.performRequest()
+            }
+            
+        } else if itemProvider.hasItemConformingToTypeIdentifier(kUTTypeText as String) {
+            itemProvider.loadItem(forTypeIdentifier: kUTTypeText as String, options: nil) { [weak self] item, error in
+                guard let strongSelf = self else { return }
+                if let error = error {
+                    Logger.log(error.localizedDescription, event: .error)
+                    strongSelf.dismiss()
+                    return
+                }
+                
+                guard let item = item else {
+                    Logger.log("The item was nil", event: .error)
+                    strongSelf.dismiss()
+                    return
+                }
+                
+                guard let sharedText = item as? String else {
+                    strongSelf.dismiss()
+                    return
+                }
+                
+                guard let match = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue).matches(in: sharedText,
+                                                                                                                   options: [],
+                                                                                                                   range: NSRange(location: 0, length: sharedText.utf16.count)).first else {
+                                                                                                                    strongSelf.dismiss()
+                                                                                                                    return
+                }
+                
+                guard let urlRange = Range(match.range, in: sharedText) else {
+                    strongSelf.dismiss()
+                    return
+                }
+                let textUrl = sharedText[urlRange]
+                guard let url = URL(string: String(textUrl)) else {
+                    strongSelf.dismiss()
+                    return
+                }
+                
+                strongSelf.url = url
+                strongSelf.performRequest()
+            }
+        } else {
             self.dismiss()
-            return
         }
         
-        itemProvider.loadItem(forTypeIdentifier: kUTTypeURL as String, options: nil) { [weak self] (item, error) in
-            guard let strongSelf = self else { return }
-            if let error = error {
-                Logger.log(error.localizedDescription, event: .error)
-                strongSelf.dismiss()
-                return
-            }
-            
-            guard let item = item else {
-                Logger.log("The item was nil", event: .error)
-                strongSelf.dismiss()
-                return
-            }
-            
-            guard let url = URL(string: String(describing: item)) else {
-                Logger.log("Unable to create an URL from: \(String(describing: item))", event: .error)
-                strongSelf.dismiss()
-                return
-            }
-            
-            strongSelf.url = url
-            strongSelf.performRequest()
-        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
