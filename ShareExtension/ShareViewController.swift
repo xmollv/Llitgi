@@ -61,82 +61,40 @@ class ShareViewController: UIViewController {
         self.state = .loading
         self.retryButton.setTitle(L10n.General.retry, for: .normal)
         
-        guard let itemProvider = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments?.first else {
-            Logger.log("The itemProvider can't be found", event: .error)
+        guard let firstInputItem = (self.extensionContext?.inputItems.first as? NSExtensionItem) else {
+            Logger.log("The inputItem is nil", event: .error)
             self.dismiss()
             return
         }
         
-        if itemProvider.hasItemConformingToTypeIdentifier(kUTTypeURL as String) {
-            itemProvider.loadItem(forTypeIdentifier: kUTTypeURL as String, options: nil) { [weak self] (item, error) in
-                guard let strongSelf = self else { return }
-                if let error = error {
-                    Logger.log(error.localizedDescription, event: .error)
-                    strongSelf.dismiss()
-                    return
-                }
-                
-                guard let item = item else {
-                    Logger.log("The item was nil", event: .error)
-                    strongSelf.dismiss()
-                    return
-                }
-                
-                guard let url = URL(string: String(describing: item)) else {
-                    Logger.log("Unable to create an URL from: \(String(describing: item))", event: .error)
-                    strongSelf.dismiss()
-                    return
-                }
-                
-                strongSelf.url = url
-                strongSelf.performRequest()
-            }
-            
-        } else if itemProvider.hasItemConformingToTypeIdentifier(kUTTypeText as String) {
-            itemProvider.loadItem(forTypeIdentifier: kUTTypeText as String, options: nil) { [weak self] item, error in
-                guard let strongSelf = self else { return }
-                if let error = error {
-                    Logger.log(error.localizedDescription, event: .error)
-                    strongSelf.dismiss()
-                    return
-                }
-                
-                guard let item = item else {
-                    Logger.log("The item was nil", event: .error)
-                    strongSelf.dismiss()
-                    return
-                }
-                
-                guard let sharedText = item as? String else {
-                    strongSelf.dismiss()
-                    return
-                }
-                
-                guard let match = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue).matches(in: sharedText,
-                                                                                                                   options: [],
-                                                                                                                   range: NSRange(location: 0, length: sharedText.utf16.count)).first else {
-                                                                                                                    strongSelf.dismiss()
-                                                                                                                    return
-                }
-                
-                guard let urlRange = Range(match.range, in: sharedText) else {
-                    strongSelf.dismiss()
-                    return
-                }
-                let textUrl = sharedText[urlRange]
-                guard let url = URL(string: String(textUrl)) else {
-                    strongSelf.dismiss()
-                    return
-                }
-                
-                strongSelf.url = url
-                strongSelf.performRequest()
-            }
-        } else {
-            self.dismiss()
+        guard let itemProvider = firstInputItem.attachments?.first(where: { $0.hasItemConformingToTypeIdentifier(kUTTypeURL as String) }) else {
+            self.checkForURLsInPlainText(attachments: firstInputItem.attachments)
+            return
         }
         
-        
+        itemProvider.loadItem(forTypeIdentifier: kUTTypeURL as String, options: nil) { [weak self] (item, error) in
+            guard let strongSelf = self else { return }
+            if let error = error {
+                Logger.log(error.localizedDescription, event: .error)
+                strongSelf.dismiss()
+                return
+            }
+            
+            guard let item = item else {
+                Logger.log("The item was nil", event: .error)
+                strongSelf.dismiss()
+                return
+            }
+            
+            guard let url = URL(string: String(describing: item)) else {
+                Logger.log("Unable to create an URL from: \(String(describing: item))", event: .error)
+                strongSelf.dismiss()
+                return
+            }
+            
+            strongSelf.url = url
+            strongSelf.performRequest()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -167,6 +125,54 @@ class ShareViewController: UIViewController {
     @IBAction func retryButtonTapped(_ sender: UIButton) {
         self.state = .loading
         self.performRequest()
+    }
+    
+    private func checkForURLsInPlainText(attachments: [NSItemProvider]?) {
+        guard let itemProvider = attachments?.first(where: { $0.hasItemConformingToTypeIdentifier(kUTTypeText as String) }) else {
+            Logger.log("The item was nil", event: .error)
+            self.dismiss()
+            return
+        }
+        
+        itemProvider.loadItem(forTypeIdentifier: kUTTypeText as String, options: nil) { [weak self] item, error in
+            guard let strongSelf = self else { return }
+            if let error = error {
+                Logger.log(error.localizedDescription, event: .error)
+                strongSelf.dismiss()
+                return
+            }
+            
+            guard let item = item else {
+                Logger.log("The item was nil", event: .error)
+                strongSelf.dismiss()
+                return
+            }
+            
+            guard let sharedText = item as? String else {
+                strongSelf.dismiss()
+                return
+            }
+            
+            guard let match = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue).matches(in: sharedText,
+                                                                                                                  options: [],
+                                                                                                                  range: NSRange(location: 0, length: sharedText.utf16.count)).first else {
+                                                                                                                    strongSelf.dismiss()
+                                                                                                                    return
+            }
+            
+            guard let urlRange = Range(match.range, in: sharedText) else {
+                strongSelf.dismiss()
+                return
+            }
+            let textUrl = sharedText[urlRange]
+            guard let url = URL(string: String(textUrl)) else {
+                strongSelf.dismiss()
+                return
+            }
+            
+            strongSelf.url = url
+            strongSelf.performRequest()
+        }
     }
     
     private func performRequest() {
