@@ -97,25 +97,8 @@ class ShareViewController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.view.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
-        self.view.alpha = 0
-        UIView.animate(withDuration: 0.25) {
-            self.view.transform = .identity
-            self.view.alpha = 1
-        }
-    }
-    
     private func dismiss() {
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.25, animations: {
-                self.view.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
-                self.view.alpha = 0
-            }) { (finished) in
-                self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
-            }
-        }
+        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
     }
     
     @IBAction func closeButtonTapped(_ sender: UIButton) {
