@@ -55,6 +55,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.verifyCodeAndGetToken), name: .OAuthFinished, object: nil)
+        self.isModalInPresentation = true
         self.setupLocalizedStrings()
         self.apply(self.theme)
     }
