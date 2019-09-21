@@ -16,9 +16,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jnb-dN-Tfx">
-                                <rect key="frame" x="0.0" y="546" width="414" height="350"/>
+                                <rect key="frame" x="0.0" y="646" width="414" height="250"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="EDc-Py-xqk">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eDE-8O-oC2">
@@ -67,12 +67,12 @@
                                     </constraints>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="350" id="cOT-DO-82U"/>
+                                    <constraint firstAttribute="height" constant="250" id="cOT-DO-82U"/>
                                 </constraints>
-                                <blurEffect style="systemMaterial"/>
+                                <blurEffect style="systemThinMaterial"/>
                             </visualEffectView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeR-Z9-NKn">
-                                <rect key="frame" x="381" y="554" width="25" height="25"/>
+                                <rect key="frame" x="381" y="654" width="25" height="25"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="ZG0-qJ-61j"/>
@@ -105,6 +105,7 @@
                         <outlet property="closeButton" destination="qeR-Z9-NKn" id="mmq-pM-MAw"/>
                         <outlet property="retryButton" destination="dSt-cx-pyJ" id="Xfh-9M-rRn"/>
                         <outlet property="titleLabel" destination="g1a-x7-TDS" id="MXd-kW-NYV"/>
+                        <outlet property="visualEffectView" destination="Jnb-dN-Tfx" id="gsH-gP-kBl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CEy-Cv-SGf" userLabel="First Responder" sceneMemberID="firstResponder"/>

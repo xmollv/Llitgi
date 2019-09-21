@@ -18,6 +18,7 @@ enum ShareState {
 class ShareViewController: UIViewController {
     
     //MARK: IBOutlets
+    @IBOutlet private var visualEffectView: UIVisualEffectView!
     @IBOutlet private var closeButton: UIButton!
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
@@ -48,6 +49,10 @@ class ShareViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.visualEffectView.layer.cornerRadius = 10
+        self.visualEffectView.layer.cornerCurve = .continuous
+        self.visualEffectView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        self.visualEffectView.layer.masksToBounds = true
         self.closeButton.isHidden = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
             guard let strongSelf = self else { return }
