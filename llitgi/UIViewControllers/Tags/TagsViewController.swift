@@ -13,7 +13,7 @@ final class TagsViewController: UITableViewController, TableViewControllerNotifi
     
     //MARK: IBOutlets
     private lazy var loadingButton: UIBarButtonItem = {
-        let loading = UIActivityIndicatorView(style: .gray)
+        let loading = UIActivityIndicatorView(style: .medium)
         loading.startAnimating()
         return UIBarButtonItem(customView: loading)
     }()
