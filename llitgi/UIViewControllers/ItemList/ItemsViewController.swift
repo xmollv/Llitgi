@@ -53,7 +53,7 @@ final class ItemsViewController: BaseListViewController {
         return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addButtonTapped(_:)))
     }()
     private lazy var loadingButton: UIBarButtonItem = {
-        let loading = UIActivityIndicatorView(style: .gray)
+        let loading = UIActivityIndicatorView(style: .medium)
         loading.startAnimating()
         return UIBarButtonItem(customView: loading)
     }()
